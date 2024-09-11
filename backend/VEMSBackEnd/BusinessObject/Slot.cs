@@ -15,12 +15,12 @@ namespace BusinessObject
         public Guid Id { get; set; }
 
         [Required]
-        [Column(TypeName = "datetime")]
-        public DateTime StartTime { get; set; }
+        [Column(TypeName = "time")]
+        public TimeSpan StartTime { get; set; }
 
         [Required]
-        [Column(TypeName = "datetime")]
-        public DateTime EndTime { get; set; }
+        [Column(TypeName = "time")]
+        public TimeSpan EndTime { get; set; }
 
         [Required]
         public int SlotIndex { get; set; }

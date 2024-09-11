@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BusinessObject.Seeding;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -161,6 +162,14 @@ namespace BusinessObject
           .WithMany(r => r.SlotDetails)
           .HasForeignKey(a => a.SessionID);
 
+            modelBuilder.SeedingRole();
+            modelBuilder.SeedingPeriod();
+            modelBuilder.SeedingStudentType();
+            modelBuilder.SeedingTeacherType();
+            modelBuilder.SeedingStatus();
+            modelBuilder.SeedingGrade();
+            modelBuilder.SeedingSubject();
+            modelBuilder.SeedingSlot();
         }
     }
 }

@@ -17,4 +17,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Repository\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
+	</ItemGroup>
 </Project>
