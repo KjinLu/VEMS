@@ -1,4 +1,5 @@
-﻿namespace SchoolMate.Authorizotion;
+﻿/**
+namespace SchoolMate.Authorizotion;
 
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
@@ -50,3 +51,4 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
     }
 }
+**/

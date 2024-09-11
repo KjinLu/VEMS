@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VemsApi", "VemsApi\VemsApi.csproj", "{95637188-F20E-4179-BAC7-3D5D32F8670C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{9098BD40-D289-45F9-8A3D-80083EDC0E36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{A3FDE758-8DF9-40BE-96E1-4FCFD99C3AB8}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95637188-F20E-4179-BAC7-3D5D32F8670C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95637188-F20E-4179-BAC7-3D5D32F8670C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95637188-F20E-4179-BAC7-3D5D32F8670C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95637188-F20E-4179-BAC7-3D5D32F8670C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9098BD40-D289-45F9-8A3D-80083EDC0E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9098BD40-D289-45F9-8A3D-80083EDC0E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9098BD40-D289-45F9-8A3D-80083EDC0E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9098BD40-D289-45F9-8A3D-80083EDC0E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FDE758-8DF9-40BE-96E1-4FCFD99C3AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FDE758-8DF9-40BE-96E1-4FCFD99C3AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FDE758-8DF9-40BE-96E1-4FCFD99C3AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FDE758-8DF9-40BE-96E1-4FCFD99C3AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
