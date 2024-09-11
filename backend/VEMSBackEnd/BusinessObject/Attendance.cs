@@ -20,7 +20,7 @@ namespace BusinessObject
 
         public string Note { get; set; }
 
-        public ScheduleDetail ScheduleDetailId { get; set; }
+        public Guid ScheduleDetailId { get; set; }
 
         [ForeignKey("ScheduleDetailId")]
         public ScheduleDetail ScheduleDetail  { get; set; }

@@ -16,15 +16,15 @@ namespace BusinessObject
 
         [Required]
         [Column(TypeName = "datetime")]
-        public string StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         [Required]
         [Column(TypeName = "datetime")]
-        public string EndTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         [Required]
         public int SlotIndex { get; set; }
 
-        public ICollection<SlotDetail> SlotDetail { get; set; }
+        public ICollection<SlotDetail> SlotDetails { get; set; }
     }
 }
