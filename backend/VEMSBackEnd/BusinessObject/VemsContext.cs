@@ -170,6 +170,7 @@ namespace BusinessObject
             modelBuilder.SeedingGrade();
             modelBuilder.SeedingSubject();
             modelBuilder.SeedingSlot();
+            modelBuilder.SeedingClassroom();
         }
     }
 }

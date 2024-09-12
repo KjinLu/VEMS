@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20240911195854_addSeedingDataClassRoom")]
+    partial class addSeedingDataClassRoom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,16 +317,10 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
                     b.Property<string>("PeriodName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -334,17 +331,13 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                             Code = "MORNING",
-                            EndTime = new TimeSpan(0, 11, 30, 0, 0),
-                            PeriodName = "Sáng",
-                            StartTime = new TimeSpan(0, 7, 0, 0, 0)
+                            PeriodName = "Sáng"
                         },
                         new
                         {
                             Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                             Code = "AFTERNOON",
-                            EndTime = new TimeSpan(0, 17, 30, 0, 0),
-                            PeriodName = "Chiều",
-                            StartTime = new TimeSpan(0, 14, 0, 0, 0)
+                            PeriodName = "Chiều"
                         });
                 });
 
@@ -499,58 +492,65 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = new Guid("0811126b-4fb3-4e29-b0f6-94b00bf0b98b"),
-                            EndTime = new TimeSpan(0, 8, 45, 0, 0),
+                            EndTime = new TimeSpan(0, 8, 35, 0, 0),
                             SlotIndex = 2,
-                            StartTime = new TimeSpan(0, 8, 0, 0, 0)
+                            StartTime = new TimeSpan(0, 7, 50, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80"),
-                            EndTime = new TimeSpan(0, 9, 50, 0, 0),
+                            EndTime = new TimeSpan(0, 9, 40, 0, 0),
                             SlotIndex = 3,
-                            StartTime = new TimeSpan(0, 9, 5, 0, 0)
+                            StartTime = new TimeSpan(0, 8, 55, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("e8b4217f-5a6c-4428-9901-99e62ce1f562"),
-                            EndTime = new TimeSpan(0, 10, 40, 0, 0),
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             SlotIndex = 4,
-                            StartTime = new TimeSpan(0, 9, 55, 0, 0)
+                            StartTime = new TimeSpan(0, 9, 45, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("4ebda95f-f406-43d2-a88b-be2b1ddbe1b5"),
-                            EndTime = new TimeSpan(0, 11, 30, 0, 0),
+                            EndTime = new TimeSpan(0, 11, 20, 0, 0),
                             SlotIndex = 5,
-                            StartTime = new TimeSpan(0, 10, 45, 0, 0)
+                            StartTime = new TimeSpan(0, 10, 35, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("c5b67725-545f-4edd-8198-05bedcb5b00f"),
-                            EndTime = new TimeSpan(0, 14, 45, 0, 0),
+                            EndTime = new TimeSpan(0, 13, 45, 0, 0),
                             SlotIndex = 6,
-                            StartTime = new TimeSpan(0, 14, 0, 0, 0)
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("9495ef71-051d-4e1b-9de3-31fa6d238252"),
-                            EndTime = new TimeSpan(0, 13, 40, 0, 0),
+                            EndTime = new TimeSpan(0, 14, 35, 0, 0),
                             SlotIndex = 7,
-                            StartTime = new TimeSpan(0, 14, 55, 0, 0)
+                            StartTime = new TimeSpan(0, 13, 50, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("79e57c6a-fae8-42b4-a460-b48447e3e076"),
-                            EndTime = new TimeSpan(0, 16, 35, 0, 0),
+                            EndTime = new TimeSpan(0, 15, 40, 0, 0),
                             SlotIndex = 8,
-                            StartTime = new TimeSpan(0, 15, 50, 0, 0)
+                            StartTime = new TimeSpan(0, 14, 55, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("e1e53de7-7170-46b4-8230-2790c42a7cac"),
-                            EndTime = new TimeSpan(0, 17, 30, 0, 0),
+                            EndTime = new TimeSpan(0, 16, 30, 0, 0),
                             SlotIndex = 9,
-                            StartTime = new TimeSpan(0, 16, 45, 0, 0)
+                            StartTime = new TimeSpan(0, 15, 45, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("2b2a2c55-dfb2-4c80-9ee3-9ce3fc095853"),
+                            EndTime = new TimeSpan(0, 17, 20, 0, 0),
+                            SlotIndex = 10,
+                            StartTime = new TimeSpan(0, 16, 35, 0, 0)
                         });
                 });
 

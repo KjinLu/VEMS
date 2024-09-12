@@ -1,10 +1,12 @@
-﻿/**
-namespace SchoolMate.Authorizotion;
+﻿namespace SchoolMate.Authorizotion;
 
+using BusinessObject;
 using CloudinaryDotNet;
+using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
+using WebApi.Authorization;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttribute : Attribute, IAuthorizationFilter
@@ -20,18 +22,29 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        // authorization
+        // Skip authorization if action is decorated with [AllowAnonymous] attribute
+        var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
+        if (allowAnonymous)
+            return;
+
+        // Authorization
         var user = context.HttpContext.Items["User"];
         if (user != null)
         {
-            string roleName;
+            Guid roleId;
+            Role userRole;
 
-            if (user is Student student)
+            if (user is Admin)
             {
-                var userRoles = roleRepository.GetRoleNameById(student.StudentId);
+                userRole = roleRepository.GetRoleById(((Admin)user).RoleId);
             }
-            else if (user is Teacher teacher)
+            else if (user is Teacher)
             {
+                userRole = roleRepository.GetRoleById(((Teacher)user).RoleId);
+            }
+            else if (user is Student)
+            {
+                userRole = roleRepository.GetRoleById(((Student)user).RoleId);
             }
             else
             {
@@ -39,7 +52,8 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
                 return;
             }
 
-            if ((_accessRole.Any() && !_accessRole.Contains(roleName)))
+
+            if (_accessRole.Any() && !_accessRole.Contains(userRole.Code))
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
@@ -48,7 +62,6 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
         {
             context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
         }
-
     }
+
 }
-**/
