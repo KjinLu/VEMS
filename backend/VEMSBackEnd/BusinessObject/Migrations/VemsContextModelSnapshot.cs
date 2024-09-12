@@ -246,6 +246,12 @@ namespace BusinessObject.Migrations
                             Id = new Guid("9c62f26b-a825-4ee5-9c0a-09cd0aff7409"),
                             ClassName = "12A5",
                             GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        },
+                        new
+                        {
+                            Id = new Guid("b4c997f3-3d75-4b63-bd19-7d849999481c"),
+                            ClassName = "12A6",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
                         });
                 });
 

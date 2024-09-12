@@ -8,5 +8,5 @@ Add-Migration mirationName -Project BusinessObject -StartupProject VemsApi
 
 ## Run migration
 ```EF
-Update-database
+Update-database -Project BusinessObject -StartupProject VemsApi
 ```

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    [Migration("20240911193917_addSeedingData")]
-    partial class addSeedingData
+    [Migration("20240912115607_updateDatabase")]
+    partial class updateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,6 +158,104 @@ namespace BusinessObject.Migrations
                     b.HasIndex("GradeId");
 
                     b.ToTable("Classrooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f3bc74d1-04c8-47c9-b569-d9aaf268f195"),
+                            ClassName = "10A1",
+                            GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("d2a5a5a1-87c6-4714-bbfd-176571ebf89a"),
+                            ClassName = "10A2",
+                            GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("79dfe9dc-2b47-4222-bce2-7c85e91424d6"),
+                            ClassName = "10A3",
+                            GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
+                            ClassName = "10A4",
+                            GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("01c6d903-784d-45fb-8511-47e9d6ff7611"),
+                            ClassName = "10A5",
+                            GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("8f3cdace-270e-41bc-8ee5-0d07321c7975"),
+                            ClassName = "11A1",
+                            GradeId = new Guid("afa373a9-b9ab-4561-97b1-549b76f91190")
+                        },
+                        new
+                        {
+                            Id = new Guid("a71d8e2d-6e7d-44a5-a8be-cd9757f199be"),
+                            ClassName = "11A2",
+                            GradeId = new Guid("afa373a9-b9ab-4561-97b1-549b76f91190")
+                        },
+                        new
+                        {
+                            Id = new Guid("3df0676a-021e-4a1f-a082-fa88b6dbe200"),
+                            ClassName = "11A3",
+                            GradeId = new Guid("afa373a9-b9ab-4561-97b1-549b76f91190")
+                        },
+                        new
+                        {
+                            Id = new Guid("88660625-222d-48e7-bef7-aa2fae36d968"),
+                            ClassName = "11A4",
+                            GradeId = new Guid("afa373a9-b9ab-4561-97b1-549b76f91190")
+                        },
+                        new
+                        {
+                            Id = new Guid("c7235f3d-8414-4832-b0c5-a97781490a48"),
+                            ClassName = "11A5",
+                            GradeId = new Guid("afa373a9-b9ab-4561-97b1-549b76f91190")
+                        },
+                        new
+                        {
+                            Id = new Guid("11521ae4-fd95-474c-8d3e-e8ca3cbc21f3"),
+                            ClassName = "12A1",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        },
+                        new
+                        {
+                            Id = new Guid("ddd7dda5-a208-4ccc-947e-c96e603a4609"),
+                            ClassName = "12A2",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        },
+                        new
+                        {
+                            Id = new Guid("8fb55a60-4d64-4eb7-9ae1-4202cd25d9e2"),
+                            ClassName = "12A3",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        },
+                        new
+                        {
+                            Id = new Guid("7dbe0c01-40e0-4e8b-8112-0f4c01d6eb2f"),
+                            ClassName = "12A4",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        },
+                        new
+                        {
+                            Id = new Guid("9c62f26b-a825-4ee5-9c0a-09cd0aff7409"),
+                            ClassName = "12A5",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        },
+                        new
+                        {
+                            Id = new Guid("b4c997f3-3d75-4b63-bd19-7d849999481c"),
+                            ClassName = "12A6",
+                            GradeId = new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2")
+                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Device", b =>
@@ -225,10 +323,16 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
                     b.Property<string>("PeriodName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -239,13 +343,17 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                             Code = "MORNING",
-                            PeriodName = "Sáng"
+                            EndTime = new TimeSpan(0, 11, 30, 0, 0),
+                            PeriodName = "Sáng",
+                            StartTime = new TimeSpan(0, 7, 0, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                             Code = "AFTERNOON",
-                            PeriodName = "Chiều"
+                            EndTime = new TimeSpan(0, 17, 30, 0, 0),
+                            PeriodName = "Chiều",
+                            StartTime = new TimeSpan(0, 14, 0, 0, 0)
                         });
                 });
 
@@ -400,65 +508,58 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = new Guid("0811126b-4fb3-4e29-b0f6-94b00bf0b98b"),
-                            EndTime = new TimeSpan(0, 8, 35, 0, 0),
+                            EndTime = new TimeSpan(0, 8, 45, 0, 0),
                             SlotIndex = 2,
-                            StartTime = new TimeSpan(0, 7, 50, 0, 0)
+                            StartTime = new TimeSpan(0, 8, 0, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80"),
-                            EndTime = new TimeSpan(0, 9, 40, 0, 0),
+                            EndTime = new TimeSpan(0, 9, 50, 0, 0),
                             SlotIndex = 3,
-                            StartTime = new TimeSpan(0, 8, 55, 0, 0)
+                            StartTime = new TimeSpan(0, 9, 5, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("e8b4217f-5a6c-4428-9901-99e62ce1f562"),
-                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            EndTime = new TimeSpan(0, 10, 40, 0, 0),
                             SlotIndex = 4,
-                            StartTime = new TimeSpan(0, 9, 45, 0, 0)
+                            StartTime = new TimeSpan(0, 9, 55, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("4ebda95f-f406-43d2-a88b-be2b1ddbe1b5"),
-                            EndTime = new TimeSpan(0, 11, 20, 0, 0),
+                            EndTime = new TimeSpan(0, 11, 30, 0, 0),
                             SlotIndex = 5,
-                            StartTime = new TimeSpan(0, 10, 35, 0, 0)
+                            StartTime = new TimeSpan(0, 10, 45, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("c5b67725-545f-4edd-8198-05bedcb5b00f"),
-                            EndTime = new TimeSpan(0, 13, 45, 0, 0),
+                            EndTime = new TimeSpan(0, 14, 45, 0, 0),
                             SlotIndex = 6,
-                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
+                            StartTime = new TimeSpan(0, 14, 0, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("9495ef71-051d-4e1b-9de3-31fa6d238252"),
-                            EndTime = new TimeSpan(0, 14, 35, 0, 0),
+                            EndTime = new TimeSpan(0, 13, 40, 0, 0),
                             SlotIndex = 7,
-                            StartTime = new TimeSpan(0, 13, 50, 0, 0)
-                        },
-                        new
-                        {
-                            Id = new Guid("79e57c6a-fae8-42b4-a460-b48447e3e076"),
-                            EndTime = new TimeSpan(0, 15, 40, 0, 0),
-                            SlotIndex = 8,
                             StartTime = new TimeSpan(0, 14, 55, 0, 0)
                         },
                         new
                         {
-                            Id = new Guid("e1e53de7-7170-46b4-8230-2790c42a7cac"),
-                            EndTime = new TimeSpan(0, 16, 30, 0, 0),
-                            SlotIndex = 9,
-                            StartTime = new TimeSpan(0, 15, 45, 0, 0)
+                            Id = new Guid("79e57c6a-fae8-42b4-a460-b48447e3e076"),
+                            EndTime = new TimeSpan(0, 16, 35, 0, 0),
+                            SlotIndex = 8,
+                            StartTime = new TimeSpan(0, 15, 50, 0, 0)
                         },
                         new
                         {
-                            Id = new Guid("2b2a2c55-dfb2-4c80-9ee3-9ce3fc095853"),
-                            EndTime = new TimeSpan(0, 17, 20, 0, 0),
-                            SlotIndex = 10,
-                            StartTime = new TimeSpan(0, 16, 35, 0, 0)
+                            Id = new Guid("e1e53de7-7170-46b4-8230-2790c42a7cac"),
+                            EndTime = new TimeSpan(0, 17, 30, 0, 0),
+                            SlotIndex = 9,
+                            StartTime = new TimeSpan(0, 16, 45, 0, 0)
                         });
                 });
 

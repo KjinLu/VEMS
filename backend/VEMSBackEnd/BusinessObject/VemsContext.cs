@@ -52,6 +52,15 @@ namespace BusinessObject
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            modelBuilder.SeedingRole();
+            modelBuilder.SeedingPeriod();
+            modelBuilder.SeedingGrade();
+            modelBuilder.SeedingStudentType();
+            modelBuilder.SeedingTeacherType();
+            modelBuilder.SeedingStatus();
+            modelBuilder.SeedingSubject();
+            modelBuilder.SeedingSlot();
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Admin>()
@@ -162,14 +171,7 @@ namespace BusinessObject
           .WithMany(r => r.SlotDetails)
           .HasForeignKey(a => a.SessionID);
 
-            modelBuilder.SeedingRole();
-            modelBuilder.SeedingPeriod();
-            modelBuilder.SeedingStudentType();
-            modelBuilder.SeedingTeacherType();
-            modelBuilder.SeedingStatus();
-            modelBuilder.SeedingGrade();
-            modelBuilder.SeedingSubject();
-            modelBuilder.SeedingSlot();
+            
             modelBuilder.SeedingClassroom();
         }
     }

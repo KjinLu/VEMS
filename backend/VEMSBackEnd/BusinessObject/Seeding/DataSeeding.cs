@@ -238,6 +238,13 @@ namespace BusinessObject.Seeding
                     ClassName = "12A5",
                     GradeId = new Guid("B6E0255A-AEEE-4DF7-8754-55DD27D360B2")
                 }
+                ,
+                new Classroom
+                {
+                    Id = new Guid("b4c997f3-3d75-4b63-bd19-7d849999481c"),
+                    ClassName = "12A6",
+                    GradeId = new Guid("B6E0255A-AEEE-4DF7-8754-55DD27D360B2")
+                }
             );
         }
 
