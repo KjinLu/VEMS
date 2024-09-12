@@ -1,4 +1,5 @@
 using BusinessObject;
+using DataAccess.DTO;
 using DataAccess.Repository;
 
 public interface IAccountService
@@ -6,8 +7,7 @@ public interface IAccountService
     List<Admin> GetAllAdminAccount();
     List<Teacher> GetAllTeacherAccount();
     List<Student> GetAllStudentAccount();
-
-    object GetById(Guid id);
+    CommonAccountType GetAccountById(Guid accountID);
 
 }
 
@@ -34,8 +34,8 @@ public class AccountService : IAccountService
     return _accountRepository.GetAllTeacher();
     }
 
-    public object GetById(Guid id)
+    public CommonAccountType GetAccountById(Guid accountID)
     {
-        return _accountRepository.GetAccountByID(id);
+        return _accountRepository.GetAccountByID(accountID);
     }
 }

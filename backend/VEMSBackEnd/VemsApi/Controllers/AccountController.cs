@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
 
 namespace VemsApi.Controllers
@@ -17,11 +18,12 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("")]
-        public IActionResult GetAllAdmins(Guid id)
+        //[Authorize("ADMIN")]
+        public IActionResult GetAllAdmins(string id)
         {
             try
             {
-                return APIResponse.Success(accountService.GetById(id));
+                return APIResponse.Success(accountService.GetAllAdminAccount());
             }
             catch (Exception ex)
             {
@@ -30,6 +32,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpGet("/admins")]
+        //[Authorize("ADMIN")]
         public IActionResult GetAllAdmins()
         {
             try
@@ -44,6 +47,7 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("/teachers")]
+        //[Authorize("ADMIN")]
         public IActionResult GetAllTeachers()
         {
             try
@@ -58,6 +62,7 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("/students")]
+        //[Authorize("ADMIN")]
         public IActionResult GetAllStudents()
         {
             try

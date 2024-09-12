@@ -21,6 +21,10 @@ namespace BusinessObject
         [Column(TypeName = "varchar")]
         public string PublicTeacherID { get; set; }
 
+        [MaxLength(15)]
+        [Column(TypeName = "varchar")]
+        public string CitizenID { get; set; }
+
         [MaxLength(50)]
         [Column(TypeName = "nvarchar")]
         public string Username { get; set; }
@@ -53,7 +57,7 @@ namespace BusinessObject
         public string Phone { get; set; }
 
         [Required]
-        [MaxLength(80)]
+        [MaxLength(250)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
         public string RefreshToken { get; set; }

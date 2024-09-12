@@ -173,6 +173,9 @@ namespace BusinessObject
 
             
             modelBuilder.SeedingClassroom();
+            modelBuilder.SeedingAdmins();
+            modelBuilder.SeedingStudent();
+            modelBuilder.SeedingTeacher();
         }
     }
 }

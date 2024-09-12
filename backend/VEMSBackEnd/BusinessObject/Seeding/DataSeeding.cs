@@ -42,8 +42,7 @@ namespace BusinessObject.Seeding
                     Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                     PeriodName = "Sáng",
                     Code = "MORNING",
-                    StartTime= new TimeSpan(7, 0, 0),  // 7:00 AM
-                    EndTime= new TimeSpan(11, 30, 0),  // 11:30 AM
+                    StartTime= new TimeSpan(7, 0, 0)  // 7:00 AM
 
 
                 },
@@ -52,8 +51,7 @@ namespace BusinessObject.Seeding
                     Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                     PeriodName = "Chiều",
                     Code = "AFTERNOON",
-                    StartTime = new TimeSpan(14, 0, 0),  // 1:00 PM
-                    EndTime = new TimeSpan(17, 30, 0),  // 5:30 PM
+                    StartTime = new TimeSpan(14, 0, 0)  // 1:00 PM
                 } 
             );
         }
@@ -409,6 +407,111 @@ namespace BusinessObject.Seeding
                     EndTime = new TimeSpan(17, 30, 0),   // 4:30 PM
                     SlotIndex = 9
                 } 
+            );
+        }
+
+        public static void SeedingAdmins(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Admin>().HasData(
+                new Admin{
+                    Id = new Guid("b584540e-49d9-4d45-bef4-f779f8e6c973"),
+                    Username = "admin1",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    Email = "admin1@email.com",
+                    RefreshToken ="",
+                    RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670")
+                },
+                new Admin
+                {
+                    Id = new Guid("5b909d16-c9e6-42bc-b46c-d766280d93b8"),
+                    Username = "admin2",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    Email = "admin2@email.com",
+                    RefreshToken = "",
+                    RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670")
+                }
+            );
+        }
+
+        public static void SeedingTeacher(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Teacher>().HasData(
+                new Teacher
+                {
+                    Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
+                    PublicTeacherID = "1",
+                    CitizenID = "1",
+                    Username = "teacher1",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Tea 1",
+                    Email = "teacher1@email.com",
+                    Dob = DateTime.Now,
+                    Address = "",
+                    Phone="",
+                    RefreshToken = "",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                },
+                new Teacher
+                {
+                    Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
+                    PublicTeacherID = "1",
+                    CitizenID = "1",
+                    Username = "teacher2",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Tea 1",
+                    Email = "teacher2@email.com",
+                    Dob = DateTime.Now,
+                    Address = "",
+                    Phone = "",
+                    RefreshToken = "",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                }
+            );
+        }
+
+        public static void SeedingStudent(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>().HasData(
+                new Student
+                {
+                    Id = new Guid("0108d3be-3bce-45d7-8562-346547af9911"),
+                    PublicStudentID="1",
+                    CitizenID="1",
+                    Username = "student1",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Stu 1",
+                    Email = "student1@email.com",
+                    Dob = DateTime.Now,
+                    Address="",
+                    Phone = "",
+                    ParentPhone ="",
+                    HomeTown="",
+                    RefreshToken = "",
+                    StudentTypeId= new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId= new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = new Guid("ac4048f7-4fbd-46d4-beba-acdb2953c518"),
+                    PublicStudentID = "1",
+                    CitizenID = "1",
+                    Username = "student2",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    Email = "student2@email.com",
+                    FullName="",
+                    Dob = DateTime.Now,
+                    Address = "",
+                    Phone = "",
+                    ParentPhone = "",
+                    HomeTown = "",
+                    RefreshToken = "",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed")
+                }
             );
         }
 

@@ -26,10 +26,6 @@ namespace BusinessObject
         [Column(TypeName = "time")]
         public TimeSpan StartTime { get; set; }
 
-        [Required]
-        [Column(TypeName = "time")]
-        public TimeSpan EndTime { get; set; }
-
         public ICollection<Session> Sessions { get; set; }
     }
 }

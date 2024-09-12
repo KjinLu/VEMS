@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObject;
 using DataAccess.DAO;
+using DataAccess.DTO;
 
 namespace DataAccess.Repository
 {
+
+
 
     public interface IAccountRepository
     {
@@ -23,9 +26,10 @@ namespace DataAccess.Repository
         public Teacher GetTeacherById(Guid accountID);
         public Teacher GetTeacherByUsername(string username);
         public Teacher GetTeacherByEmail(string email);
-        public object GetAccountByUserName(string username);
         public object GetAccountByEmail(string username);
-        public object GetAccountByID(Guid accountID);
+        public CommonAccountType GetAccountByID(Guid accountID);
+        public CommonAccountType GetAccountByUsername(string username);
+        public bool UpdateRefreshToken(Guid accountID, string token);
     }
 
     public class AccountRepository : IAccountRepository
@@ -37,9 +41,9 @@ namespace DataAccess.Repository
 
         public List<Teacher> GetAllTeacher() => AccountDAO.Instance.GetAllTeacher();
 
-        public object GetAccountByID(Guid accountID) => AccountDAO.Instance.GetAccountByID(accountID);
+        public CommonAccountType GetAccountByID(Guid accountID) => AccountDAO.Instance.GetAccountByID(accountID);
 
-        public object GetAccountByUserName(string username) => AccountDAO.Instance.GetAccountByUserName(username);
+        public CommonAccountType GetAccountByUsername(string username) => AccountDAO.Instance.GetAccountByUsername(username);
 
         public object GetAccountByEmail(string email) => AccountDAO.Instance.GetAccountByEmail(email);
 
@@ -60,5 +64,7 @@ namespace DataAccess.Repository
         public Teacher GetTeacherById(Guid accountID) => AccountDAO.Instance.GetTeacherById(accountID);
 
         public Teacher GetTeacherByUsername(string username) => AccountDAO.Instance.GetTeacherByUsername(username);
+
+        public bool UpdateRefreshToken(Guid accountID, string token) => AccountDAO.Instance.UpdateRefreshToken(accountID, token);
     }
 }

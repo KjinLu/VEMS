@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Dto.ApiReponse;
 using SchoolMate.Dto.AuthenticationDto;
-using SchoolMate.Services;
+using VemsApi.Services;
 
 namespace VemsApi.Controllers
 {
@@ -12,10 +12,26 @@ namespace VemsApi.Controllers
     {
 
         private readonly IAccountService accountService;
+        private readonly IAuthService authService;
 
-        public AuthController(IAccountService _accountService)
+        public AuthController(IAccountService _accountService, IAuthService _authService)
         {
             accountService = _accountService;
+            authService = _authService;
+        }
+
+        [HttpPost("/")]
+        public IActionResult Authetication(string accessToken)
+        {
+            try
+            {
+                var response = authService.Authetication(accessToken);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
         }
 
         [HttpPost("/login")]
@@ -23,7 +39,10 @@ namespace VemsApi.Controllers
         {
             try
             {
-                return APIResponse.Success(null);
+                var response = authService.Login(request);
+                if (response != null) 
+                return APIResponse.Success(response);
+                return APIResponse.Error(null, "Username or password is incorrect");
             }
             catch (Exception ex)
             {

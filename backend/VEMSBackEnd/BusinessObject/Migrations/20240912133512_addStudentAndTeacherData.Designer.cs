@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20240912133512_addStudentAndTeacherData")]
+    partial class addStudentAndTeacherData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(250)
+                        .HasMaxLength(80)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
@@ -62,7 +65,7 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("b584540e-49d9-4d45-bef4-f779f8e6c973"),
                             Email = "admin1@email.com",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            Password = "1",
                             RefreshToken = "",
                             RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
                             Username = "admin1"
@@ -71,7 +74,7 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("5b909d16-c9e6-42bc-b46c-d766280d93b8"),
                             Email = "admin2@email.com",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            Password = "1",
                             RefreshToken = "",
                             RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
                             Username = "admin2"
@@ -706,7 +709,7 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(250)
+                        .HasMaxLength(80)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
@@ -737,16 +740,16 @@ namespace BusinessObject.Migrations
                             Address = "",
                             CitizenID = "1",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Dob = new DateTime(2024, 9, 12, 22, 34, 29, 261, DateTimeKind.Local).AddTicks(8894),
+                            Dob = new DateTime(2024, 9, 12, 20, 35, 11, 846, DateTimeKind.Local).AddTicks(9336),
                             Email = "student1@email.com",
                             FullName = "Stu 1",
                             HomeTown = "",
                             ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            Password = "1",
                             Phone = "",
                             PublicStudentID = "1",
                             RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
+                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
                             StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
                             Username = "student1"
                         },
@@ -756,16 +759,16 @@ namespace BusinessObject.Migrations
                             Address = "",
                             CitizenID = "1",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Dob = new DateTime(2024, 9, 12, 22, 34, 29, 261, DateTimeKind.Local).AddTicks(8910),
+                            Dob = new DateTime(2024, 9, 12, 20, 35, 11, 846, DateTimeKind.Local).AddTicks(9352),
                             Email = "student2@email.com",
                             FullName = "",
                             HomeTown = "",
                             ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            Password = "1",
                             Phone = "",
                             PublicStudentID = "1",
                             RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
+                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
                             StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
                             Username = "student2"
                         });
@@ -971,7 +974,7 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(250)
+                        .HasMaxLength(80)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
@@ -999,10 +1002,10 @@ namespace BusinessObject.Migrations
                             Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
                             Address = "",
                             CitizenID = "1",
-                            Dob = new DateTime(2024, 9, 12, 22, 34, 29, 261, DateTimeKind.Local).AddTicks(8937),
+                            Dob = new DateTime(2024, 9, 12, 20, 35, 11, 846, DateTimeKind.Local).AddTicks(9410),
                             Email = "teacher1@email.com",
                             FullName = "Tea 1",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            Password = "1",
                             Phone = "",
                             PublicTeacherID = "1",
                             RefreshToken = "",
@@ -1015,10 +1018,10 @@ namespace BusinessObject.Migrations
                             Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
                             Address = "",
                             CitizenID = "1",
-                            Dob = new DateTime(2024, 9, 12, 22, 34, 29, 261, DateTimeKind.Local).AddTicks(8943),
+                            Dob = new DateTime(2024, 9, 12, 20, 35, 11, 846, DateTimeKind.Local).AddTicks(9415),
                             Email = "teacher2@email.com",
                             FullName = "Tea 1",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            Password = "1",
                             Phone = "",
                             PublicTeacherID = "1",
                             RefreshToken = "",
