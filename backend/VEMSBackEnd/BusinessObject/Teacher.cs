@@ -21,6 +21,10 @@ namespace BusinessObject
         [Column(TypeName = "varchar")]
         public string PublicTeacherID { get; set; }
 
+        [MaxLength(15)]
+        [Column(TypeName = "varchar")]
+        public string CitizenID { get; set; }
+
         [MaxLength(50)]
         [Column(TypeName = "nvarchar")]
         public string Username { get; set; }
@@ -42,7 +46,7 @@ namespace BusinessObject
         public string Email { get; set; }
 
         [Column(TypeName = "datetime")]
-        public string Dob { get; set; }
+        public DateTime Dob { get; set; }
 
         [MaxLength(200)]
         [Column(TypeName = "nvarchar")]
@@ -53,7 +57,7 @@ namespace BusinessObject
         public string Phone { get; set; }
 
         [Required]
-        [MaxLength(80)]
+        [MaxLength(250)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
         public string RefreshToken { get; set; }
@@ -69,6 +73,6 @@ namespace BusinessObject
 
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
 
-        public ICollection<SlotDetail> SlotDetail { get; set; }
+        public ICollection<SlotDetail> SlotDetails { get; set; }
     }
 }

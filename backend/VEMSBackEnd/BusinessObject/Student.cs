@@ -46,7 +46,7 @@ namespace BusinessObject
         public string Email { get; set; }
 
         [Column(TypeName = "datetime")]
-        public string Dob { get; set; }
+        public DateTime Dob { get; set; }
 
         [MaxLength(200)]
         [Column(TypeName = "nvarchar")]
@@ -65,7 +65,7 @@ namespace BusinessObject
         public string HomeTown { get; set; }
 
         [Required]
-        [MaxLength(80)]
+        [MaxLength(250)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
         public string RefreshToken { get; set; }
@@ -75,7 +75,7 @@ namespace BusinessObject
         [ForeignKey("StudentTypeId")]
         public StudentType StudentType { get; set; }
 
-        public Classroom ClassroomId { get; set; }
+        public Guid ClassroomId { get; set; }
 
         [ForeignKey("ClassroomId")]
         public Classroom Classroom { get; set; }

@@ -20,9 +20,9 @@ namespace BusinessObject
 
         public Guid SessionID { get; set; }
 
-        public Guid SlotID { get; set; }
+        public Guid SlotID{ get; set; }
 
-        [ForeignKey("SlotId")]
+        [ForeignKey("SlotID")]
         public Slot Slot { get; set; }
 
         [ForeignKey("TeacherID")]

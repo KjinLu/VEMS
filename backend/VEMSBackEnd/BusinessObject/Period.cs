@@ -22,6 +22,10 @@ namespace BusinessObject
         [MaxLength(50)]
         public string Code { get; set; }
 
+        [Required]
+        [Column(TypeName = "time")]
+        public TimeSpan StartTime { get; set; }
+
         public ICollection<Session> Sessions { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace BusinessObject
         public Period Period { get; set; }
 
         public ICollection<ScheduleDetail> ScheduleDetails { get; set; }
-        public ICollection<SlotDetail> SlotDetail { get; set; }
+        public ICollection<SlotDetail> SlotDetails { get; set; }
 
 
     }
