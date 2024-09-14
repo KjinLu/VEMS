@@ -42,7 +42,7 @@ namespace BusinessObject
         public string Email { get; set; }
 
         [Column(TypeName = "datetime")]
-        public string Dob { get; set; }
+        public DateTime Dob { get; set; }
 
         [MaxLength(200)]
         [Column(TypeName = "nvarchar")]
@@ -69,6 +69,6 @@ namespace BusinessObject
 
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
 
-        public ICollection<SlotDetail> SlotDetail { get; set; }
+        public ICollection<SlotDetail> SlotDetails { get; set; }
     }
 }
