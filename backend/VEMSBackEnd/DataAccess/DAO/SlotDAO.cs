@@ -10,7 +10,7 @@ namespace DataAccess.DAO
     public class SlotDAO
     {
         private static readonly object InstanceLock = new object();
-        private static SlotDAO instance = null;
+        private static SlotDAO? instance = null;
 
         public static SlotDAO Instance
         {
@@ -27,7 +27,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Slot>> GetAllSlotAsync()
+        public async Task<IEnumerable<Slot>> GetAllSlotAsync()
         {
             try
             {
@@ -42,7 +42,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<int>> GetListSlotIndexAsync()
+        public async Task<IEnumerable<int>> GetListSlotIndexAsync()
         {
             try
             {
@@ -57,13 +57,13 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<Slot> GetSlotByIdAsync(Guid id)
+        public async Task<Slot?> GetSlotByIdAsync(Guid id)
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Slots.AsNoTracking().FirstOrDefaultAsync(slot => slot.Id == id).ConfigureAwait(false);
+                    return await context.Slots.FindAsync(id).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
@@ -72,7 +72,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<Slot> GetSlotBySlotIndexAsync(int slotIndex)
+        public async Task<Slot?> GetSlotBySlotIndexAsync(int slotIndex)
         {
             try
             {
@@ -129,28 +129,27 @@ namespace DataAccess.DAO
             {
                 using (var context = new VemsContext())
                 {
-                    using (var transaction = await context.Database.BeginTransactionAsync())
-                    {
-                        bool slotIndexExists = await context.Slots.AsNoTracking().AnyAsync(s => s.SlotIndex == slot.SlotIndex).ConfigureAwait(false);
-                        bool startTimeExists = await context.Slots.AsNoTracking().AnyAsync(s => s.StartTime == slot.StartTime).ConfigureAwait(false);
-                        bool endTimeExists = await context.Slots.AsNoTracking().AnyAsync(s => s.EndTime == slot.EndTime).ConfigureAwait(false);
+                    var existingSlot = await context.Slots
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.SlotIndex == slot.SlotIndex ||
+                                                  (s.StartTime == slot.StartTime && s.EndTime == slot.EndTime))
+                        .ConfigureAwait(false);
 
-                        if (slotIndexExists)
+                    if (existingSlot != null)
+                    {
+                        if (existingSlot.SlotIndex == slot.SlotIndex)
                         {
-                            throw new Exception("A slot with the same SlotIndex already exists.");
+                            throw new InvalidOperationException("A slot with the same SlotIndex already exists.");
                         }
-                        if (startTimeExists)
+
+                        if (existingSlot.StartTime == slot.StartTime && existingSlot.EndTime == slot.EndTime)
                         {
-                            throw new Exception("A slot with the same StartTime already exists.");
+                            throw new InvalidOperationException("A slot with the same StartTime & EndTime already exists.");
                         }
-                        if (endTimeExists)
-                        {
-                            throw new Exception("A slot with the same EndTime already exists.");
-                        }
-                        context.Slots.Add(slot);
-                        await context.SaveChangesAsync().ConfigureAwait(false);
-                        await transaction.CommitAsync().ConfigureAwait(false);
                     }
+
+                    context.Slots.Add(slot);
+                    await context.SaveChangesAsync().ConfigureAwait(false);
                 }
             }
             catch (DbUpdateConcurrencyException ex)
@@ -163,30 +162,31 @@ namespace DataAccess.DAO
             }
         }
 
+
         public async Task UpdateSlotTimeAsync(Slot updatedSlot)
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
-                    {
-                        var existingSlot = await context.Slots.AsNoTracking().FirstOrDefaultAsync(s => s.Id == updatedSlot.Id).ConfigureAwait(false);
+                    var existingSlot = await context.Slots.FindAsync(updatedSlot.Id).ConfigureAwait(false);
 
-                        if (existingSlot != null)
+                    if (existingSlot != null)
+                    {
+                        if (existingSlot.StartTime != updatedSlot.StartTime ||
+                        existingSlot.EndTime != updatedSlot.EndTime ||
+                        existingSlot.SlotIndex != updatedSlot.SlotIndex)
                         {
                             existingSlot.StartTime = updatedSlot.StartTime;
                             existingSlot.EndTime = updatedSlot.EndTime;
                             existingSlot.SlotIndex = updatedSlot.SlotIndex;
 
-                            context.Slots.Update(existingSlot);
                             await context.SaveChangesAsync().ConfigureAwait(false);
-                            await transaction.CommitAsync().ConfigureAwait(false);
                         }
-                        else
-                        {
-                            throw new Exception("Slot not found.");
-                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Slot not found.");
                     }
                 }
             }
@@ -206,22 +206,15 @@ namespace DataAccess.DAO
             {
                 using (var context = new VemsContext())
                 {
-                    using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
+                    var existingSlot = await context.Slots.FindAsync(id).ConfigureAwait(false);
+
+                    if (existingSlot == null)
                     {
-                        var existingSlot = await context.Slots.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
-
-                        if (existingSlot != null)
-                        {
-                            context.Slots.Remove(existingSlot);
-
-                            await context.SaveChangesAsync().ConfigureAwait(false);
-                            await transaction.CommitAsync().ConfigureAwait(false);
-                        }
-                        else
-                        {
-                            throw new Exception("Slot not found.");
-                        }
+                        throw new InvalidOperationException("Slot not found.");
                     }
+
+                    context.Slots.Remove(existingSlot);
+                    await context.SaveChangesAsync().ConfigureAwait(false);
                 }
             }
             catch (DbUpdateConcurrencyException ex)
@@ -233,5 +226,6 @@ namespace DataAccess.DAO
                 throw new Exception($"Error deleting Slot: {ex.Message}", ex);
             }
         }
+
     }
 }
