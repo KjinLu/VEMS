@@ -1,7 +1,9 @@
 using BusinessObject;
+using DataAccess.DAO;
 using Microsoft.EntityFrameworkCore;
 using SchoolMate.Authorizotion;
 using SchoolMate.Helpers;
+using VemsApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<IClassroomService, ClassroomService>();
+builder.Services.AddScoped<IGradeService, GradeService>();
 
 builder.Services.AddHttpContextAccessor();
 

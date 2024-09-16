@@ -12,20 +12,27 @@ public interface IClassroomRepository
     Task DeleteClassroom(Guid id); // Delete a classroom by Id
 }
 
-public class ClasroomRepository : IClassroomRepository
+public class ClassroomRepository : IClassroomRepository
 {
+    private readonly ClassroomDAO _dao;
+
+    public ClassroomRepository()
+    {
+        _dao = new ClassroomDAO();
+    }
     public Task AddClassroom(Classroom classroom)
-        => ClassroomDAO.Instance.AddClassroomAsync(classroom);
+        => _dao.AddClassroomAsync(classroom);
 
     public Task DeleteClassroom(Guid id)
-        => ClassroomDAO.Instance.DeleteClassroomAsync(id);
+        => _dao.DeleteClassroomAsync(id);
 
     public Task<List<Classroom>> GetAllClassrooms()
-        => ClassroomDAO.Instance.GetAllClassroomsAsync();
+        => _dao.GetAllClassroomsAsync();
 
     public Task<Classroom> GetClassroomById(Guid id)
-        => ClassroomDAO.Instance.GetClassroomByIdAsync(id);
+        => _dao.GetClassroomByIdAsync(id);
 
     public Task UpdateClassroom(Classroom classroom)
-        => ClassroomDAO.Instance.UpdateClassroomAsync(classroom);
+        => _dao.UpdateClassroomAsync(classroom);
+
 }

@@ -2,174 +2,115 @@ using System;
 using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.DAO;
-
-public class ClassroomDAO
+namespace DataAccess.DAO
 {
-    private static readonly object InstanceLock = new object();
-    private static ClassroomDAO instance = null;
-
-    public static ClassroomDAO Instance
+    public class ClassroomDAO
     {
-        get
+        private readonly VemsContext _context;
+
+        // Inject VemsContext instead of creating it manually
+        public ClassroomDAO()
         {
-            lock (InstanceLock)
+            _context = new VemsContext();
+        }
+
+        // Get Classroom by Id
+        public async Task<Classroom> GetClassroomByIdAsync(Guid id)
+        {
+            try
             {
-                if (instance == null)
-                {
-                    instance = new ClassroomDAO();
-                }
-                return instance;
+                return await _context.Classrooms.AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching classroom by Id: {ex.Message}", ex);
             }
         }
-    }
 
-    // Get Classroom by Id
-    public async Task<Classroom> GetClassroomByIdAsync(Guid id)
-    {
-        try
+        // Get All Classrooms
+        public async Task<List<Classroom>> GetAllClassroomsAsync()
         {
-            using (var context = new VemsContext())
+            try
             {
-                return await context.Classrooms.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+                return await _context.Classrooms.AsNoTracking().ToListAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching all classrooms: {ex.Message}", ex);
             }
         }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error fetching classroom by Id: {ex.Message}", ex);
-        }
-    }
 
-    // Get All Classrooms
-    public async Task<List<Classroom>> GetAllClassroomsAsync()
-    {
-        try
+        // Add Classroom
+        public async Task AddClassroomAsync(Classroom classroom)
         {
-            using (var context = new VemsContext())
-            {
-                return await context.Classrooms.AsNoTracking().ToListAsync().ConfigureAwait(false);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error fetching all classrooms: {ex.Message}", ex);
-        }
-    }
-
-    // Add Classroom
-    public async Task AddClassroomAsync(Classroom classroom)
-    {
-        try
-        {
-            using (var context = new VemsContext())
+            try
             {
                 var existingClassroom = await GetClassroomByIdAsync(classroom.Id);
                 if (existingClassroom != null)
                 {
-                    throw new Exception("A classroom with the same ID already exists.");
+                    throw new InvalidOperationException("A classroom with the same ID already exists.");
                 }
 
-                using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
-                {
-                    try
-                    {
-                        context.Classrooms.Add(classroom);
-                        await context.SaveChangesAsync().ConfigureAwait(false);
-                        await transaction.CommitAsync().ConfigureAwait(false);
-                    }
-                    catch (Exception)
-                    {
-                        await transaction.RollbackAsync().ConfigureAwait(false);
-                        throw;
-                    }
-                }
+                _context.Classrooms.Add(classroom);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("A concurrency error occurred while creating the classroom. Please try again.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error adding classroom: {ex.Message}", ex);
             }
         }
-        catch (DbUpdateConcurrencyException ex)
-        {
-            throw new Exception("A concurrency error occurred while creating the classroom. Please try again.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error adding classroom: {ex.Message}", ex);
-        }
-    }
 
-    // Update Classroom
-    public async Task UpdateClassroomAsync(Classroom classroom)
-    {
-        try
+        // Update Classroom
+        public async Task UpdateClassroomAsync(Classroom classroom)
         {
-            using (var context = new VemsContext())
+            try
             {
                 var existingClassroom = await GetClassroomByIdAsync(classroom.Id);
                 if (existingClassroom == null)
                 {
-                    throw new Exception("Classroom not found.");
+                    throw new InvalidOperationException("Classroom not found.");
                 }
 
-                using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
-                {
-                    try
-                    {
-                        context.Classrooms.Update(classroom);
-                        await context.SaveChangesAsync().ConfigureAwait(false);
-                        await transaction.CommitAsync().ConfigureAwait(false);
-                    }
-                    catch (Exception)
-                    {
-                        await transaction.RollbackAsync().ConfigureAwait(false);
-                        throw;
-                    }
-                }
+                _context.Classrooms.Update(classroom);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("A concurrency error occurred while updating the classroom. Please try again.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating classroom: {ex.Message}", ex);
             }
         }
-        catch (DbUpdateConcurrencyException ex)
-        {
-            throw new Exception("A concurrency error occurred while updating the classroom. Please try again.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error updating classroom: {ex.Message}", ex);
-        }
-    }
 
-    // Delete Classroom
-    public async Task DeleteClassroomAsync(Guid id)
-    {
-        try
+        // Delete Classroom
+        public async Task DeleteClassroomAsync(Guid id)
         {
-            using (var context = new VemsContext())
+            try
             {
                 var classroom = await GetClassroomByIdAsync(id);
                 if (classroom == null)
                 {
-                    throw new Exception("Classroom not found.");
+                    throw new InvalidOperationException("Classroom not found.");
                 }
 
-                using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
-                {
-                    try
-                    {
-                        context.Classrooms.Remove(classroom);
-                        await context.SaveChangesAsync().ConfigureAwait(false);
-                        await transaction.CommitAsync().ConfigureAwait(false);
-                    }
-                    catch (Exception)
-                    {
-                        await transaction.RollbackAsync().ConfigureAwait(false);
-                        throw;
-                    }
-                }
+                _context.Classrooms.Remove(classroom);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
-        }
-        catch (DbUpdateConcurrencyException ex)
-        {
-            throw new Exception("A concurrency error occurred while deleting the classroom. Please try again.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error deleting classroom: {ex.Message}", ex);
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("A concurrency error occurred while deleting the classroom. Please try again.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting classroom: {ex.Message}", ex);
+            }
         }
     }
 }
