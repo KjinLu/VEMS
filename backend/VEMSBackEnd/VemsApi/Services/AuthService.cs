@@ -19,9 +19,6 @@ namespace VemsApi.Services
         Task<AuthenticationResponse?> Login(AuthenticationRequest model);
         Task<AuthenticationResponse?> RefreshToken(RefreshTokenRequest request);
         Task<CommonAccountType> Authetication(string token);
-        Task<List<Student>> RegisterStudent(List<RegisterStudentRequest> request);
-        Task<List<Teacher>> RegisterTeacher(List<RegisterTeacherRequest> request);
-
         Task<string> SendRecoverEmail(SendEmailRequest usernameOrEmail);
         Task<CommonAccountType> CheckVerifyEmail(ValidateEmailRequest usernameOrEmail );
         Task<bool> ChangePassword(ChangePasswordRequest usernameOrEmail );
@@ -79,66 +76,26 @@ namespace VemsApi.Services
             return userInfo;
         }
 
-        public async Task<List<Student>> RegisterStudent(List<RegisterStudentRequest> request)
-        {
-            List<Student> newStudentList = new List<Student>();
+     
 
-            foreach (var student in request) {
-                Student newStudent = new Student
-                {
-                    Username = student.PublicStudentID,
-                    PublicStudentID = student.PublicStudentID,
-                    FullName = student.FullName,
-                    RoleId = student.RoleId,
-                    ClassroomId = student.ClassroomId,
-                    Password = Hashing("1")
-                };
-                newStudentList.Add(newStudent);
-            }
-
-            return await this.accountRepository.RegisterStudentAsync(newStudentList);
-        }
-
-        public async Task<List<Teacher>> RegisterTeacher(List<RegisterTeacherRequest> request)
-        {
-            List<Teacher> newTeacherList = new List<Teacher>();
-
-            foreach (var teacher in request)
-            {
-                Teacher newTeacher = new Teacher
-                {
-                    Username = teacher.Phone,
-                    Phone = teacher.Phone,
-                    Email = teacher.Email,
-                    FullName = teacher.FullName,
-                    RoleId = teacher.RoleId,
-                    //ClassroomId = student.ClassroomId,
-                    Password = Hashing("1")
-                };
-                newTeacherList.Add(newTeacher);
-            }
-
-            return await this.accountRepository.RegisterTeacherAsync(newTeacherList);
-        }
-
-        private bool CheckHashed(string origin, string hash)
+        public bool CheckHashed(string origin, string hash)
         {
             return BCrypt.Net.BCrypt.Verify(origin, hash);
         }
 
-        private string Hashing(string password)
+        public string Hashing(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
         }
 
-        private string GenerateRandomCode()
+        public string GenerateRandomCode()
         {
             Random random = new Random();
             int randomNumber = random.Next(100000, 1000000); 
             return randomNumber.ToString();
         }
 
-        private string HandleHiddenEmail(string plainEmail)
+        public string HandleHiddenEmail(string plainEmail)
         {
             // Split the email into two parts: the local part and the domain part
             var emailParts = plainEmail.Split('@');
