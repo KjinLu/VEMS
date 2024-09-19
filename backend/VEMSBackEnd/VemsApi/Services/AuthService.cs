@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using MoneyDreamAPI.Dto.AuthDto;
 using MoneyDreamAPI.Services;
 using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Asn1.Ocsp;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.AuthenticationDto;
@@ -22,13 +23,16 @@ namespace VemsApi.Services
         Task<List<Teacher>> RegisterTeacher(List<RegisterTeacherRequest> request);
 
         Task<string> SendRecoverEmail(SendEmailRequest usernameOrEmail);
-        Task<bool> CheckVerifyEmail(SendEmailRequest usernameOrEmail,string code );
+        Task<CommonAccountType> CheckVerifyEmail(ValidateEmailRequest usernameOrEmail );
+        Task<bool> ChangePassword(ChangePasswordRequest usernameOrEmail );
     }
+
     public class AuthService : IAuthService
     {
         private readonly IJwtUtils _jwtUtils;
         private readonly IAccountRepository accountRepository;
         private readonly IRoleRepository roleRepository;
+        private readonly IEmailTokenRepository emailTokenRepository;
         private readonly IEmailService _emailService;
 
         public AuthService(IJwtUtils jwtUtils, IEmailService emailService)
@@ -37,13 +41,15 @@ namespace VemsApi.Services
             _emailService = emailService;
             accountRepository = new AccountRepository();
             roleRepository = new RoleRepository();
+            emailTokenRepository = new EmailTokenRepository();
         }
 
         public async Task<AuthenticationResponse?> Login(AuthenticationRequest model)
         {
             var user = await accountRepository.GetAccountByUsernameAsync(model.Username);
 
-            if(user.RefreshToken.Trim() == "") user.IsFisrtLogin = true;
+            if (user.RefreshToken == null || user.RefreshToken.Trim() == "")
+                user.IsFisrtLogin = true;
 
             if (user != null)
             {
@@ -125,15 +131,101 @@ namespace VemsApi.Services
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
         }
 
-        public async Task<string> SendRecoverEmail(SendEmailRequest request)
+        private string GenerateRandomCode()
         {
-            var account =await accountRepository.GetTeacherByEmailAsync(request.UsernameOrEmail);
-            return account.Email;
+            Random random = new Random();
+            int randomNumber = random.Next(100000, 1000000); 
+            return randomNumber.ToString();
         }
 
-        public Task<bool> CheckVerifyEmail(SendEmailRequest usernameOrEmail, string code)
+        private string HandleHiddenEmail(string plainEmail)
         {
-            throw new NotImplementedException();
+            // Split the email into two parts: the local part and the domain part
+            var emailParts = plainEmail.Split('@');
+            if (emailParts.Length != 2)
+            {
+                throw new ArgumentException("Invalid email format");
+            }
+
+            var localPart = emailParts[0];
+            var domainPart = emailParts[1];
+
+            // Determine how many characters to show from the local part
+            int visibleChars = Math.Min(3, localPart.Length); // Show up to 3 characters
+
+            // Create the hidden email format
+            var hiddenEmail = localPart.Substring(0, visibleChars) + new string('*', localPart.Length - visibleChars) + "@" + domainPart;
+
+            return hiddenEmail;
+        }
+
+        public async Task<string> SendRecoverEmail(SendEmailRequest request)
+        {
+            var checkEmail = await accountRepository.GetAccountByEmailAsync(request.UsernameOrEmail);
+            var checkUsername = await accountRepository.GetAccountByUsernameAsync(request.UsernameOrEmail);
+
+            var plainEmail = "";
+            var hidenEmail = "";
+            Guid account ;
+
+            if (checkEmail == null && checkUsername == null) throw new Exception("Email hoặc tên đăng nhập không tồn tại");
+            if(checkEmail != null)
+            {
+                plainEmail = checkEmail.Email;
+                hidenEmail = HandleHiddenEmail(checkEmail.Email);
+                account = checkEmail.AccountID;
+            } else
+            {
+                plainEmail = checkUsername.Email;
+                hidenEmail = HandleHiddenEmail(checkUsername.Email);
+                account = checkUsername.AccountID;
+            }
+            EmailToken token = new EmailToken();
+
+            var code = GenerateRandomCode();
+
+            token.Token = code;
+            token.CreateAt = DateTime.Now;
+            token.AccountID = account;
+            await emailTokenRepository.CreateToken(token);
+          
+            _emailService.Send(plainEmail, "VEMS - Khôi phục mật khẩu", $"<b>{code}<b>", null);
+
+
+            return hidenEmail;
+        }
+
+        public async Task<CommonAccountType> CheckVerifyEmail(ValidateEmailRequest request)
+        {
+            var checkEmail = await accountRepository.GetAccountByEmailAsync(request.UsernameOrEmail);
+            var checkUsername = await accountRepository.GetAccountByUsernameAsync(request.UsernameOrEmail);
+
+            CommonAccountType account;
+
+
+            if (checkEmail == null && checkUsername == null) throw new Exception("Email hoặc tên đăng nhập không tồn tại");
+            if (checkEmail != null)
+            {
+                account = checkEmail;
+            }
+            else
+            {
+                account = checkUsername;
+            }
+
+            var dbToken = await emailTokenRepository.GetTokenByAccountId(account.AccountID);
+            if (dbToken == null) throw new Exception("Mã xác thực không tồn tại");
+
+            if (DateTime.Now - dbToken.CreateAt > TimeSpan.FromMinutes(10)) throw new Exception("Mã xác thực đã hết hạn");
+            if (request.Code != dbToken.Token) throw new Exception("Mã xác thực không đúng");
+
+            return account;
+        }
+
+
+        public Task<bool> ChangePassword(ChangePasswordRequest request)
+        {
+            return accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
         }
     }
 

@@ -228,21 +228,95 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<object> GetAccountByEmailAsync(string email)
+        public async Task<CommonAccountType> GetAccountByEmailAsync(string email)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    var admin = await context.Admins.SingleOrDefaultAsync(admin => admin.Email == email);
-                    if (admin != null) return admin;
+                    var admin = await (from a in context.Admins
+                                       join r in context.Roles on a.RoleId equals r.Id
+                                       where a.Email == email
+                                       select new
+                                       {
+                                           AccountID = a.Id,
+                                           Username = a.Username,
+                                           Password = a.Password,
+                                           Email = a.Email,
+                                           RefreshToken = a.RefreshToken,
+                                           RoleID = r.Id,
+                                           RoleName = r.Code
+                                       }).FirstOrDefaultAsync();
 
-                    var teacher = await context.Teacher.SingleOrDefaultAsync(teacher => teacher.Email == email);
-                    if (teacher != null) return teacher;
 
-                    var student = await context.Students.SingleOrDefaultAsync(student => student.Email == email);
-                    if (student != null) return student;
+                    if (admin != null) return new CommonAccountType
+                    {
+                        AccountID = admin.AccountID,
+                        Email = admin.Email,
+                        RefreshToken = admin.RefreshToken,
+                        Password = admin.Password,
+                        RoleID = admin.RoleID,
+                        RoleName = admin.RoleName,
+                        Username = admin.Username
+
+                    };
+
+                    var teacher = await (from a in context.Teacher
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Email == email
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Image = a.Image,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
+
+                    if (teacher != null) return new CommonAccountType
+                    {
+                        AccountID = teacher.AccountID,
+                        Email = teacher.Email,
+                        RefreshToken = teacher.RefreshToken,
+                        Password = teacher.Password,
+                        Image = teacher.Image,
+                        RoleID = teacher.RoleID,
+                        RoleName = teacher.RoleName,
+                        Username = teacher.Username
+
+                    };
+
+                    var student = await (from a in context.Students
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Email == email
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             Image = a.Image,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
+
+                    if (student != null) return new CommonAccountType
+                    {
+                        AccountID = student.AccountID,
+                        Email = student.Email,
+                        RefreshToken = student.RefreshToken,
+                        Password = student.Password,
+                        Image = student.Image,
+                        RoleID = student.RoleID,
+                        RoleName = student.RoleName,
+                        Username = student.Username
+
+                    };
                 }
                 return null;
             }
@@ -547,6 +621,49 @@ namespace DataAccess.DAO
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<bool> ChangePassword(Guid AccountId, string newPassword)
+        {
+            try
+            {
+                var context = new VemsContext();
+                if (context != null)
+                {
+                    var admin = await context.Admins.SingleOrDefaultAsync(admin => admin.Id == AccountId);
+                    if (admin != null)
+                    {
+                        admin.Password = newPassword;
+                        context.Entry<Admin>(admin).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+
+                    var teacher = await context.Teacher.SingleOrDefaultAsync(teacher => teacher.Id == AccountId);
+                    if (teacher != null)
+                    {
+                        teacher.Password = newPassword;
+                        context.Entry<Teacher>(teacher).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+
+                    var student = await context.Students.SingleOrDefaultAsync(student => student.Id == AccountId);
+                    if (student != null)
+                    {
+                        student.Password = newPassword;
+                        context.Entry<Student>(student).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
