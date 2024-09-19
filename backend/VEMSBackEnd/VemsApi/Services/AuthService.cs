@@ -48,7 +48,8 @@ namespace VemsApi.Services
         {
             var user = await accountRepository.GetAccountByUsernameAsync(model.Username);
 
-            if(user.RefreshToken.Trim() == "") user.IsFisrtLogin = true;
+            if (user.RefreshToken == null || user.RefreshToken.Trim() == "")
+                user.IsFisrtLogin = true;
 
             if (user != null)
             {

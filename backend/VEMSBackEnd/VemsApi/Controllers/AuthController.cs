@@ -52,6 +52,27 @@ namespace VemsApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("/agent")]
+        public IActionResult Test()
+        {
+
+            var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+            //// Kiểm tra các header forwarded nếu có
+            //if (HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+            //{
+            //    ipAddress = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            //}
+
+            //return Ok(new { IpAddress = ipAddress });
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            return Ok(new { UserAgent = userAgent });
+
+            //"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+            //"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0"
+        }
+
         [HttpPost("/refresToken")]
         public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
         {
