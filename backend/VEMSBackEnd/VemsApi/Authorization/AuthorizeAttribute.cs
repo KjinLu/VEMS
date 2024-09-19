@@ -1,9 +1,7 @@
-﻿namespace SchoolMate.Authorizotion;
+﻿/**
+namespace SchoolMate.Authorizotion;
 
-using BusinessObject.Models;
 using CloudinaryDotNet;
-using DataAccess.IRepository;
-using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
@@ -53,3 +51,4 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
     }
 }
+**/
