@@ -21,11 +21,11 @@ namespace VemsApi.Controllers
         }
 
         [HttpPost("/")]
-        public IActionResult Authetication(string accessToken)
+        public async Task<IActionResult> Authetication(string accessToken)
         {
             try
             {
-                var response = authService.Authetication(accessToken);
+                var response = await authService.Authetication(accessToken);
                 return APIResponse.Success(response);
             }
             catch (Exception ex)
@@ -35,14 +35,14 @@ namespace VemsApi.Controllers
         }
 
         [HttpPost("/login")]
-        public IActionResult Login(AuthenticationRequest request)
+        public async Task<IActionResult> Login(AuthenticationRequest request)
         {
             try
             {
-                var response = authService.Login(request);
-                if (response != null) 
-                return APIResponse.Success(response);
-                return APIResponse.Error(null, "Username or password is incorrect");
+                var response = await authService.Login(request);
+                if (response != null)
+                    return APIResponse.Success(response);
+                return APIResponse.Error(null, "Tên đăng nhập hoặc mật khẩu không chính xác!");
             }
             catch (Exception ex)
             {
@@ -50,12 +50,27 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/rerister")]
-        public IActionResult Register()
+        [HttpPost("/registerStudent")]
+        public async Task<IActionResult> RegisterStudent(List<RegisterStudentRequest> request)
         {
             try
             {
-                return APIResponse.Success(null);
+                var response = await authService.RegisterStudent(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("/registerTeacher")]
+        public async Task<IActionResult> RegisterTeacher(List<RegisterTeacherRequest> request)
+        {
+            try
+            {
+                var response = await authService.RegisterTeacher(request);
+                return APIResponse.Success(response);
             }
             catch (Exception ex)
             {

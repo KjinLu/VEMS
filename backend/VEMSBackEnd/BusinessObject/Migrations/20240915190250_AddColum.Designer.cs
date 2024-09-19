@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20240915190250_AddColum")]
+    partial class AddColum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,28 +297,6 @@ namespace BusinessObject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Devices");
-                });
-
-            modelBuilder.Entity("BusinessObject.EmailToken", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AccountID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailTokens");
                 });
 
             modelBuilder.Entity("BusinessObject.Grade", b =>
@@ -676,20 +657,23 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("CitizenID")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("ClassroomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateOnly?>("Dob")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar");
 
@@ -699,22 +683,27 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("HomeTown")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("ParentPhone")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
@@ -731,11 +720,8 @@ namespace BusinessObject.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("StudentTypeId")
+                    b.Property<Guid>("StudentTypeId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateOnly?>("UnionJoinDate")
-                        .HasColumnType("date");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -759,7 +745,7 @@ namespace BusinessObject.Migrations
                             Address = "",
                             CitizenID = "1",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Dob = new DateOnly(2009, 1, 1),
+                            Dob = new DateTime(2024, 9, 16, 2, 2, 48, 274, DateTimeKind.Local).AddTicks(3157),
                             Email = "student1@email.com",
                             FullName = "Stu 1",
                             HomeTown = "",
@@ -779,7 +765,7 @@ namespace BusinessObject.Migrations
                             Address = "",
                             CitizenID = "1",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Dob = new DateOnly(2009, 1, 1),
+                            Dob = new DateTime(2024, 9, 16, 2, 2, 48, 274, DateTimeKind.Local).AddTicks(3176),
                             Email = "student2@email.com",
                             FullName = "",
                             HomeTown = "",
@@ -956,17 +942,20 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("CitizenID")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("varchar");
 
-                    b.Property<DateOnly?>("Dob")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar");
 
@@ -976,10 +965,12 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar");
 
@@ -989,17 +980,19 @@ namespace BusinessObject.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<string>("PublicTeacherID")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar");
 
                     b.Property<string>("RefreshToken")
+                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TeacherTypeId")
+                    b.Property<Guid>("TeacherTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -1021,7 +1014,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
                             Address = "",
                             CitizenID = "1",
-                            Dob = new DateOnly(1996, 1, 1),
+                            Dob = new DateTime(2024, 9, 16, 2, 2, 48, 274, DateTimeKind.Local).AddTicks(3205),
                             Email = "teacher1@email.com",
                             FullName = "Tea 1",
                             Image = "",
@@ -1038,7 +1031,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
                             Address = "",
                             CitizenID = "1",
-                            Dob = new DateOnly(1996, 1, 1),
+                            Dob = new DateTime(2024, 9, 16, 2, 2, 48, 274, DateTimeKind.Local).AddTicks(3210),
                             Email = "teacher2@email.com",
                             FullName = "Tea 1",
                             Image = "",
@@ -1265,7 +1258,8 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.StudentType", "StudentType")
                         .WithMany("Students")
                         .HasForeignKey("StudentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Classroom");
 
@@ -1285,7 +1279,8 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.TeacherType", "TeacherType")
                         .WithMany("Teachers")
                         .HasForeignKey("TeacherTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Role");
 

@@ -15,9 +15,9 @@ namespace SchoolMate.Authorizotion;
 
 public interface IJwtUtils
 {
-    public string GenerateJwtToken(CommonAccountType account);
-    public string GenerateJwtRefreshToken(string token);
-    public Guid? ValidateJwtToken(string? token);
+    public Task<string> GenerateJwtToken(CommonAccountType account);
+    public Task<string> GenerateJwtRefreshToken(string token);
+    public Task<Guid?> ValidateJwtToken(string? token);
 
 }
 public class JwtUtils : IJwtUtils
@@ -34,7 +34,7 @@ public class JwtUtils : IJwtUtils
             throw new Exception("JWT secret not configured");
     }
 
-    public string GenerateJwtRefreshToken(string accessToken)
+    public async Task<string> GenerateJwtRefreshToken(string accessToken)
     {
         if (accessToken == null)
         {
@@ -58,7 +58,7 @@ public class JwtUtils : IJwtUtils
             var jwtToken = (JwtSecurityToken)validatedToken;
             Guid userId = new Guid(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-            var validateUser = _accountRepository.GetAccountByID(userId);
+            var validateUser =await _accountRepository.GetAccountByIDAsync(userId);
 
 
             // Validate if refresh token logic is implemented (placeholder for actual validation)
@@ -82,7 +82,7 @@ public class JwtUtils : IJwtUtils
 
             var newToken = tokenHandler.CreateToken(newTokenDescriptor);
             var tokenResult = tokenHandler.WriteToken(newToken);
-            _accountRepository.UpdateRefreshToken(userId, tokenResult);
+            await _accountRepository.UpdateRefreshTokenAsync(userId, tokenResult);
 
             return tokenResult;
         }
@@ -92,7 +92,7 @@ public class JwtUtils : IJwtUtils
         }
     }
 
-    public Guid? ValidateJwtToken(string? token)
+    public async Task<Guid?> ValidateJwtToken(string? token)
     {
         if (token == null)
             return null;
@@ -126,7 +126,7 @@ public class JwtUtils : IJwtUtils
         }
     }
 
-    public string GenerateJwtToken(CommonAccountType account)
+    public async Task<string> GenerateJwtToken(CommonAccountType account)
     {
         // generate token that is valid for 1 days
         var tokenHandler = new JwtSecurityTokenHandler();
