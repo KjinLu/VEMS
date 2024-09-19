@@ -19,26 +19,24 @@ namespace BusinessObject
         [Column(TypeName = "datetime")]
         public DateTime TimeReport { get; set; }
 
-        public Attendance AttendanceId { get; set; }
+        public Guid AttendanceId { get; set; }
 
         [ForeignKey("AttendanceId")]
         public Attendance Attendance { get; set; }
 
-        public Status StatusId { get; set; }
+        public Guid StatusId { get; set; }
 
         [ForeignKey("StatusId")]
         public Status Status { get; set; }
 
-        [AllowNull]
-        public Reason ReasonId { get; set; }
+        public Guid ReasonId { get; set; }
 
         [ForeignKey("ReasonId")]
         public Reason Reason { get; set; }
 
-        [AllowNull]
-        public Teacher TeacherId { get; set; }
+        public Guid TeacherId { get; set; }
 
-        [ForeignKey("Teacher")]
+        [ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; }
 
 

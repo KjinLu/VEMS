@@ -1,10 +1,13 @@
-﻿/**
-namespace SchoolMate.Authorizotion;
+﻿namespace SchoolMate.Authorizotion;
 
+using BusinessObject;
 using CloudinaryDotNet;
+using DataAccess.DTO;
+using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
+using WebApi.Authorization;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttribute : Attribute, IAuthorizationFilter
@@ -20,26 +23,18 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        // authorization
-        var user = context.HttpContext.Items["User"];
+        // Skip authorization if action is decorated with [AllowAnonymous] attribute
+        var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
+        if (allowAnonymous)
+            return;
+
+        // Authorization
+        var user = (CommonAccountType)context.HttpContext.Items["User"];
+
         if (user != null)
         {
-            string roleName;
 
-            if (user is Student student)
-            {
-                var userRoles = roleRepository.GetRoleNameById(student.StudentId);
-            }
-            else if (user is Teacher teacher)
-            {
-            }
-            else
-            {
-                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
-                return;
-            }
-
-            if ((_accessRole.Any() && !_accessRole.Contains(roleName)))
+            if (_accessRole.Any() && !_accessRole.Contains(user.RoleName))
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
@@ -48,7 +43,6 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
         {
             context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
         }
-
     }
+
 }
-**/

@@ -22,7 +22,7 @@ namespace BusinessObject
 
         public Guid SlotID { get; set; }
 
-        [ForeignKey("SlotId")]
+        [ForeignKey("SlotID")]
         public Slot Slot { get; set; }
 
         [ForeignKey("TeacherID")]

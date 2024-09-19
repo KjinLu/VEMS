@@ -22,7 +22,7 @@ namespace BusinessObject
         [MaxLength(50)]
         public string Code { get; set; }
 
-        public ICollection<SlotDetail> SlotDetail { get; set; }
+        public ICollection<SlotDetail> SlotDetails { get; set; }
 
     }
 }
