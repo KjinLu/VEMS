@@ -15,21 +15,21 @@ namespace BusinessObject.Seeding
                 new Role
                 {
                     Id = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
-                    RoleName="Quản trị viên",
-                    Code="ADMIN"
-                    
+                    RoleName = "Quản trị viên",
+                    Code = "ADMIN"
+
                 },
                 new Role
                 {
-                      Id = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                      RoleName = "Giáo viên",
-                      Code = "TEACHER"
-                }, 
+                    Id = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
+                    RoleName = "Giáo viên",
+                    Code = "TEACHER"
+                },
                 new Role
                 {
-                      Id = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                      RoleName = "Học sinh",
-                      Code = "STUDENT"
+                    Id = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
+                    RoleName = "Học sinh",
+                    Code = "STUDENT"
                 }
             );
         }
@@ -42,8 +42,7 @@ namespace BusinessObject.Seeding
                     Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                     PeriodName = "Sáng",
                     Code = "MORNING",
-                    StartTime= new TimeSpan(7, 0, 0),  // 7:00 AM
-                    EndTime= new TimeSpan(11, 30, 0),  // 11:30 AM
+                    StartTime = new TimeSpan(7, 0, 0)  // 7:00 AM
 
 
                 },
@@ -52,9 +51,8 @@ namespace BusinessObject.Seeding
                     Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                     PeriodName = "Chiều",
                     Code = "AFTERNOON",
-                    StartTime = new TimeSpan(14, 0, 0),  // 1:00 PM
-                    EndTime = new TimeSpan(17, 30, 0),  // 5:30 PM
-                } 
+                    StartTime = new TimeSpan(14, 0, 0)  // 1:00 PM
+                }
             );
         }
 
@@ -66,7 +64,7 @@ namespace BusinessObject.Seeding
                     Id = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
                     TypeName = "Học sinh",
                     Code = "NORMAL_STUDENT"
-                } ,
+                },
                 new StudentType
                 {
                     Id = new Guid("cb440230-818a-4ad8-96de-3ae6c403b1ab"),
@@ -151,14 +149,14 @@ namespace BusinessObject.Seeding
                 {
                     Id = new Guid("f3bc74d1-04c8-47c9-b569-d9aaf268f195"),
                     ClassName = "10A1",
-                    GradeId= new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
-                   
+                    GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+
                 },
                 new Classroom
                 {
                     Id = new Guid("d2a5a5a1-87c6-4714-bbfd-176571ebf89a"),
                     ClassName = "10A2",
-                     GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                    GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
                 },
                 new Classroom
                 {
@@ -254,8 +252,8 @@ namespace BusinessObject.Seeding
                 new Subject
                 {
                     Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
-                    SubjectName= "Toán học",
-                    Code= "MATHEMATICS"
+                    SubjectName = "Toán học",
+                    Code = "MATHEMATICS"
                 },
                  new Subject
                  {
@@ -268,7 +266,7 @@ namespace BusinessObject.Seeding
                      Id = new Guid("631135bd-81eb-4b70-a779-418af291d138"),
                      SubjectName = "Vật lý",
                      Code = "PHYSICS"
-                 }, 
+                 },
                  new Subject
                  {
                      Id = new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"),
@@ -349,57 +347,57 @@ namespace BusinessObject.Seeding
                 new Slot
                 {
                     Id = new Guid("db1085ce-9ba3-4894-a8a0-d417bc6b0774"),
-                    StartTime = new TimeSpan(7, 0, 0), 
-                    EndTime = new TimeSpan(7, 45, 0),    
+                    StartTime = new TimeSpan(7, 0, 0),
+                    EndTime = new TimeSpan(7, 45, 0),
                     SlotIndex = 1
                 },
                 new Slot
                 {
                     Id = new Guid("0811126b-4fb3-4e29-b0f6-94b00bf0b98b"),
-                    StartTime = new TimeSpan(8, 0, 0),   
-                    EndTime = new TimeSpan(8, 45, 0),     
+                    StartTime = new TimeSpan(8, 0, 0),
+                    EndTime = new TimeSpan(8, 45, 0),
                     SlotIndex = 2
                 },
                 new Slot
                 {
                     Id = new Guid("b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80"),
-                    StartTime = new TimeSpan(9, 05, 0),   
-                    EndTime = new TimeSpan(9, 50, 0),     
+                    StartTime = new TimeSpan(9, 05, 0),
+                    EndTime = new TimeSpan(9, 50, 0),
                     SlotIndex = 3
                 },
                 new Slot
                 {
                     Id = new Guid("e8b4217f-5a6c-4428-9901-99e62ce1f562"),
-                    StartTime = new TimeSpan(9, 55, 0),  
-                    EndTime = new TimeSpan(10, 40, 0),   
+                    StartTime = new TimeSpan(9, 55, 0),
+                    EndTime = new TimeSpan(10, 40, 0),
                     SlotIndex = 4
                 },
                 new Slot
                 {
                     Id = new Guid("4ebda95f-f406-43d2-a88b-be2b1ddbe1b5"),
-                    StartTime = new TimeSpan(10, 45, 0),  
-                    EndTime = new TimeSpan(11, 30, 0),    
+                    StartTime = new TimeSpan(10, 45, 0),
+                    EndTime = new TimeSpan(11, 30, 0),
                     SlotIndex = 5
                 },
                 new Slot
                 {
                     Id = new Guid("c5b67725-545f-4edd-8198-05bedcb5b00f"),
-                    StartTime = new TimeSpan(14, 0, 0),   
-                    EndTime = new TimeSpan(14, 45, 0),   
+                    StartTime = new TimeSpan(14, 0, 0),
+                    EndTime = new TimeSpan(14, 45, 0),
                     SlotIndex = 6
                 },
                 new Slot
                 {
                     Id = new Guid("9495ef71-051d-4e1b-9de3-31fa6d238252"),
                     StartTime = new TimeSpan(14, 55, 0),
-                    EndTime = new TimeSpan(13, 40, 0),  
+                    EndTime = new TimeSpan(13, 40, 0),
                     SlotIndex = 7
                 },
                 new Slot
                 {
                     Id = new Guid("79e57c6a-fae8-42b4-a460-b48447e3e076"),
-                    StartTime = new TimeSpan(15, 50, 0), 
-                    EndTime = new TimeSpan(16, 35, 0),   
+                    StartTime = new TimeSpan(15, 50, 0),
+                    EndTime = new TimeSpan(16, 35, 0),
                     SlotIndex = 8
                 },
                 new Slot
@@ -408,7 +406,117 @@ namespace BusinessObject.Seeding
                     StartTime = new TimeSpan(16, 45, 0), // 3:45 PM
                     EndTime = new TimeSpan(17, 30, 0),   // 4:30 PM
                     SlotIndex = 9
-                } 
+                }
+            );
+        }
+
+        public static void SeedingAdmins(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Admin>().HasData(
+                new Admin
+                {
+                    Id = new Guid("b584540e-49d9-4d45-bef4-f779f8e6c973"),
+                    Username = "admin1",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    Email = "admin1@email.com",
+                    RefreshToken = "",
+                    RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670")
+                },
+                new Admin
+                {
+                    Id = new Guid("5b909d16-c9e6-42bc-b46c-d766280d93b8"),
+                    Username = "admin2",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    Email = "admin2@email.com",
+                    RefreshToken = "",
+                    RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670")
+                }
+            );
+        }
+
+        public static void SeedingTeacher(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Teacher>().HasData(
+                new Teacher
+                {
+                    Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
+                    PublicTeacherID = "1",
+                    CitizenID = "1",
+                    Username = "teacher1",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Tea 1",
+                    Email = "teacher1@email.com",
+                    Dob = new DateOnly(1996, 01, 01),
+                    Address = "",
+                    Phone = "",
+                    RefreshToken = "",
+                    Image = "",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                },
+                new Teacher
+                {
+                    Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
+                    PublicTeacherID = "1",
+                    CitizenID = "1",
+                    Username = "teacher2",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Tea 1",
+                    Email = "teacher2@email.com",
+                    Dob = new DateOnly(1996, 01, 01),
+                    Address = "",
+                    Phone = "",
+                    RefreshToken = "",
+                    Image = "",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                }
+            );
+        }
+
+        public static void SeedingStudent(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>().HasData(
+                new Student
+                {
+                    Id = new Guid("0108d3be-3bce-45d7-8562-346547af9911"),
+                    PublicStudentID = "1",
+                    CitizenID = "1",
+                    Username = "student1",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Stu 1",
+                    Email = "student1@email.com",
+                    Dob = new DateOnly(2009,01,01),
+                    Address = "",
+                    Phone = "",
+                    ParentPhone = "",
+                    HomeTown = "",
+                    RefreshToken = "",
+                    Image = "",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = new Guid("ac4048f7-4fbd-46d4-beba-acdb2953c518"),
+                    PublicStudentID = "1",
+                    CitizenID = "1",
+                    Username = "student2",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    Email = "student2@email.com",
+                    FullName = "",
+                    Dob = new DateOnly(2009, 01, 01),
+                    Address = "",
+                    Phone = "",
+                    ParentPhone = "",
+                    HomeTown = "",
+                    RefreshToken = "",
+                    Image = "",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed")
+                }
             );
         }
 

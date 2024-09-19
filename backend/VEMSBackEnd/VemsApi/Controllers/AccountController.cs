@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
 
 namespace VemsApi.Controllers
@@ -16,39 +17,29 @@ namespace VemsApi.Controllers
         }
 
 
-        [HttpGet("")]
-        public IActionResult GetAllAdmins(Guid id)
-        {
-            try
-            {
-                return APIResponse.Success(accountService.GetById(id));
-            }
-            catch (Exception ex)
-            {
-                return APIResponse.Error(null, ex.Message);
-            }
-        }
-
         [HttpGet("/admins")]
-        public IActionResult GetAllAdmins()
+        [Authorize("ADMIN", "STUDENT")]
+        public async Task<IActionResult> GetAllAdminsAsync()
         {
             try
             {
-                return APIResponse.Success(accountService.GetAllAdminAccount());
+                var admins = await accountService.GetAllAdminAccountAsync();
+                return APIResponse.Success(admins);
             }
             catch (Exception ex)
             {
                 return APIResponse.Error(null, ex.Message);
             }
         }
-
 
         [HttpGet("/teachers")]
-        public IActionResult GetAllTeachers()
+        [Authorize("ADMIN")]
+        public async Task<IActionResult> GetAllTeachers()
         {
             try
             {
-                return APIResponse.Success(accountService.GetAllTeacherAccount());
+                var admins = await accountService.GetAllTeacherAccountAsync();
+                return APIResponse.Success(admins);
             }
             catch (Exception ex)
             {
@@ -58,11 +49,13 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("/students")]
-        public IActionResult GetAllStudents()
+        [Authorize("ADMIN")]
+        public async Task<IActionResult> GetAllStudents()
         {
             try
             {
-                return APIResponse.Success(accountService.GetAllStudentAccount());
+                var admins = await accountService.GetAllStudentAccountAsync();
+                return APIResponse.Success(admins);
             }
             catch (Exception ex)
             {
