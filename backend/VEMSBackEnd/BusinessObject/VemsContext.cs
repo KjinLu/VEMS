@@ -42,7 +42,7 @@ namespace BusinessObject
     public DbSet<SlotDetail> SlotDetails { get; set; }
     public DbSet<EmailToken> EmailTokens { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
     }
