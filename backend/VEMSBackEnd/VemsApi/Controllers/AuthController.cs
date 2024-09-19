@@ -59,7 +59,6 @@ namespace VemsApi.Controllers
             {
                 var response = await authService.RefreshToken(request);
                 return APIResponse.Success(response);
-
             }
             catch (Exception ex)
             {
@@ -101,6 +100,35 @@ namespace VemsApi.Controllers
             try
             {
                 var response = await authService.SendRecoverEmail(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+
+        [HttpPost("/validateEmail")]
+        public async Task<IActionResult> ValidateEmail(ValidateEmailRequest request)
+        {
+            try
+            {
+                var response = await authService.CheckVerifyEmail(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("/changePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+        {
+            try
+            {
+                var response = await authService.ChangePassword(request);
                 return APIResponse.Success(response);
             }
             catch (Exception ex)
