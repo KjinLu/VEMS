@@ -17,42 +17,29 @@ namespace VemsApi.Controllers
         }
 
 
-        [HttpGet("")]
-        //[Authorize("ADMIN")]
-        public IActionResult GetAllAdmins(string id)
-        {
-            try
-            {
-                return APIResponse.Success(accountService.GetAllAdminAccount());
-            }
-            catch (Exception ex)
-            {
-                return APIResponse.Error(null, ex.Message);
-            }
-        }
-
         [HttpGet("/admins")]
-        //[Authorize("ADMIN")]
-        public IActionResult GetAllAdmins()
+        [Authorize("ADMIN")]
+        public async Task<IActionResult> GetAllAdminsAsync()
         {
             try
             {
-                return APIResponse.Success(accountService.GetAllAdminAccount());
+                var admins = await accountService.GetAllAdminAccountAsync();
+                return APIResponse.Success(admins);
             }
             catch (Exception ex)
             {
                 return APIResponse.Error(null, ex.Message);
             }
         }
-
 
         [HttpGet("/teachers")]
-        //[Authorize("ADMIN")]
-        public IActionResult GetAllTeachers()
+        [Authorize("ADMIN")]
+        public async Task<IActionResult> GetAllTeachers()
         {
             try
             {
-                return APIResponse.Success(accountService.GetAllTeacherAccount());
+                var admins = await accountService.GetAllTeacherAccountAsync();
+                return APIResponse.Success(admins);
             }
             catch (Exception ex)
             {
@@ -62,12 +49,13 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("/students")]
-        //[Authorize("ADMIN")]
-        public IActionResult GetAllStudents()
+        [Authorize("ADMIN")]
+        public async Task<IActionResult> GetAllStudents()
         {
             try
             {
-                return APIResponse.Success(accountService.GetAllStudentAccount());
+                var admins = await accountService.GetAllStudentAccountAsync();
+                return APIResponse.Success(admins);
             }
             catch (Exception ex)
             {

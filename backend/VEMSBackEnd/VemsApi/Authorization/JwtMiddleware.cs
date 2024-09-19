@@ -18,11 +18,11 @@ namespace SchoolMate.Authorizotion
         public async Task Invoke(HttpContext context, IAccountService accountService, IJwtUtils jwtUtils)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId = jwtUtils.ValidateJwtToken(token);
+            var userId =await jwtUtils.ValidateJwtToken(token);
             if (userId != null)
             {
                 // attach user to context on successful jwt validation
-                context.Items["User"] = accountService.GetAccountById((Guid)userId);
+                context.Items["User"] =await accountService.GetAccountByIdAsync((Guid)userId);
             }
 
             await _next(context);

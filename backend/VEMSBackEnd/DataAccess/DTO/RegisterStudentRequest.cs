@@ -1,5 +1,6 @@
-﻿namespace SchoolMate.Dto.AuthenticationDto
+namespace DataAccess
 {
+
     public class RegisterStudentRequest
     {
 
@@ -11,8 +12,5 @@
 
         public Guid RoleId { get; set; } = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED");
 
-
     }
 }
-
-
