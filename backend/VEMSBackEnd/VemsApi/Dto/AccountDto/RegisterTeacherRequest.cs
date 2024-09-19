@@ -1,4 +1,4 @@
-﻿namespace SchoolMate.Dto.AuthenticationDto
+﻿namespace VemsApi.Dto.AccountDto
 {
     public class RegisterTeacherRequest
     {
