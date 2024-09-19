@@ -1,10 +1,14 @@
-﻿using BusinessObject;
+﻿using Azure.Core;
+using BusinessObject;
 using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Identity.Data;
+using MoneyDreamAPI.Dto.AuthDto;
 using MoneyDreamAPI.Services;
+using Newtonsoft.Json.Linq;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.AuthenticationDto;
+using VemsApi.Dto.AuthenticationDto;
 
 namespace VemsApi.Services
 {
@@ -12,12 +16,13 @@ namespace VemsApi.Services
     public interface IAuthService
     {
         Task<AuthenticationResponse?> Login(AuthenticationRequest model);
+        Task<AuthenticationResponse?> RefreshToken(RefreshTokenRequest request);
         Task<CommonAccountType> Authetication(string token);
         Task<List<Student>> RegisterStudent(List<RegisterStudentRequest> request);
         Task<List<Teacher>> RegisterTeacher(List<RegisterTeacherRequest> request);
 
-        Task<string> SendRecoverEmail(string usernameOrEmail);
-        Task<bool> CheckVerifyEmail(string usernameOrEmail,string code );
+        Task<string> SendRecoverEmail(SendEmailRequest usernameOrEmail);
+        Task<bool> CheckVerifyEmail(SendEmailRequest usernameOrEmail,string code );
     }
     public class AuthService : IAuthService
     {
@@ -50,6 +55,13 @@ namespace VemsApi.Services
                 }
             }
             return null;
+        }
+
+        public async Task<AuthenticationResponse?> RefreshToken(RefreshTokenRequest request)
+        {
+            var newToken = await _jwtUtils.GenerateJwtRefreshToken(request.RefreshToken);
+
+            return new AuthenticationResponse("", newToken);
         }
 
         public async Task<CommonAccountType> Authetication(string token)
@@ -113,12 +125,13 @@ namespace VemsApi.Services
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
         }
 
-        public Task<string> SendRecoverEmail(string usernameOrEmail)
+        public async Task<string> SendRecoverEmail(SendEmailRequest request)
         {
-            throw new NotImplementedException();
+            var account =await accountRepository.GetTeacherByEmailAsync(request.UsernameOrEmail);
+            return account.Email;
         }
 
-        public Task<bool> CheckVerifyEmail(string usernameOrEmail, string code)
+        public Task<bool> CheckVerifyEmail(SendEmailRequest usernameOrEmail, string code)
         {
             throw new NotImplementedException();
         }
