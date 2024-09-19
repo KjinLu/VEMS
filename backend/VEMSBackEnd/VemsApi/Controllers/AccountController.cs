@@ -18,7 +18,7 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("/admins")]
-        [Authorize("ADMIN")]
+        [Authorize("ADMIN", "STUDENT")]
         public async Task<IActionResult> GetAllAdminsAsync()
         {
             try

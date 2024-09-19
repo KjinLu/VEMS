@@ -21,10 +21,11 @@ namespace DataAccess.Repository
         public Task<Teacher> GetTeacherByIdAsync(Guid accountID);
         public Task<Teacher> GetTeacherByUsernameAsync(string username);
         public Task<Teacher> GetTeacherByEmailAsync(string email);
-        public Task<object> GetAccountByEmailAsync(string username);
+        public Task<CommonAccountType> GetAccountByEmailAsync(string username);
         public Task<CommonAccountType> GetAccountByIDAsync(Guid accountID);
         public Task<CommonAccountType> GetAccountByUsernameAsync(string username);
         public Task<bool> UpdateRefreshTokenAsync(Guid accountID, string token);
+        public Task<bool> UpdatePassword(Guid accountID, string newPassword);
         public Task<List<Admin>> GetAllAdminAsync();
         public Task<List<Teacher>> GetAllTeacherAsync();
         public Task<List<Student>> GetAllStudentAsync();
@@ -45,7 +46,7 @@ namespace DataAccess.Repository
 
         public async Task<CommonAccountType> GetAccountByUsernameAsync(string username) => await AccountDAO.Instance.GetAccountByUsernameAsync(username);
 
-        public async Task<object> GetAccountByEmailAsync(string email) => await AccountDAO.Instance.GetAccountByEmailAsync(email);
+        public async Task<CommonAccountType> GetAccountByEmailAsync(string email) => await AccountDAO.Instance.GetAccountByEmailAsync(email);
 
         public async Task<Admin> GetAdminByEmailAsync(string email) => await AccountDAO.Instance.GetAdminByEmailAsync(email);
 
@@ -66,6 +67,7 @@ namespace DataAccess.Repository
         public async Task<Teacher> GetTeacherByUsernameAsync(string username) => await AccountDAO.Instance.GetTeacherByUsernameAsync(username);
 
         public async Task<bool> UpdateRefreshTokenAsync(Guid accountID, string token) => await AccountDAO.Instance.UpdateRefreshTokenAsync(accountID, token);
+        public async Task<bool> UpdatePassword(Guid accountID, string token) => await AccountDAO.Instance.ChangePassword(accountID, token);
 
         public async Task<List<Student>> RegisterStudentAsync(List<Student> requests) => await AccountDAO.Instance.RegisterStudentAsync(requests);
         public async Task<List<Teacher>> RegisterTeacherAsync(List<Teacher> requests) => await AccountDAO.Instance.RegisterTeacherAsync(requests);
