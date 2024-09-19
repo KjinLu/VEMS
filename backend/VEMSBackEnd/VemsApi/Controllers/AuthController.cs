@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MoneyDreamAPI.Dto.AuthDto;
 using SchoolMate.Dto.ApiReponse;
 using SchoolMate.Dto.AuthenticationDto;
+using VemsApi.Dto.AuthenticationDto;
 using VemsApi.Services;
 
 namespace VemsApi.Controllers
@@ -50,6 +52,21 @@ namespace VemsApi.Controllers
             }
         }
 
+        [HttpPost("/refresToken")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+        {
+            try
+            {
+                var response = await authService.RefreshToken(request);
+                return APIResponse.Success(response);
+
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPost("/registerStudent")]
         public async Task<IActionResult> RegisterStudent(List<RegisterStudentRequest> request)
         {
@@ -78,12 +95,13 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/recoverPassword")]
-        public IActionResult RecoverPassword()
+        [HttpPost("/sendeRecoverPasswordEmail")]
+        public async Task<IActionResult> RecoverPassword(SendEmailRequest request)
         {
             try
             {
-                return APIResponse.Success(null);
+                var response = await authService.SendRecoverEmail(request);
+                return APIResponse.Success(response);
             }
             catch (Exception ex)
             {
