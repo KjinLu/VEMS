@@ -118,7 +118,7 @@ namespace DataAccess.DAO
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return await context.Students.FirstOrDefaultAsync(student => student.Id == id);
+                    return await context.Students.AsNoTracking().FirstOrDefaultAsync(student => student.Id == id);
                 }
                 return null;
             }
@@ -664,6 +664,98 @@ namespace DataAccess.DAO
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+   
+        public async Task<Student> CreateAStudentAccount(Student student)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var checkStudentUsername = await context.Students
+                        .FirstOrDefaultAsync(s => s.Username == student.Username);
+
+                    if (checkStudentUsername != null)
+                    {
+                        throw new Exception("Tên đăng nhập đã được sử dụng!");
+                    }
+                    var studentCreated = context.Students.Add(student).Entity;
+                    await context.SaveChangesAsync();
+                    return studentCreated;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi tạo tài khoản!");
+            }
+        }
+
+        public async Task<bool> UpdateStudentProfile(Student student)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var dbStudent = await context.Students.AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.Id == student.Id);
+
+                    if (dbStudent == null) throw new Exception("Thông tin tài khoản không tồn tại!");
+
+                    context.Entry<Student>(student).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi cập nhật tài khoản!");
+            }
+        }
+
+        public async Task<Teacher> CreateATeacherAccount(Teacher teacher)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var checkStudentUsername = await context.Teacher
+                        .FirstOrDefaultAsync(s => s.Username == teacher.Username);
+
+                    if (checkStudentUsername != null)
+                    {
+                        throw new Exception("Tên đăng nhập đã được sử dụng!");
+                    }
+                    var teacherCreated = context.Teacher.Add(teacher).Entity;
+                    await context.SaveChangesAsync();
+                    return teacherCreated;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi tạo tài khoản!");
+            }
+        }
+
+        public async Task<bool> UpdateTeacherProfile(Teacher teacher)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var dbStudent = await context.Teacher.AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.Id == teacher.Id);
+
+                    if (dbStudent == null) throw new Exception("Thông tin tài khoản không tồn tại!");
+
+                    context.Entry<Teacher>(teacher).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi cập nhật tài khoản!");
             }
         }
     }

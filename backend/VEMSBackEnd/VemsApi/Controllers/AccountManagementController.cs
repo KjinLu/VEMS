@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
 using SchoolMate.Dto.AuthenticationDto;
+using VemsApi.Dto.AccountDto;
+using VemsApi.Dto.PaginationDto;
 using VemsApi.Services;
 
 namespace VemsApi.Controllers
@@ -21,11 +23,11 @@ namespace VemsApi.Controllers
 
         [HttpGet("admins")]
         [Authorize("ADMIN")]
-        public async Task<IActionResult> GetAllAdminsAsync()
+        public async Task<IActionResult> GetAllAdminsAsync([FromQuery] PaginationRequest request)
         {
             try
             {
-                var admins = await accountService.GetAllAdminAccountAsync();
+                var admins = await accountService.GetAllAdminAccountAsync(request);
                 return APIResponse.Success(admins);
             }
             catch (Exception ex)
@@ -36,11 +38,11 @@ namespace VemsApi.Controllers
 
         [HttpGet("teachers")]
         [Authorize("ADMIN")]
-        public async Task<IActionResult> GetAllTeachers()
+        public async Task<IActionResult> GetAllTeachers([FromQuery] PaginationRequest request)
         {
             try
             {
-                var admins = await accountService.GetAllTeacherAccountAsync();
+                var admins = await accountService.GetAllTeacherAccountAsync(request);
                 return APIResponse.Success(admins);
             }
             catch (Exception ex)
@@ -52,11 +54,11 @@ namespace VemsApi.Controllers
 
         [HttpGet("students")]
         [Authorize("ADMIN")]
-        public async Task<IActionResult> GetAllStudents()
+        public async Task<IActionResult> GetAllStudents([FromQuery] PaginationRequest request)
         {
             try
             {
-                var admins = await accountService.GetAllStudentAccountAsync();
+                var admins = await accountService.GetAllStudentAccountAsync(request);
                 return APIResponse.Success(admins);
             }
             catch (Exception ex)
@@ -100,6 +102,35 @@ namespace VemsApi.Controllers
             try
             {
                 var response = await accountService.RegisterTeacher(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+
+        [HttpPost("createStudentAccount")]
+        public async Task<IActionResult> CreateStudent(CreateStudentRequest request)
+        {
+            try
+            {
+                var response = await accountService.CreateStudentAccount(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("createTeacherAccount")]
+        public async Task<IActionResult> CreateTeacher(CreateTeacherRequest request)
+        {
+            try
+            {
+                var response = await accountService.CreateTeacherAccount(request);
                 return APIResponse.Success(response);
             }
             catch (Exception ex)

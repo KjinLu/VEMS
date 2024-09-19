@@ -2,16 +2,22 @@ using BusinessObject;
 using DataAccess.DTO;
 using DataAccess.Repository;
 using SchoolMate.Dto.AuthenticationDto;
+using VemsApi.Dto.AccountDto;
+using VemsApi.Dto.ClassroomDto;
+using VemsApi.Dto.PaginationDto;
 
 public interface IAccountService
 {
-    Task<List<Admin>> GetAllAdminAccountAsync();
-    Task<List<Teacher>> GetAllTeacherAccountAsync();
-    Task<List<Student>> GetAllStudentAccountAsync();
+    Task<object> GetAllAdminAccountAsync(PaginationRequest request);
+    Task<object> GetAllTeacherAccountAsync(PaginationRequest request);
+    Task<object> GetAllStudentAccountAsync(PaginationRequest request);
     Task<CommonAccountType> GetAccountByIdAsync(Guid accountID);
     Task<bool> ChangePassword(ChangePasswordRequest usernameOrEmail);
     Task<List<Student>> RegisterStudent(List<RegisterStudentRequest> request);
     Task<List<Teacher>> RegisterTeacher(List<RegisterTeacherRequest> request);
+    Task<Student> CreateStudentAccount(CreateStudentRequest request);
+    Task<Teacher> CreateTeacherAccount(CreateTeacherRequest request);
+
 
 }
 
@@ -24,20 +30,73 @@ public class AccountService : IAccountService
         _accountRepository = new AccountRepository();
     }
 
-    public async Task<List<Admin>> GetAllAdminAccountAsync()
+    public async Task<object> GetAllAdminAccountAsync(PaginationRequest request)
     {
-        return await _accountRepository.GetAllAdminAsync();
+        int pageNumber = request.PageNumber;
+        int pageSize = request.PageSize;
+
+        var admins = await _accountRepository.GetAllAdminAsync();
+        var dataPaginate = admins.Select(a => a).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+        int totalRecord = admins.Count();
+
+        int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+
+        return new
+        {
+            totalPage,
+            totalRecord,
+            pageNumber,
+            pageSize,
+            pageData = dataPaginate
+        };
     }
 
 
-    public async Task<List<Student>> GetAllStudentAccountAsync()
+    public async Task<object> GetAllStudentAccountAsync(PaginationRequest request)
     {
-        return await _accountRepository.GetAllStudentAsync();
+        int pageNumber = request.PageNumber;
+        int pageSize = request.PageSize;
+
+        var students = await _accountRepository.GetAllStudentAsync();
+        var dataPaginate = students.Select(a => a).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+
+        int totalRecord = students.Count();
+
+        int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+
+        return new
+        {
+            totalPage,
+            totalRecord,
+            pageNumber,
+            pageSize,
+            pageData = dataPaginate
+        };
     }
 
-    public async Task<List<Teacher>> GetAllTeacherAccountAsync()
+    public async Task<object>  GetAllTeacherAccountAsync(PaginationRequest request)
     {
-        return await _accountRepository.GetAllTeacherAsync();
+        int pageNumber = request.PageNumber;
+        int pageSize = request.PageSize;
+
+        var teachers = await _accountRepository.GetAllTeacherAsync();
+        var dataPaginate = teachers.Select(a => a).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+
+        int totalRecord = teachers.Count();
+
+        int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+
+        return new
+        {
+            totalPage,
+            totalRecord,
+            pageNumber,
+            pageSize,
+            pageData = dataPaginate
+        };
     }
 
     public async Task<CommonAccountType> GetAccountByIdAsync(Guid accountID)
@@ -96,5 +155,49 @@ public class AccountService : IAccountService
         }
 
         return await this._accountRepository.RegisterTeacherAsync(newTeacherList);
+    }
+
+    public async Task<Student> CreateStudentAccount(CreateStudentRequest request)
+    {
+        Student newStudent = new Student
+        {
+            PublicStudentID = request.PublicStudentID,
+            FullName = request.FullName,
+            CitizenID = request.CitizenID,
+            Username = request.Phone,
+            Password = Hashing(request.Password),
+            Email = request.Email,
+            Dob= DateOnly.Parse(request.Dob),
+            Address = request.Address,
+            Phone = request.Phone,
+            ParentPhone = request.ParentPhone,
+            HomeTown = request.HomeTown,
+            UnionJoinDate = DateOnly.Parse(request.UnionJoinDate),
+            StudentTypeId = request.StudentTypeId,
+            ClassroomId = request.ClassroomId,
+            RoleId = request.RoleId,
+        };
+
+        return await this._accountRepository.CreateAStudentAccount(newStudent);
+    }
+
+    public async Task<Teacher> CreateTeacherAccount(CreateTeacherRequest request)
+    {
+        Teacher newTeacher = new Teacher
+        {
+            PublicTeacherID = request.PublicTeacherID,
+            CitizenID = request.CitizenID,
+            Username = request.Phone,
+            Password = Hashing(request.Password),
+            FullName = request.FullName,
+            Email = request.Email,
+            Dob = DateOnly.Parse(request.Dob),
+            Address = request.Address,
+            Phone = request.Phone,
+            TeacherTypeId = request.TeacherTypeId,
+            RoleId = request.RoleId,
+        };
+
+        return await this._accountRepository.CreateTeacherAccount(newTeacher);
     }
 }
