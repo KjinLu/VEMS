@@ -758,5 +758,41 @@ namespace DataAccess.DAO
                 throw new Exception("Có lỗi xảy ra khi cập nhật tài khoản!");
             }
         }
+
+        public async Task<bool> UpdateAvatarAsync(Guid AccountId, string imageLink)
+        {
+            try
+            {
+                var context = new VemsContext();
+                if (context != null)
+                {
+
+                    var teacher = await context.Teacher.SingleOrDefaultAsync(teacher => teacher.Id == AccountId);
+                    if (teacher != null)
+                    {
+                        teacher.Image = imageLink;
+                        context.Entry<Teacher>(teacher).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+
+                    var student = await context.Students.SingleOrDefaultAsync(student => student.Id == AccountId);
+                    if (student != null)
+                    {
+                        student.Image = imageLink;
+                        context.Entry<Student>(student).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }

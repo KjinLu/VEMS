@@ -17,6 +17,8 @@ public interface IAccountService
     Task<List<Teacher>> RegisterTeacher(List<RegisterTeacherRequest> request);
     Task<Student> CreateStudentAccount(CreateStudentRequest request);
     Task<Teacher> CreateTeacherAccount(CreateTeacherRequest request);
+    Task<bool> AdminUpdateStudentAccount(AdminUpdateStudent request);
+    Task<bool> AdminUpdateTeacherAccount(AdminUpdateTeacher request);
 
 
 }
@@ -199,5 +201,49 @@ public class AccountService : IAccountService
         };
 
         return await this._accountRepository.CreateTeacherAccount(newTeacher);
+    }
+
+    public async Task<bool> AdminUpdateStudentAccount(AdminUpdateStudent request)
+    {
+        var account = await _accountRepository.GetStudentByIdAsync(request.StudentID);
+
+        if (account == null) return false;
+
+        account.PublicStudentID= request.PublicStudentID;
+        account.FullName = request.FullName;
+        account.CitizenID = request.CitizenID;
+        account.Username = request.Username;
+        account.Password = Hashing(request.Password);
+        account.Email = request.Email;
+        account.Dob = DateOnly.Parse(request.Dob);
+        account.Address = request.Address;
+        account.Phone = request.Phone;
+        account.ParentPhone = request.ParentPhone;
+        account.HomeTown = request.HomeTown;
+        account.UnionJoinDate = DateOnly.Parse(request.UnionJoinDate);
+        account.StudentTypeId = request.StudentTypeId;
+        account.ClassroomId = request.ClassroomId;
+
+        return await _accountRepository.UpdateStudentProfile(account);
+    }
+
+    public async Task<bool> AdminUpdateTeacherAccount(AdminUpdateTeacher request)
+    {
+        var account = await _accountRepository.GetTeacherByIdAsync(request.TeacherID);
+
+        if (account == null) return false;
+
+        account.FullName = request.FullName;
+        account.PublicTeacherID = request.PublicTeacherID;
+        account.CitizenID = request.CitizenID;
+        account.Username = request.Username;
+        account.Password = Hashing(request.Password);
+        account.Email = request.Email;
+        account.Dob = DateOnly.Parse(request.Dob);
+        account.Address = request.Address;
+        account.Phone = request.Phone;
+        account.TeacherTypeId = request.TeacherTypeId;
+
+        return await _accountRepository.UpdateTeacherProfile(account);
     }
 }
