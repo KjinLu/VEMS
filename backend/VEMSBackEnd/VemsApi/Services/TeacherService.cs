@@ -1,6 +1,7 @@
 ﻿using BusinessObject;
 using DataAccess.Repository;
 using SchoolMate.Dto.AuthenticationDto;
+using VemsApi.Dto.ImageDto;
 using VemsApi.Dto.StudentServiceDto;
 
 namespace VemsApi.Services
@@ -10,6 +11,10 @@ namespace VemsApi.Services
         Task<bool> UpdateProfile(UpdateTeacherProfileRequest request);
 
         Task<bool> ChangePassword(ChangePasswordRequest request);
+
+        Task<bool> UploadAvatar(UploadAvatartRequest request);
+
+        Task<bool> DeleteAvatar(DeleteAvatarRequest request);
     }
 
     public class TeacherService : ITeacherService
@@ -46,6 +51,17 @@ namespace VemsApi.Services
         public string Hashing(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
+        }
+
+        public async Task<bool> UploadAvatar(UploadAvatartRequest request)
+        {
+            var a = ImageExtension.UploadFile(request.file);
+            return await _accountRepository.UpdateAvatar(request.AccountID, a);
+        }
+
+        public async Task<bool> DeleteAvatar(DeleteAvatarRequest request)
+        {
+            return await _accountRepository.UpdateAvatar(request.AccountID, "");
         }
 
     }
