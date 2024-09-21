@@ -1,10 +1,9 @@
 import { Fragment, useState } from 'react';
-import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './routes/routes';
 import DefaultLayout from './layouts/DefaultLayout';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <div className='App'>
@@ -37,6 +36,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

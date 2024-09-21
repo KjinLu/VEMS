@@ -8,8 +8,8 @@ type WrapperProps = {
 
 const cx = classNames.bind(styles);
 
-function Wrapper({ children, className }: WrapperProps) {
+const Wrapper = ({ children, className }: WrapperProps) => {
   return <div className={cx('wrapper', className)}>{children}</div>;
-}
+};
 
 export default Wrapper;

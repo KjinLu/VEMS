@@ -1,3 +1,4 @@
+import { Col, Row } from 'reactstrap';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import styles from './DefaultLayout.module.scss';
@@ -10,16 +11,23 @@ type DefaultLayoutProps = {
 
 const cx = classNames.bind(styles);
 
-function DefaultLayout({ children }: DefaultLayoutProps) {
+const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
     <div className={cx('wrapper')}>
       <Header />
-      <div className={cx('container')}>
-        <Sidebar />
-        <div className={cx('content')}>{children}</div>
-      </div>
+      <Row className={cx('container')}>
+        <Col sm={3}>
+          <Sidebar />
+        </Col>
+        <Col
+          md={9}
+          className={cx('content')}
+        >
+          {children}
+        </Col>
+      </Row>
     </div>
   );
-}
+};
 
 export default DefaultLayout;

@@ -12,7 +12,7 @@ type MenuItemProps = {
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ title, to, icon, activeIcon }: MenuItemProps) {
+const MenuItem = ({ title, to, icon, activeIcon }: MenuItemProps) => {
   return (
     <NavLink
       className={nav =>
@@ -27,6 +27,6 @@ function MenuItem({ title, to, icon, activeIcon }: MenuItemProps) {
       <span className={cx('title')}>{title}</span>
     </NavLink>
   );
-}
+};
 
 export default MenuItem;

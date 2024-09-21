@@ -8,18 +8,18 @@ import Wrapper from '../Wrapper';
 import { ReactElement, useState } from 'react';
 
 type itemsProps = {
-  icon: ReactElement;
-  title: string;
-  to: string;
-  separate: boolean;
-  children: ReactElement;
+  icon?: ReactElement;
+  title?: string;
+  to?: string;
+  separate?: boolean;
+  children?: object;
 };
 
 type MenuProps = {
   children: ReactElement;
   items: itemsProps[];
   hideOnClick?: boolean;
-  onChange: (e: any) => {};
+  onChange: (e: any) => void;
 };
 
 const cx = classNames.bind(styles);
@@ -77,11 +77,9 @@ const Menu = ({ children, items = [], hideOnClick = false, onChange }: MenuProps
   return (
     <Tippy
       interactive
-      delay={[0, 500]}
+      delay={[0, 500000]}
       offset={[12, 8]}
-      // click vào avatar không ẩn menu
       hideOnClick={hideOnClick}
-      // placement để chỉnh vị trí
       placement='bottom-end'
       render={renderResult}
       onHide={handleResetToFirstPage}

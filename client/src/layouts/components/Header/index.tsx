@@ -16,47 +16,32 @@ import { Link } from 'react-router-dom';
 
 import Logo from '../../../assets/react.svg';
 import styles from './Header.module.scss';
-import Menu from '../../../components/VemMenu';
-import { MessageIcon } from '../../../components/Icons/index';
+import Menu from '../../../components/VemMenu/Menu/Menu';
+import { InboxIcon } from '../../../components/Icons/index';
 import VemImage from '../../../components/VemImage';
 
-// Cấu hình routers
 import routes from '../../../constants/routes';
+import { ReactElement } from 'react';
+
+type itemsProps = {
+  icon?: ReactElement;
+  title?: string;
+  to?: string;
+  separate?: boolean;
+  children?: object;
+};
 
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS = [
-  {
-    icon: <FontAwesomeIcon icon={faEarthAsia} />,
-    title: 'English',
-    children: {
-      title: 'Language',
-      data: [
-        {
-          type: 'language',
-          code: 'en',
-          title: 'English'
-        },
-        {
-          type: 'language',
-          code: 'vi',
-          title: 'Tiếng việt'
-        }
-      ]
-    }
-  },
+const MENU_ITEMS: itemsProps[] = [
   {
     icon: <FontAwesomeIcon icon={faCircleQuestion} />,
     title: 'Feedback and help',
     to: '/feedback'
-  },
-  {
-    icon: <FontAwesomeIcon icon={faKeyboard} />,
-    title: 'Keyboard shortcuts'
   }
 ];
 
-function Header() {
+const Header = () => {
   const currentUser = true;
 
   //Handle logic
@@ -69,17 +54,13 @@ function Header() {
     }
   };
 
-  const userMenu = [
+  const userMenu: itemsProps[] = [
     {
       icon: <FontAwesomeIcon icon={faUser} />,
       title: 'View profile',
-      to: '/@hoa'
+      to: '/@name'
     },
-    {
-      icon: <FontAwesomeIcon icon={faCoins} />,
-      title: 'Get coins',
-      to: '/coin'
-    },
+
     {
       icon: <FontAwesomeIcon icon={faGear} />,
       title: 'Settings',
@@ -116,7 +97,7 @@ function Header() {
                 placement='bottom'
               >
                 <button className={cx('action-btn')}>
-                  <MessageIcon />
+                  <InboxIcon />
                 </button>
               </Tippy>
             </>
@@ -126,7 +107,7 @@ function Header() {
 
           <Menu
             items={currentUser ? userMenu : MENU_ITEMS}
-            onChange={handleMenuChange}
+            onChange={() => handleMenuChange}
           >
             {currentUser ? (
               <VemImage
@@ -144,6 +125,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;
