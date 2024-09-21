@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRoutes, publicRoutes } from './routes/routes';
 import DefaultLayout from './layouts/DefaultLayout';
-import ProtectedRoute from './routes/protectedRoute';
 
 function App() {
   return (
@@ -30,31 +29,6 @@ function App() {
                   <Layout>
                     <Page />
                   </Layout>
-                }
-              />
-            );
-          })}
-
-          {privateRoutes.map((route, index) => {
-            const Page = route.component;
-            let Layout: any = DefaultLayout;
-
-            if (route.layout) {
-              Layout = route.layout;
-            } else if (route.layout === null) {
-              Layout = Fragment;
-            }
-
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <ProtectedRoute roles={route.role}>
-                    <Layout>
-                      <Page />
-                    </Layout>
-                  </ProtectedRoute>
                 }
               />
             );

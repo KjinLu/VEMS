@@ -4,7 +4,9 @@ export default function requestApi(
     endPoint: string,
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     body?: any,  
-    responseType: 'json' | 'text' | 'arraybuffer' | 'blob' = 'json'
+    responseType: 'json' | 'text' | 'arraybuffer' | 'blob' = 'json',
+    params?: any
+
 ): AxiosPromise<any> { 
     const headers = {
         "Accept": "application/json",
@@ -15,9 +17,10 @@ export default function requestApi(
     const config: AxiosRequestConfig = {
         headers,
         method,
-        url: `https://localhost:7268${endPoint}`,
+        url: `https://localhost:7268/api${endPoint}`,
         data: body,
-        responseType
+        responseType,
+        params,
     };
 
     return axios(config);

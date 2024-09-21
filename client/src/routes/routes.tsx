@@ -13,10 +13,10 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
-  { path: configRoutes.home, component: Home, role: ["admin"] },
-  { path: configRoutes.profile, component: Profile, role: ["admin", "teacher", "student"] },
-  { path: configRoutes.upload, component: Upload, layout: HeaderOnly, role: ["admin"] },
-  { path: configRoutes.search, component: Search, layout: null, role: ["admin"] }
+  { path: configRoutes.home, component: Home, role: ["ADMIN"] },
+  { path: configRoutes.profile, component: Profile, role: ["ADMIN", "TEACHER", "STUDENT"] },
+  { path: configRoutes.upload, component: Upload, layout: HeaderOnly, role: ["ADMIN"] },
+  { path: configRoutes.search, component: Search, layout: null, role: ["ADMIN"] }
 ];
 
 export { publicRoutes, privateRoutes };

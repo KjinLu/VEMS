@@ -22,7 +22,7 @@ namespace VemsApi.Controllers
             authService = _authService;
         }
 
-        [HttpPost("/")]
+        [HttpPost("")]
         public async Task<IActionResult> Authetication(string accessToken)
         {
             try
@@ -36,7 +36,7 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(AuthenticationRequest request)
         {
             try
@@ -53,7 +53,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpGet]
-        [Route("/agent")]
+        [Route("agent")]
         public IActionResult Test()
         {
 
@@ -73,7 +73,7 @@ namespace VemsApi.Controllers
             //"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0"
         }
 
-        [HttpPost("/refresToken")]
+        [HttpPost("refresToken")]
         public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
         {
             try
@@ -87,35 +87,8 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/registerStudent")]
-        public async Task<IActionResult> RegisterStudent(List<RegisterStudentRequest> request)
-        {
-            try
-            {
-                var response = await authService.RegisterStudent(request);
-                return APIResponse.Success(response);
-            }
-            catch (Exception ex)
-            {
-                return APIResponse.Error(null, ex.Message);
-            }
-        }
 
-        [HttpPost("/registerTeacher")]
-        public async Task<IActionResult> RegisterTeacher(List<RegisterTeacherRequest> request)
-        {
-            try
-            {
-                var response = await authService.RegisterTeacher(request);
-                return APIResponse.Success(response);
-            }
-            catch (Exception ex)
-            {
-                return APIResponse.Error(null, ex.Message);
-            }
-        }
-
-        [HttpPost("/sendeRecoverPasswordEmail")]
+        [HttpPost("sendeRecoverPasswordEmail")]
         public async Task<IActionResult> RecoverPassword(SendEmailRequest request)
         {
             try
@@ -130,7 +103,7 @@ namespace VemsApi.Controllers
         }
 
 
-        [HttpPost("/validateEmail")]
+        [HttpPost("validateEmail")]
         public async Task<IActionResult> ValidateEmail(ValidateEmailRequest request)
         {
             try
@@ -144,7 +117,7 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/changePassword")]
+        [HttpPost("changePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
         {
             try
