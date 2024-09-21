@@ -30,7 +30,7 @@ namespace VemsApi.Controllers
             }
         }
 
-          [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetGradeById(Guid id)
         {
             try
