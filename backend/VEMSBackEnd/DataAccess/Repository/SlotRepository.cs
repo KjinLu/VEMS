@@ -8,32 +8,32 @@ namespace DataAccess.Repository
 {
     public interface ISlotRepository
     {
-        Task<IEnumerable<Slot>> GetAllSlotAsync();
-        Task<IEnumerable<int>> GetListSlotIndexAsync();
+        Task<List<Slot>> GetAllSlotAsync();
+        Task<List<int>> GetListSlotIndexAsync();
         Task<Slot?> GetSlotByIdAsync(Guid id);
         Task<Slot?> GetSlotBySlotIndexAsync(int slotIndex);
         Task<TimeSpan?> GetStartTimeByIdAsync(Guid id);
         Task<TimeSpan?> GetEndTimeByIdAsync(Guid id);
-        Task CreateSlotAsync(Slot slot);
-        Task UpdateSlotTimeAsync(Slot updatedSlot);
-        Task DeleteSlotAsync(Guid id);
+        Task<Slot> CreateSlotAsync(Slot slot);
+        Task<bool> UpdateSlotTimeAsync(Slot updatedSlot);
+        Task<bool> DeleteSlotAsync(Guid id);
     }
 
     public class SlotRepository : ISlotRepository
     {
-        public async Task CreateSlotAsync(Slot slot)
+        public async Task<Slot> CreateSlotAsync(Slot slot)
         {
-            await SlotDAO.Instance.CreateSlotAsync(slot).ConfigureAwait(false);
+           return await SlotDAO.Instance.CreateSlotAsync(slot).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<Slot>> GetAllSlotAsync()
+        public async Task<List<Slot>> GetAllSlotAsync()
         {
-            return await SlotDAO.Instance.GetAllSlotAsync().ConfigureAwait(false);
+            return await SlotDAO.Instance.GetAllSlotAsync();
         }
 
-        public async Task<IEnumerable<int>> GetListSlotIndexAsync()
+        public async Task<List<int>> GetListSlotIndexAsync()
         {
-            return await SlotDAO.Instance.GetListSlotIndexAsync().ConfigureAwait(false);
+            return await SlotDAO.Instance.GetListSlotIndexAsync();
         }
 
         public async Task<Slot?> GetSlotByIdAsync(Guid id)
@@ -56,14 +56,14 @@ namespace DataAccess.Repository
             return await SlotDAO.Instance.GetEndTimeByIdAsync(id).ConfigureAwait(false);
         }
 
-        public async Task UpdateSlotTimeAsync(Slot updatedSlot)
+        public async Task<bool> UpdateSlotTimeAsync(Slot updatedSlot)
         {
-            await SlotDAO.Instance.UpdateSlotTimeAsync(updatedSlot).ConfigureAwait(false);
+           return await SlotDAO.Instance.UpdateSlotTimeAsync(updatedSlot).ConfigureAwait(false);
         }
 
-        public async Task DeleteSlotAsync(Guid id)
+        public async Task<bool> DeleteSlotAsync(Guid id)
         {
-            await SlotDAO.Instance.DeleteSlotAsync(id).ConfigureAwait(false);
+          return  await SlotDAO.Instance.DeleteSlotAsync(id).ConfigureAwait(false);
         }
     }
 }

@@ -11,6 +11,7 @@ using SchoolMate.Helpers;
 using System.Text;
 using VemsApi.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(options =>
@@ -52,6 +53,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 builder.Services.AddHttpContextAccessor();
 

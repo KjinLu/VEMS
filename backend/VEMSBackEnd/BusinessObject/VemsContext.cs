@@ -55,6 +55,7 @@ namespace BusinessObject
       }
 
       modelBuilder.SeedingRole();
+      modelBuilder.SeedingReason();
       modelBuilder.SeedingPeriod();
       modelBuilder.SeedingGrade();
       modelBuilder.SeedingStudentType();
