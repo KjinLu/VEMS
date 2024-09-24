@@ -1,6 +1,6 @@
 ﻿namespace SchoolMate.Dto.AuthenticationDto
 {
-    public class RegisterStudentRequest
+    public class RegisterStudentResponse
     {
         public string StudentId { get; set; } = null!;
 
@@ -27,7 +27,5 @@
         public string StatusAccount { get; set; } = null!;
 
         public string Password { get; set; } = null!;
-
-        public string RecoverPassword { get; set; } = null!;
     }
 }

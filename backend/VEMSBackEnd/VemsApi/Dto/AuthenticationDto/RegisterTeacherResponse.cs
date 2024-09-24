@@ -1,6 +1,6 @@
 ﻿namespace SchoolMate.Dto.AuthenticationDto
 {
-    public class RegisterTeacherRequest
+    public class RegisterTeacherResponse
     {
     }
 }

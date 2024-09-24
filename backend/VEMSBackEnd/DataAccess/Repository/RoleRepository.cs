@@ -10,16 +10,14 @@ namespace DataAccess.Repository
 {
     public interface IRoleRepository
     {
-        public Task<List<Role>> GetAllRoles();
-        public Task<Role> GetRoleById(Guid roleId);
-        // public Task<Role> GetRoleByName(string roleName);
+        public List<Role> GetAllRoles();
+        public Role GetRoleById(Guid roleId);
     }
     public class RoleRepository : IRoleRepository
     {
-        public async Task<List<Role>> GetAllRoles() => await RoleDAO.Instance.GetAllRoles();
-
-        public async Task<Role> GetRoleById(Guid roleId) => await RoleDAO.Instance.GetRolesByID(roleId);
-        // public async Task<Role> GetRoleByName(string roleName) => await RoleDAO.Instance.GetRoleByName(roleName);
-
+        public List<Role> GetAllRoles() => RoleDAO.Instance.GetAllRoles();
+         
+        public Role GetRoleById(Guid roleId) => RoleDAO.Instance.GetRolesByID(roleId);
+        
     }
 }

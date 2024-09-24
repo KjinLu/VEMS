@@ -2,7 +2,6 @@
 
 using BusinessObject;
 using CloudinaryDotNet;
-using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -29,12 +28,32 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
             return;
 
         // Authorization
-        var user = (CommonAccountType)context.HttpContext.Items["User"];
-
+        var user = context.HttpContext.Items["User"];
         if (user != null)
         {
+            Guid roleId;
+            Role userRole;
 
-            if (_accessRole.Any() && !_accessRole.Contains(user.RoleName))
+            if (user is Admin)
+            {
+                userRole = roleRepository.GetRoleById(((Admin)user).RoleId);
+            }
+            else if (user is Teacher)
+            {
+                userRole = roleRepository.GetRoleById(((Teacher)user).RoleId);
+            }
+            else if (user is Student)
+            {
+                userRole = roleRepository.GetRoleById(((Student)user).RoleId);
+            }
+            else
+            {
+                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                return;
+            }
+
+
+            if (_accessRole.Any() && !_accessRole.Contains(userRole.Code))
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }

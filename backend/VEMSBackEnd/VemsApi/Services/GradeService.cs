@@ -11,7 +11,7 @@ public interface IGradeService
 
     Task<object> GetGradeById(Guid id);
     Task<object> GetAllGrades(PaginationRequest request); // Retrieve all grades
-    //Task AddGrade(Grade grade); // Add a new grade
+    //Task AddGrade(GradeResponse grade); // Add a new grade
     //Task UpdateGrade(Grade grade); // Update an existing grade
     //Task DeleteGrade(Guid id); // Delete a grade by Id
 
@@ -68,4 +68,10 @@ public class GradeService : IGradeService
         };
         return gradeDto;
     }
+
+    //public async Task AddGrade(GradeResponse gradeDto)
+    //{
+    //    Grade grade = new Grade { Id = gradeDto.Id, GradeName=gradeDto.GradeName};
+    //    await _repository.AddGrade(grade);
+    //}
 }

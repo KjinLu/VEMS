@@ -1,5 +1,4 @@
 ﻿using BusinessObject;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,25 +27,22 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Role>> GetAllRoles()
-        {
+        public List<Role> GetAllRoles() {
             List<Role> roles = null;
             try
             {
                 var context = new VemsContext();
-                if (context != null)
-                {
-                    return await context.Roles.ToListAsync();
+                if (context != null) { 
+                    return context.Roles.ToList();
                 }
                 return null;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) { 
                 throw new Exception(ex.Message);
             }
         }
 
-        public async Task<Role> GetRolesByID(Guid RoleID)
+        public Role GetRolesByID(Guid RoleID)
         {
             Role roles = null;
             try
@@ -54,7 +50,7 @@ namespace DataAccess.DAO
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return await context.Roles.SingleOrDefaultAsync(r => r.Id == RoleID);
+                    return context.Roles.SingleOrDefault(r => r.Id == RoleID);
                 }
                 return null;
             }
@@ -63,22 +59,5 @@ namespace DataAccess.DAO
                 throw new Exception(ex.Message);
             }
         }
-        // public async Task<Role> GetRolesByID(Guid RoleID)
-        // {
-        //     Role roles = null;
-        //     try
-        //     {
-        //         var context = new VemsContext();
-        //         if (context != null)
-        //         {
-        //             return await context.Roles.SingleOrDefaultAsync(r => r.Id == RoleID);
-        //         }
-        //         return null;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         throw new Exception(ex.Message);
-        //     }
-        // }
     }
 }

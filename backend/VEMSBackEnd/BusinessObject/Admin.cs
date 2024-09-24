@@ -33,7 +33,7 @@ namespace BusinessObject
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(250)]
+        [MaxLength(80)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
         public string RefreshToken { get; set; }

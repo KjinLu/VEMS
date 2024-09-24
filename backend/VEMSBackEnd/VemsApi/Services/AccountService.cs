@@ -1,13 +1,13 @@
 using BusinessObject;
-using DataAccess.DTO;
 using DataAccess.Repository;
 
 public interface IAccountService
 {
-    Task<List<Admin>> GetAllAdminAccountAsync();
-    Task<List<Teacher>> GetAllTeacherAccountAsync();
-    Task<List<Student>> GetAllStudentAccountAsync();
-    Task<CommonAccountType> GetAccountByIdAsync(Guid accountID);
+    List<Admin> GetAllAdminAccount();
+    List<Teacher> GetAllTeacherAccount();
+    List<Student> GetAllStudentAccount();
+
+    object GetById(Guid id);
 
 }
 
@@ -19,25 +19,23 @@ public class AccountService : IAccountService
     {
         _accountRepository = new AccountRepository();
     }
-
-    public async Task<List<Admin>> GetAllAdminAccountAsync()
+    public List<Admin> GetAllAdminAccount()
     {
-        return await _accountRepository.GetAllAdminAsync();
+        return _accountRepository.GetAllAdmin();
     }
 
-
-    public async Task<List<Student>> GetAllStudentAccountAsync()
+    public List<Student> GetAllStudentAccount()
     {
-        return await _accountRepository.GetAllStudentAsync();
+        return _accountRepository.GetAllStudent();
+}
+
+    public List<Teacher> GetAllTeacherAccount()
+    {
+    return _accountRepository.GetAllTeacher();
     }
 
-    public async Task<List<Teacher>> GetAllTeacherAccountAsync()
+    public object GetById(Guid id)
     {
-        return await _accountRepository.GetAllTeacherAsync();
-    }
-
-    public async Task<CommonAccountType> GetAccountByIdAsync(Guid accountID)
-    {
-        return await _accountRepository.GetAccountByIDAsync(accountID);
+        return _accountRepository.GetAccountByID(id);
     }
 }
