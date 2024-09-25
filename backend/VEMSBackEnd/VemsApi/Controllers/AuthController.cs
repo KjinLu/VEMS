@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MoneyDreamAPI.Dto.AuthDto;
 using SchoolMate.Dto.ApiReponse;
 using SchoolMate.Dto.AuthenticationDto;
-using VemsApi.Dto.AuthenticationDto;
-using VemsApi.Services;
+using SchoolMate.Services;
 
 namespace VemsApi.Controllers
 {
@@ -14,11 +12,11 @@ namespace VemsApi.Controllers
     {
 
         private readonly IAccountService accountService;
-        private readonly IAuthService authService;
 
-        public AuthController(IAccountService _accountService, IAuthService _authService)
+        public AuthController(IAccountService _accountService)
         {
             accountService = _accountService;
+<<<<<<< HEAD
             authService = _authService;
         }
 
@@ -38,13 +36,16 @@ namespace VemsApi.Controllers
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(AuthenticationRequest request)
+=======
+        }
+
+        [HttpPost("/login")]
+        public IActionResult Login(AuthenticationRequest request)
+>>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
         {
             try
             {
-                var response = await authService.Login(request);
-                if (response != null)
-                    return APIResponse.Success(response);
-                return APIResponse.Error(null, "Tên đăng nhập hoặc mật khẩu không chính xác!");
+                return APIResponse.Success(null);
             }
             catch (Exception ex)
             {
@@ -52,6 +53,7 @@ namespace VemsApi.Controllers
             }
         }
 
+<<<<<<< HEAD
         [HttpGet]
         [Route("agent")]
         public IActionResult Test()
@@ -75,11 +77,14 @@ namespace VemsApi.Controllers
 
         [HttpPost("refresToken")]
         public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+=======
+        [HttpPost("/rerister")]
+        public IActionResult Register()
+>>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
         {
             try
             {
-                var response = await authService.RefreshToken(request);
-                return APIResponse.Success(response);
+                return APIResponse.Success(null);
             }
             catch (Exception ex)
             {
@@ -87,6 +92,7 @@ namespace VemsApi.Controllers
             }
         }
 
+<<<<<<< HEAD
 
         [HttpPost("sendeRecoverPasswordEmail")]
         public async Task<IActionResult> RecoverPassword(SendEmailRequest request)
@@ -124,6 +130,14 @@ namespace VemsApi.Controllers
             {
                 var response = await authService.ChangePassword(request);
                 return APIResponse.Success(response);
+=======
+        [HttpPost("/recoverPassword")]
+        public IActionResult RecoverPassword()
+        {
+            try
+            {
+                return APIResponse.Success(null);
+>>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
             }
             catch (Exception ex)
             {

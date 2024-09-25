@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20240921072754_addSeedingData2")]
+    partial class addSeedingData2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(80)
+                        .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
@@ -56,6 +59,26 @@ namespace BusinessObject.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b584540e-49d9-4d45-bef4-f779f8e6c973"),
+                            Email = "admin1@email.com",
+                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            RefreshToken = "",
+                            RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
+                            Username = "admin1"
+                        },
+                        new
+                        {
+                            Id = new Guid("5b909d16-c9e6-42bc-b46c-d766280d93b8"),
+                            Email = "admin2@email.com",
+                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            RefreshToken = "",
+                            RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
+                            Username = "admin2"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Attendance", b =>
@@ -276,6 +299,28 @@ namespace BusinessObject.Migrations
                     b.ToTable("Devices");
                 });
 
+            modelBuilder.Entity("BusinessObject.EmailToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTokens");
+                });
+
             modelBuilder.Entity("BusinessObject.Grade", b =>
                 {
                     b.Property<Guid>("Id")
@@ -320,9 +365,6 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
                     b.Property<string>("PeriodName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -340,7 +382,6 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                             Code = "MORNING",
-                            EndTime = new TimeSpan(0, 11, 30, 0, 0),
                             PeriodName = "Sáng",
                             StartTime = new TimeSpan(0, 7, 0, 0, 0)
                         },
@@ -348,7 +389,6 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                             Code = "AFTERNOON",
-                            EndTime = new TimeSpan(0, 17, 30, 0, 0),
                             PeriodName = "Chiều",
                             StartTime = new TimeSpan(0, 14, 0, 0, 0)
                         });
@@ -373,44 +413,6 @@ namespace BusinessObject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reasons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("23f45441-d948-4a53-8a96-bc8be963b9e2"),
-                            Description = "",
-                            ReasonName = "Do ốm đau"
-                        },
-                        new
-                        {
-                            Id = new Guid("17fea884-62f6-4686-b2ae-2a18ae4b2b82"),
-                            Description = "",
-                            ReasonName = "Đang nằm viện"
-                        },
-                        new
-                        {
-                            Id = new Guid("c4990d24-c573-4b40-ad01-c3f39042bad9"),
-                            Description = "",
-                            ReasonName = "Nhà có việc hữu sự"
-                        },
-                        new
-                        {
-                            Id = new Guid("169dcff1-cb19-4fd0-8ae3-f947360207cf"),
-                            Description = "",
-                            ReasonName = "Công tác, HSG"
-                        },
-                        new
-                        {
-                            Id = new Guid("71e82443-08e8-4500-90f6-71732fd96ded"),
-                            Description = "",
-                            ReasonName = "Khám NVQS"
-                        },
-                        new
-                        {
-                            Id = new Guid("e847e40e-e759-413a-adc3-b2a7fe72c128"),
-                            Description = "",
-                            ReasonName = "Khác"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Role", b =>
@@ -683,23 +685,20 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("CitizenID")
-                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("ClassroomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime");
+                    b.Property<DateOnly?>("Dob")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar");
 
@@ -709,22 +708,22 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("HomeTown")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
+                    b.Property<string>("Image")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar");
+
                     b.Property<string>("ParentPhone")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
@@ -735,14 +734,17 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(80)
+                        .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("StudentTypeId")
+                    b.Property<Guid?>("StudentTypeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly?>("UnionJoinDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -758,12 +760,11 @@ namespace BusinessObject.Migrations
                     b.HasIndex("StudentTypeId");
 
                     b.ToTable("Students");
-<<<<<<< HEAD
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a0fa53b0-b187-46d6-a527-afe6ecb90b16"),
+                            Id = new Guid("250df612-997c-4bbc-a523-48a87a69401b"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -782,7 +783,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d898d4e0-6b84-43d9-b60c-c0a0270763ab"),
+                            Id = new Guid("11085f95-f9ed-43e6-9d1b-41407ab837d8"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -801,7 +802,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c5112cd7-d8bf-4d70-b943-7af9f95a9372"),
+                            Id = new Guid("9977531c-7828-4198-ab34-46cd83be9c0f"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -820,7 +821,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f43a35fb-c045-4671-836f-632a840fea28"),
+                            Id = new Guid("51e5d81b-ca3c-49e2-8b16-39125c2059ce"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -839,7 +840,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a0161202-1286-4883-994e-c520b26fddd2"),
+                            Id = new Guid("fb699d9b-9c26-41fc-a6a6-9cdf021e3079"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -858,7 +859,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bb85a664-6640-4af7-aa4f-f950a0b2171c"),
+                            Id = new Guid("9a842bbc-24a4-406c-92ac-4d82c29a312b"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -877,7 +878,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8f8a6f6c-deb6-4df5-aa0f-37ac53322530"),
+                            Id = new Guid("e7bb5970-c705-4567-926b-569fd7be7707"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -896,7 +897,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("83541134-3afe-4a7f-a76e-298c1b5e2aeb"),
+                            Id = new Guid("359ed02e-4678-40c8-9da6-b593ac6baedc"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -915,7 +916,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("25ece093-29c2-41e9-b4f1-be617ea2674f"),
+                            Id = new Guid("2a845406-cb48-4760-9471-976ea1ec088a"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -934,7 +935,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("87dfddb3-2010-4b01-9f9d-afc0fef952e7"),
+                            Id = new Guid("33905b69-1b0f-496f-ba4d-fcbb558117a6"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -951,8 +952,6 @@ namespace BusinessObject.Migrations
                             StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
                             Username = "MCU110"
                         });
-=======
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
                 });
 
             modelBuilder.Entity("BusinessObject.StudentType", b =>
@@ -1146,12 +1145,15 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime");
+                    b.Property<string>("CitizenID")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateOnly?>("Dob")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -1163,8 +1165,11 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar");
 
+                    b.Property<string>("Image")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar");
+
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar");
 
@@ -1174,19 +1179,17 @@ namespace BusinessObject.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<string>("PublicTeacherID")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
-                        .HasMaxLength(80)
+                        .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TeacherTypeId")
+                    b.Property<Guid?>("TeacherTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -1201,7 +1204,6 @@ namespace BusinessObject.Migrations
                     b.HasIndex("TeacherTypeId");
 
                     b.ToTable("Teacher");
-<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -1274,8 +1276,6 @@ namespace BusinessObject.Migrations
                             TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
                             Username = "0976543210"
                         });
-=======
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
                 });
 
             modelBuilder.Entity("BusinessObject.TeacherType", b =>
@@ -1490,8 +1490,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.StudentType", "StudentType")
                         .WithMany("Students")
                         .HasForeignKey("StudentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Classroom");
 
@@ -1511,8 +1510,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.TeacherType", "TeacherType")
                         .WithMany("Teachers")
                         .HasForeignKey("TeacherTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Role");
 

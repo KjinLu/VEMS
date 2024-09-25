@@ -16,17 +16,17 @@ namespace BusinessObject
 
         public Guid SubjectID { get; set; }
 
-        public Guid TeacherID { get; set; }
+        public Guid? TeacherID { get; set; }
 
         public Guid SessionID { get; set; }
 
-        public Guid SlotID { get; set; }
+        public Guid SlotID{ get; set; }
 
         [ForeignKey("SlotID")]
         public Slot Slot { get; set; }
 
         [ForeignKey("TeacherID")]
-        public Teacher Teacher { get; set; }
+        public Teacher? Teacher { get; set; }
 
         [ForeignKey("SubjectID")]
         public Subject Subject { get; set; }

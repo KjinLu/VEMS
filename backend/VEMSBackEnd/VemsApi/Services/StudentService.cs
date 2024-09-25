@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using BusinessObject;
 using DataAccess.Repository;
 using SchoolMate.Dto.AuthenticationDto;
@@ -65,4 +66,14 @@ namespace VemsApi.Services
             return await _accountRepository.UpdateAvatar(request.AccountID, "");
         }
     }
+=======
+﻿namespace SchoolMate.Services;
+
+public interface IStudentService
+{
+
+}
+public class StudentService
+{
+>>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
 }

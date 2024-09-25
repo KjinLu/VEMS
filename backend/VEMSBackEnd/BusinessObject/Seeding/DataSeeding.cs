@@ -15,21 +15,57 @@ namespace BusinessObject.Seeding
                 new Role
                 {
                     Id = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
-                    RoleName = "Quản trị viên",
-                    Code = "ADMIN"
+                    RoleName="Quản trị viên",
+                    Code="ADMIN"
+                    
+                },
+                new Role
+                {
+                      Id = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
+                      RoleName = "Giáo viên",
+                      Code = "TEACHER"
+                }, 
+                new Role
+                {
+                      Id = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
+                      RoleName = "Học sinh",
+                      Code = "STUDENT"
+                }
+            );
+        }
 
-                },
-                new Role
+        public static void SeedingReason(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Reason>().HasData(
+               new Reason
+               {
+                   Id = new Guid("23f45441-d948-4a53-8a96-bc8be963b9e2"),
+                   ReasonName = "Do ốm đau"
+               },
+                new Reason
                 {
-                    Id = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                    RoleName = "Giáo viên",
-                    Code = "TEACHER"
+                    Id = new Guid("17fea884-62f6-4686-b2ae-2a18ae4b2b82"),
+                    ReasonName = "Đang nằm viện"
                 },
-                new Role
+                new Reason
                 {
-                    Id = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                    RoleName = "Học sinh",
-                    Code = "STUDENT"
+                    Id = new Guid("c4990d24-c573-4b40-ad01-c3f39042bad9"),
+                    ReasonName = "Nhà có việc hữu sự"
+                },
+                new Reason
+                {
+                    Id = new Guid("169dcff1-cb19-4fd0-8ae3-f947360207cf"),
+                    ReasonName = "Công tác, HSG"
+                },
+                new Reason
+                {
+                    Id = new Guid("71e82443-08e8-4500-90f6-71732fd96ded"),
+                    ReasonName = "Khám NVQS"
+                },
+                new Reason
+                {
+                    Id = new Guid("e847e40e-e759-413a-adc3-b2a7fe72c128"),
+                    ReasonName = "Khác"
                 }
             );
         }
@@ -42,7 +78,8 @@ namespace BusinessObject.Seeding
                     Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                     PeriodName = "Sáng",
                     Code = "MORNING",
-                    StartTime = new TimeSpan(7, 0, 0)  // 7:00 AM
+                    StartTime= new TimeSpan(7, 0, 0),  // 7:00 AM
+                    EndTime= new TimeSpan(11, 30, 0),  // 11:30 AM
 
 
                 },
@@ -51,8 +88,9 @@ namespace BusinessObject.Seeding
                     Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                     PeriodName = "Chiều",
                     Code = "AFTERNOON",
-                    StartTime = new TimeSpan(14, 0, 0)  // 1:00 PM
-                }
+                    StartTime = new TimeSpan(14, 0, 0),  // 1:00 PM
+                    EndTime = new TimeSpan(17, 30, 0),  // 5:30 PM
+                } 
             );
         }
 
@@ -64,7 +102,7 @@ namespace BusinessObject.Seeding
                     Id = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
                     TypeName = "Học sinh",
                     Code = "NORMAL_STUDENT"
-                },
+                } ,
                 new StudentType
                 {
                     Id = new Guid("cb440230-818a-4ad8-96de-3ae6c403b1ab"),
@@ -86,8 +124,8 @@ namespace BusinessObject.Seeding
                  new TeacherType
                  {
                      Id = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                     TypeName = "Giáo viên bộ môn",
-                     Code = "NORMAL_TEACHER"
+                     TypeName = "Giáo viên nhập liệu",
+                     Code = "DATA_ENTRY_TEACHER"
                  },
                  new TeacherType
                  {
@@ -101,6 +139,12 @@ namespace BusinessObject.Seeding
         public static void SeedingStatus(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Status>().HasData(
+                 new Status
+                 {
+                        Id = new Guid("b16d2725-e2d4-47a8-8709-0c0c1ca3945d"),
+                     StatusName = "Chưa điểm danh",
+                     Code = "NOT_MARKED"
+                 },
                  new Status
                  {
                      Id = new Guid("f60aaf45-9e88-4818-9ed0-3e8f83bfb66e"),
@@ -149,14 +193,14 @@ namespace BusinessObject.Seeding
                 {
                     Id = new Guid("f3bc74d1-04c8-47c9-b569-d9aaf268f195"),
                     ClassName = "10A1",
-                    GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
-
+                    GradeId= new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                   
                 },
                 new Classroom
                 {
                     Id = new Guid("d2a5a5a1-87c6-4714-bbfd-176571ebf89a"),
                     ClassName = "10A2",
-                    GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
+                     GradeId = new Guid("11f87b17-a80c-4420-b368-4680920bfe3d")
                 },
                 new Classroom
                 {
@@ -252,8 +296,8 @@ namespace BusinessObject.Seeding
                 new Subject
                 {
                     Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
-                    SubjectName = "Toán học",
-                    Code = "MATHEMATICS"
+                    SubjectName= "Toán học",
+                    Code= "MATHEMATICS"
                 },
                  new Subject
                  {
@@ -266,7 +310,7 @@ namespace BusinessObject.Seeding
                      Id = new Guid("631135bd-81eb-4b70-a779-418af291d138"),
                      SubjectName = "Vật lý",
                      Code = "PHYSICS"
-                 },
+                 }, 
                  new Subject
                  {
                      Id = new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"),
@@ -338,7 +382,37 @@ namespace BusinessObject.Seeding
                      Id = new Guid("a3d3b555-0cf4-4b41-8131-a4c205d9a6f3"),
                      SubjectName = "Giáo dục quốc phòng",
                      Code = "DEFENSE_EDUCATION"
-                 }
+                 },
+                new Subject
+                {
+                    Id = new Guid("b1d3b555-0cf4-4b41-8131-a4c205d9a6f4"),
+                    SubjectName = "SHDC",
+                    Code = "SHDC"
+                },
+                new Subject
+                {
+                    Id = new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"),
+                    SubjectName = "HĐTN-HN",
+                    Code = "HDTN_HN"
+                },
+                new Subject
+                {
+                    Id = new Guid("d3d3b555-0cf4-4b41-8131-a4c205d9a6f6"),
+                    SubjectName = "GDKT-PL",
+                    Code = "GDKT_PL"
+                },
+                new Subject
+                {
+                    Id = new Guid("e4d3b555-0cf4-4b41-8131-a4c205d9a6f7"),
+                    SubjectName = "SHCN",
+                    Code = "SHCN"
+                },
+                new Subject
+                {
+                    Id = new Guid("f5d3b555-0cf4-4b41-8131-a4c205d9a6f8"),
+                    SubjectName = "Toán Pháp",
+                    Code = "MATH_FRENCH"
+                }
             );
         }
         public static void SeedingSlot(this ModelBuilder modelBuilder)
@@ -347,65 +421,66 @@ namespace BusinessObject.Seeding
                 new Slot
                 {
                     Id = new Guid("db1085ce-9ba3-4894-a8a0-d417bc6b0774"),
-                    StartTime = new TimeSpan(7, 0, 0),
-                    EndTime = new TimeSpan(7, 45, 0),
+                    StartTime = new TimeSpan(7, 0, 0), 
+                    EndTime = new TimeSpan(7, 45, 0),    
                     SlotIndex = 1
                 },
                 new Slot
                 {
                     Id = new Guid("0811126b-4fb3-4e29-b0f6-94b00bf0b98b"),
-                    StartTime = new TimeSpan(8, 0, 0),
-                    EndTime = new TimeSpan(8, 45, 0),
+                    StartTime = new TimeSpan(8, 0, 0),   
+                    EndTime = new TimeSpan(8, 45, 0),     
                     SlotIndex = 2
                 },
                 new Slot
                 {
                     Id = new Guid("b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80"),
-                    StartTime = new TimeSpan(9, 05, 0),
-                    EndTime = new TimeSpan(9, 50, 0),
+                    StartTime = new TimeSpan(9, 05, 0),   
+                    EndTime = new TimeSpan(9, 50, 0),     
                     SlotIndex = 3
                 },
                 new Slot
                 {
                     Id = new Guid("e8b4217f-5a6c-4428-9901-99e62ce1f562"),
-                    StartTime = new TimeSpan(9, 55, 0),
-                    EndTime = new TimeSpan(10, 40, 0),
+                    StartTime = new TimeSpan(9, 55, 0),  
+                    EndTime = new TimeSpan(10, 40, 0),   
                     SlotIndex = 4
                 },
                 new Slot
                 {
                     Id = new Guid("4ebda95f-f406-43d2-a88b-be2b1ddbe1b5"),
-                    StartTime = new TimeSpan(10, 45, 0),
-                    EndTime = new TimeSpan(11, 30, 0),
+                    StartTime = new TimeSpan(10, 45, 0),  
+                    EndTime = new TimeSpan(11, 30, 0),    
                     SlotIndex = 5
                 },
                 new Slot
                 {
                     Id = new Guid("c5b67725-545f-4edd-8198-05bedcb5b00f"),
-                    StartTime = new TimeSpan(14, 0, 0),
-                    EndTime = new TimeSpan(14, 45, 0),
+                    StartTime = new TimeSpan(14, 0, 0),   
+                    EndTime = new TimeSpan(14, 45, 0),   
                     SlotIndex = 6
                 },
                 new Slot
                 {
                     Id = new Guid("9495ef71-051d-4e1b-9de3-31fa6d238252"),
                     StartTime = new TimeSpan(14, 55, 0),
-                    EndTime = new TimeSpan(13, 40, 0),
+                    EndTime = new TimeSpan(13, 40, 0),  
                     SlotIndex = 7
                 },
                 new Slot
                 {
                     Id = new Guid("79e57c6a-fae8-42b4-a460-b48447e3e076"),
-                    StartTime = new TimeSpan(15, 50, 0),
-                    EndTime = new TimeSpan(16, 35, 0),
+                    StartTime = new TimeSpan(15, 50, 0), 
+                    EndTime = new TimeSpan(16, 35, 0),   
                     SlotIndex = 8
                 },
                 new Slot
                 {
                     Id = new Guid("e1e53de7-7170-46b4-8230-2790c42a7cac"),
-                    StartTime = new TimeSpan(16, 45, 0), // 3:45 PM
-                    EndTime = new TimeSpan(17, 30, 0),   // 4:30 PM
+                    StartTime = new TimeSpan(16, 45, 0), 
+                    EndTime = new TimeSpan(17, 30, 0),  
                     SlotIndex = 9
+<<<<<<< HEAD
                 }
             );
         }
@@ -419,7 +494,6 @@ namespace BusinessObject.Seeding
                     Username = "admin1",
                     Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
                     Email = "admin1@email.com",
-                    RefreshToken = "",
                     RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670")
                 },
                 new Admin
@@ -428,7 +502,6 @@ namespace BusinessObject.Seeding
                     Username = "admin2",
                     Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
                     Email = "admin2@email.com",
-                    RefreshToken = "",
                     RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670")
                 }
             );
@@ -440,83 +513,203 @@ namespace BusinessObject.Seeding
                 new Teacher
                 {
                     Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
-                    PublicTeacherID = "1",
-                    CitizenID = "1",
-                    Username = "teacher1",
+                    Username = "0912345678",
+                    Phone = "0912345678",
                     Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                    FullName = "Tea 1",
-                    Email = "teacher1@email.com",
-                    Dob = new DateOnly(1996, 01, 01),
-                    Address = "",
-                    Phone = "",
-                    RefreshToken = "",
-                    Image = "",
+                    FullName = "Nguyễn Văn A",
+                    Email = "nguyenvana@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
                     RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
                 },
                 new Teacher
                 {
                     Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
-                    PublicTeacherID = "1",
-                    CitizenID = "1",
-                    Username = "teacher2",
+                    Username = "0987654321",
+                    Phone = "0987654321",
                     Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                    FullName = "Tea 1",
-                    Email = "teacher2@email.com",
-                    Dob = new DateOnly(1996, 01, 01),
-                    Address = "",
-                    Phone = "",
-                    RefreshToken = "",
-                    Image = "",
+                    FullName = "Trần Thị B",
+                    Email = "tranthib@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                },
+                new Teacher
+                {
+                    Id = new Guid("a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
+                    Username = "0901234567",
+                    Phone = "0901234567",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Lê Minh C",
+                    Email = "leminhc@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                },
+                new Teacher
+                {
+                    Id = new Guid("b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"),
+                    Username = "0934567890",
+                    Phone = "0934567890",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Phạm Thị D",
+                    Email = "phamthid@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg",
+                    TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                },
+                new Teacher
+                {
+                    Id = new Guid("c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"),
+                    Username = "0976543210",
+                    Phone = "0976543210",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Hoàng Văn E",
+                    Email = "hoangvane@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
                     RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
                 }
             );
+
         }
 
         public static void SeedingStudent(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>().HasData(
+                  new Student
+                  {
+                      Id = Guid.NewGuid(),
+                      PublicStudentID = "MCU101",
+                      Username = "MCU101",
+                      Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                      FullName = "Nguyễn Văn A",
+                      Email = "nguyen.a@example.com",
+                      Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/7_plw6ns.jpg",
+                      StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                      ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                      RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                  },
                 new Student
                 {
-                    Id = new Guid("0108d3be-3bce-45d7-8562-346547af9911"),
-                    PublicStudentID = "1",
-                    CitizenID = "1",
-                    Username = "student1",
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU102",
+                    Username = "MCU102",
                     Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                    FullName = "Stu 1",
-                    Email = "student1@email.com",
-                    Dob = new DateOnly(2009,01,01),
-                    Address = "",
-                    Phone = "",
-                    ParentPhone = "",
-                    HomeTown = "",
-                    RefreshToken = "",
-                    Image = "",
+                    FullName = "Trần Thị B",
+                    Email = "tran.b@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/6_ydar9m.jpg",
                     StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
                     ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
                     RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
                 },
                 new Student
                 {
-                    Id = new Guid("ac4048f7-4fbd-46d4-beba-acdb2953c518"),
-                    PublicStudentID = "1",
-                    CitizenID = "1",
-                    Username = "student2",
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU103",
+                    Username = "MCU103",
                     Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                    Email = "student2@email.com",
-                    FullName = "",
-                    Dob = new DateOnly(2009, 01, 01),
-                    Address = "",
-                    Phone = "",
-                    ParentPhone = "",
-                    HomeTown = "",
-                    RefreshToken = "",
-                    Image = "",
+                    FullName = "Lê Văn C",
+                    Email = "le.c@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813026004_885e224ee4b8dbfbb128e583c278a615_dicbrf.jpg",
                     StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
                     ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
-                    RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed")
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU104",
+                    Username = "MCU104",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Phạm Thị D",
+                    Email = "pham.d@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/5_ek2pks.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU105",
+                    Username = "MCU105",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Hoàng Văn E",
+                    Email = "hoang.e@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813011522_e3396b099fec5e01dc56a2331b757d8e_nsrnzc.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU106",
+                    Username = "MCU106",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Vũ Thị F",
+                    Email = "vu.f@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/2_hlwinq.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU107",
+                    Username = "MCU107",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Đỗ Văn G",
+                    Email = "do.g@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/z5852813019059_6493ca13ee06ac935e9889fe51bd2886_ooz29c.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU108",
+                    Username = "MCU108",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Bùi Thị H",
+                    Email = "bui.h@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/13_gqcowy.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU109",
+                    Username = "MCU109",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Ngô Văn I",
+                    Email = "ngo.i@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/4_yr3kyt.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
+                },
+                new Student
+                {
+                    Id = Guid.NewGuid(),
+                    PublicStudentID = "MCU110",
+                    Username = "MCU110",
+                    Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                    FullName = "Đặng Thị K",
+                    Email = "dang.k@example.com",
+                    Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/12_wsmqha.jpg",
+                    StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3"),
+                    RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED")
                 }
+=======
+                } 
+>>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
             );
         }
 

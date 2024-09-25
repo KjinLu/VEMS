@@ -21,64 +21,59 @@ namespace BusinessObject
         [Column(TypeName = "varchar")]
         public string PublicStudentID { get; set; }
 
+        [MaxLength(15)]
+        [Column(TypeName = "varchar")]
+        public string CitizenID { get; set; }
+
+        [MaxLength(50)]
+        [Column(TypeName = "nvarchar")]
+        public string Username { get; set; }
+
+        [Required]
+        [MaxLength(150)]
+        [Column(TypeName = "varchar")]
+        [JsonIgnore]
+        public string Password { get; set; }
+
         [MaxLength(50)]
         [Column(TypeName = "nvarchar")]
         public string FullName { get; set; }
 
-        [MaxLength(15)]
-        [Column(TypeName = "varchar")]
-        public string? CitizenID { get; set; } = string.Empty;
-
-        [MaxLength(50)]
-        [Column(TypeName = "nvarchar")]
-        public string Username { get; set; } 
-
-        [MaxLength(150)]
-        [Column(TypeName = "varchar")]
-        [JsonIgnore]
-        public string? Password { get; set; } = "1";
-
+        [Required]
         [EmailAddress]
         [MaxLength(256)]
         [Column(TypeName = "nvarchar")]
-        public string? Email { get; set; } = string.Empty;
+        public string Email { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateOnly? Dob { get; set; }
-
-        [MaxLength(200)]
-        [Column(TypeName = "nvarchar")]
-        public string? Address { get; set; } = string.Empty;
-
-        [MaxLength(150)]
-        [Column(TypeName = "nvarchar")]
-        public string? Image { get; set; } = string.Empty;
-
-        [MaxLength(10)]
-        [Column(TypeName = "varchar")]
-        public string? Phone { get; set; } = string.Empty;
-
-        [MaxLength(10)]
-        [Column(TypeName = "varchar")]
-        public string? ParentPhone { get; set; } = string.Empty;
+        [Column(TypeName = "datetime")]
+        public DateTime Dob { get; set; }
 
         [MaxLength(200)]
         [Column(TypeName = "nvarchar")]
-        public string? HomeTown { get; set; } = string.Empty;
+        public string Address { get; set; }
+
+        [MaxLength(10)]
+        [Column(TypeName = "varchar")]
+        public string Phone { get; set; }
+
+        [MaxLength(10)]
+        [Column(TypeName = "varchar")]
+        public string ParentPhone { get; set; }
+
+        [MaxLength(200)]
+        [Column(TypeName = "nvarchar")]
+        public string HomeTown { get; set; }
 
         [Required]
-        [MaxLength(250)]
+        [MaxLength(80)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
-        public string? RefreshToken { get; set; } = string.Empty;
+        public string RefreshToken { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateOnly? UnionJoinDate { get; set; }
-
-        public Guid? StudentTypeId { get; set; }
+        public Guid StudentTypeId { get; set; }
 
         [ForeignKey("StudentTypeId")]
-        public StudentType? StudentType { get; set; } 
+        public StudentType StudentType { get; set; }
 
         public Guid ClassroomId { get; set; }
 

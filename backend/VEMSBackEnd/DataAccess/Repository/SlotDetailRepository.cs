@@ -10,8 +10,7 @@ namespace DataAccess.Repository
 {
     public interface ISlotDetailRepository
     {
-        Task<SlotDetail?> GetSlotDetailByIdAsync(Guid id);
-        Task<IEnumerable<SlotDetail>> GetAllSlotDetailAsync();
+        Task<SlotDetail> GetSlotDetailByIdAsync(Guid id);
         Task CreateSlotDetailAsync(SlotDetail slotDetail);
         Task UpdateSlotDetailAsync(SlotDetail slotDetail);
         Task DeleteSlotDetailAsync(Guid id);
@@ -19,7 +18,7 @@ namespace DataAccess.Repository
 
     public class SlotDetailRepository : ISlotDetailRepository
     {
-        public async Task<SlotDetail?> GetSlotDetailByIdAsync(Guid id)
+        public async Task<SlotDetail> GetSlotDetailByIdAsync(Guid id)
         {
             return await SlotDetailDAO.Instance.GetSlotDetailByIdAsync(id).ConfigureAwait(false);
         }
@@ -37,11 +36,6 @@ namespace DataAccess.Repository
         public async Task DeleteSlotDetailAsync(Guid id)
         {
             await SlotDetailDAO.Instance.DeleteSlotDetailAsync(id).ConfigureAwait(false);
-        }
-
-        public async Task<IEnumerable<SlotDetail>> GetAllSlotDetailAsync()
-        {
-           return await SlotDetailDAO.Instance.GetAllSlotDetailAsync().ConfigureAwait(false);
         }
     }
 }

@@ -14,18 +14,5 @@ namespace SchoolMate.Authorizotion
             _next = next;
             _appSettings = appSettings.Value;
         }
-
-        public async Task Invoke(HttpContext context, IAccountService accountService, IJwtUtils jwtUtils)
-        {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId =await jwtUtils.ValidateJwtToken(token);
-            if (userId != null)
-            {
-                // attach user to context on successful jwt validation
-                context.Items["User"] =await accountService.GetAccountByIdAsync((Guid)userId);
-            }
-
-            await _next(context);
-        }
     }
 }
