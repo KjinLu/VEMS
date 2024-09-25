@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObject;
 using DataAccess.DAO;
+using DataAccess.DTO;
 
 namespace DataAccess.Repository
 {
 
     public interface IAccountRepository
     {
-<<<<<<< HEAD
         public Task<Admin> GetAdminByIdAsync(Guid accountID);
         public Task<Admin> GetAdminByUsernameAsync(string username);
         public Task<Admin> GetAdminByEmailAsync(string email);
@@ -37,57 +37,40 @@ namespace DataAccess.Repository
         public Task<bool> UpdateTeacherProfile(Teacher request);
         public Task<bool> UpdateAvatar(Guid accountID, string imageLink);
 
-=======
-        public List<Admin> GetAllAdmin();
-        public Admin GetAdminById(Guid accountID);
-        public Admin GetAdminByUsername(string username);
-        public Admin GetAdminByEmail(string email);
-        public List<Student> GetAllStudent();
-        public Student GetStudentById(Guid accountID);
-        public Student GetStudentByUsername(string username);
-        public Student GetStudentByEmail(string email);
-        public List<Teacher> GetAllTeacher();
-        public Teacher GetTeacherById(Guid accountID);
-        public Teacher GetTeacherByUsername(string username);
-        public Teacher GetTeacherByEmail(string email);
-        public object GetAccountByUserName(string username);
-        public object GetAccountByEmail(string username);
-        public object GetAccountByID(Guid accountID);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
     }
 
     public class AccountRepository : IAccountRepository
     {
+        public async Task<List<Admin>> GetAllAdminAsync() => await AccountDAO.Instance.GetAllAdminAsync();
 
-        public List<Admin> GetAllAdmin() => AccountDAO.Instance.GetAllAdmin();
+        public async Task<List<Student>> GetAllStudentAsync() => await AccountDAO.Instance.GetAllStudentAsync();
 
-        public List<Student> GetAllStudent() => AccountDAO.Instance.GetAllStudent();
+        public async Task<List<Teacher>> GetAllTeacherAsync() => await AccountDAO.Instance.GetAllTeacherAsync();
 
-        public List<Teacher> GetAllTeacher() => AccountDAO.Instance.GetAllTeacher();
+        public async Task<CommonAccountType> GetAccountByIDAsync(Guid accountID) => await AccountDAO.Instance.GetAccountByIDAsync(accountID);
 
-        public object GetAccountByID(Guid accountID) => AccountDAO.Instance.GetAccountByID(accountID);
+        public async Task<CommonAccountType> GetAccountByUsernameAsync(string username) => await AccountDAO.Instance.GetAccountByUsernameAsync(username);
 
-        public object GetAccountByUserName(string username) => AccountDAO.Instance.GetAccountByUserName(username);
+        public async Task<CommonAccountType> GetAccountByEmailAsync(string email) => await AccountDAO.Instance.GetAccountByEmailAsync(email);
 
-        public object GetAccountByEmail(string email) => AccountDAO.Instance.GetAccountByEmail(email);
+        public async Task<Admin> GetAdminByEmailAsync(string email) => await AccountDAO.Instance.GetAdminByEmailAsync(email);
 
-        public Admin GetAdminByEmail(string email) => AccountDAO.Instance.GetAdminByEmail(email);
+        public async Task<Admin> GetAdminByIdAsync(Guid accountID) => await AccountDAO.Instance.GetAdminByIdAsync(accountID);
 
-        public Admin GetAdminById(Guid accountID) => AccountDAO.Instance.GetAdminById(accountID);
+        public async Task<Admin> GetAdminByUsernameAsync(string username) => await AccountDAO.Instance.GetAdminByUsernameAsync(username);
 
-        public Admin GetAdminByUsername(string username) => AccountDAO.Instance.GetAdminByUsername(username);
+        public async Task<Student> GetStudentByEmailAsync(string email) => await AccountDAO.Instance.GetStudentByEmailAsync(email);
 
-        public Student GetStudentByEmail(string email) => AccountDAO.Instance.GetStudentByEmail(email);
+        public async Task<Student> GetStudentByIdAsync(Guid accountID) => await AccountDAO.Instance.GetStudentByIdAsync(accountID);
 
-        public Student GetStudentById(Guid accountID) => AccountDAO.Instance.GetStudentById(accountID);
+        public async Task<Student> GetStudentByUsernameAsync(string username) => await AccountDAO.Instance.GetStudentByUsernameAsync(username);
 
-        public Student GetStudentByUsername(string username) => AccountDAO.Instance.GetStudentByUsername(username);
+        public async Task<Teacher> GetTeacherByEmailAsync(string email) => await AccountDAO.Instance.GetTeacherByEmailAsync(email);
 
-        public Teacher GetTeacherByEmail(string email) => AccountDAO.Instance.GetTeacherByEmail(email);
+        public async Task<Teacher> GetTeacherByIdAsync(Guid accountID) => await AccountDAO.Instance.GetTeacherByIdAsync(accountID);
 
-        public Teacher GetTeacherById(Guid accountID) => AccountDAO.Instance.GetTeacherById(accountID);
+        public async Task<Teacher> GetTeacherByUsernameAsync(string username) => await AccountDAO.Instance.GetTeacherByUsernameAsync(username);
 
-<<<<<<< HEAD
         public async Task<bool> UpdateRefreshTokenAsync(Guid accountID, string token) => await AccountDAO.Instance.UpdateRefreshTokenAsync(accountID, token);
         public async Task<bool> UpdatePassword(Guid accountID, string token) => await AccountDAO.Instance.ChangePassword(accountID, token);
 
@@ -104,8 +87,5 @@ namespace DataAccess.Repository
 
         public async Task<bool> UpdateAvatar(Guid accountID, string imageLink) => await AccountDAO.Instance.UpdateAvatarAsync(accountID, imageLink);
          
-=======
-        public Teacher GetTeacherByUsername(string username) => AccountDAO.Instance.GetTeacherByUsername(username);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
     }
 }

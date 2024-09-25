@@ -1,4 +1,5 @@
 using BusinessObject;
+using DataAccess.DTO;
 using DataAccess.Repository;
 using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.AccountDto;
@@ -7,7 +8,6 @@ using VemsApi.Dto.PaginationDto;
 
 public interface IAccountService
 {
-<<<<<<< HEAD
     Task<object> GetAllAdminAccountAsync(PaginationRequest request);
     Task<object> GetAllTeacherAccountAsync(PaginationRequest request);
     Task<object> GetAllStudentAccountAsync(PaginationRequest request);
@@ -20,13 +20,6 @@ public interface IAccountService
     Task<bool> AdminUpdateStudentAccount(AdminUpdateStudent request);
     Task<bool> AdminUpdateTeacherAccount(AdminUpdateTeacher request);
 
-=======
-    List<Admin> GetAllAdminAccount();
-    List<Teacher> GetAllTeacherAccount();
-    List<Student> GetAllStudentAccount();
-
-    object GetById(Guid id);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
 
 }
 
@@ -38,7 +31,6 @@ public class AccountService : IAccountService
     {
         _accountRepository = new AccountRepository();
     }
-<<<<<<< HEAD
 
     public async Task<object> GetAllAdminAccountAsync(PaginationRequest request)
     {
@@ -112,26 +104,6 @@ public class AccountService : IAccountService
     public async Task<CommonAccountType> GetAccountByIdAsync(Guid accountID)
     {
         return await _accountRepository.GetAccountByIDAsync(accountID);
-=======
-    public List<Admin> GetAllAdminAccount()
-    {
-        return _accountRepository.GetAllAdmin();
-    }
-
-    public List<Student> GetAllStudentAccount()
-    {
-        return _accountRepository.GetAllStudent();
-}
-
-    public List<Teacher> GetAllTeacherAccount()
-    {
-    return _accountRepository.GetAllTeacher();
-    }
-
-    public object GetById(Guid id)
-    {
-        return _accountRepository.GetAccountByID(id);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
     }
 
     public Task<bool> ChangePassword(ChangePasswordRequest request)

@@ -8,45 +8,40 @@ namespace DataAccess.Repository
 {
     public interface ISlotRepository
     {
-        Task<List<Slot>> GetAllSlotAsync();
-        Task<List<int>> GetListSlotIndexAsync();
-<<<<<<< HEAD
+        Task<IEnumerable<Slot>> GetAllSlotAsync();
+        Task<IEnumerable<int>> GetListSlotIndexAsync();
         Task<Slot?> GetSlotByIdAsync(Guid id);
         Task<Slot?> GetSlotBySlotIndexAsync(int slotIndex);
-=======
-        Task<Slot> GetSlotByIdAsync(Guid id);
-        Task<Slot> GetSlotBySlotIndexAsync(int slotIndex);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
         Task<TimeSpan?> GetStartTimeByIdAsync(Guid id);
         Task<TimeSpan?> GetEndTimeByIdAsync(Guid id);
-        Task<Slot> CreateSlotAsync(Slot slot);
-        Task<bool> UpdateSlotTimeAsync(Slot updatedSlot);
-        Task<bool> DeleteSlotAsync(Guid id);
+        Task CreateSlotAsync(Slot slot);
+        Task UpdateSlotTimeAsync(Slot updatedSlot);
+        Task DeleteSlotAsync(Guid id);
     }
 
     public class SlotRepository : ISlotRepository
     {
-        public async Task<Slot> CreateSlotAsync(Slot slot)
+        public async Task CreateSlotAsync(Slot slot)
         {
-           return await SlotDAO.Instance.CreateSlotAsync(slot).ConfigureAwait(false);
+            await SlotDAO.Instance.CreateSlotAsync(slot).ConfigureAwait(false);
         }
 
-        public async Task<List<Slot>> GetAllSlotAsync()
+        public async Task<IEnumerable<Slot>> GetAllSlotAsync()
         {
-            return await SlotDAO.Instance.GetAllSlotAsync();
+            return await SlotDAO.Instance.GetAllSlotAsync().ConfigureAwait(false);
         }
 
-        public async Task<List<int>> GetListSlotIndexAsync()
+        public async Task<IEnumerable<int>> GetListSlotIndexAsync()
         {
-            return await SlotDAO.Instance.GetListSlotIndexAsync();
+            return await SlotDAO.Instance.GetListSlotIndexAsync().ConfigureAwait(false);
         }
 
-        public async Task<Slot> GetSlotByIdAsync(Guid id)
+        public async Task<Slot?> GetSlotByIdAsync(Guid id)
         {
             return await SlotDAO.Instance.GetSlotByIdAsync(id).ConfigureAwait(false);
         }
 
-        public async Task<Slot> GetSlotBySlotIndexAsync(int slotIndex)
+        public async Task<Slot?> GetSlotBySlotIndexAsync(int slotIndex)
         {
             return await SlotDAO.Instance.GetSlotBySlotIndexAsync(slotIndex).ConfigureAwait(false);
         }
@@ -61,14 +56,14 @@ namespace DataAccess.Repository
             return await SlotDAO.Instance.GetEndTimeByIdAsync(id).ConfigureAwait(false);
         }
 
-        public async Task<bool> UpdateSlotTimeAsync(Slot updatedSlot)
+        public async Task UpdateSlotTimeAsync(Slot updatedSlot)
         {
-           return await SlotDAO.Instance.UpdateSlotTimeAsync(updatedSlot).ConfigureAwait(false);
+            await SlotDAO.Instance.UpdateSlotTimeAsync(updatedSlot).ConfigureAwait(false);
         }
 
-        public async Task<bool> DeleteSlotAsync(Guid id)
+        public async Task DeleteSlotAsync(Guid id)
         {
-          return  await SlotDAO.Instance.DeleteSlotAsync(id).ConfigureAwait(false);
+            await SlotDAO.Instance.DeleteSlotAsync(id).ConfigureAwait(false);
         }
     }
 }

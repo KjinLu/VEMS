@@ -13,9 +13,9 @@ public interface IClassroomService
 
     Task<object> GetClassroomById(Guid id);
     Task<object> GetAllClassrooms(PaginationRequest request); // Retrieve all classrooms
-    Task AddClassroom(ClassroomResponse classroom); // Add a new classroom
-    Task UpdateClassroom(ClassroomResponse classroom); // Update an existing classroom
-    Task DeleteClassroom(Guid id); // Delete a classroom by Id
+    //Task AddClassroom(Classroom classroom); // Add a new classroom
+    //Task UpdateClassroom(Classroom classroom); // Update an existing classroom
+    //Task DeleteClassroom(Guid id); // Delete a classroom by Id
 
 }
 
@@ -69,22 +69,5 @@ public class ClassroomService : IClassroomService
             GradeId = classroom.GradeId
         };
         return classroomDto;
-    }
-
-    public async Task AddClassroom (ClassroomResponse classroomRequest)
-    {
-        Classroom classroom = new Classroom { ClassName = classroomRequest.ClassName, Id = classroomRequest.Id,GradeId = classroomRequest.GradeId };
-        await _repository.AddClassroom(classroom);
-    }
-
-    public async Task UpdateClassroom(ClassroomResponse classroomRequest)
-    {
-        Classroom classroom = new Classroom { ClassName = classroomRequest.ClassName, Id = classroomRequest.Id, GradeId = classroomRequest.GradeId };
-        await _repository.UpdateClassroom(classroom);
-    }
-
-    public async Task DeleteClassroom(Guid id)
-    {
-        await _repository.DeleteClassroom(id);
     }
 }

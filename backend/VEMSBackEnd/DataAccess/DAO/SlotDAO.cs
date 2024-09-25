@@ -10,7 +10,7 @@ namespace DataAccess.DAO
     public class SlotDAO
     {
         private static readonly object InstanceLock = new object();
-        private static SlotDAO instance = null;
+        private static SlotDAO? instance = null;
 
         public static SlotDAO Instance
         {
@@ -27,22 +27,22 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Slot>> GetAllSlotAsync()
+        public async Task<IEnumerable<Slot>> GetAllSlotAsync()
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Slots.AsNoTracking().OrderBy(slot => slot.SlotIndex).ToListAsync().ConfigureAwait(false);
+                    return await context.Slots.AsNoTracking().ToListAsync().ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi tải dữ liệu tiết học!");
+                throw new Exception($"Error fetching all slots: {ex.Message}", ex);
             }
         }
 
-        public async Task<List<int>> GetListSlotIndexAsync()
+        public async Task<IEnumerable<int>> GetListSlotIndexAsync()
         {
             try
             {
@@ -53,26 +53,26 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi tải dữ liệu tiết học!");
+                throw new Exception($"Error fetching slot indices: {ex.Message}", ex);
             }
         }
 
-        public async Task<Slot> GetSlotByIdAsync(Guid id)
+        public async Task<Slot?> GetSlotByIdAsync(Guid id)
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Slots.AsNoTracking().FirstOrDefaultAsync(slot => slot.Id == id).ConfigureAwait(false);
+                    return await context.Slots.FindAsync(id).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi tải dữ liệu tiết học!");
+                throw new Exception($"Error fetching slot by Id: {ex.Message}", ex);
             }
         }
 
-        public async Task<Slot> GetSlotBySlotIndexAsync(int slotIndex)
+        public async Task<Slot?> GetSlotBySlotIndexAsync(int slotIndex)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi tải dữ liệu tiết học!");
+                throw new Exception($"Error fetching slot by SlotIndex: {ex.Message}", ex);
             }
         }
 
@@ -101,7 +101,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi tải dữ liệu tiết học!");
+                throw new Exception($"Error fetching StartTime: {ex.Message}", ex);
             }
         }
 
@@ -119,163 +119,113 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi tải dữ liệu tiết học!");
+                throw new Exception($"Error fetching EndTime: {ex.Message}", ex);
             }
         }
 
-        public async Task<Slot> CreateSlotAsync(Slot slot)
+        public async Task CreateSlotAsync(Slot slot)
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    using (var transaction = await context.Database.BeginTransactionAsync())
+                    var existingSlot = await context.Slots
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.SlotIndex == slot.SlotIndex ||
+                                                  (s.StartTime == slot.StartTime && s.EndTime == slot.EndTime))
+                        .ConfigureAwait(false);
+
+                    if (existingSlot != null)
                     {
-<<<<<<< HEAD
                         if (existingSlot.SlotIndex == slot.SlotIndex)
                         {
-                            throw new InvalidOperationException($"Tiết học thứ {existingSlot.SlotIndex} đã tồn tại!");
+                            throw new InvalidOperationException("A slot with the same SlotIndex already exists.");
                         }
-=======
-                        bool slotIndexExists = await context.Slots.AsNoTracking().AnyAsync(s => s.SlotIndex == slot.SlotIndex).ConfigureAwait(false);
-                        bool startTimeExists = await context.Slots.AsNoTracking().AnyAsync(s => s.StartTime == slot.StartTime).ConfigureAwait(false);
-                        bool endTimeExists = await context.Slots.AsNoTracking().AnyAsync(s => s.EndTime == slot.EndTime).ConfigureAwait(false);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
 
-                        if (slotIndexExists)
+                        if (existingSlot.StartTime == slot.StartTime && existingSlot.EndTime == slot.EndTime)
                         {
-<<<<<<< HEAD
-                            throw new InvalidOperationException($"Tiết học bắt đầu lúc {existingSlot.StartTime} kết thúc lúc {existingSlot.EndTime} đã tồn tại!");
-=======
-                            throw new Exception("A slot with the same SlotIndex already exists.");
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
+                            throw new InvalidOperationException("A slot with the same StartTime & EndTime already exists.");
                         }
-                        if (startTimeExists)
-                        {
-                            throw new Exception("A slot with the same StartTime already exists.");
-                        }
-                        if (endTimeExists)
-                        {
-                            throw new Exception("A slot with the same EndTime already exists.");
-                        }
-                        context.Slots.Add(slot);
-                        await context.SaveChangesAsync().ConfigureAwait(false);
-                        await transaction.CommitAsync().ConfigureAwait(false);
                     }
-<<<<<<< HEAD
 
-                    var created = context.Slots.Add(slot).Entity;
+                    context.Slots.Add(slot);
                     await context.SaveChangesAsync().ConfigureAwait(false);
-                    return created;
-=======
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
                 }
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi tạo tiết học, thử lại sau!");
+                throw new Exception("A concurrency error occurred while creating the slot. Please try again.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"Error creating Slot: {ex.Message}", ex);
             }
         }
 
-<<<<<<< HEAD
 
-        public async Task<bool> UpdateSlotTimeAsync(Slot updatedSlot)
-=======
         public async Task UpdateSlotTimeAsync(Slot updatedSlot)
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-<<<<<<< HEAD
-                    var existingSlot = await context.Slots.SingleOrDefaultAsync(s => s.Id == updatedSlot.Id).ConfigureAwait(false);
+                    var existingSlot = await context.Slots.FindAsync(updatedSlot.Id).ConfigureAwait(false);
 
                     if (existingSlot != null)
-=======
-                    using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
                     {
-                        var existingSlot = await context.Slots.AsNoTracking().FirstOrDefaultAsync(s => s.Id == updatedSlot.Id).ConfigureAwait(false);
-
-                        if (existingSlot != null)
+                        if (existingSlot.StartTime != updatedSlot.StartTime ||
+                        existingSlot.EndTime != updatedSlot.EndTime ||
+                        existingSlot.SlotIndex != updatedSlot.SlotIndex)
                         {
                             existingSlot.StartTime = updatedSlot.StartTime;
                             existingSlot.EndTime = updatedSlot.EndTime;
                             existingSlot.SlotIndex = updatedSlot.SlotIndex;
 
-                            context.Slots.Update(existingSlot);
                             await context.SaveChangesAsync().ConfigureAwait(false);
-                            await transaction.CommitAsync().ConfigureAwait(false);
                         }
-                        else
-                        {
-                            throw new Exception("Slot not found.");
-                        }
-<<<<<<< HEAD
                     }
                     else
                     {
-                        throw new InvalidOperationException("Không tìm thấy tiết học");
-=======
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
+                        throw new InvalidOperationException("Slot not found.");
                     }
-                    return true;
-
                 }
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi cập nhật tiết học, thử lại sau!" );
+                throw new Exception("A concurrency error occurred while updating the slot. Please try again.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"Error updating Slot time: {ex.Message}", ex);
             }
         }
 
-        public async Task<bool> DeleteSlotAsync(Guid id)
+        public async Task DeleteSlotAsync(Guid id)
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    using (var transaction = await context.Database.BeginTransactionAsync().ConfigureAwait(false))
+                    var existingSlot = await context.Slots.FindAsync(id).ConfigureAwait(false);
+
+                    if (existingSlot == null)
                     {
-<<<<<<< HEAD
-                        throw new InvalidOperationException("Không tìm thấy tiết học");
+                        throw new InvalidOperationException("Slot not found.");
                     }
-=======
-                        var existingSlot = await context.Slots.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
 
-                        if (existingSlot != null)
-                        {
-                            context.Slots.Remove(existingSlot);
-
-                            await context.SaveChangesAsync().ConfigureAwait(false);
-                            await transaction.CommitAsync().ConfigureAwait(false);
-                        }
-                        else
-                        {
-                            throw new Exception("Slot not found.");
-                        }
-                    }
+                    context.Slots.Remove(existingSlot);
+                    await context.SaveChangesAsync().ConfigureAwait(false);
                 }
-                return true;
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi xóa tiết học, thử lại sau!");
+                throw new Exception("A concurrency error occurred while deleting the slot. Please try again.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("Có lỗi khi xóa tiết học!");
+                throw new Exception($"Error deleting Slot: {ex.Message}", ex);
             }
         }
+
     }
 }

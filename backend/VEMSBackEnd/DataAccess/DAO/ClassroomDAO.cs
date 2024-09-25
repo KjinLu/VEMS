@@ -8,6 +8,7 @@ namespace DataAccess.DAO
     {
         private readonly VemsContext _context;
 
+        // Inject VemsContext instead of creating it manually
         public ClassroomDAO()
         {
             _context = new VemsContext();
@@ -45,14 +46,8 @@ namespace DataAccess.DAO
         {
             try
             {
-                //Check if gradeid already existed
-                if (!await GradeExists(classroom.GradeId))
-                {
-                    throw new InvalidOperationException("GradeId does not exist.");
-                }
-
-                //Check if classroomid already existed
-                if (await ClassroomExists(classroom.Id))
+                var existingClassroom = await GetClassroomByIdAsync(classroom.Id);
+                if (existingClassroom != null)
                 {
                     throw new InvalidOperationException("A classroom with the same ID already exists.");
                 }
@@ -63,10 +58,6 @@ namespace DataAccess.DAO
             catch (DbUpdateConcurrencyException ex)
             {
                 throw new Exception("A concurrency error occurred while creating the classroom. Please try again.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw ;
             }
             catch (Exception ex)
             {
@@ -79,14 +70,8 @@ namespace DataAccess.DAO
         {
             try
             {
-                //Check if gradeid already existed
-                if (!await GradeExists(classroom.GradeId))
-                {
-                    throw new InvalidOperationException("GradeId does not existed.");
-                }
-
-                //Check if classroomid already existed
-                if (!await ClassroomExists(classroom.Id))
+                var existingClassroom = await GetClassroomByIdAsync(classroom.Id);
+                if (existingClassroom == null)
                 {
                     throw new InvalidOperationException("Classroom not found.");
                 }
@@ -97,10 +82,6 @@ namespace DataAccess.DAO
             catch (DbUpdateConcurrencyException ex)
             {
                 throw new Exception("A concurrency error occurred while updating the classroom. Please try again.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw;
             }
             catch (Exception ex)
             {
@@ -126,33 +107,10 @@ namespace DataAccess.DAO
             {
                 throw new Exception("A concurrency error occurred while deleting the classroom. Please try again.", ex);
             }
-            catch (InvalidOperationException ex)
-            {
-                throw;
-            }
             catch (Exception ex)
             {
                 throw new Exception($"Error deleting classroom: {ex.Message}", ex);
             }
-        }
-
-
-        // Check if Classroom exists
-        private async Task<bool> ClassroomExists(Guid id)
-        {
-            return await _context.Classrooms
-                .AsNoTracking()
-                .AnyAsync(x => x.Id == id)
-                .ConfigureAwait(false);
-        }
-
-        // Check if Grade exists
-        private async Task<bool> GradeExists(Guid gradeId)
-        {
-            return await _context.Grades
-                .AsNoTracking()
-                .AnyAsync(g => g.Id == gradeId)
-                .ConfigureAwait(false);
         }
     }
 }

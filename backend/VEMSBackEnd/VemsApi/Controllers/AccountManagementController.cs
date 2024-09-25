@@ -84,6 +84,7 @@ namespace VemsApi.Controllers
 
         [HttpPost("registerStudents")]
         [Authorize("ADMIN")]
+
         public async Task<IActionResult> RegisterStudent(List<RegisterStudentRequest> request)
         {
             try
@@ -99,6 +100,7 @@ namespace VemsApi.Controllers
 
         [HttpPost("registerTeachers")]
         [Authorize("ADMIN")]
+
         public async Task<IActionResult> RegisterTeacher(List<RegisterTeacherRequest> request)
         {
             try
@@ -115,6 +117,7 @@ namespace VemsApi.Controllers
 
         [HttpPost("createStudentAccount")]
         [Authorize("ADMIN")]
+
         public async Task<IActionResult> CreateStudent(CreateStudentRequest request)
         {
             try
@@ -130,6 +133,7 @@ namespace VemsApi.Controllers
 
         [HttpPost("createTeacherAccount")]
         [Authorize("ADMIN")]
+
         public async Task<IActionResult> CreateTeacher(CreateTeacherRequest request)
         {
             try
@@ -145,6 +149,7 @@ namespace VemsApi.Controllers
 
         [HttpPut("updateTeacherAccount")]
         [Authorize("ADMIN")]
+
         public async Task<IActionResult> UpdateTeacher(AdminUpdateTeacher request)
         {
             try
@@ -160,6 +165,7 @@ namespace VemsApi.Controllers
 
         [HttpPut("updateStudentAccount")]
         [Authorize("ADMIN")]
+
         public async Task<IActionResult> UpdateStudent(AdminUpdateStudent request)
         {
             try

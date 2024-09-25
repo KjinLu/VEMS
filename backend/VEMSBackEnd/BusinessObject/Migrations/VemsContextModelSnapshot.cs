@@ -40,7 +40,7 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(80)
+                        .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
@@ -56,6 +56,26 @@ namespace BusinessObject.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b584540e-49d9-4d45-bef4-f779f8e6c973"),
+                            Email = "admin1@email.com",
+                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            RefreshToken = "",
+                            RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
+                            Username = "admin1"
+                        },
+                        new
+                        {
+                            Id = new Guid("5b909d16-c9e6-42bc-b46c-d766280d93b8"),
+                            Email = "admin2@email.com",
+                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
+                            RefreshToken = "",
+                            RoleId = new Guid("04c92fd7-51b1-4852-8b8a-cacbe1511670"),
+                            Username = "admin2"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Attendance", b =>
@@ -276,6 +296,28 @@ namespace BusinessObject.Migrations
                     b.ToTable("Devices");
                 });
 
+            modelBuilder.Entity("BusinessObject.EmailToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTokens");
+                });
+
             modelBuilder.Entity("BusinessObject.Grade", b =>
                 {
                     b.Property<Guid>("Id")
@@ -320,9 +362,6 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
                     b.Property<string>("PeriodName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -340,7 +379,6 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b"),
                             Code = "MORNING",
-                            EndTime = new TimeSpan(0, 11, 30, 0, 0),
                             PeriodName = "Sáng",
                             StartTime = new TimeSpan(0, 7, 0, 0, 0)
                         },
@@ -348,7 +386,6 @@ namespace BusinessObject.Migrations
                         {
                             Id = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31"),
                             Code = "AFTERNOON",
-                            EndTime = new TimeSpan(0, 17, 30, 0, 0),
                             PeriodName = "Chiều",
                             StartTime = new TimeSpan(0, 14, 0, 0, 0)
                         });
@@ -373,44 +410,6 @@ namespace BusinessObject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reasons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("23f45441-d948-4a53-8a96-bc8be963b9e2"),
-                            Description = "",
-                            ReasonName = "Do ốm đau"
-                        },
-                        new
-                        {
-                            Id = new Guid("17fea884-62f6-4686-b2ae-2a18ae4b2b82"),
-                            Description = "",
-                            ReasonName = "Đang nằm viện"
-                        },
-                        new
-                        {
-                            Id = new Guid("c4990d24-c573-4b40-ad01-c3f39042bad9"),
-                            Description = "",
-                            ReasonName = "Nhà có việc hữu sự"
-                        },
-                        new
-                        {
-                            Id = new Guid("169dcff1-cb19-4fd0-8ae3-f947360207cf"),
-                            Description = "",
-                            ReasonName = "Công tác, HSG"
-                        },
-                        new
-                        {
-                            Id = new Guid("71e82443-08e8-4500-90f6-71732fd96ded"),
-                            Description = "",
-                            ReasonName = "Khám NVQS"
-                        },
-                        new
-                        {
-                            Id = new Guid("e847e40e-e759-413a-adc3-b2a7fe72c128"),
-                            Description = "",
-                            ReasonName = "Khác"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Role", b =>
@@ -613,7 +612,7 @@ namespace BusinessObject.Migrations
                     b.Property<Guid>("SubjectID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TeacherID")
+                    b.Property<Guid>("TeacherID")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -652,12 +651,6 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b16d2725-e2d4-47a8-8709-0c0c1ca3945d"),
-                            Code = "NOT_MARKED",
-                            StatusName = "Chưa điểm danh"
-                        },
-                        new
-                        {
                             Id = new Guid("f60aaf45-9e88-4818-9ed0-3e8f83bfb66e"),
                             Code = "ATTENDED",
                             StatusName = "Có mặt"
@@ -683,23 +676,20 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("CitizenID")
-                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("ClassroomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime");
+                    b.Property<DateOnly?>("Dob")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar");
 
@@ -709,22 +699,22 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("HomeTown")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
+                    b.Property<string>("Image")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar");
+
                     b.Property<string>("ParentPhone")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
@@ -735,14 +725,17 @@ namespace BusinessObject.Migrations
 
                     b.Property<string>("RefreshToken")
                         .IsRequired()
-                        .HasMaxLength(80)
+                        .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("StudentTypeId")
+                    b.Property<Guid?>("StudentTypeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly?>("UnionJoinDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -758,201 +751,48 @@ namespace BusinessObject.Migrations
                     b.HasIndex("StudentTypeId");
 
                     b.ToTable("Students");
-<<<<<<< HEAD
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a0fa53b0-b187-46d6-a527-afe6ecb90b16"),
+                            Id = new Guid("0108d3be-3bce-45d7-8562-346547af9911"),
                             Address = "",
-                            CitizenID = "",
+                            CitizenID = "1",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "nguyen.a@example.com",
-                            FullName = "Nguyễn Văn A",
+                            Dob = new DateOnly(2009, 1, 1),
+                            Email = "student1@email.com",
+                            FullName = "Stu 1",
                             HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/7_plw6ns.jpg",
+                            Image = "",
                             ParentPhone = "",
                             Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
                             Phone = "",
-                            PublicStudentID = "MCU101",
+                            PublicStudentID = "1",
                             RefreshToken = "",
                             RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
                             StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU101"
+                            Username = "student1"
                         },
                         new
                         {
-                            Id = new Guid("d898d4e0-6b84-43d9-b60c-c0a0270763ab"),
+                            Id = new Guid("ac4048f7-4fbd-46d4-beba-acdb2953c518"),
                             Address = "",
-                            CitizenID = "",
+                            CitizenID = "1",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "tran.b@example.com",
-                            FullName = "Trần Thị B",
+                            Dob = new DateOnly(2009, 1, 1),
+                            Email = "student2@email.com",
+                            FullName = "",
                             HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/6_ydar9m.jpg",
+                            Image = "",
                             ParentPhone = "",
                             Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
                             Phone = "",
-                            PublicStudentID = "MCU102",
+                            PublicStudentID = "1",
                             RefreshToken = "",
                             RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
                             StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU102"
-                        },
-                        new
-                        {
-                            Id = new Guid("c5112cd7-d8bf-4d70-b943-7af9f95a9372"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "le.c@example.com",
-                            FullName = "Lê Văn C",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813026004_885e224ee4b8dbfbb128e583c278a615_dicbrf.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU103",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU103"
-                        },
-                        new
-                        {
-                            Id = new Guid("f43a35fb-c045-4671-836f-632a840fea28"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "pham.d@example.com",
-                            FullName = "Phạm Thị D",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/5_ek2pks.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU104",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU104"
-                        },
-                        new
-                        {
-                            Id = new Guid("a0161202-1286-4883-994e-c520b26fddd2"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "hoang.e@example.com",
-                            FullName = "Hoàng Văn E",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813011522_e3396b099fec5e01dc56a2331b757d8e_nsrnzc.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU105",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU105"
-                        },
-                        new
-                        {
-                            Id = new Guid("bb85a664-6640-4af7-aa4f-f950a0b2171c"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "vu.f@example.com",
-                            FullName = "Vũ Thị F",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/2_hlwinq.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU106",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU106"
-                        },
-                        new
-                        {
-                            Id = new Guid("8f8a6f6c-deb6-4df5-aa0f-37ac53322530"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "do.g@example.com",
-                            FullName = "Đỗ Văn G",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/z5852813019059_6493ca13ee06ac935e9889fe51bd2886_ooz29c.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU107",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU107"
-                        },
-                        new
-                        {
-                            Id = new Guid("83541134-3afe-4a7f-a76e-298c1b5e2aeb"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "bui.h@example.com",
-                            FullName = "Bùi Thị H",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/13_gqcowy.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU108",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU108"
-                        },
-                        new
-                        {
-                            Id = new Guid("25ece093-29c2-41e9-b4f1-be617ea2674f"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "ngo.i@example.com",
-                            FullName = "Ngô Văn I",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/4_yr3kyt.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU109",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU109"
-                        },
-                        new
-                        {
-                            Id = new Guid("87dfddb3-2010-4b01-9f9d-afc0fef952e7"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "dang.k@example.com",
-                            FullName = "Đặng Thị K",
-                            HomeTown = "",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/12_wsmqha.jpg",
-                            ParentPhone = "",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "",
-                            PublicStudentID = "MCU110",
-                            RefreshToken = "",
-                            RoleId = new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"),
-                            StudentTypeId = new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"),
-                            Username = "MCU110"
+                            Username = "student2"
                         });
-=======
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
                 });
 
             modelBuilder.Entity("BusinessObject.StudentType", b =>
@@ -1106,36 +946,6 @@ namespace BusinessObject.Migrations
                             Id = new Guid("a3d3b555-0cf4-4b41-8131-a4c205d9a6f3"),
                             Code = "DEFENSE_EDUCATION",
                             SubjectName = "Giáo dục quốc phòng"
-                        },
-                        new
-                        {
-                            Id = new Guid("b1d3b555-0cf4-4b41-8131-a4c205d9a6f4"),
-                            Code = "SHDC",
-                            SubjectName = "SHDC"
-                        },
-                        new
-                        {
-                            Id = new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"),
-                            Code = "HDTN_HN",
-                            SubjectName = "HĐTN-HN"
-                        },
-                        new
-                        {
-                            Id = new Guid("d3d3b555-0cf4-4b41-8131-a4c205d9a6f6"),
-                            Code = "GDKT_PL",
-                            SubjectName = "GDKT-PL"
-                        },
-                        new
-                        {
-                            Id = new Guid("e4d3b555-0cf4-4b41-8131-a4c205d9a6f7"),
-                            Code = "SHCN",
-                            SubjectName = "SHCN"
-                        },
-                        new
-                        {
-                            Id = new Guid("f5d3b555-0cf4-4b41-8131-a4c205d9a6f8"),
-                            Code = "MATH_FRENCH",
-                            SubjectName = "Toán Pháp"
                         });
                 });
 
@@ -1146,15 +956,17 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar");
 
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime");
+                    b.Property<string>("CitizenID")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateOnly?>("Dob")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar");
 
@@ -1163,8 +975,11 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar");
 
+                    b.Property<string>("Image")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar");
+
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar");
 
@@ -1174,19 +989,17 @@ namespace BusinessObject.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<string>("PublicTeacherID")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
-                        .HasMaxLength(80)
+                        .HasMaxLength(250)
                         .HasColumnType("varchar");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TeacherTypeId")
+                    b.Property<Guid?>("TeacherTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -1201,81 +1014,42 @@ namespace BusinessObject.Migrations
                     b.HasIndex("TeacherTypeId");
 
                     b.ToTable("Teacher");
-<<<<<<< HEAD
 
                     b.HasData(
                         new
                         {
                             Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
                             Address = "",
-                            CitizenID = "",
-                            Email = "nguyenvana@example.com",
-                            FullName = "Nguyễn Văn A",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg",
+                            CitizenID = "1",
+                            Dob = new DateOnly(1996, 1, 1),
+                            Email = "teacher1@email.com",
+                            FullName = "Tea 1",
+                            Image = "",
                             Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0912345678",
+                            Phone = "",
+                            PublicTeacherID = "1",
+                            RefreshToken = "",
                             RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
                             TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0912345678"
+                            Username = "teacher1"
                         },
                         new
                         {
                             Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
                             Address = "",
-                            CitizenID = "",
-                            Email = "tranthib@example.com",
-                            FullName = "Trần Thị B",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg",
+                            CitizenID = "1",
+                            Dob = new DateOnly(1996, 1, 1),
+                            Email = "teacher2@email.com",
+                            FullName = "Tea 1",
+                            Image = "",
                             Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0987654321",
+                            Phone = "",
+                            PublicTeacherID = "1",
+                            RefreshToken = "",
                             RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
                             TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0987654321"
-                        },
-                        new
-                        {
-                            Id = new Guid("a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
-                            Address = "",
-                            CitizenID = "",
-                            Email = "leminhc@example.com",
-                            FullName = "Lê Minh C",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0901234567",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0901234567"
-                        },
-                        new
-                        {
-                            Id = new Guid("b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"),
-                            Address = "",
-                            CitizenID = "",
-                            Email = "phamthid@example.com",
-                            FullName = "Phạm Thị D",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0934567890",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0934567890"
-                        },
-                        new
-                        {
-                            Id = new Guid("c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"),
-                            Address = "",
-                            CitizenID = "",
-                            Email = "hoangvane@example.com",
-                            FullName = "Hoàng Văn E",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0976543210",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0976543210"
+                            Username = "teacher2"
                         });
-=======
->>>>>>> 7b71eb53662e57dca054c91a3c37a5502da59b96
                 });
 
             modelBuilder.Entity("BusinessObject.TeacherType", b =>
@@ -1302,8 +1076,8 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Code = "DATA_ENTRY_TEACHER",
-                            TypeName = "Giáo viên nhập liệu"
+                            Code = "NORMAL_TEACHER",
+                            TypeName = "Giáo viên bộ môn"
                         },
                         new
                         {
@@ -1462,7 +1236,8 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.Teacher", "Teacher")
                         .WithMany("SlotDetails")
                         .HasForeignKey("TeacherID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Session");
 
@@ -1490,8 +1265,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.StudentType", "StudentType")
                         .WithMany("Students")
                         .HasForeignKey("StudentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Classroom");
 
@@ -1511,8 +1285,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.TeacherType", "TeacherType")
                         .WithMany("Teachers")
                         .HasForeignKey("TeacherTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Role");
 

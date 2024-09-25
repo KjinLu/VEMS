@@ -1,8 +1,6 @@
-using BusinessObject;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Dto.ApiReponse;
-using VemsApi.Dto.GradeDto;
 using VemsApi.Dto.PaginationDto;
 using VemsApi.Services;
 
@@ -32,7 +30,7 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+          [HttpGet("{id}")]
         public async Task<IActionResult> GetGradeById(Guid id)
         {
             try
@@ -44,19 +42,5 @@ namespace VemsApi.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
-
-        //[HttpPost()]
-        //public async Task<IActionResult> AddGrade(GradeResponse grade)
-        //{
-        //    try
-        //    {
-        //        await _gradeService.AddGrade(grade);
-        //        return APIResponse.Success();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return APIResponse.Error(null, ex.Message);
-        //    }
-        //}
     }
 }

@@ -2,32 +2,17 @@
 {
     public class RegisterStudentRequest
     {
-        public string StudentId { get; set; } = null!;
 
-        public string FullName { get; set; } = null!;
+        public string PublicStudentID { get; set; }
 
-        public DateOnly DateOfBirth { get; set; }
+        public string FullName { get; set; }
 
-        public string Gender { get; set; } = null!;
+        public Guid ClassroomId { get; set; } = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3");
 
-        public string? Address { get; set; }
+        public Guid RoleId { get; set; } = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED");
 
-        public string? Cccd { get; set; }
 
-        public string? Phone { get; set; }
-
-        public int RoleId { get; set; }
-
-        public string? ParentContact { get; set; }
-
-        public string ClassId { get; set; } = null!;
-
-        public string? Image { get; set; }
-
-        public string StatusAccount { get; set; } = null!;
-
-        public string Password { get; set; } = null!;
-
-        public string RecoverPassword { get; set; } = null!;
     }
 }
+
+
