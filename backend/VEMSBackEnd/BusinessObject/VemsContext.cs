@@ -42,7 +42,7 @@ namespace BusinessObject
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=LAPTOP-LOICUTE\\SQLEXP;User ID=sa;Password=123456;Database=VEMS;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
