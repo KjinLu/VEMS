@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Dto.ApiReponse;
+using VemsApi.Dto.PaginationDto;
 using VemsApi.Dto.ScheduleDto;
 using VemsApi.Services;
 
@@ -11,7 +12,7 @@ namespace VemsApi.Controllers
     [ApiController]
     public class ScheduleServiceController : ControllerBase
     {
-   
+
         private readonly IScheduleService scheduleService;
 
         public ScheduleServiceController(IScheduleService _scheduleService)
@@ -19,13 +20,41 @@ namespace VemsApi.Controllers
             scheduleService = _scheduleService;
         }
 
-        [HttpPost("create-new-schedule")]
-        public IActionResult CreateSchedule(CreateScheduleDto request)
+        [HttpGet("get-all-schedule")]
+        public async Task<IActionResult> GetAllSchedule([FromQuery] PaginationRequest request)
         {
             try
             {
+                var response = await scheduleService.GetAllSchedule(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
 
-                return APIResponse.Success(null);
+        [HttpGet("get-class-schedule")]
+        public async Task<IActionResult> GetScheduleOfClass(Guid classID)
+        {
+            try
+            {
+                var response = await scheduleService.GetAllScheduleOfClass(classID);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("create-new-schedule")]
+        public async Task<IActionResult> CreateSchedule(CreateScheduleDto request)
+        {
+            try
+            {
+                var response = await scheduleService.CreateSchedule(request);
+                return APIResponse.Success(response);
             }
             catch (Exception ex)
             {
@@ -34,12 +63,12 @@ namespace VemsApi.Controllers
         }
 
         [HttpPut("update-schedule")]
-        public IActionResult UpdateSchedule(UpdateScheduleDto request)
+        public async Task<IActionResult> UpdateSchedule(UpdateScheduleDto request)
         {
             try
             {
-
-                return APIResponse.Success(null);
+                var response = await scheduleService.UpdateSchedule(request);
+                return APIResponse.Success(response);
             }
             catch (Exception ex)
             {
@@ -47,19 +76,22 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPut("delete-schedule")]
-        public IActionResult DeleteSchedule(DeleteSchedule request)
+        [HttpDelete("delete-schedule")]
+        public async Task<IActionResult> DeleteSchedule(DeleteSchedule request)
         {
             try
             {
-
-                return APIResponse.Success(null);
+                var response = await scheduleService.DeleteSchedule(request);
+                return APIResponse.Success(response);
             }
             catch (Exception ex)
             {
                 return APIResponse.Error(null, ex.Message);
             }
         }
+
+        //public Task<IActionResult> C
+
 
     }
 }

@@ -28,52 +28,75 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<IEnumerable<Schedule>> GetAllScheduleAsync()
+        public async Task<List<ScheduleResponse>> GetAllScheduleAsync()
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Schedules.AsNoTracking().ToListAsync().ConfigureAwait(false);
+                    var query = await (from s in context.Schedules
+                                       join c in context.Classrooms on s.ClassroomId equals c.Id
+                                       select new ScheduleResponse
+                                       {
+                                           Id = s.Id,
+                                           ClassroomName = c.ClassName,
+                                           ClassroomId = s.ClassroomId,
+                                           Time = s.Time,
+                                       }).AsNoTracking()
+                                       .ToListAsync()
+                                       .ConfigureAwait(false);
+                    return query;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching all schedule: {ex.Message}", ex);
+                throw new Exception($"Có lỗi khi tải danh sách thời khóa biểu", ex);
             }
         }
 
-        public async Task<IEnumerable<Schedule?>> GetLatestListSchedulesAsync()
-        {
-            try
-            {
-                using (var context = new VemsContext())
-                {
-                    return await context.Schedules.AsNoTracking()
-                        .GroupBy(s => s.ClassroomId)
-                        .Select(g => g.OrderByDescending(s => s.Time).FirstOrDefault())
-                        .ToListAsync()
-                        .ConfigureAwait(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}", ex);
-            }
-        }
+        // public async Task<List<Schedule?>> GetLatestListSchedulesAsync()
+        // {
+        //     try
+        //     {
+        //         using (var context = new VemsContext())
+        //         {
+        //             return await context.Schedules.AsNoTracking()
+        //                 .GroupBy(s => s.ClassroomId)
+        //                 .Select(g => g.OrderByDescending(s => s.Time).FirstOrDefault())
+        //                 .ToListAsync()
+        //                 .ConfigureAwait(false);
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}", ex);
+        //     }
+        // }
 
-        public async Task<IEnumerable<Schedule>> GetListSchedulesByClassAsync(Guid classroomId)
+        public async Task<List<ScheduleResponse>> GetListSchedulesByClassAsync(Guid classroomId)
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Schedules.AsNoTracking().Where(s => s.ClassroomId == classroomId).ToListAsync().ConfigureAwait(false);
+                    var query = await (from s in context.Schedules
+                                       join c in context.Classrooms on s.ClassroomId equals c.Id
+                                       where c.Id == classroomId
+                                       select new ScheduleResponse
+                                       {
+                                           Id = s.Id,
+                                           ClassroomName = c.ClassName,
+                                           ClassroomId = s.ClassroomId,
+                                           Time = s.Time,
+                                       }).AsNoTracking()
+                                     .ToListAsync()
+                                     .ConfigureAwait(false);
+                    return query;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching schedule by id: {ex.Message}", ex);
+                throw new Exception($"Có lỗi khi tải dữ liệu của lớp {classroomId}", ex);
             }
         }
 
@@ -83,31 +106,34 @@ namespace DataAccess.DAO
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Schedules.FindAsync(id).ConfigureAwait(false);
+                    var query = await context.Schedules
+                                   .FirstOrDefaultAsync(item => item.Id == id)
+                                   .ConfigureAwait(false);
+                    return query;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching schedule by id: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi tải thời khóa biểu với ID: {id}", ex);
             }
         }
 
-        public async Task<Schedule?> GetLatestSchedulesByClassroomAsync(Guid classroomId)
-        {
-            try
-            {
-                using (var context = new VemsContext())
-                {
-                    return await context.Schedules.AsNoTracking().OrderByDescending(s => s.Time).FirstOrDefaultAsync(s => s.ClassroomId == classroomId).ConfigureAwait(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}", ex);
-            }
-        }
+        // public async Task<Schedule?> GetLatestSchedulesByClassroomAsync(Guid classroomId)
+        // {
+        //     try
+        //     {
+        //         using (var context = new VemsContext())
+        //         {
+        //             return await context.Schedules.AsNoTracking().OrderByDescending(s => s.Time).FirstOrDefaultAsync(s => s.ClassroomId == classroomId).ConfigureAwait(false);
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}", ex);
+        //     }
+        // }
 
-        public async Task CreateScheduleAsync(Schedule schedule)
+        public async Task<Schedule> CreateScheduleAsync(Schedule schedule)
         {
             try
             {
@@ -118,23 +144,24 @@ namespace DataAccess.DAO
                                     .ConfigureAwait(false);
                     if (exists)
                     {
-                        throw new Exception("A schedule with the same all values already exists.");
+                        throw new Exception("Thời khóa biểu đã tồn tại!");
                     }
-                    context.Schedules.Add(schedule);
+                    var created = context.Schedules.Add(schedule).Entity;
                     await context.SaveChangesAsync().ConfigureAwait(false);
+                    return created;
                 }
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("A concurrency error occurred while creating the schedule. Please try again.", ex);
+                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error creating schedule: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi tạo thời khóa biểu: ", ex);
             }
         }
 
-        public async Task UpdateScheduleAsync(Schedule schedule)
+        public async Task<bool> UpdateScheduleAsync(Schedule schedule)
         {
             try
             {
@@ -155,21 +182,22 @@ namespace DataAccess.DAO
                     }
                     else
                     {
-                        throw new Exception("Schedule not found.");
+                        throw new Exception("Không tìm thấy lịch học!");
                     }
+                    return true;
                 }
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("A concurrency error occurred while updating the schedule. Please try again.", ex);
+                throw new Exception("Có lỗi xảy ra khi cập nhật thời khóa biểu. Thử lại sau", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error updating schedule time: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi cập nhật thời khóa biểu: ", ex);
             }
         }
 
-        public async Task DeleteScheduleAsync(Guid id)
+        public async Task<bool> DeleteScheduleAsync(Guid id)
         {
             try
             {
@@ -182,20 +210,21 @@ namespace DataAccess.DAO
                         context.Schedules.Remove(existingSchedule);
 
                         await context.SaveChangesAsync().ConfigureAwait(false);
+                        return true;
                     }
                     else
                     {
-                        throw new Exception("Schedule not found.");
+                        throw new Exception("Không tìm thấy lịch học!");
                     }
                 }
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("A concurrency error occurred while deleting the schedule. Please try again.", ex);
+                throw new Exception("Có lỗi xảy ra khi xóa thời khóa biểu. Thử lại sau", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error deleting schedule: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi xóa thời khóa biểu: ", ex);
             }
         }
     }
