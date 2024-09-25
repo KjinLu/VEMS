@@ -1,7 +1,9 @@
-﻿using BusinessObject;
+﻿using Azure.Core;
+using BusinessObject;
 using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DataAccess.DAO
 {
@@ -27,17 +29,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<Admin> GetAllAdmin()
+        public async Task<List<Admin>> GetAllAdminAsync()
         {
-            List<Admin> list = null;
             try
             {
-                var context = new VemsContext();
-                if (context != null)
+                using (var context = new VemsContext())
                 {
-                    list = context.Admins.ToList();
+                    return await context.Admins.ToListAsync();
                 }
-                return list;
             }
             catch (Exception ex)
             {
@@ -45,14 +44,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Admin GetAdminById(Guid id)
+        public async Task<Admin> GetAdminByIdAsync(Guid id)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Admins.FirstOrDefault(admin => admin.Id == id);
+                    return await context.Admins.FirstOrDefaultAsync(admin => admin.Id == id);
                 }
                 return null;
             }
@@ -62,14 +61,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Admin GetAdminByUsername(string username)
+        public async Task<Admin> GetAdminByUsernameAsync(string username)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Admins.FirstOrDefault(admin => admin.Username == username);
+                    return await context.Admins.FirstOrDefaultAsync(admin => admin.Username == username);
                 }
                 return null;
             }
@@ -79,14 +78,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Admin GetAdminByEmail(string email)
+        public async Task<Admin> GetAdminByEmailAsync(string email)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Admins.FirstOrDefault(admin => admin.Email == email);
+                    return await context.Admins.FirstOrDefaultAsync(admin => admin.Email == email);
                 }
                 return null;
             }
@@ -96,17 +95,15 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<Student> GetAllStudent()
+        public async Task<List<Student>> GetAllStudentAsync()
         {
-            List<Student> list = null;
             try
             {
-                var context = new VemsContext();
-                if (context != null)
+
+                using (var context = new VemsContext())
                 {
-                    list = context.Students.ToList();
+                    return await context.Students.ToListAsync();
                 }
-                return list;
             }
             catch (Exception ex)
             {
@@ -114,14 +111,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Student GetStudentById(Guid id)
+        public async Task<Student> GetStudentByIdAsync(Guid id)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Students.FirstOrDefault(student => student.Id == id);
+                    return await context.Students.AsNoTracking().FirstOrDefaultAsync(student => student.Id == id);
                 }
                 return null;
             }
@@ -131,14 +128,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Student GetStudentByUsername(string username)
+        public async Task<Student> GetStudentByUsernameAsync(string username)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Students.FirstOrDefault(student => student.Username == username);
+                    return await context.Students.FirstOrDefaultAsync(student => student.Username == username);
                 }
                 return null;
             }
@@ -148,14 +145,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Student GetStudentByEmail(string email)
+        public async Task<Student> GetStudentByEmailAsync(string email)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Students.FirstOrDefault(student => student.Email == email);
+                    return await context.Students.FirstOrDefaultAsync(student => student.Email == email);
                 }
                 return null;
             }
@@ -165,17 +162,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<Teacher> GetAllTeacher()
+        public async Task<List<Teacher>> GetAllTeacherAsync()
         {
-            List<Teacher> list = null;
             try
             {
-                var context = new VemsContext();
-                if (context != null)
+                using (var context = new VemsContext())
                 {
-                    list = context.Teacher.ToList();
+                    return await context.Teacher.ToListAsync();
                 }
-                return list;
             }
             catch (Exception ex)
             {
@@ -183,14 +177,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Teacher GetTeacherById(Guid id)
+        public async Task<Teacher> GetTeacherByIdAsync(Guid id)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Teacher.FirstOrDefault(teacher => teacher.Id == id);
+                    return await context.Teacher.FirstOrDefaultAsync(teacher => teacher.Id == id);
                 }
                 return null;
             }
@@ -200,14 +194,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Teacher GetTeacherByUsername(string username)
+        public async Task<Teacher> GetTeacherByUsernameAsync(string username)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Teacher.FirstOrDefault(teacher => teacher.Username == username);
+                    return await context.Teacher.FirstOrDefaultAsync(teacher => teacher.Username == username);
                 }
                 return null;
             }
@@ -217,14 +211,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public Teacher GetTeacherByEmail(string email)
+        public async Task<Teacher> GetTeacherByEmailAsync(string email)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    return context.Teacher.FirstOrDefault(teacher => teacher.Email == email);
+                    return await context.Teacher.FirstOrDefaultAsync(teacher => teacher.Email == email);
                 }
                 return null;
             }
@@ -234,51 +228,26 @@ namespace DataAccess.DAO
             }
         }
 
-
-        public object GetAccountByEmail(string email)
+        public async Task<CommonAccountType> GetAccountByEmailAsync(string email)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    var admin = context.Admins.SingleOrDefault(admin => admin.Email == email);
-                    if (admin != null) return admin;
-
-                    var teacher = context.Teacher.SingleOrDefault(teacher => teacher.Email == email);
-                    if (teacher != null) return teacher;
-
-                    var student = context.Students.SingleOrDefault(student => student.Email == email);
-                    if (student != null) return student;
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public CommonAccountType GetAccountByID(Guid accountID)
-        {
-            try
-            {
-                var context = new VemsContext();
-                if (context != null)
-                {
-                    var admin = (from a in context.Admins
-                                 join r in context.Roles on a.RoleId equals r.Id
-                                 where a.Id == accountID
-                                 select new
-                                 {
-                                     AccountID = a.Id,
-                                     Username = a.Username,
-                                     Password = a.Password,
-                                     Email = a.Email,
-                                     RefreshToken = a.RefreshToken,
-                                     RoleID = r.Id,
-                                     RoleName = r.Code
-                                 }).FirstOrDefault();
+                    var admin = await (from a in context.Admins
+                                       join r in context.Roles on a.RoleId equals r.Id
+                                       where a.Email == email
+                                       select new
+                                       {
+                                           AccountID = a.Id,
+                                           Username = a.Username,
+                                           Password = a.Password,
+                                           Email = a.Email,
+                                           RefreshToken = a.RefreshToken,
+                                           RoleID = r.Id,
+                                           RoleName = r.Code
+                                       }).FirstOrDefaultAsync();
 
 
                     if (admin != null) return new CommonAccountType
@@ -293,19 +262,20 @@ namespace DataAccess.DAO
 
                     };
 
-                    var teacher = (from a in context.Teacher
-                                   join r in context.Roles on a.RoleId equals r.Id
-                                   where a.Id == accountID
-                                   select new
-                                   {
-                                       AccountID = a.Id,
-                                       Username = a.Username,
-                                       Password = a.Password,
-                                       Email = a.Email,
-                                       RefreshToken = a.RefreshToken,
-                                       RoleID = r.Id,
-                                       RoleName = r.Code
-                                   }).FirstOrDefault();
+                    var teacher = await (from a in context.Teacher
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Email == email
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Image = a.Image,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
 
                     if (teacher != null) return new CommonAccountType
                     {
@@ -313,25 +283,27 @@ namespace DataAccess.DAO
                         Email = teacher.Email,
                         RefreshToken = teacher.RefreshToken,
                         Password = teacher.Password,
+                        Image = teacher.Image,
                         RoleID = teacher.RoleID,
                         RoleName = teacher.RoleName,
                         Username = teacher.Username
 
                     };
 
-                    var student = (from a in context.Students
-                                   join r in context.Roles on a.RoleId equals r.Id
-                                   where a.Id == accountID
-                                   select new
-                                   {
-                                       AccountID = a.Id,
-                                       Username = a.Username,
-                                       Password = a.Password,
-                                       Email = a.Email,
-                                       RefreshToken = a.RefreshToken,
-                                       RoleID = r.Id,
-                                       RoleName = r.Code
-                                   }).FirstOrDefault();
+                    var student = await (from a in context.Students
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Email == email
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             Image = a.Image,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
                     {
@@ -339,6 +311,7 @@ namespace DataAccess.DAO
                         Email = student.Email,
                         RefreshToken = student.RefreshToken,
                         Password = student.Password,
+                        Image = student.Image,
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
                         Username = student.Username
@@ -353,53 +326,53 @@ namespace DataAccess.DAO
             }
         }
 
-        public CommonAccountType GetAccountByUsername(string username)
+        public async Task<CommonAccountType> GetAccountByIDAsync(Guid accountID)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    var admin = (from a in context.Admins
-                                 join r in context.Roles on a.RoleId equals r.Id
-                                 where a.Username == username
-                                 select new
-                                 {
-                                     AccountID = a.Id,
-                                     Username = a.Username,
-                                     Password = a.Password,
-                                     Email = a.Email,
-                                     RefreshToken = a.RefreshToken,
-                                     RoleID = r.Id,
-                                     RoleName = r.Code
-                                 }).FirstOrDefault();
+                    var admin = await (from a in context.Admins
+                                       join r in context.Roles on a.RoleId equals r.Id
+                                       where a.Id == accountID
+                                       select new
+                                       {
+                                           AccountID = a.Id,
+                                           Username = a.Username,
+                                           Password = a.Password,
+                                           Email = a.Email,
+                                           RefreshToken = a.RefreshToken,
+                                           RoleID = r.Id,
+                                           RoleName = r.Code
+                                       }).FirstOrDefaultAsync();
 
 
                     if (admin != null) return new CommonAccountType
                     {
-                        AccountID = admin .AccountID,
-                        Email = admin .Email,
-                        RefreshToken = admin .RefreshToken,
-                        Password = admin .Password,
+                        AccountID = admin.AccountID,
+                        Email = admin.Email,
+                        RefreshToken = admin.RefreshToken,
+                        Password = admin.Password,
                         RoleID = admin.RoleID,
                         RoleName = admin.RoleName,
                         Username = admin.Username
-                        
+
                     };
 
-                    var teacher = (from a in context.Teacher
-                                   join r in context.Roles on a.RoleId equals r.Id
-                                   where a.Username == username
-                                   select new
-                                   {
-                                       AccountID = a.Id,
-                                       Username = a.Username,
-                                       Password = a.Password,
-                                       Email = a.Email,
-                                       RefreshToken = a.RefreshToken,
-                                       RoleID = r.Id,
-                                       RoleName = r.Code
-                                   }).FirstOrDefault();
+                    var teacher = await (from a in context.Teacher
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Id == accountID
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
 
                     if (teacher != null) return new CommonAccountType
                     {
@@ -411,21 +384,21 @@ namespace DataAccess.DAO
                         RoleName = teacher.RoleName,
                         Username = teacher.Username
 
-                    }; 
+                    };
 
-                    var student = (from a in context.Students
-                                   join r in context.Roles on a.RoleId equals r.Id
-                                   where a.Username == username
-                                   select new
-                                   {
-                                       AccountID = a.Id,
-                                       Username = a.Username,
-                                       Password = a.Password,
-                                       Email = a.Email,
-                                       RefreshToken = a.RefreshToken,
-                                       RoleID = r.Id,
-                                       RoleName = r.Code
-                                   }).FirstOrDefault();
+                    var student = await (from a in context.Students
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Id == accountID
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
                     {
@@ -447,14 +420,112 @@ namespace DataAccess.DAO
             }
         }
 
-        public bool UpdateRefreshToken(Guid AccountId, string token)
+        public async Task<CommonAccountType> GetAccountByUsernameAsync(string username)
         {
             try
             {
                 var context = new VemsContext();
                 if (context != null)
                 {
-                    var admin = context.Admins.SingleOrDefault(admin => admin.Id == AccountId);
+                    var admin = await (from a in context.Admins
+                                       join r in context.Roles on a.RoleId equals r.Id
+                                       where a.Username == username
+                                       select new
+                                       {
+                                           AccountID = a.Id,
+                                           Username = a.Username,
+                                           Password = a.Password,
+                                           Email = a.Email,
+                                           RefreshToken = a.RefreshToken,
+                                           RoleID = r.Id,
+                                           RoleName = r.Code
+                                       }).FirstOrDefaultAsync();
+
+
+                    if (admin != null) return new CommonAccountType
+                    {
+                        AccountID = admin.AccountID,
+                        Email = admin.Email,
+                        RefreshToken = admin.RefreshToken,
+                        Password= admin.Password,
+                        RoleID = admin.RoleID,
+                        RoleName = admin.RoleName,
+                        Username = admin.Username
+
+                    };
+
+                    var teacher = await (from a in context.Teacher
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Username == username
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Image = a.Image,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
+
+                    if (teacher != null) return new CommonAccountType
+                    {
+                        AccountID = teacher.AccountID,
+                        Email = teacher.Email,
+                        RefreshToken = teacher.RefreshToken,
+                        Password = teacher.Password,
+                        Image = teacher.Image,
+                        RoleID = teacher.RoleID,
+                        RoleName = teacher.RoleName,
+                        Username = teacher.Username
+
+                    };
+
+                    var student = await (from a in context.Students
+                                         join r in context.Roles on a.RoleId equals r.Id
+                                         where a.Username == username
+                                         select new
+                                         {
+                                             AccountID = a.Id,
+                                             Username = a.Username,
+                                             Password = a.Password,
+                                             Email = a.Email,
+                                             RefreshToken = a.RefreshToken,
+                                             Image = a.Image,
+                                             RoleID = r.Id,
+                                             RoleName = r.Code
+                                         }).FirstOrDefaultAsync();
+
+                    if (student != null) return new CommonAccountType
+                    {
+                        AccountID = student.AccountID,
+                        Email = student.Email,
+                        RefreshToken = student.RefreshToken,
+                        Password= student.Password,
+                        Image = student.Image,
+                        RoleID = student.RoleID,
+                        RoleName = student.RoleName,
+                        Username = student.Username
+
+                    };
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> UpdateRefreshTokenAsync(Guid AccountId, string token)
+        {
+            try
+            {
+                var context = new VemsContext();
+                if (context != null)
+                {
+                    var admin = await context.Admins.SingleOrDefaultAsync(admin => admin.Id == AccountId);
                     if (admin != null)
                     {
                         admin.RefreshToken = token;
@@ -463,7 +534,7 @@ namespace DataAccess.DAO
                         return true;
                     }
 
-                    var teacher = context.Teacher.SingleOrDefault(teacher => teacher.Id == AccountId);
+                    var teacher = await context.Teacher.SingleOrDefaultAsync(teacher => teacher.Id == AccountId);
                     if (teacher != null)
                     {
                         teacher.RefreshToken = token;
@@ -472,7 +543,7 @@ namespace DataAccess.DAO
                         return true;
                     }
 
-                    var student = context.Students.SingleOrDefault(student => student.Id == AccountId);
+                    var student = await context.Students.SingleOrDefaultAsync(student => student.Id == AccountId);
                     if (student != null)
                     {
                         student.RefreshToken = token;
@@ -489,6 +560,203 @@ namespace DataAccess.DAO
                 throw new Exception(e.Message);
             }
         }
-    }
 
+        public async Task<List<Student>> RegisterStudentAsync(List<Student> requests)
+        {
+            try
+            {
+                List<Student> registeredStudents = new List<Student>();
+
+                using (var context = new VemsContext())
+                {
+                    foreach (var request in requests)
+                    {
+                        var checkStudentUsername = await context.Students
+                            .FirstOrDefaultAsync(s => s.Username == request.PublicStudentID);
+
+                        if (checkStudentUsername != null)
+                        {
+                            // Skip this student if the username is already used
+                            continue;
+                        }
+                        var studentCreated = context.Students.Add(request).Entity;
+                        registeredStudents.Add(studentCreated);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+
+                return registeredStudents;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<List<Teacher>> RegisterTeacherAsync(List<Teacher> requests)
+        {
+            try
+            {
+                List<Teacher> registeredTeachers = new List<Teacher>();
+
+                using (var context = new VemsContext())
+                {
+                    foreach (var request in requests)
+                    {
+                        var checkPhoneNumber = await context.Teacher
+                            .FirstOrDefaultAsync(s => s.Username == request.Phone);
+
+                        if (checkPhoneNumber != null)
+                        {
+                            continue;
+                        }
+                        var teacherCreated = context.Teacher.Add(request).Entity;
+                        registeredTeachers.Add(teacherCreated);
+                    }
+                    await context.SaveChangesAsync();
+                }
+                return registeredTeachers;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<bool> ChangePassword(Guid AccountId, string newPassword)
+        {
+            try
+            {
+                var context = new VemsContext();
+                if (context != null)
+                {
+                    var admin = await context.Admins.SingleOrDefaultAsync(admin => admin.Id == AccountId);
+                    if (admin != null)
+                    {
+                        admin.Password = newPassword;
+                        context.Entry<Admin>(admin).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+
+                    var teacher = await context.Teacher.SingleOrDefaultAsync(teacher => teacher.Id == AccountId);
+                    if (teacher != null)
+                    {
+                        teacher.Password = newPassword;
+                        context.Entry<Teacher>(teacher).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+
+                    var student = await context.Students.SingleOrDefaultAsync(student => student.Id == AccountId);
+                    if (student != null)
+                    {
+                        student.Password = newPassword;
+                        context.Entry<Student>(student).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+   
+        public async Task<Student> CreateAStudentAccount(Student student)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var checkStudentUsername = await context.Students
+                        .FirstOrDefaultAsync(s => s.Username == student.Username);
+
+                    if (checkStudentUsername != null)
+                    {
+                        throw new Exception("Tên đăng nhập đã được sử dụng!");
+                    }
+                    var studentCreated = context.Students.Add(student).Entity;
+                    await context.SaveChangesAsync();
+                    return studentCreated;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi tạo tài khoản!");
+            }
+        }
+
+        public async Task<bool> UpdateStudentProfile(Student student)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var dbStudent = await context.Students.AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.Id == student.Id);
+
+                    if (dbStudent == null) throw new Exception("Thông tin tài khoản không tồn tại!");
+
+                    context.Entry<Student>(student).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi cập nhật tài khoản!");
+            }
+        }
+
+        public async Task<Teacher> CreateATeacherAccount(Teacher teacher)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var checkStudentUsername = await context.Teacher
+                        .FirstOrDefaultAsync(s => s.Username == teacher.Username);
+
+                    if (checkStudentUsername != null)
+                    {
+                        throw new Exception("Tên đăng nhập đã được sử dụng!");
+                    }
+                    var teacherCreated = context.Teacher.Add(teacher).Entity;
+                    await context.SaveChangesAsync();
+                    return teacherCreated;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi tạo tài khoản!");
+            }
+        }
+
+        public async Task<bool> UpdateTeacherProfile(Teacher teacher)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var dbStudent = await context.Teacher.AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.Id == teacher.Id);
+
+                    if (dbStudent == null) throw new Exception("Thông tin tài khoản không tồn tại!");
+
+                    context.Entry<Teacher>(teacher).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi cập nhật tài khoản!");
+            }
+        }
+    }
 }

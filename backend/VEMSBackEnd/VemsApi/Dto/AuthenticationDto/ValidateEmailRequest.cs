@@ -2,7 +2,12 @@
 {
     public class ValidateEmailRequest
     {
-        public int AccountID { get; set; }
+        public string UsernameOrEmail { get; set; }
         public string Code { get; set; }
+    }
+
+    public class SendEmailRequest
+    {
+        public string UsernameOrEmail { get; set; }
     }
 }
