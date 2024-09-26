@@ -24,7 +24,7 @@ namespace VemsApi.Controllers
         {
             try
             {
-                return  APIResponse.Success(await _classroomService.GetAllClassrooms(request));
+                return APIResponse.Success(await _classroomService.GetAllClassrooms(request));
             }
             catch (Exception ex)
             {

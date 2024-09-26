@@ -139,7 +139,7 @@ namespace BusinessObject.Seeding
             modelBuilder.Entity<Status>().HasData(
                  new Status
                  {
-                        Id = new Guid("b16d2725-e2d4-47a8-8709-0c0c1ca3945d"),
+                     Id = new Guid("b16d2725-e2d4-47a8-8709-0c0c1ca3945d"),
                      StatusName = "Chưa điểm danh",
                      Code = "NOT_MARKED"
                  },
@@ -475,8 +475,8 @@ namespace BusinessObject.Seeding
                 new Slot
                 {
                     Id = new Guid("e1e53de7-7170-46b4-8230-2790c42a7cac"),
-                    StartTime = new TimeSpan(16, 45, 0), 
-                    EndTime = new TimeSpan(17, 30, 0),  
+                    StartTime = new TimeSpan(16, 45, 0),
+                    EndTime = new TimeSpan(17, 30, 0),
                     SlotIndex = 9
                 }
             );
@@ -707,5 +707,82 @@ namespace BusinessObject.Seeding
             );
         }
 
+        public static void SeedingSession(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Session>().HasData(
+                              new Session
+                              {
+                                  Id = new Guid("6fa3d575-2f46-4615-aa63-ab53dc32bd8b"),
+                                  DayOfWeek = 1,
+                                  PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
+                              },
+                              new Session
+                              {
+                                  Id = new Guid("32f10e78-2737-4cab-a74a-f7986f1c5bca"),
+                                  DayOfWeek = 1,
+                                  PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
+                              },
+                                new Session
+                                {
+                                    Id = new Guid("02505d8c-8c01-4734-b79c-a053e9c86f9d"),
+                                    DayOfWeek = 2,
+                                    PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
+                                },
+                              new Session
+                              {
+                                  Id = new Guid("55987953-39cd-43f7-84ee-84b79170e7fd"),
+                                  DayOfWeek = 2,
+                                  PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
+                              },
+                                new Session
+                                {
+                                    Id = new Guid("6c6b00cc-1030-4029-aaf5-299019bd303d"),
+                                    DayOfWeek = 3,
+                                    PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
+                                },
+                              new Session
+                              {
+                                  Id = new Guid("6be09935-4ba1-42e2-9ccc-ab66fe1569a3"),
+                                  DayOfWeek = 3,
+                                  PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
+                              },
+                                new Session
+                                {
+                                    Id = new Guid("2246a4b5-1dc9-4b8b-a6ea-f4e3d2635249"),
+                                    DayOfWeek = 4,
+                                    PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
+                                },
+                              new Session
+                              {
+                                  Id = new Guid("c1188b95-fcb3-4d83-8ac0-04c0f26fbb3d"),
+                                  DayOfWeek = 4,
+                                  PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
+                              },
+                                new Session
+                                {
+                                    Id = new Guid("5abe297f-e351-4939-bded-ec538c595417"),
+                                    DayOfWeek = 5,
+                                    PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
+                                },
+                              new Session
+                              {
+                                  Id = new Guid("d1f42050-c53b-45bf-8473-ebc14c01d4b7"),
+                                  DayOfWeek = 5,
+                                  PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
+                              },
+                                new Session
+                                {
+                                    Id = new Guid("b53c2d5c-bc63-4c0d-84c7-d3a69073879c"),
+                                    DayOfWeek = 6,
+                                    PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
+                                },
+                              new Session
+                              {
+                                  Id = new Guid("32196bfb-4117-4fc7-a0d7-7c2751544d1e"),
+                                  DayOfWeek = 6,
+                                  PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
+                              }
+                              );
+        }
     }
 }

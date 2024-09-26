@@ -15,8 +15,8 @@ namespace BusinessObject
         public Guid Id { get; set; }
 
         [Required]
-        [Column(TypeName = "datetime")]
-        public DateTime StartTime { get; set; }
+        [Column(TypeName = "time")]
+        public TimeSpan StartTime { get; set; }
 
         public string Note { get; set; }
 
