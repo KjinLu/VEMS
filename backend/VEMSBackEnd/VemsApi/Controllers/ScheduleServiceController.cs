@@ -90,8 +90,32 @@ namespace VemsApi.Controllers
             }
         }
 
-        //public Task<IActionResult> C
+        [HttpPost("create-schedule-detail")]
+        public async Task<IActionResult> CreateScheduleDetail(CreateScheduleDetailRequest request)
+        {
+            try
+            {
+                var response = await scheduleService.CreateScheduleDetail(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
 
-
+        [HttpGet("get-schedule-detail")]
+        public async Task<IActionResult> GetScheduleDetail (Guid ScheduleID)
+        {
+            try
+            {
+                var response = await scheduleService.GetScheduleDetail(ScheduleID);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
     }
 }

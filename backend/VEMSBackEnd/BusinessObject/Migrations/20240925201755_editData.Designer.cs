@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20240925201755_editData")]
+    partial class editData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +94,8 @@ namespace BusinessObject.Migrations
                     b.Property<Guid>("ScheduleDetailId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -548,80 +551,6 @@ namespace BusinessObject.Migrations
                     b.HasIndex("PeriodID");
 
                     b.ToTable("Sessions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("6fa3d575-2f46-4615-aa63-ab53dc32bd8b"),
-                            DayOfWeek = 1,
-                            PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
-                        },
-                        new
-                        {
-                            Id = new Guid("32f10e78-2737-4cab-a74a-f7986f1c5bca"),
-                            DayOfWeek = 1,
-                            PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
-                        },
-                        new
-                        {
-                            Id = new Guid("02505d8c-8c01-4734-b79c-a053e9c86f9d"),
-                            DayOfWeek = 2,
-                            PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
-                        },
-                        new
-                        {
-                            Id = new Guid("55987953-39cd-43f7-84ee-84b79170e7fd"),
-                            DayOfWeek = 2,
-                            PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
-                        },
-                        new
-                        {
-                            Id = new Guid("6c6b00cc-1030-4029-aaf5-299019bd303d"),
-                            DayOfWeek = 3,
-                            PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
-                        },
-                        new
-                        {
-                            Id = new Guid("6be09935-4ba1-42e2-9ccc-ab66fe1569a3"),
-                            DayOfWeek = 3,
-                            PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
-                        },
-                        new
-                        {
-                            Id = new Guid("2246a4b5-1dc9-4b8b-a6ea-f4e3d2635249"),
-                            DayOfWeek = 4,
-                            PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
-                        },
-                        new
-                        {
-                            Id = new Guid("c1188b95-fcb3-4d83-8ac0-04c0f26fbb3d"),
-                            DayOfWeek = 4,
-                            PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
-                        },
-                        new
-                        {
-                            Id = new Guid("5abe297f-e351-4939-bded-ec538c595417"),
-                            DayOfWeek = 5,
-                            PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
-                        },
-                        new
-                        {
-                            Id = new Guid("d1f42050-c53b-45bf-8473-ebc14c01d4b7"),
-                            DayOfWeek = 5,
-                            PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
-                        },
-                        new
-                        {
-                            Id = new Guid("b53c2d5c-bc63-4c0d-84c7-d3a69073879c"),
-                            DayOfWeek = 6,
-                            PeriodID = new Guid("064eaf1f-a520-4eda-b179-a2c38811ad0b")
-                        },
-                        new
-                        {
-                            Id = new Guid("32196bfb-4117-4fc7-a0d7-7c2751544d1e"),
-                            DayOfWeek = 6,
-                            PeriodID = new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31")
-                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Slot", b =>
@@ -873,7 +802,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("44471696-e348-4740-ad89-8ee935f61b19"),
+                            Id = new Guid("c522eb95-d4a7-4068-aaf7-79310f930fd3"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -892,7 +821,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8d645415-35c0-424b-bd6d-8224d066e0ac"),
+                            Id = new Guid("8545e9ae-aaa8-466d-8843-d2412db24294"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -911,7 +840,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d6cd22ec-b171-46a1-8a97-c70f42b2426a"),
+                            Id = new Guid("e776c7a2-6df2-46d8-9dc8-10d2c6b59f24"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -930,7 +859,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ece0f78-29b2-4e48-b1a8-4fbbcdb6b6b6"),
+                            Id = new Guid("ea181d15-59bd-4bab-8f13-ef00ced66a67"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -949,7 +878,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2396ce47-232b-46c2-ac2c-3e7475b0bb51"),
+                            Id = new Guid("fcec1302-94ee-42ee-a407-0cc4c6d3bf22"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -968,7 +897,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("24ec1653-6587-46a8-8739-c5aaad58f770"),
+                            Id = new Guid("89ba6b3d-6ec2-40dc-9eaf-8569ac92539a"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -987,7 +916,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d4b01266-a27c-4aa5-ad12-c5fc9a9a7046"),
+                            Id = new Guid("82c853ee-e94d-4680-8b6f-d335e8d84ea8"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1006,7 +935,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("168ec59a-78dc-479a-9ded-6ba3a1a3e775"),
+                            Id = new Guid("576ce12f-b482-458d-aa2b-cd132de6426d"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1025,7 +954,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("377a52c8-8d30-4092-9fef-ca00cce811ee"),
+                            Id = new Guid("edcef2a9-186f-498e-88f0-ddca19741fb9"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1044,7 +973,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("814c52e0-152f-4f6e-9eb9-073ad018b3ed"),
+                            Id = new Guid("3e21448a-cce2-4db3-9797-6e130243f6ad"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),

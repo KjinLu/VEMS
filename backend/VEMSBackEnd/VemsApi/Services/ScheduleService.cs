@@ -22,6 +22,12 @@ namespace VemsApi.Services
         Task<bool> UpdateSchedule(UpdateScheduleDto request);
         Task<bool> DeleteSchedule(DeleteSchedule request);
 
+
+        //Schedule detail
+        Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
+        Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request);
+
+
     }
 
     public class ScheduleService : IScheduleService
@@ -115,6 +121,16 @@ namespace VemsApi.Services
         public async Task<bool> DeleteSchedule(DeleteSchedule request)
         {
             return await scheduleRepository.DeleteScheduleAsync(request.ScheduleId);
+        }
+
+        public async Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request)
+        {
+            return await scheduleRepository.CreateScheduleDetail(request);
+        }
+
+        public async Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request)
+        {
+            return await scheduleRepository.GetScheduleDetail(request); 
         }
     }
 }

@@ -16,17 +16,23 @@ namespace DataAccess.Repository
         Task<Schedule> CreateScheduleAsync(Schedule schedule);
         Task<bool> UpdateScheduleAsync(Schedule schedule);
         Task<bool> DeleteScheduleAsync(Guid id);
+        Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
+        Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid scheduleID);
     }
 
     public class ScheduleRepository : IScheduleRepository
     {
         public async Task<Schedule> CreateScheduleAsync(Schedule schedule) => await ScheduleDAO.Instance.CreateScheduleAsync(schedule);
 
+        public async Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request) => await ScheduleDAO.Instance.CreateScheduleDetailAsync(request);
+
         public async Task<bool> DeleteScheduleAsync(Guid id) => await ScheduleDAO.Instance.DeleteScheduleAsync(id);
 
         public async Task<List<ScheduleResponse>> GetAllSchedulesAsync() => await ScheduleDAO.Instance.GetAllScheduleAsync();
 
         public async Task<Schedule?> GetScheduleByIdAsync(Guid id) => await ScheduleDAO.Instance.GetSchedulesByIdAsync(id);
+
+        public async Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid scheduleID) => await ScheduleDAO.Instance.GetScheduleDetails(scheduleID);
 
         public async Task<List<ScheduleResponse>> GetSchedulesByClassroomAsync(Guid classroomId) => await ScheduleDAO.Instance.GetListSchedulesByClassAsync(classroomId);
 

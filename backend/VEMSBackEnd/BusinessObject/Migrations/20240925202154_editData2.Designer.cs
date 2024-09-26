@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20240925202154_editData2")]
+    partial class editData2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +94,8 @@ namespace BusinessObject.Migrations
                     b.Property<Guid>("ScheduleDetailId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -873,7 +876,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("44471696-e348-4740-ad89-8ee935f61b19"),
+                            Id = new Guid("839e69ad-5b37-422a-b3bd-18ad3676708b"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -892,7 +895,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8d645415-35c0-424b-bd6d-8224d066e0ac"),
+                            Id = new Guid("aa7bb3ee-86e7-4cab-94e3-5d91a8631f39"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -911,7 +914,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d6cd22ec-b171-46a1-8a97-c70f42b2426a"),
+                            Id = new Guid("c03fc460-bb51-4394-b99a-62af410436a6"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -930,7 +933,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ece0f78-29b2-4e48-b1a8-4fbbcdb6b6b6"),
+                            Id = new Guid("6f67eec2-75b0-400d-8988-1d0f6243e2a4"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -949,7 +952,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2396ce47-232b-46c2-ac2c-3e7475b0bb51"),
+                            Id = new Guid("173d4f28-db4b-4d39-b7bb-6e5e70b81d0a"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -968,7 +971,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("24ec1653-6587-46a8-8739-c5aaad58f770"),
+                            Id = new Guid("9511ddd9-514c-4e2c-b7dd-4be9437dc84f"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -987,7 +990,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d4b01266-a27c-4aa5-ad12-c5fc9a9a7046"),
+                            Id = new Guid("678369b1-5924-43f5-925f-f48f19d6704f"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1006,7 +1009,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("168ec59a-78dc-479a-9ded-6ba3a1a3e775"),
+                            Id = new Guid("b4461ced-2822-4994-b339-d701121d139a"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1025,7 +1028,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("377a52c8-8d30-4092-9fef-ca00cce811ee"),
+                            Id = new Guid("807ad44c-1b31-4faa-a3cc-5a8a1308b616"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1044,7 +1047,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("814c52e0-152f-4f6e-9eb9-073ad018b3ed"),
+                            Id = new Guid("533de0e6-72db-49ef-90af-b337cf918a68"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),

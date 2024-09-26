@@ -1,4 +1,5 @@
-﻿using BusinessObject;
+﻿using Azure.Core;
+using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -225,6 +226,159 @@ namespace DataAccess.DAO
             catch (Exception ex)
             {
                 throw new Exception($"Lỗi khi xóa thời khóa biểu: ", ex);
+            }
+        }
+
+        public async Task<bool> CreateScheduleDetailAsync(CreateScheduleDetailRequest request)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var existingSchedule = await context.Schedules.FindAsync(request.ScheduleID).ConfigureAwait(false);
+
+                    if (existingSchedule != null)
+                    {
+                        foreach (var item in request.Sessions)
+                        {
+                            Guid currentSessionID = item.SessionID;
+                            List<SlotDetail> slotDetails = new List<SlotDetail>();
+                            foreach (var session in item.SlotDetails)
+                            {
+                                SlotDetail newSlot = new SlotDetail
+                                {
+                                    SessionID = currentSessionID,
+                                    SlotID = session.SlotID,
+                                    SubjectID = session.SubjectID,
+                                    TeacherID = session.TeacherID,
+                                };
+                                slotDetails.Add(newSlot);
+                            }
+                            ScheduleDetail newScheduleDetail = new ScheduleDetail();
+                            newScheduleDetail.SessionId = currentSessionID;
+                            newScheduleDetail.ScheduleId = request.ScheduleID;
+
+
+                            var  newScheduleDetailCreated = context.ScheduleDetails.Add(newScheduleDetail).Entity;
+
+                            var sessionTime = await (from s in context.Sessions
+                                                     join p in context.Periods on s.PeriodID equals p.Id
+                                                     where s.Id == currentSessionID
+                                                     select new
+                                                     {
+                                                         PeriodName = p.PeriodName,
+                                                         Time = p.StartTime
+                                                     }).FirstOrDefaultAsync();
+                            Attendance newAttendance = new Attendance();
+                            newAttendance.ScheduleDetailId = newScheduleDetailCreated.Id;
+                            newAttendance.Note = "";
+                            newAttendance.StartTime = sessionTime.Time;
+
+                            context.Attendances.Add(newAttendance);
+                            context.SlotDetails.AddRange(slotDetails);
+                        }
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Không tìm thấy thời khóa biểu!");
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi tạo thời khóa biểu chi tiết: ", ex);
+            }
+        }
+
+        public async Task<ScheduleDetailResponseDto> GetScheduleDetails(Guid scheduleId)
+        {
+            try
+            {
+                ScheduleDetailResponseDto response = new ScheduleDetailResponseDto();
+                using (var context = new VemsContext())
+                {
+                    var existingSchedule = await context.Schedules.FindAsync(scheduleId).ConfigureAwait(false);
+
+                    if (existingSchedule != null)
+                    {
+                       var scheduleInfo = await (from s in context.Schedules
+                                           join c in context.Classrooms on s.ClassroomId equals c.Id
+                                           where s.Id == scheduleId
+                                           select new
+                                           {
+                                               scheduleID = s.Id,
+                                               time = s.Time,
+                                               classroomId = c.Id,
+                                               className = c.ClassName
+                                           }
+                                           ).FirstOrDefaultAsync();
+
+
+                        var sessionQuery = await context.ScheduleDetails
+                                .Where(sd => sd.ScheduleId == scheduleId)
+                                .ToListAsync();
+
+                        List<SesionDetailResponse> sessionResponse = new List<SesionDetailResponse>();
+
+                        foreach (var item in sessionQuery)
+                        {
+                            SesionDetailResponse newSession = new SesionDetailResponse();
+
+                            var sessionDetailQuerry = await (from se in context.Sessions
+                                                             join p in context.Periods on se.PeriodID equals p.Id
+                                                             where se.Id == item.SessionId
+                                                             select new
+                                                             {
+                                                                 sessionID = se.Id,
+                                                                 DayOfWeek = se.DayOfWeek,
+                                                                 PeriodName = p.PeriodName,
+                                                             }).FirstOrDefaultAsync();
+
+                            List<SlotDetailResponse> slotDetailQuery = await (from sd in context.SlotDetails
+                                                                              join se in context.Sessions on sd.SessionID equals se.Id
+                                                                              join su in context.Subjects on sd.SubjectID equals su.Id
+                                                                              join te in context.Teacher on sd.TeacherID equals te.Id
+                                                                              join so in context.Slots on sd.SlotID equals so.Id
+                                                                              where sd.SessionID == item.SessionId
+                                                                              select new SlotDetailResponse
+                                                                              {
+                                                                                  SlotID = so.Id,
+                                                                                  SlotIndex = so.SlotIndex,
+                                                                                  SubjectID = su.Id,
+                                                                                  SubjectName = su.SubjectName,
+                                                                                  TeacherID = te.Id,
+                                                                                  TeacherName = te.FullName,
+                                                                                  SlotStart = so.StartTime,
+                                                                                  SlotEnd = so.EndTime,
+
+                                                                              }).ToListAsync();
+                            newSession.SessionID = sessionDetailQuerry.sessionID;
+                            newSession.PeriodName = sessionDetailQuerry.PeriodName;
+                            newSession.DayOfWeek = sessionDetailQuerry.DayOfWeek;
+                            newSession.SlotDetails = slotDetailQuery;
+                            sessionResponse.Add(newSession);
+                        }
+
+
+                        // Binding data to response
+                        response.ScheduleId = scheduleInfo.scheduleID;
+                        response.Time = scheduleInfo.time;
+                        response.ClassName = scheduleInfo.className;
+                        response.ClassroomID = scheduleInfo.classroomId;
+                        response.Sessions = sessionResponse.OrderBy(i => i.DayOfWeek).ToList();
+                    }
+                    else
+                    {
+                        throw new Exception("Không tìm thấy thời khóa biểu!");
+                    }
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi tải thời khóa biểu: ", ex);
             }
         }
     }

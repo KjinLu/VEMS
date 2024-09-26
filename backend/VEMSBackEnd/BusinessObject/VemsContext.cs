@@ -179,6 +179,7 @@ namespace BusinessObject
       modelBuilder.SeedingAdmins();
       modelBuilder.SeedingStudent();
       modelBuilder.SeedingTeacher();
+      modelBuilder.SeedingSession();
     }
   }
 }
