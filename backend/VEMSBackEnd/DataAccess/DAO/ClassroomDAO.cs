@@ -13,7 +13,7 @@ namespace DataAccess.DAO
             _context = new VemsContext();
         }
 
-        // Get Classroom by Id
+        // Lấy Classroom theo Id
         public async Task<Classroom> GetClassroomByIdAsync(Guid id)
         {
             try
@@ -23,11 +23,11 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching classroom by Id: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy Classroom theo Id: {ex.Message}", ex);
             }
         }
 
-        // Get All Classrooms
+        // Lấy tất cả Classrooms
         public async Task<List<Classroom>> GetAllClassroomsAsync()
         {
             try
@@ -36,25 +36,25 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching all classrooms: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy tất cả các Classroom: {ex.Message}", ex);
             }
         }
 
-        // Add Classroom
+        // Thêm Classroom
         public async Task AddClassroomAsync(Classroom classroom)
         {
             try
             {
-                //Check if gradeid already existed
+                // Kiểm tra nếu gradeId đã tồn tại
                 if (!await GradeExists(classroom.GradeId))
                 {
-                    throw new InvalidOperationException("GradeId does not exist.");
+                    throw new InvalidOperationException("GradeId không tồn tại.");
                 }
 
-                //Check if classroomid already existed
+                // Kiểm tra nếu classroomId đã tồn tại
                 if (await ClassroomExists(classroom.Id))
                 {
-                    throw new InvalidOperationException("A classroom with the same ID already exists.");
+                    throw new InvalidOperationException("Một Classroom với ID tương tự đã tồn tại.");
                 }
 
                 _context.Classrooms.Add(classroom);
@@ -62,33 +62,33 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("A concurrency error occurred while creating the classroom. Please try again.", ex);
+                throw new Exception("Xảy ra lỗi đồng thời khi tạo Classroom. Vui lòng thử lại.", ex);
             }
             catch (InvalidOperationException ex)
             {
-                throw ;
+                throw;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error adding classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi thêm Classroom: {ex.Message}", ex);
             }
         }
 
-        // Update Classroom
+        // Cập nhật Classroom
         public async Task UpdateClassroomAsync(Classroom classroom)
         {
             try
             {
-                //Check if gradeid already existed
+                // Kiểm tra nếu gradeId đã tồn tại
                 if (!await GradeExists(classroom.GradeId))
                 {
-                    throw new InvalidOperationException("GradeId does not existed.");
+                    throw new InvalidOperationException("GradeId không tồn tại.");
                 }
 
-                //Check if classroomid already existed
+                // Kiểm tra nếu classroomId đã tồn tại
                 if (!await ClassroomExists(classroom.Id))
                 {
-                    throw new InvalidOperationException("Classroom not found.");
+                    throw new InvalidOperationException("Không tìm thấy Classroom.");
                 }
 
                 _context.Classrooms.Update(classroom);
@@ -96,7 +96,7 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("A concurrency error occurred while updating the classroom. Please try again.", ex);
+                throw new Exception("Xảy ra lỗi đồng thời khi cập nhật Classroom. Vui lòng thử lại.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -104,11 +104,11 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error updating classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi cập nhật Classroom: {ex.Message}", ex);
             }
         }
 
-        // Delete Classroom
+        // Xóa Classroom
         public async Task DeleteClassroomAsync(Guid id)
         {
             try
@@ -116,7 +116,7 @@ namespace DataAccess.DAO
                 var classroom = await GetClassroomByIdAsync(id);
                 if (classroom == null)
                 {
-                    throw new InvalidOperationException("Classroom not found.");
+                    throw new InvalidOperationException("Không tìm thấy Classroom.");
                 }
 
                 _context.Classrooms.Remove(classroom);
@@ -124,7 +124,7 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("A concurrency error occurred while deleting the classroom. Please try again.", ex);
+                throw new Exception("Xảy ra lỗi đồng thời khi xóa Classroom. Vui lòng thử lại.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -132,12 +132,12 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error deleting classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi xóa Classroom: {ex.Message}", ex);
             }
         }
 
 
-        // Check if Classroom exists
+        // Kiểm tra nếu Classroom tồn tại
         private async Task<bool> ClassroomExists(Guid id)
         {
             return await _context.Classrooms
@@ -146,7 +146,7 @@ namespace DataAccess.DAO
                 .ConfigureAwait(false);
         }
 
-        // Check if Grade exists
+        // Kiểm tra nếu Grade tồn tại
         private async Task<bool> GradeExists(Guid gradeId)
         {
             return await _context.Grades

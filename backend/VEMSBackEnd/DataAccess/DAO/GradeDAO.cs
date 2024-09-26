@@ -13,8 +13,7 @@ namespace DataAccess.DAO
             _context = new VemsContext();
         }
 
-
-        // Get Grade by Id
+        // Lấy Grade theo Id
         public async Task<Grade> GetGradeByIdAsync(Guid id)
         {
             try
@@ -24,11 +23,11 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching grade by Id: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy Grade theo Id: {ex.Message}", ex);
             }
         }
 
-        // Get All Grades
+        // Lấy tất cả Grades
         public async Task<List<Grade>> GetAllGradesAsync()
         {
             try
@@ -37,9 +36,10 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching all grades: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy tất cả các Grade: {ex.Message}", ex);
             }
         }
+
 
     }
 }
