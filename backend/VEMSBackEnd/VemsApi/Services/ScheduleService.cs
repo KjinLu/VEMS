@@ -19,6 +19,7 @@ namespace VemsApi.Services
         Task<List<ScheduleResponse>> GetAllScheduleOfClass(Guid request);
         Task<object> GetAllSchedule(PaginationRequest request);
         Task<Schedule> CreateSchedule(CreateScheduleDto request);
+        Task<List<Schedule>> CreateListSchedule(List<CreateScheduleDto> request);
         Task<bool> UpdateSchedule(UpdateScheduleDto request);
         Task<bool> DeleteSchedule(DeleteSchedule request);
 
@@ -34,10 +35,8 @@ namespace VemsApi.Services
     {
         private readonly ISlotRepository slotRepository;
         private readonly IScheduleRepository scheduleRepository;
-        private readonly ISlotDetailRepository slotDetailRepository;
         public ScheduleService()
         {
-            slotDetailRepository = new SlotDetailRepository();
             slotRepository = new SlotRepository();
             scheduleRepository = new ScheduleRepository();
         }
@@ -107,7 +106,25 @@ namespace VemsApi.Services
             Schedule newData = new Schedule();
             newData.ClassroomId = request.ClassroomId;
             newData.Time = DateTime.Parse(request.Time);
+            newData.CreateAt = DateTime.Now;
             return await scheduleRepository.CreateScheduleAsync(newData);
+        }
+
+        public async Task<List<Schedule>> CreateListSchedule(List<CreateScheduleDto> request)
+        {
+            List<Schedule> createDatas = new List<Schedule>();
+            foreach(var item in request)
+            {
+                Schedule newData = new Schedule();
+                newData.ClassroomId = item.ClassroomId;
+                newData.Time = DateTime.Parse(item.Time);
+                newData.CreateAt = DateTime.Now;
+                createDatas.Add(newData);
+            }
+            return await scheduleRepository.CreateListScheduleAsync(createDatas);
+
+
+            throw new NotImplementedException();
         }
 
         public async Task<bool> UpdateSchedule(UpdateScheduleDto request)
@@ -132,5 +149,7 @@ namespace VemsApi.Services
         {
             return await scheduleRepository.GetScheduleDetail(request); 
         }
+
+      
     }
 }

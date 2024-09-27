@@ -1,4 +1,5 @@
-﻿using DataAccess.Repository;
+﻿using System.Security.Claims;
+using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Dto.ApiReponse;
@@ -62,6 +63,20 @@ namespace VemsApi.Controllers
             }
         }
 
+        [HttpPost("create-new-list-schedule")]
+        public async Task<IActionResult> CreateListSchedule(List<CreateScheduleDto> request)
+        {
+            try
+            {
+                var response = await scheduleService.CreateListSchedule(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPut("update-schedule")]
         public async Task<IActionResult> UpdateSchedule(UpdateScheduleDto request)
         {
@@ -105,7 +120,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpGet("get-schedule-detail")]
-        public async Task<IActionResult> GetScheduleDetail (Guid ScheduleID)
+        public async Task<IActionResult> GetScheduleDetail(Guid ScheduleID)
         {
             try
             {
@@ -117,5 +132,6 @@ namespace VemsApi.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
+
     }
 }
