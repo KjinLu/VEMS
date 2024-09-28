@@ -2,6 +2,7 @@
 using Azure.Core;
 using BusinessObject;
 using CloudinaryDotNet;
+using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,11 +15,9 @@ namespace SchoolMate.Authorizotion;
 
 public interface IJwtUtils
 {
-    public string GenerateJwtTokenStudent(Student student);
-    public string GenerateJwtTokenTeacher(Teacher teacher);
-    public string GenerateJwtTokenAdmin(Admin teacher);
-    public string GenerateJwtRefreshToken(string token);
-    public Guid? ValidateJwtToken(string? token);
+    public Task<string> GenerateJwtToken(CommonAccountType account);
+    public Task<string> GenerateJwtRefreshToken(string token);
+    public Task<Guid?> ValidateJwtToken(string? token);
 
 }
 public class JwtUtils : IJwtUtils
@@ -34,62 +33,8 @@ public class JwtUtils : IJwtUtils
         if (string.IsNullOrEmpty(_appSettings.Secret))
             throw new Exception("JWT secret not configured");
     }
-    public string GenerateJwtTokenStudent(Student student)
-    {
-        // generate token that is valid for 1 days
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_appSettings.Secret!);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new[] {
-                new Claim("id", student.Id.ToString()),
-                new Claim("role", student.RoleId.ToString())}
-            ),
-            Expires = DateTime.UtcNow.AddMinutes(120),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
-    }
 
-    public string GenerateJwtTokenTeacher(Teacher teacher)
-    {
-        // generate token that is valid for 1 days
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_appSettings.Secret!);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new[] {
-                new Claim("id", teacher.Id.ToString()),
-                new Claim("role", teacher.RoleId.ToString())}
-            ),
-            Expires = DateTime.UtcNow.AddMinutes(120),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
-    }
-
-    public string GenerateJwtTokenAdmin(Admin admin)
-    {
-        // generate token that is valid for 1 days
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_appSettings.Secret!);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new[] {
-                new Claim("id", admin.Id.ToString()),
-                new Claim("role", admin.RoleId.ToString())}
-            ),
-            Expires = DateTime.UtcNow.AddMinutes(120),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
-    }
-
-
-    public string GenerateJwtRefreshToken(string accessToken)
+    public async Task<string> GenerateJwtRefreshToken(string accessToken)
     {
         if (accessToken == null)
         {
@@ -113,7 +58,7 @@ public class JwtUtils : IJwtUtils
             var jwtToken = (JwtSecurityToken)validatedToken;
             Guid userId = new Guid(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-            var validateUser = _accountRepository.GetAccountByID(userId);
+            var validateUser =await _accountRepository.GetAccountByIDAsync(userId);
 
 
             // Validate if refresh token logic is implemented (placeholder for actual validation)
@@ -122,12 +67,13 @@ public class JwtUtils : IJwtUtils
                 return null;
             }
 
+
             // Generate a new access token with a shorter lifespan  
             var newTokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                 new Claim("id", validateUser.ToString()),
-                new Claim("role", validateUser.ToString())
+                 new Claim("id", validateUser.AccountID.ToString()),
+                new Claim("role", validateUser.RoleName.ToString())
                 }
             ),
                 Expires = DateTime.UtcNow.AddDays(1),
@@ -136,7 +82,8 @@ public class JwtUtils : IJwtUtils
 
             var newToken = tokenHandler.CreateToken(newTokenDescriptor);
             var tokenResult = tokenHandler.WriteToken(newToken);
-            //_refreshTokenRepository.Create(validateUser.TeacherId, 1, tokenResult);
+            await _accountRepository.UpdateRefreshTokenAsync(userId, tokenResult);
+
             return tokenResult;
         }
         catch
@@ -145,7 +92,7 @@ public class JwtUtils : IJwtUtils
         }
     }
 
-    public Guid? ValidateJwtToken(string? token)
+    public async Task<Guid?> ValidateJwtToken(string? token)
     {
         if (token == null)
             return null;
@@ -179,8 +126,23 @@ public class JwtUtils : IJwtUtils
         }
     }
 
-   
-
- 
- 
+    public async Task<string> GenerateJwtToken(CommonAccountType account)
+    {
+        // generate token that is valid for 1 days
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_appSettings.Secret!);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[] {
+                new Claim("id", account.AccountID.ToString()),
+                new Claim("role", account.RoleName.ToString())}
+            ),
+            Expires = DateTime.UtcNow.AddMinutes(120),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        var tokenResult = tokenHandler.WriteToken(token);
+        //_accountRepository.UpdateRefreshhToken(account.AccountID, tokenResult);
+        return tokenResult;
+    }
 }

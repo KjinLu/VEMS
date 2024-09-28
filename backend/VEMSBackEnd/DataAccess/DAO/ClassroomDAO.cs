@@ -23,7 +23,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi lấy Classroom theo Id: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy lớp học theo Id: {ex.Message}", ex);
             }
         }
 
@@ -36,7 +36,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi lấy tất cả các Classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy tất cả các lớp học: {ex.Message}", ex);
             }
         }
 
@@ -46,15 +46,15 @@ namespace DataAccess.DAO
             try
             {
                 // Kiểm tra nếu gradeId đã tồn tại
-                if (!await GradeExists(classroom.GradeId))
+                if (!await IsGradeExists(classroom.GradeId))
                 {
-                    throw new InvalidOperationException("GradeId không tồn tại.");
+                    throw new InvalidOperationException("Khối không tồn tại.");
                 }
 
                 // Kiểm tra nếu classroomId đã tồn tại
-                if (await ClassroomExists(classroom.Id))
+                if (await IsClassroomExists(classroom.Id))
                 {
-                    throw new InvalidOperationException("Một Classroom với ID tương tự đã tồn tại.");
+                    throw new InvalidOperationException("ID của lớp học đã tồn tại.");
                 }
 
                 _context.Classrooms.Add(classroom);
@@ -62,7 +62,7 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Xảy ra lỗi đồng thời khi tạo Classroom. Vui lòng thử lại.", ex);
+                throw new Exception("Xảy ra lỗi đồng thời khi tạo lớp học. Vui lòng thử lại.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -70,7 +70,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi thêm Classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi thêm lớp học: {ex.Message}", ex);
             }
         }
 
@@ -80,15 +80,15 @@ namespace DataAccess.DAO
             try
             {
                 // Kiểm tra nếu gradeId đã tồn tại
-                if (!await GradeExists(classroom.GradeId))
+                if (!await IsGradeExists(classroom.GradeId))
                 {
-                    throw new InvalidOperationException("GradeId không tồn tại.");
+                    throw new InvalidOperationException("Khối không tồn tại.");
                 }
 
                 // Kiểm tra nếu classroomId đã tồn tại
-                if (!await ClassroomExists(classroom.Id))
+                if (!await IsClassroomExists(classroom.Id))
                 {
-                    throw new InvalidOperationException("Không tìm thấy Classroom.");
+                    throw new InvalidOperationException("Không tìm thấy lớp học.");
                 }
 
                 _context.Classrooms.Update(classroom);
@@ -96,7 +96,7 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Xảy ra lỗi đồng thời khi cập nhật Classroom. Vui lòng thử lại.", ex);
+                throw new Exception("Xảy ra lỗi đồng thời khi cập nhật lớp học. Vui lòng thử lại.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -104,7 +104,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi cập nhật Classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi cập nhật lớp học: {ex.Message}", ex);
             }
         }
 
@@ -116,7 +116,7 @@ namespace DataAccess.DAO
                 var classroom = await GetClassroomByIdAsync(id);
                 if (classroom == null)
                 {
-                    throw new InvalidOperationException("Không tìm thấy Classroom.");
+                    throw new InvalidOperationException("Không tìm thấy lớp học.");
                 }
 
                 _context.Classrooms.Remove(classroom);
@@ -124,7 +124,7 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Xảy ra lỗi đồng thời khi xóa Classroom. Vui lòng thử lại.", ex);
+                throw new Exception("Xảy ra lỗi đồng thời khi xóa lớp học. Vui lòng thử lại.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -132,13 +132,13 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi xóa Classroom: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi xóa lớp học: {ex.Message}", ex);
             }
         }
 
 
         // Kiểm tra nếu Classroom tồn tại
-        private async Task<bool> ClassroomExists(Guid id)
+        private async Task<bool> IsClassroomExists(Guid id)
         {
             return await _context.Classrooms
                 .AsNoTracking()
@@ -147,7 +147,7 @@ namespace DataAccess.DAO
         }
 
         // Kiểm tra nếu Grade tồn tại
-        private async Task<bool> GradeExists(Guid gradeId)
+        private async Task<bool> IsGradeExists(Guid gradeId)
         {
             return await _context.Grades
                 .AsNoTracking()

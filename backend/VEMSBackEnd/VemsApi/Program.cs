@@ -1,11 +1,40 @@
 using BusinessObject;
 using DataAccess.DAO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using MoneyDreamAPI.Services;
 using SchoolMate.Authorizotion;
 using SchoolMate.Helpers;
+using System.Text;
 using VemsApi.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+        ValidAudience = builder.Configuration["AppSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey
+        (Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"])),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+builder.Services.AddAuthorization();
 
 // Add services to the container.
 
@@ -16,14 +45,46 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<VemsContext>();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<IClassroomService, ClassroomService>();
 builder.Services.AddScoped<IGradeService, GradeService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 builder.Services.AddHttpContextAccessor();
 
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition(
+        name: "Bearer",
+        securityScheme: new OpenApiSecurityScheme
+        {
+
+            Name = "Authorization",
+            Description = "Enter Bearer Token: ",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "Bearer"
+        });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id = JwtBearerDefaults.AuthenticationScheme
+            }
+        }, new string[] {}
+        }
+    });
+});
 
 
 builder.Services.AddDbContext<VemsContext>(options =>
@@ -40,11 +101,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseMiddleware<JwtMiddleware>();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
+app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<JwtMiddleware>();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

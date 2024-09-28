@@ -1,5 +1,3 @@
-using BusinessObject;
-using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Dto.ApiReponse;

@@ -23,7 +23,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi lấy Grade theo Id: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy khối theo Id: {ex.Message}", ex);
             }
         }
 
@@ -36,7 +36,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi lấy tất cả các Grade: {ex.Message}", ex);
+                throw new Exception($"Lỗi khi lấy tất cả các khối: {ex.Message}", ex);
             }
         }
 
