@@ -5,6 +5,7 @@ using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
 using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.ImageDto;
+using VemsApi.Dto.PaginationDto;
 using VemsApi.Dto.StudentServiceDto;
 using VemsApi.Services;
 
@@ -20,6 +21,20 @@ namespace VemsApi.Controllers
         public StudentServiceController(IStudentService _studentService)
         {
             studentService = _studentService;
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudents([FromQuery] PaginationRequest request)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetAllStudents(request));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
         }
 
         [HttpPut("update-profile")]
