@@ -46,7 +46,6 @@ namespace VemsApi.Services
             account.UnionJoinDate = DateOnly.Parse(request.UnionJoinDate);
 
             return await _accountRepository.UpdateStudentProfile(account);
-
         }
 
         public async Task<bool> ChangePassword(ChangePasswordRequest request)
