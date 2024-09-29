@@ -1,0 +1,42 @@
+﻿using DataAccess.DTO;
+using DataAccess.Repository;
+
+namespace VemsApi.Services
+{
+    public interface IAttendanceService
+    {
+        Task<List<InfomationForAttendance>> GetClassAttendanceSchedule(GetClassAttendanceScheduleRequest request);
+        Task<bool> TakeAttendance(TakeAttendanceRequest request);
+        Task<bool> UpdateAttendance(UpdateAttendanceRequest request);
+
+        Task<ClassAttendanceResponse> GetAttendanceForClass(GetClassAttendanceRequest request);
+    }
+    public class AttendanceService : IAttendanceService
+    {
+        private readonly IAttendanceRepository attendanceRepository;
+        public AttendanceService() {
+            attendanceRepository = new AttendanceRepository();
+        }
+
+        public async Task<ClassAttendanceResponse> GetAttendanceForClass(GetClassAttendanceRequest request)
+        {
+           return await attendanceRepository.GetAttendanceForClass(request);
+        }
+
+        public async Task<List<InfomationForAttendance>> GetClassAttendanceSchedule(GetClassAttendanceScheduleRequest request)
+        {
+            return await attendanceRepository.GetClassAttendanceSchedule(request.ClassID, request.Time);
+        }
+
+        public async Task<bool> TakeAttendance(TakeAttendanceRequest request)
+        {
+            return await attendanceRepository.TakeAttendance(request);
+        }
+
+        public async Task<bool> UpdateAttendance(UpdateAttendanceRequest request)
+        {
+            return await attendanceRepository.UpdateAttenndance(request);
+
+        }
+    }
+}

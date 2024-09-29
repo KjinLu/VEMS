@@ -1,1 +1,26 @@
-{}
+{
+  "attendanceID": "b286929e-9a94-46b5-6208-08dcdf073582",
+  "time": "2024-09-29T02:11:19.800Z",
+  "note": "Nothing",
+  "updateBy": "Nguyen Thanh Duong",
+  "createBy": "Tran Thi B",
+  "createAt": "2024-09-27T02:11:19.800Z",
+  "updateAt": "2024-09-29T02:11:19.800Z",
+  "attendanceData": [
+
+    {
+        "attendanceStatusID": "100916D6-1A43-4AF5-36AC-08DCDF07358E",
+        "studentID": "82682912-5C5D-4F44-8BD2-02949278C660",
+        "statusID": "AC6FF8A5-2017-402A-8966-9CE59146C689"
+      },
+          {
+        "attendanceStatusID": "052C4088-6F41-43F0-36AD-08DCDF07358E",
+        "studentID": "22E4F3C0-B1A2-4FAC-A57C-1C07EAE0AFA6",
+        "statusID": "AC6FF8A5-2017-402A-8966-9CE59146C689"
+      },    {
+        "attendanceStatusID": "0BD5236C-CA84-49EC-36AE-08DCDF07358E",
+        "studentID": "DC0D8AE5-EDD5-44C8-A131-2F7049FA5E5E",
+        "statusID": "AC6FF8A5-2017-402A-8966-9CE59146C689"
+      }
+  ]
+}
