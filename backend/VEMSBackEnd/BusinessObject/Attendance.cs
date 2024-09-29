@@ -15,8 +15,8 @@ namespace BusinessObject
         public Guid Id { get; set; }
 
         [Required]
-        [Column(TypeName = "time")]
-        public TimeOnly StartTime { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime TimeReport { get; set; }
 
         public string Note { get; set; }
 
