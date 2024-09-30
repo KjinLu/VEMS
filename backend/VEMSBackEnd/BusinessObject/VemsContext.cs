@@ -41,13 +41,15 @@ namespace BusinessObject
     public DbSet<AttendanceStatus> AttendanceStatuses { get; set; }
     public DbSet<SlotDetail> SlotDetails { get; set; }
     public DbSet<EmailToken> EmailTokens { get; set; }
+    public DbSet<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
-        }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+      optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
+      // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
+    }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
       {
@@ -133,7 +135,6 @@ namespace BusinessObject
         .HasForeignKey(a => a.AttendanceId)
         .OnDelete(DeleteBehavior.Cascade);
 
-
       modelBuilder.Entity<AttendanceStatus>()
          .HasOne(a => a.Attendance)
          .WithMany(r => r.AttendanceStatuses)
@@ -154,10 +155,25 @@ namespace BusinessObject
           .WithMany(r => r.AttendanceStatuses)
           .HasForeignKey(a => a.TeacherId);
 
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+        .HasOne(a => a.Attendance)
+        .WithMany(r => r.ExtraActivitiesAttendances)
+        .HasForeignKey(a => a.AttendanceId);
+
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+             .HasOne(a => a.Student)
+             .WithMany(r => r.ExtraActivitiesAttendances)
+             .HasForeignKey(a => a.StudentId);
+
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+        .HasOne(a => a.Status)
+        .WithMany(r => r.ExtraActivitiesAttendances)
+        .HasForeignKey(a => a.StatusId);
+
       modelBuilder.Entity<SlotDetail>()
-         .HasOne(a => a.Slot)
-         .WithMany(r => r.SlotDetails)
-         .HasForeignKey(a => a.SlotID);
+   .HasOne(a => a.Slot)
+   .WithMany(r => r.SlotDetails)
+   .HasForeignKey(a => a.SlotID);
 
       modelBuilder.Entity<SlotDetail>()
         .HasOne(a => a.Teacher)
@@ -173,7 +189,6 @@ namespace BusinessObject
         .HasOne(a => a.Session)
         .WithMany(r => r.SlotDetails)
         .HasForeignKey(a => a.SessionID);
-
 
       modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();

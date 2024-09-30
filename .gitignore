@@ -5,6 +5,8 @@
 
 # dotenv files
 .env
+/BusinessObject/Migrations/
+/VemsApi/appsettings.json
 
 # User-specific files
 *.rsuser
