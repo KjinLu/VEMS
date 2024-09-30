@@ -27,6 +27,7 @@ namespace BusinessObject
 
         public ICollection<AttendanceCharge> AttendanceCharges { get; set; }
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
+        public ICollection<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
     }
 }
