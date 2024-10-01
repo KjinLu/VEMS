@@ -58,30 +58,30 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("registerExtraActivity")]
-        public IActionResult RegisterExtraActivity()
-        {
-            try
-            {
-                return APIResponse.Success(null);
-            }
-            catch (Exception ex)
-            {
-                return APIResponse.Error(null, ex.Message);
-            }
-        }
+        //[HttpPost("registerExtraActivity")]
+        //public IActionResult RegisterExtraActivity()
+        //{
+        //    try
+        //    {
+        //        return APIResponse.Success(null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return APIResponse.Error(null, ex.Message);
+        //    }
+        //}
 
-        [HttpPut("updateExtraActivityEnroller")]
-        public IActionResult UpdateExtraActivityEnroller()
-        {
-            try
-            {
-                return APIResponse.Success(null);
-            }
-            catch (Exception ex)
-            {
-                return APIResponse.Error(null, ex.Message);
-            }
-        }
+        //[HttpPut("updateExtraActivityEnroller")]
+        //public IActionResult UpdateExtraActivityEnroller()
+        //{
+        //    try
+        //    {
+        //        return APIResponse.Success(null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return APIResponse.Error(null, ex.Message);
+        //    }
+        //}
     }
 }
