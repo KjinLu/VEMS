@@ -23,6 +23,10 @@ namespace BusinessObject
         [ForeignKey("ClassroomId")]
         public Classroom Classroom { get; set; }
 
+        [Required]
+        [Column(TypeName = "datetime")]
+        public DateTime CreateAt { get; set; }
+
         public ICollection<ScheduleDetail> ScheduleDetails { get; set; }
     }
 }

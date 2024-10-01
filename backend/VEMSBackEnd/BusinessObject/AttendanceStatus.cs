@@ -15,29 +15,35 @@ namespace BusinessObject
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [Required]
-        [Column(TypeName = "datetime")]
-        public DateTime TimeReport { get; set; }
-
         public Guid AttendanceId { get; set; }
 
         [ForeignKey("AttendanceId")]
         public Attendance Attendance { get; set; }
+
+        public Guid StudentId { get; set; }
+
+        [ForeignKey("StudentId")]
+        public Student Student { get; set; }
 
         public Guid StatusId { get; set; }
 
         [ForeignKey("StatusId")]
         public Status Status { get; set; }
 
-        public Guid ReasonId { get; set; }
+        public Guid? ReasonId { get; set; }
 
         [ForeignKey("ReasonId")]
-        public Reason Reason { get; set; }
+        public Reason? Reason { get; set; }
 
-        public Guid TeacherId { get; set; }
+        public Guid? TeacherId { get; set; }
 
         [ForeignKey("TeacherId")]
-        public Teacher Teacher { get; set; }
+        public Teacher? Teacher { get; set; }
+
+        public string CreateBy { get; set; }
+        public string? UpdateBy { get; set; }
+        public DateTime CreateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
 
 
     }

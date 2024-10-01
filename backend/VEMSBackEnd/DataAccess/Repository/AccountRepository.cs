@@ -35,6 +35,8 @@ namespace DataAccess.Repository
         public Task<Teacher> CreateTeacherAccount(Teacher request);
         public Task<bool> UpdateStudentProfile(Student request);
         public Task<bool> UpdateTeacherProfile(Teacher request);
+        public Task<bool> UpdateAvatar(Guid accountID, string imageLink);
+
     }
 
     public class AccountRepository : IAccountRepository
@@ -83,5 +85,7 @@ namespace DataAccess.Repository
 
         public async Task<bool> UpdateTeacherProfile(Teacher request) => await AccountDAO.Instance.UpdateTeacherProfile(request);
 
+        public async Task<bool> UpdateAvatar(Guid accountID, string imageLink) => await AccountDAO.Instance.UpdateAvatarAsync(accountID, imageLink);
+         
     }
 }
