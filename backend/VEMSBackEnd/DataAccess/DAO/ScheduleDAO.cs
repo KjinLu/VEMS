@@ -373,7 +373,11 @@ namespace DataAccess.DAO
                                                                               join su in context.Subjects on sd.SubjectID equals su.Id
                                                                               join te in context.Teacher on sd.TeacherID equals te.Id
                                                                               join so in context.Slots on sd.SlotID equals so.Id
-                                                                              where sd.SessionID == item.SessionId
+                                                                              join scd in context.ScheduleDetails on se.Id equals scd.SessionId
+                                                                              join sc in context.Schedules on scd.ScheduleId equals sc.Id
+                                                                              join c in context.Classrooms on sc.ClassroomId equals c.Id
+
+                                                                              where sd.SessionID == item.SessionId 
                                                                               select new SlotDetailResponse
                                                                               {
                                                                                   SlotID = so.Id,
@@ -385,7 +389,7 @@ namespace DataAccess.DAO
                                                                                   SlotStart = so.StartTime,
                                                                                   SlotEnd = so.EndTime,
 
-                                                                              }).ToListAsync();
+                                                                              }).Distinct().OrderBy(x => x.SlotIndex).ToListAsync(); 
                             newSession.SessionID = sessionDetailQuerry.sessionID;
                             newSession.PeriodName = sessionDetailQuerry.PeriodName;
                             newSession.DayOfWeek = sessionDetailQuerry.DayOfWeek;
@@ -413,5 +417,28 @@ namespace DataAccess.DAO
                 throw new Exception($"Lỗi khi tải thời khóa biểu: "+ ex.Message);
             }
         }
+
+        public async Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail()
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception ex) {
+                throw new Exception("Có lỗi khi tải thời khóa biểu: "+ ex.Message);
+            }
+        }
+        public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID)
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tải thời khóa biểu: " + ex.Message);
+            }
+        }
+
     }
 }

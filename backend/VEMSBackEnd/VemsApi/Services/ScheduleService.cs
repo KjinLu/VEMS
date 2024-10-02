@@ -27,6 +27,8 @@ namespace VemsApi.Services
         //Schedule detail
         Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request);
+        Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail();
+        Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request);
 
 
     }
@@ -150,6 +152,15 @@ namespace VemsApi.Services
             return await scheduleRepository.GetScheduleDetail(request); 
         }
 
-      
+        public async Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail()
+        {
+            return await scheduleRepository.GetAllTeacherScheduleDetail();
+
+        }
+
+        public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request)
+        {
+            return await scheduleRepository.GetTeacherScheduleDetail(request);
+        }
     }
 }

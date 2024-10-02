@@ -72,3 +72,10 @@ public class SlotDetailResponse
     public TimeSpan SlotStart { get; set; }
     public TimeSpan SlotEnd { get; set; }
 }
+
+public class TeacherScheduleResponse
+{
+    public Guid TeacherID { get; set;}
+    public string TeacherName { get;set; }
+    public ScheduleDetailResponseDto TeacherSchedule { get; set; }
+}

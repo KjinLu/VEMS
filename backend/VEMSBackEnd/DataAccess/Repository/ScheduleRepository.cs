@@ -19,6 +19,8 @@ namespace DataAccess.Repository
         Task<bool> DeleteScheduleAsync(Guid id);
         Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid scheduleID);
+        Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail();
+        Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID);
     }
 
     public class ScheduleRepository : IScheduleRepository
@@ -40,5 +42,11 @@ namespace DataAccess.Repository
 
         public async Task<bool> UpdateScheduleAsync(Schedule schedule) => await ScheduleDAO.Instance.UpdateScheduleAsync(schedule);
 
+        public async Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail()
+            => await ScheduleDAO.Instance.GetAllTeacherScheduleDetail();
+
+
+        public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID)
+         => await ScheduleDAO.Instance.GetTeacherScheduleDetail(TeacherID);
     }
 }
