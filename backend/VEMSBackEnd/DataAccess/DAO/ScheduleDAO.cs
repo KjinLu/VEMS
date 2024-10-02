@@ -275,8 +275,20 @@ namespace DataAccess.DAO
                 {
                     var existingSchedule =  context.ScheduleDetails.Any(i => i.ScheduleId == request.ScheduleID);
 
+
                     if (!existingSchedule)
                     {
+                        var scheduleInfo = await (from s in context.Schedules
+                                                  join c in context.Classrooms on s.ClassroomId equals c.Id
+                                                  where s.Id == request.ScheduleID
+                                                  select new
+                                                  {
+                                                      scheduleID = s.Id,
+                                                      time = s.Time,
+                                                      classroomId = c.Id,
+                                                      className = c.ClassName
+                                                  }
+                                           ).FirstOrDefaultAsync();
                         foreach (var item in request.Sessions)
                         {
                             Guid currentSessionID = item.SessionID;
@@ -289,6 +301,7 @@ namespace DataAccess.DAO
                                     SlotID = session.SlotID,
                                     SubjectID = session.SubjectID,
                                     TeacherID = session.TeacherID,
+                                    ClassroomID = scheduleInfo.classroomId
                                 };
                                 slotDetails.Add(newSlot);
                             }
@@ -377,7 +390,7 @@ namespace DataAccess.DAO
                                                                               join sc in context.Schedules on scd.ScheduleId equals sc.Id
                                                                               join c in context.Classrooms on sc.ClassroomId equals c.Id
 
-                                                                              where sd.SessionID == item.SessionId 
+                                                                              where sd.SessionID == item.SessionId && sd.ClassroomID == scheduleInfo.classroomId
                                                                               select new SlotDetailResponse
                                                                               {
                                                                                   SlotID = so.Id,
@@ -389,7 +402,7 @@ namespace DataAccess.DAO
                                                                                   SlotStart = so.StartTime,
                                                                                   SlotEnd = so.EndTime,
 
-                                                                              }).Distinct().OrderBy(x => x.SlotIndex).ToListAsync(); 
+                                                                              }).Distinct().OrderBy(x=> x.SlotIndex).ToListAsync(); 
                             newSession.SessionID = sessionDetailQuerry.sessionID;
                             newSession.PeriodName = sessionDetailQuerry.PeriodName;
                             newSession.DayOfWeek = sessionDetailQuerry.DayOfWeek;
@@ -418,27 +431,95 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail()
+        public async Task<List<TeacherScheduleResponse>> GetAllTeachersSchedules()
         {
             try
             {
-                return null;
+                using (var context = new VemsContext())
+                {
+                    var teachers = await context.Teacher.ToListAsync();
+
+                    List<TeacherScheduleResponse> allSchedules = new List<TeacherScheduleResponse>();
+
+                    foreach (var teacher in teachers)
+                    {
+                        var schedule = await GetTeacherScheduleDetail(teacher.Id);
+                        allSchedules.Add(schedule);
+                    }
+
+                    return allSchedules;
+                }
             }
-            catch (Exception ex) {
-                throw new Exception("Có lỗi khi tải thời khóa biểu: "+ ex.Message);
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tải danh sách thời khóa biểu: " + ex.Message);
             }
         }
+
         public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID)
         {
             try
             {
-                return null;
+                using (var context = new VemsContext())
+                {
+                    var query = from slotDetail in context.SlotDetails
+                                join t in context.Teacher on slotDetail.TeacherID equals t.Id
+                                join s in context.Subjects on slotDetail.SubjectID equals s.Id
+                                join slot in context.Slots on slotDetail.SlotID equals slot.Id
+                                join se in context.Sessions on slotDetail.SessionID equals se.Id
+                                join p in context.Periods on se.PeriodID equals p.Id
+                                join c in context.Classrooms on slotDetail.ClassroomID equals c.Id
+                                where t.Id == TeacherID
+                                select new
+                                {
+                                    t.FullName,
+                                    c.ClassName,
+                                    ClassroomID = c.Id,
+                                    SubjectID = s.Id,
+                                    s.SubjectName,
+                                    SlotID = slot.Id,
+                                    slot.SlotIndex,
+                                    slot.StartTime,
+                                    slot.EndTime,
+                                    se.DayOfWeek,
+                                    p.PeriodName
+                                };
+
+                    var result = await query.ToListAsync();
+
+                    var sessionDetails = result.GroupBy(r => new { r.DayOfWeek, r.PeriodName })
+                                               .Select(g => new TeacherSesionDetailResponse
+                                               {
+                                                   DayOfWeek = g.Key.DayOfWeek,
+                                                   PeriodName = g.Key.PeriodName,
+                                                   SlotDetails = g.Select(s => new TeacherSlotDetailResponse
+                                                   {
+                                                       SubjectID = s.SubjectID,
+                                                       SubjectName = s.SubjectName,
+                                                       SlotID = s.SlotID,
+                                                       Classname = s.ClassName,
+                                                       ClassroomID = s.ClassroomID,
+                                                       SlotIndex = s.SlotIndex,
+                                                       SlotStart = s.StartTime,
+                                                   }).ToList()
+                                               }).ToList();
+
+                    var response = new TeacherScheduleResponse
+                    {
+                        TeacherID = TeacherID,
+                        TeacherName = result.FirstOrDefault()?.FullName,
+                        Sessions = sessionDetails
+                    };
+
+                    return response;
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("Có lỗi khi tải thời khóa biểu: " + ex.Message);
             }
         }
+
 
     }
 }

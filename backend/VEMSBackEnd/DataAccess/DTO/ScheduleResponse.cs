@@ -77,5 +77,25 @@ public class TeacherScheduleResponse
 {
     public Guid TeacherID { get; set;}
     public string TeacherName { get;set; }
-    public ScheduleDetailResponseDto TeacherSchedule { get; set; }
+    public List<TeacherSesionDetailResponse> Sessions { get; set; }
+}
+
+public class TeacherSlotDetailResponse
+{
+    public Guid ClassroomID { get; set; }
+    public string Classname { get; set; }
+    public Guid SubjectID { get; set; }
+    public string SubjectName { get; set; }
+    public Guid SlotID { get; set; }
+    public int SlotIndex { get; set; }
+    public TimeSpan SlotStart { get; set; }
+}
+
+
+public class TeacherSesionDetailResponse
+{
+    public int DayOfWeek { get; set; }
+    public string PeriodName { get; set; }
+    public Guid SessionID { get; set; }
+    public List<TeacherSlotDetailResponse> SlotDetails { get; set; }
 }

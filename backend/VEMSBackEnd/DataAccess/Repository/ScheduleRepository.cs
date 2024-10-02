@@ -43,8 +43,7 @@ namespace DataAccess.Repository
         public async Task<bool> UpdateScheduleAsync(Schedule schedule) => await ScheduleDAO.Instance.UpdateScheduleAsync(schedule);
 
         public async Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail()
-            => await ScheduleDAO.Instance.GetAllTeacherScheduleDetail();
-
+            => await ScheduleDAO.Instance.GetAllTeachersSchedules();
 
         public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID)
          => await ScheduleDAO.Instance.GetTeacherScheduleDetail(TeacherID);
