@@ -133,5 +133,34 @@ namespace VemsApi.Controllers
             }
         }
 
+
+        [HttpGet("get-all-teacher-schedule-detail")]
+        public async Task<IActionResult> GetTeacherScheduleDetail()
+        {
+            try
+            {
+                var response = await scheduleService.GetAllTeacherScheduleDetail();
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("get-teacher-schedule-detail")]
+        public async Task<IActionResult> GetTeacherScheduleDetail(Guid TeacherID)
+        {
+            try
+            {
+                var response = await scheduleService.GetTeacherScheduleDetail(TeacherID);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
     }
 }

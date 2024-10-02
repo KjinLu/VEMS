@@ -1,0 +1,1189 @@
+{
+  "message": "",
+  "statusCode": 200,
+  "dataResponse": [
+    {
+      "teacherID": "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+      "teacherName": "Lê Minh C",
+      "sessions": [
+        {
+          "dayOfWeek": 1,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "b1d3b555-0cf4-4b41-8131-a4c205d9a6f4",
+              "subjectName": "SHDC",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "b1d3b555-0cf4-4b41-8131-a4c205d9a6f4",
+              "subjectName": "SHDC",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 2,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "77faf4ba-c356-4633-9505-91e4c8402800",
+              "subjectName": "Lịch sử",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "77faf4ba-c356-4633-9505-91e4c8402800",
+              "subjectName": "Lịch sử",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "periodName": "Chiều",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 4,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "a3d3b555-0cf4-4b41-8131-a4c205d9a6f3",
+              "subjectName": "Giáo dục quốc phòng",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "a3d3b555-0cf4-4b41-8131-a4c205d9a6f3",
+              "subjectName": "Giáo dục quốc phòng",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "periodName": "Chiều",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "9c62f26b-a825-4ee5-9c0a-09cd0aff7409",
+              "classname": "12A5",
+              "subjectID": "e4d3b555-0cf4-4b41-8131-a4c205d9a6f7",
+              "subjectName": "SHCN",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "d2a5a5a1-87c6-4714-bbfd-176571ebf89a",
+              "classname": "10A2",
+              "subjectID": "e4d3b555-0cf4-4b41-8131-a4c205d9a6f7",
+              "subjectName": "SHCN",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "teacherID": "b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+      "teacherName": "Phạm Thị D",
+      "sessions": [
+        {
+          "dayOfWeek": 1,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "b1d3b555-0cf4-4b41-8131-a4c205d9a6f4",
+              "subjectName": "SHDC",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 2,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "77faf4ba-c356-4633-9505-91e4c8402800",
+              "subjectName": "Lịch sử",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "periodName": "Chiều",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 4,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "a3d3b555-0cf4-4b41-8131-a4c205d9a6f3",
+              "subjectName": "Giáo dục quốc phòng",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "periodName": "Chiều",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "8f3cdace-270e-41bc-8ee5-0d07321c7975",
+              "classname": "11A1",
+              "subjectID": "e4d3b555-0cf4-4b41-8131-a4c205d9a6f7",
+              "subjectName": "SHCN",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "teacherID": "c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+      "teacherName": null,
+      "sessions": []
+    },
+    {
+      "teacherID": "493d052a-67a1-4428-981d-4d7831d3d344",
+      "teacherName": null,
+      "sessions": []
+    },
+    {
+      "teacherID": "fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d",
+      "teacherName": "Nguyễn Văn A",
+      "sessions": [
+        {
+          "dayOfWeek": 1,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "b1d3b555-0cf4-4b41-8131-a4c205d9a6f4",
+              "subjectName": "SHDC",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 2,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "77faf4ba-c356-4633-9505-91e4c8402800",
+              "subjectName": "Lịch sử",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+              "slotIndex": 5,
+              "slotStart": "10:45:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "4e943f72-a5ee-427f-9594-83598d33f411",
+              "subjectName": "Thể dục",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+              "subjectName": "Ngữ văn",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "periodName": "Chiều",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+              "subjectName": "Hóa học",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 4,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+              "subjectName": "Vật lý",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+              "subjectName": "HĐTN-HN",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "a3d3b555-0cf4-4b41-8131-a4c205d9a6f3",
+              "subjectName": "Giáo dục quốc phòng",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "periodName": "Sáng",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+              "slotIndex": 1,
+              "slotStart": "07:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+              "subjectName": "Toán học",
+              "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+              "slotIndex": 2,
+              "slotStart": "08:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "b2e5cc3b-f6f2-427e-9d9e-1f44ee8d2e80",
+              "slotIndex": 3,
+              "slotStart": "09:05:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "2a739d2f-6b40-4fe4-8cf3-6b2c47967a55",
+              "subjectName": "Ngoại ngữ",
+              "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+              "slotIndex": 4,
+              "slotStart": "09:55:00"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "periodName": "Chiều",
+          "sessionID": "00000000-0000-0000-0000-000000000000",
+          "slotDetails": [
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "52e87219-4d5c-4d96-a944-a04292e2f617",
+              "subjectName": "Địa lý",
+              "slotID": "c5b67725-545f-4edd-8198-05bedcb5b00f",
+              "slotIndex": 6,
+              "slotStart": "14:00:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+              "subjectName": "GDKT-PL",
+              "slotID": "9495ef71-051d-4e1b-9de3-31fa6d238252",
+              "slotIndex": 7,
+              "slotStart": "14:55:00"
+            },
+            {
+              "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+              "classname": "10A4",
+              "subjectID": "e4d3b555-0cf4-4b41-8131-a4c205d9a6f7",
+              "subjectName": "SHCN",
+              "slotID": "79e57c6a-fae8-42b4-a460-b48447e3e076",
+              "slotIndex": 8,
+              "slotStart": "15:50:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
