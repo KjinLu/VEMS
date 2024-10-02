@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using DataAccess.Repository;
+using VemsApi.Dto.ClassroomDto;
 using VemsApi.Dto.PaginationDto;
 using VemsApi.Dto.ScheduleDto;
 using VemsApi.Dto.SlotDto;
@@ -27,7 +28,7 @@ namespace VemsApi.Services
         //Schedule detail
         Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request);
-        Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail();
+        Task<object> GetAllTeacherScheduleDetail(PaginationRequest request);
         Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request);
 
 
@@ -152,9 +153,27 @@ namespace VemsApi.Services
             return await scheduleRepository.GetScheduleDetail(request); 
         }
 
-        public async Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail()
+        public async Task<object> GetAllTeacherScheduleDetail(PaginationRequest request)
         {
-            return await scheduleRepository.GetAllTeacherScheduleDetail();
+
+            int pageNumber = request.PageNumber;
+            int pageSize = request.PageSize;
+
+            IEnumerable<TeacherScheduleResponse> schedule = await scheduleRepository.GetAllTeacherScheduleDetail();
+            IEnumerable<TeacherScheduleResponse> dataPaginated = schedule.Select(item=> item).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            int totalRecord = schedule.Count();
+
+            int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+
+            return new
+            {
+                totalPage,
+                totalRecord,
+                pageNumber,
+                pageSize,
+                pageData = dataPaginated
+            };
 
         }
 

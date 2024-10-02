@@ -135,11 +135,11 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("get-all-teacher-schedule-detail")]
-        public async Task<IActionResult> GetTeacherScheduleDetail()
+        public async Task<IActionResult> GetTeacherScheduleDetail([FromQuery]PaginationRequest request)
         {
             try
             {
-                var response = await scheduleService.GetAllTeacherScheduleDetail();
+                var response = await scheduleService.GetAllTeacherScheduleDetail(request);
                 return APIResponse.Success(response);
             }
             catch (Exception ex)
