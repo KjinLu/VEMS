@@ -1,18 +1,15 @@
-import { Fragment, useState } from 'react';
-import './App.css';
+import { Fragment } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { privateRoutes, publicRoutes } from './routes/routes';
+import { publicRoutes } from './routes/routes';
 import DefaultLayout from './layouts/DefaultLayout';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <div className='App'>
         <Routes>
           {publicRoutes.map((route, index) => {
-            //Biến sửa dụng với JSX phải viết hoa chữ cái đầu
-            const Page = route.component;
-
+            const Page = route.component; 
             let Layout: any = DefaultLayout;
 
             if (route.layout) {
@@ -37,6 +34,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

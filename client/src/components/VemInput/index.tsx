@@ -1,155 +1,124 @@
-import { Controller } from 'react-hook-form';
-import { Col, Input, InputProps, Label, Row } from 'reactstrap';
-
-import ErrorValidationMessages from '../ErrorValidationMessages';
 import { useState } from 'react';
-import VemFromGroup from '../VemFormGroup';
-import { Eye, EyeOff } from 'react-feather';
-import className from 'classnames/bind';
-import styles from './VemInput.module.scss';
-import VemFragment from '../VemFragment';
+import React from 'react';
+import { TextField, InputAdornment, IconButton, InputBaseProps } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-const cx = className.bind(styles);
-
-interface VemInputTypes extends InputProps {
-  name: string;
-  control?: any;
-  disabled?: boolean;
-  errors?: string[];
+interface VemInputTypes extends Omit<InputBaseProps, 'prefix'> {
+  name?: string;
+  id: string;
   label?: string;
-  formGroup?: boolean;
-  labelStyle?: string;
-  wrapperInputStyle?: string;
-  errorStyle?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: any;
-}
+  placeholder?: string;
+  size?: 'small' | 'medium';
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'number'
+    | 'checkbox'
+    | 'radio'
+    | 'date'
+    | 'time';
+  prefix?: string | React.ReactNode;
+  suffix?: string | React.ReactNode;
+  autoComplete?: 'on' | 'off';
 
-interface CustomProps {
+  required?: boolean;
+  disabled?: boolean;
+  errors?: boolean;
+  fullWidth?: boolean;
+  variant?: 'standard' | 'outlined' | 'filled';
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: any;
+
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 const VemInput = ({
   name,
-  control,
+  id,
+  label = '',
+  placeholder = '',
+  size = 'medium',
+  type = 'text',
+  prefix,
+  suffix,
+  autoComplete = 'off',
+  required = false,
   disabled = false,
-  errors,
-  label,
-  formGroup,
-  labelStyle = 'col-sm-5 labelInput',
-  wrapperInputStyle = 'col-sm-7',
-  errorStyle,
-  type,
+  errors = false,
+  fullWidth = true,
+  variant,
   onChange,
   value,
-  ...restProps
+  className,
+  style
 }: VemInputTypes) => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const HasFormGroupElement = formGroup ? VemFromGroup : VemFragment;
-  const WrapperInputElement = type === 'checkbox' || type === 'radio' ? VemFragment : Col;
-  const WrapperInputPasswordElement = type === 'password' ? 'div' : VemFragment;
-
-  const customProps: CustomProps = {};
-
-  if (onChange !== undefined) {
-    customProps.onChange = onChange!;
-  }
-  if (value !== undefined) {
-    customProps.value = value;
-  }
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
-    <HasFormGroupElement row>
-      {label && type !== 'checkbox' && type !== 'radio' && (
-        <Label
-          for={name}
-          className={labelStyle}
-        >
-          {label}
-        </Label>
+    <>
+      {type === 'password' ? (
+        <TextField
+          id={id}
+          label={label}
+          placeholder={placeholder}
+          size={size}
+          type={showPassword ? 'text' : 'password'}
+          InputProps={{
+            startAdornment: prefix && (
+              <InputAdornment position='start'>{prefix}</InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge='end'
+                  style={{ marginRight: '0' }}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
+          required={required}
+          disabled={disabled}
+          error={errors}
+          fullWidth={fullWidth}
+          variant={variant}
+          onChange={onChange}
+          value={value}
+          className={className}
+          style={style}
+          autoComplete={autoComplete}
+        />
+      ) : (
+        <TextField
+          id={id}
+          label={label}
+          placeholder={placeholder}
+          size={size}
+          type={type}
+          // InputProps={{
+          //   startAdornment: prefix && (
+          //     <InputAdornment position='start'>{prefix}</InputAdornment>
+          //   ),
+          //   endAdornment: suffix && (
+          //     <InputAdornment position='end'>{suffix}</InputAdornment>
+          //   )
+          // }}
+          required={required}
+          disabled={disabled}
+          error={errors}
+          fullWidth={fullWidth}
+          variant={variant}
+          onChange={onChange}
+          className={className}
+          style={style}
+          autoComplete={autoComplete}
+        />
       )}
-
-      <WrapperInputElement
-        sm={label ? 12 : 12}
-        className={wrapperInputStyle}
-      >
-        <WrapperInputPasswordElement className={cx('password-input-container')}>
-          {control ? (
-            <Controller
-              name={name}
-              control={control}
-              disabled={disabled}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <Input
-                  className={cx('password-input')}
-                  id={name}
-                  {...restProps}
-                  {...field}
-                  {...customProps}
-                  type={passwordVisible ? 'text' : type}
-                  invalid={
-                    errors?.length! > 0 && errors?.[0] !== undefined && errors?.[0] !== ''
-                  }
-                />
-              )}
-            />
-          ) : (
-            <Input
-              className={cx('password-input')}
-              disabled={disabled}
-              id={name}
-              {...restProps}
-              {...customProps}
-              type={passwordVisible ? 'text' : type}
-              invalid={
-                errors?.length! > 0 && errors?.[0] !== undefined && errors?.[0] !== ''
-              }
-            />
-          )}
-
-          {type === 'password' &&
-            (passwordVisible ? (
-              <EyeOff
-                className={cx(errors?.[0] ? 'me-5' : 'me-0', 'password-toggle-button')}
-                size={16}
-                onClick={() => setPasswordVisible(!passwordVisible)}
-              />
-            ) : (
-              <Eye
-                className={errors?.[0] ? 'me-5' : 'me-0'}
-                size={16}
-                onClick={() => setPasswordVisible(!passwordVisible)}
-              />
-            ))}
-        </WrapperInputPasswordElement>
-      </WrapperInputElement>
-
-      {label && (type === 'checkbox' || type === 'radio') && (
-        <Label
-          for={name}
-          className='ms-2'
-        >
-          {label}
-        </Label>
-      )}
-      <Row>
-        {label && <Col className={labelStyle}></Col>}
-
-        <Col
-          className={
-            type === 'checkbox' || type === 'radio'
-              ? 'col-sm-12'
-              : '' || label
-                ? wrapperInputStyle
-                : 'col-sm-12'
-          }
-        >
-          {errors && <ErrorValidationMessages messages={errors} />}
-        </Col>
-      </Row>
-    </HasFormGroupElement>
+    </>
   );
 };
 

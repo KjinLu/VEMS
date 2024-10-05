@@ -11,8 +11,10 @@ type MenuItemProps = {
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ data, onClick }: MenuItemProps) {
+const MenuItem = ({ data, onClick }: MenuItemProps) => {
   const navigate = useNavigate();
+
+  console.log(data);
 
   return (
     <VemButton
@@ -24,10 +26,9 @@ function MenuItem({ data, onClick }: MenuItemProps) {
         navigate(data.to);
         onClick;
       }}
-    >
-      {data.title}
-    </VemButton>
+      title={data.title}
+    ></VemButton>
   );
-}
+};
 
 export default MenuItem;

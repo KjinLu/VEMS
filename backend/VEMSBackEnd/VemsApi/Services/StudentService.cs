@@ -1,27 +1,37 @@
 ﻿using BusinessObject;
 using DataAccess.Repository;
 using SchoolMate.Dto.AuthenticationDto;
+using VemsApi.Dto.ImageDto;
+using VemsApi.Dto.PaginationDto;
+using VemsApi.Dto.StudentDto;
 using VemsApi.Dto.StudentServiceDto;
 
 namespace VemsApi.Services
 {
     public interface IStudentService
     {
+        Task<object> GetAllStudents(PaginationRequest request);
         Task<bool> UpdateProfile(UpdateStudentProfileRequest request);
         Task<bool> ChangePassword(ChangePasswordRequest request);
+
+        Task<bool> UploadAvatar(UploadAvatartRequest request);
+
+        Task<bool> DeleteAvatar(DeleteAvatarRequest request);
     }
 
     public class StudentService : IStudentService
     {
 
         private readonly IAccountRepository _accountRepository;
+        private readonly IStudentRepository _studentRepository;
         public StudentService()
         {
             _accountRepository = new AccountRepository();
+            _studentRepository = new StudentRepository();
         }
         public async Task<bool> UpdateProfile(UpdateStudentProfileRequest request)
         {
-            var account =await _accountRepository.GetStudentByIdAsync(request.StudentId);
+            var account = await _accountRepository.GetStudentByIdAsync(request.StudentId);
 
             if (account == null) return false;
 
@@ -36,7 +46,6 @@ namespace VemsApi.Services
             account.UnionJoinDate = DateOnly.Parse(request.UnionJoinDate);
 
             return await _accountRepository.UpdateStudentProfile(account);
-            
         }
 
         public async Task<bool> ChangePassword(ChangePasswordRequest request)
@@ -49,5 +58,49 @@ namespace VemsApi.Services
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
         }
 
+        public async Task<bool> UploadAvatar(UploadAvatartRequest request)
+        {
+            var a = ImageExtension.UploadFile(request.file);
+            return await _accountRepository.UpdateAvatar(request.AccountID, a);
+        }
+
+        public async Task<bool> DeleteAvatar(DeleteAvatarRequest request)
+        {
+            return await _accountRepository.UpdateAvatar(request.AccountID, "");
+        }
+
+        public async Task<object> GetAllStudents(PaginationRequest request)
+        {
+            int pageNumber = request.PageNumber;
+            int pageSize = request.PageSize;
+
+            // Get all grades and count
+            IEnumerable<Student> students = await _studentRepository.GetAllStudents();
+            IEnumerable<StudentResponse> studentDto = students.Select(student => new StudentResponse
+            {
+                FullName = student.FullName,
+                CitizenID = student.CitizenID,
+                Email = student.Email,
+                Dob = student.Dob,
+                Address = student.Address,
+                Phone = student.Phone,
+                ParentPhone = student.ParentPhone,
+                HomeTown = student.HomeTown,
+                UnionJoinDate = student.UnionJoinDate
+            }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            int totalRecord = students.Count();
+
+            int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+
+            return new
+            {
+                totalPage,
+                totalRecord,
+                pageNumber,
+                pageSize,
+                pageData = studentDto
+            };
+        }
     }
 }

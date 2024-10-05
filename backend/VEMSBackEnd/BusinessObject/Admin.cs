@@ -36,7 +36,7 @@ namespace BusinessObject
         [MaxLength(250)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
-        public string RefreshToken { get; set; }
+        public string? RefreshToken { get; set; } = string.Empty;
 
         public Guid RoleId { get; set; }
 
