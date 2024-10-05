@@ -1,129 +1,52 @@
-import {
-  faCircleQuestion,
-  faCoins,
-  faEarthAsia,
-  faEllipsisVertical,
-  faGear,
-  faKeyboard,
-  faSignOut,
-  faUser
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import VemImage from '@/components/VemImage';
+import Box from '@mui/material/Box';
+import Icon from '@/assets/Icon.png';
 import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
-import { Link } from 'react-router-dom';
-
-import Logo from '../../../assets/react.svg';
 import styles from './Header.module.scss';
-import Menu from '../../../components/VemMenu/Menu/Menu';
-import { InboxIcon } from '../../../components/Icons/index';
-import VemImage from '../../../components/VemImage';
-
-import routes from '../../../constants/routes';
-import { ReactElement } from 'react';
-
-type itemsProps = {
-  icon?: ReactElement;
-  title?: string;
-  to?: string;
-  separate?: boolean;
-  children?: object;
-};
+import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+import { Avatar } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS: itemsProps[] = [
-  {
-    icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-    title: 'Feedback and help',
-    to: '/feedback'
-  }
-];
-
 const Header = () => {
-  const currentUser = true;
-
-  //Handle logic
-  const handleMenuChange = (menuItem: any) => {
-    switch (menuItem.type) {
-      case 'language':
-        //Handle change language
-        break;
-      default:
-    }
-  };
-
-  const userMenu: itemsProps[] = [
-    {
-      icon: <FontAwesomeIcon icon={faUser} />,
-      title: 'View profile',
-      to: '/@name'
-    },
-
-    {
-      icon: <FontAwesomeIcon icon={faGear} />,
-      title: 'Settings',
-      to: '/settings'
-    },
-    ...MENU_ITEMS,
-    {
-      icon: <FontAwesomeIcon icon={faSignOut} />,
-      title: 'Log out',
-      to: '/logout',
-      separate: true
-    }
-  ];
-
   return (
-    <header className={cx('wrapper')}>
-      <div className={cx('inner')}>
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%'
+        }}
+      >
         <Link
-          to={routes.home}
-          className={cx('logo-link')}
+          to='#'
+          className={cx('d-flex text-white text-decoration-none align-items-center')}
         >
-          <img
-            src={Logo}
-            alt='TikTok'
+          <VemImage
+            src={Icon}
+            alt={''}
+            className={cx('IconVems')}
+            fallback={''}
           />
+          <Typography
+            variant='h6'
+            noWrap
+            component='div'
+          >
+            Vems
+          </Typography>
         </Link>
 
-        <div className={cx('actions')}>
-          {currentUser ? (
-            <>
-              <Tippy
-                delay={[0, 50]}
-                content='Message'
-                placement='bottom'
-              >
-                <button className={cx('action-btn')}>
-                  <InboxIcon />
-                </button>
-              </Tippy>
-            </>
-          ) : (
-            <></>
-          )}
-
-          <Menu
-            items={currentUser ? userMenu : MENU_ITEMS}
-            onChange={() => handleMenuChange}
-          >
-            {currentUser ? (
-              <VemImage
-                src='htts://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/9ee78c188f1c700711f3cdddfbcdbb2c.jpeg?lk3s=a5d48078&x-expires=1712664000&x-signature=MKnxUgvODE6peEpDknedHWEprdQ%3D'
-                className={cx('user-avatar')}
-                alt='avatarUser'
-                // truyền ảnh muốn thay thế khi mà link ảnh gốc bị lỗi
-                fallback='https://p9-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/2946bb5ae44e7022b0f86ab1c50672c0.jpeg?lk3s=a5d48078&x-expires=1712696400&x-signature=WhZ%2FU3q4fUjwpiECenS7FseDtpk%3D'
-              />
-            ) : (
-              <></>
-            )}
-          </Menu>
+        <div>
+          <Avatar
+            alt='Remy Sharp'
+            src='/static/images/avatar/1.jpg'
+          />
         </div>
-      </div>
-    </header>
+      </Box>
+    </>
   );
 };
 
