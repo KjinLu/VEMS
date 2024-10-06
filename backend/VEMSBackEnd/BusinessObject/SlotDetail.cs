@@ -21,6 +21,10 @@ namespace BusinessObject
         public Guid SessionID { get; set; }
 
         public Guid SlotID { get; set; }
+        public Guid ClassroomID { get; set; }
+
+        [ForeignKey("ClassroomID")]
+        public Classroom Classroom { get; set; }
 
         [ForeignKey("SlotID")]
         public Slot Slot { get; set; }

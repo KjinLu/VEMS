@@ -330,19 +330,25 @@ namespace BusinessObject
       modelBuilder.Entity<ExtraActivitiesAttendance>()
         .HasOne(a => a.Attendance)
         .WithMany(r => r.ExtraActivitiesAttendances)
-        .HasForeignKey(a => a.AttendanceId);
+        .HasForeignKey(a => a.AttendanceId)
+        .OnDelete(DeleteBehavior.Cascade);
 
-      modelBuilder.Entity<ExtraActivitiesAttendance>()
+
+            modelBuilder.Entity<ExtraActivitiesAttendance>()
              .HasOne(a => a.Student)
              .WithMany(r => r.ExtraActivitiesAttendances)
-             .HasForeignKey(a => a.StudentId);
+             .HasForeignKey(a => a.StudentId)
+        .OnDelete(DeleteBehavior.Cascade);
 
-      modelBuilder.Entity<ExtraActivitiesAttendance>()
+
+            modelBuilder.Entity<ExtraActivitiesAttendance>()
         .HasOne(a => a.Status)
         .WithMany(r => r.ExtraActivitiesAttendances)
-        .HasForeignKey(a => a.StatusId);
+        .HasForeignKey(a => a.StatusId)
+        .OnDelete(DeleteBehavior.Cascade);
 
-      modelBuilder.Entity<SlotDetail>()
+
+            modelBuilder.Entity<SlotDetail>()
    .HasOne(a => a.Slot)
    .WithMany(r => r.SlotDetails)
    .HasForeignKey(a => a.SlotID);

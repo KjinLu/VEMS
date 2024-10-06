@@ -9,12 +9,20 @@ import VemCheckbox from '@/components/VemCheckbox';
 import { Divider, Link } from '@mui/material';
 import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useLogin } from '@/libs/features/auth/useLogin';
 const cx = classNames.bind(styles);
 
 const SignInPage = () => {
   const navigate = useNavigate();
-  const handleSubmit = (values: any) => {
-    console.log(values);
+  const { login, isLoading, error } = useLogin();
+
+  const handleSubmit = async (values: any) => {
+    const userData = {
+      username: values.username,
+      password: values.password
+    };
+
+    await login(userData);
   };
 
   return (

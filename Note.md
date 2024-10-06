@@ -33,7 +33,7 @@
 
 ## Add migration
 ```EF
-x
+Add-migration migrationName -Project BusinessObject -StartupProject VemsApi
 ```
 
 ## Run migration
