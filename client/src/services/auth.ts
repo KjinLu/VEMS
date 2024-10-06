@@ -1,33 +1,41 @@
 import { axiosBaseQuery } from '@/libs/axios/axiosBase';
+import { getUserProps, SignInProps } from '@/types/auth/type';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-// const NEXT_PUBLIC_API = process.env.NEXT_PUBLIC_API || '';
-const NEXT_PUBLIC_API = 'https://reqres.in/';
+const baseUrl = import.meta.env.VITE_PUBLIC_API || '';
 
 export const authApi = createApi({
   baseQuery: axiosBaseQuery({
-    baseUrl: 'https://reqres.in/'
+    baseUrl
   }),
   endpoints: build => ({
-    login: build.query({
-      query: () => ({
-        url: 'api/users?page=1',
-        method: 'get',
-        authRequired: true,
+    login: build.mutation({
+      query: (userData: SignInProps) => ({
+        url: '/api/auth/login',
+        method: 'Post',
+        // authRequired: true,
         keepUnusedDataFor: 0,
         refetchOnFocus: true,
         refetchOnReconnect: true,
-        pollingInterval: 5000
+        pollingInterval: 5000,
+        data: userData
       })
     }),
-    register: build.mutation({
-      query: userData => ({
-        url: '/register',
-        method: 'Post',
-        body: userData
+    getUser: build.mutation({
+      query: (user: getUserProps) => ({
+        url: '/api/auth?accessToken=' + user.accessToken,
+        method: 'Post'
+        // data: user
       })
     })
+    // register: build.mutation({
+    //   query: userData => ({
+    //     url: '/register',
+    //     method: 'Post',
+    //     body: userData
+    //   })
+    // })
   })
 });
 
-export const { useLoginQuery, useRegisterMutation } = authApi;
+export const { useLoginMutation, useGetUserMutation } = authApi;

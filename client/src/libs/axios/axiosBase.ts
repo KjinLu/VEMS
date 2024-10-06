@@ -3,6 +3,8 @@ import { AxiosError, AxiosRequestConfig } from 'axios';
 import { axiosPublic } from '@/libs/axios/axiosPublic';
 import { axiosAuth } from '@/libs/axios/axiosAuth';
 
+const baseURL = import.meta.env.VITE_PUBLIC_API || '';
+
 interface AxiosBaseQueryProps {
   url: string;
   method?: AxiosRequestConfig['method'];
@@ -14,26 +16,31 @@ interface AxiosBaseQueryProps {
 
 export const axiosBaseQuery =
   <T extends Record<string, unknown> = {}>(
-    { baseUrl }: { baseUrl: string } = { baseUrl: '' }
+    {
+      // baseUrl
+    }: {
+      baseUrl: string;
+    }
   ): BaseQueryFn<AxiosBaseQueryProps & T, unknown, unknown> =>
   async ({
     url,
     method,
     data,
     params,
-    headers,
-    authRequired = false
+    authRequired = false,
+    ...config
   }: AxiosBaseQueryProps & T) => {
     try {
       const instance = authRequired ? axiosAuth : axiosPublic;
+      console.log('baseUrl', baseURL);
       const result = await instance({
-        url: `${baseUrl}${url}`,
+        url: `https://localhost:8080${url}`,
         method,
         data,
         params,
-        headers
+        ...config
       });
-      return { data: result.data, status: result.status as number };
+      return { data: result.data.dataResponse, status: result.status as number };
     } catch (axiosError) {
       const err = axiosError as AxiosError;
 
