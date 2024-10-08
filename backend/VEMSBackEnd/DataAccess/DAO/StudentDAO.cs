@@ -40,6 +40,19 @@ public class StudentDAO
         }
     }
 
+
+    public async Task<List<Student>> GetAllStudentsByClassroomAsync(Guid classID)
+    {
+        try
+        {
+            return await _context.Students.Where(x => x.ClassroomId == classID).AsNoTracking().ToListAsync().ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Lỗi khi lấy tất cả các học sinh trong lớp: {ex.Message}", ex);
+        }
+    }
+
     // // Thêm Student
     // public async Task AddStudentAsync(Student student)
     // {

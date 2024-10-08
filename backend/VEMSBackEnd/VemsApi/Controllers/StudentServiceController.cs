@@ -37,6 +37,20 @@ namespace VemsApi.Controllers
             }
         }
 
+        
+        [HttpGet("{classId}")]
+        public async Task<IActionResult> GetStudentByClassroom(Guid classId)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetAllStudentByClassroom(classId));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPut("update-profile")]
         [Authorize("STUDENT")]
         public async Task<IActionResult> UpdateProfile(UpdateStudentProfileRequest request)
