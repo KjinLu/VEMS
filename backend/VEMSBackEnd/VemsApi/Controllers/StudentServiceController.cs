@@ -37,9 +37,9 @@ namespace VemsApi.Controllers
             }
         }
 
-        
-        [HttpGet("{classId}")]
-        public async Task<IActionResult> GetStudentByClassroom(Guid classId)
+
+        [HttpGet("class")]
+        public async Task<IActionResult> GetStudentByClassroom([FromQuery] Guid classId)
         {
             try
             {

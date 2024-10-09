@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using DataAccess.DTO;
 using DataAccess.Repository;
 using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.ImageDto;
@@ -12,7 +13,7 @@ namespace VemsApi.Services
     {
         Task<object> GetAllStudents(PaginationRequest request);
 
-        Task<object> GetAllStudentByClassroom(Guid classId);
+        Task<List<StudentInClassResponse>> GetAllStudentByClassroom(Guid classId);
         Task<bool> UpdateProfile(UpdateStudentProfileRequest request);
         Task<bool> ChangePassword(ChangePasswordRequest request);
 
@@ -106,37 +107,10 @@ namespace VemsApi.Services
             };
         }
 
-        public async Task<object> GetAllStudentByClassroom(Guid classId)
+        public async Task<List<StudentInClassResponse>> GetAllStudentByClassroom(Guid classId)
         {
             // Get all grades and count
-            IEnumerable<Student> students = await _studentRepository.GetAllStudents();
-            IEnumerable<StudentResponse> studentDto = students.Select(student => new StudentResponse
-            {
-                Id = student.Id,
-                FullName = student.FullName,
-                CitizenID = student.CitizenID,
-                Email = student.Email,
-                Dob = student.Dob,
-                Address = student.Address,
-                Phone = student.Phone,
-                ParentPhone = student.ParentPhone,
-                HomeTown = student.HomeTown,
-                UnionJoinDate = student.UnionJoinDate
-            }).ToList();
-
-            int totalRecord = students.Count();
-
-            // int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
-
-
-            return new
-            {
-                totalPage = 1,
-                totalRecord,
-                pageNumber = 1,
-                pageSize = totalRecord,
-                pageData = studentDto
-            };
+            return await _studentRepository.GetAllStudentsByClassroom(classId);
         }
 
     }

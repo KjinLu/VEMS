@@ -162,24 +162,24 @@ namespace BusinessObject
         .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<ExtraActivitiesAttendance>()
-             .HasOne(a => a.Student)
-             .WithMany(r => r.ExtraActivitiesAttendances)
-             .HasForeignKey(a => a.StudentId)
-        .OnDelete(DeleteBehavior.Cascade);
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+       .HasOne(a => a.Student)
+       .WithMany(r => r.ExtraActivitiesAttendances)
+       .HasForeignKey(a => a.StudentId)
+  .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<ExtraActivitiesAttendance>()
-        .HasOne(a => a.Status)
-        .WithMany(r => r.ExtraActivitiesAttendances)
-        .HasForeignKey(a => a.StatusId)
-        .OnDelete(DeleteBehavior.Cascade);
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+  .HasOne(a => a.Status)
+  .WithMany(r => r.ExtraActivitiesAttendances)
+  .HasForeignKey(a => a.StatusId)
+  .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<SlotDetail>()
-   .HasOne(a => a.Slot)
-   .WithMany(r => r.SlotDetails)
-   .HasForeignKey(a => a.SlotID);
+      modelBuilder.Entity<SlotDetail>()
+.HasOne(a => a.Slot)
+.WithMany(r => r.SlotDetails)
+.HasForeignKey(a => a.SlotID);
 
       modelBuilder.Entity<SlotDetail>()
         .HasOne(a => a.Teacher)

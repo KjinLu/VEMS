@@ -1,5 +1,6 @@
 using System;
 using BusinessObject;
+using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.DAO;
@@ -41,11 +42,16 @@ public class StudentDAO
     }
 
 
-    public async Task<List<Student>> GetAllStudentsByClassroomAsync(Guid classID)
+    public async Task<List<StudentInClassResponse>> GetAllStudentsByClassroomAsync(Guid classID)
     {
         try
         {
-            return await _context.Students.Where(x => x.ClassroomId == classID).AsNoTracking().ToListAsync().ConfigureAwait(false);
+            return await _context.Students.Where(x => x.ClassroomId == classID).Select(item => new StudentInClassResponse
+            {
+                PublicStudentID = item.PublicStudentID,
+                StudentID = item.Id,
+                StudentName = item.FullName,
+            }).AsNoTracking().ToListAsync().ConfigureAwait(false);
         }
         catch (Exception ex)
         {
