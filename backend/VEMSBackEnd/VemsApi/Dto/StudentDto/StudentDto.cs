@@ -18,5 +18,7 @@ public class StudentResponse
         public string? ParentPhone { get; set; } = string.Empty;
         public string? HomeTown { get; set; } = string.Empty;
         public DateOnly? UnionJoinDate { get; set; }
+        public String studentTypeName { get; set; }
+        public String classRoom { get; set; }
 
 }

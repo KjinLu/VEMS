@@ -19,6 +19,8 @@ namespace VemsApi.Services
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
+        Task<StudentResponse> GetStudentByID(Guid id);
+
     }
 
     public class StudentService : IStudentService
@@ -112,5 +114,9 @@ namespace VemsApi.Services
             return await _studentRepository.GetAllStudentsByClassroom(classId);
         }
 
+        public async Task<StudentResponse> GetStudentByID(Guid id)
+        {
+            return await _studentRepository.GetStudentById(id);
+        }
     }
 }

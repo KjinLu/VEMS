@@ -1,0 +1,6 @@
+@ScheduleServiceVemsApi_HostAddress = http://localhost:5171
+
+GET {{ScheduleServiceVemsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

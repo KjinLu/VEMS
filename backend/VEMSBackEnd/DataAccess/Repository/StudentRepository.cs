@@ -7,7 +7,7 @@ namespace DataAccess.Repository;
 
 public interface IStudentRepository
 {
-    // Task<Student> GetStudentById(Guid id); // Retrieve a Student by Id
+     Task<StudentResponse> GetStudentById(Guid id); // Retrieve a Student by Id
     Task<List<Student>> GetAllStudents(); // Retrieve all Students
     Task<List<StudentInClassResponse>> GetAllStudentsByClassroom(Guid classId); // Get Student By Classroom ID
     // Task AddStudent(Student Student); // Add a new Student
@@ -36,8 +36,8 @@ public class StudentRepository : IStudentRepository
     public async Task<List<StudentInClassResponse>> GetAllStudentsByClassroom(Guid classId)
         => await _dao.GetAllStudentsByClassroomAsync(classId);
 
-    // public Task<Student> GetStudentById(Guid id)
-    //     => _dao.GetStudentByIdAsync(id);
+    public async Task<StudentResponse> GetStudentById(Guid id)
+        => await _dao.GetStudentByIdAsync(id);
 
     // public Task UpdateStudent(Student student)
     //     => _dao.UpdateStudentAsync(student);

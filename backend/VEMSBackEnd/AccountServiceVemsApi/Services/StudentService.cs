@@ -14,9 +14,11 @@ using DataAccess.Repository;
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
-    }
 
-    public class StudentService : IStudentService
+        Task<StudentResponse> GetStudentByID(Guid id);
+}
+
+public class StudentService : IStudentService
     {
 
         private readonly IAccountRepository _accountRepository;
@@ -35,12 +37,12 @@ using DataAccess.Repository;
             account.FullName = request.FullName;
             account.CitizenID = request.CitizenID;
             account.Email = request.Email;
-            account.Dob = DateOnly.Parse(request.Dob);
+            account.Dob = request.Dob != "" ? DateOnly.Parse(request.Dob) : null;
             account.Address = request.Address;
             account.Phone = request.Phone;
             account.ParentPhone = request.ParentPhone;
             account.HomeTown = request.HomeTown;
-            account.UnionJoinDate = DateOnly.Parse(request.UnionJoinDate);
+            account.UnionJoinDate = request.UnionJoinDate != "" ? DateOnly.Parse(request.UnionJoinDate) : null;
 
             return await _accountRepository.UpdateStudentProfile(account);
         }
@@ -55,7 +57,7 @@ using DataAccess.Repository;
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
         }
 
-        public async Task<bool> UploadAvatar(UploadAvatartRequest request)
+    public async Task<bool> UploadAvatar(UploadAvatartRequest request)
         {
             var a = ImageExtension.UploadFile(request.file);
             return await _accountRepository.UpdateAvatar(request.AccountID, a);
@@ -107,5 +109,11 @@ using DataAccess.Repository;
             return await _studentRepository.GetAllStudentsByClassroom(classId);
         }
 
+    
+
+    public async Task<StudentResponse> GetStudentByID(Guid id)
+    {
+        return await _studentRepository.GetStudentById(id);
     }
+}
 

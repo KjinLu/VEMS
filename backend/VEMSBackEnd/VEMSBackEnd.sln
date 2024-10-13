@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{A3FDE758-8DF9-40BE-96E1-4FCFD99C3AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountServiceVemsApi", "AccountServiceVemsApi\AccountServiceVemsApi.csproj", "{0D2F252D-735F-4C34-AB35-3FD712F79EF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountServiceVemsApi", "AccountServiceVemsApi\AccountServiceVemsApi.csproj", "{0D2F252D-735F-4C34-AB35-3FD712F79EF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleServiceVemsApi", "ScheduleServiceVemsApi\ScheduleServiceVemsApi.csproj", "{E615F600-CE04-4EA6-82A5-ADCE76D35A42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0D2F252D-735F-4C34-AB35-3FD712F79EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D2F252D-735F-4C34-AB35-3FD712F79EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D2F252D-735F-4C34-AB35-3FD712F79EF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E615F600-CE04-4EA6-82A5-ADCE76D35A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E615F600-CE04-4EA6-82A5-ADCE76D35A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E615F600-CE04-4EA6-82A5-ADCE76D35A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E615F600-CE04-4EA6-82A5-ADCE76D35A42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
