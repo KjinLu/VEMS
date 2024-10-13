@@ -1,5 +1,4 @@
-﻿namespace MoneyDreamAPI.Dto.AuthDto
-{
+﻿
     public class ValidateEmailRequest
     {
         public string UsernameOrEmail { get; set; }
@@ -10,4 +9,4 @@
     {
         public string UsernameOrEmail { get; set; }
     }
-}
+

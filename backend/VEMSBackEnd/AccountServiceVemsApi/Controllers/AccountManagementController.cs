@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataAccess.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
-using VemsApi.Dto.AccountDto;
-using VemsApi.Dto.PaginationDto;
-using VemsApi.Services;
 
 namespace VemsApi.Controllers
 {

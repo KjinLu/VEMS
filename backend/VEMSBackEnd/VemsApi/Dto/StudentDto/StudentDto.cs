@@ -19,22 +19,4 @@ public class StudentResponse
         public string? HomeTown { get; set; } = string.Empty;
         public DateOnly? UnionJoinDate { get; set; }
 
-        // public Guid? StudentTypeId { get; set; }
-
-        // [ForeignKey("StudentTypeId")]
-        // public StudentType? StudentType { get; set; } 
-
-        // public Guid ClassroomId { get; set; }
-
-        // [ForeignKey("ClassroomId")]
-        // public Classroom Classroom { get; set; }
-
-        // public Guid RoleId { get; set; }
-
-        // [ForeignKey("RoleId")]
-        // public Role Role { get; set; }
-
-        // public ICollection<AttendanceCharge> AttendanceCharges { get; set; }
-        // public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
-
 }
