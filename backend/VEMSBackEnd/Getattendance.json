@@ -1,0 +1,213 @@
+{
+  "message": "",
+  "statusCode": 200,
+  "dataResponse": {
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "time": "2024-09-27T00:00:00",
+    "attendanceData": [
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "82682912-5c5d-4f44-8bd2-02949278c660",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Trần Thị B",
+        "studentCode": "MCU102",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5959808"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "22e4f3c0-b1a2-4fac-a57c-1c07eae0afa6",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Đặng Thị K",
+        "studentCode": "MCU110",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960005"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "dc0d8ae5-edd5-44c8-a131-2f7049fa5e5e",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Hoàng Văn E",
+        "studentCode": "MCU105",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960009"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "7d9a194e-bce5-4d4f-bf2b-7c256413912d",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Đỗ Văn G",
+        "studentCode": "MCU107",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.596001"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "2482767b-6ccb-4fd6-ae4f-974d05003f8d",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Nguyễn Văn A",
+        "studentCode": "MCU101",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960011"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "00552f47-2b22-47e2-8ef4-a8cd17fda392",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Ngô Văn I",
+        "studentCode": "MCU109",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960016"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "d3108170-28c6-4232-9cd3-a9624bfc5f1a",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Vũ Thị F",
+        "studentCode": "MCU106",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960017"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "939e80e3-ee96-42a0-b74a-b3ebd7f22b9f",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Lê Văn C",
+        "studentCode": "MCU103",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960018"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "06c47285-6b74-4188-a5a5-f3bf941ed4c1",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Bùi Thị H",
+        "studentCode": "MCU108",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960019"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "18026dd7-18f4-492d-970f-ff36fe542476",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Phạm Thị D",
+        "studentCode": "MCU104",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:23.5960021"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "82682912-5c5d-4f44-8bd2-02949278c660",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Trần Thị B",
+        "studentCode": "MCU102",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344552"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "22e4f3c0-b1a2-4fac-a57c-1c07eae0afa6",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Đặng Thị K",
+        "studentCode": "MCU110",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344579"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "dc0d8ae5-edd5-44c8-a131-2f7049fa5e5e",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Hoàng Văn E",
+        "studentCode": "MCU105",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344582"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "7d9a194e-bce5-4d4f-bf2b-7c256413912d",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Đỗ Văn G",
+        "studentCode": "MCU107",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344588"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "2482767b-6ccb-4fd6-ae4f-974d05003f8d",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Nguyễn Văn A",
+        "studentCode": "MCU101",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344589"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "00552f47-2b22-47e2-8ef4-a8cd17fda392",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Ngô Văn I",
+        "studentCode": "MCU109",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.03446"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "d3108170-28c6-4232-9cd3-a9624bfc5f1a",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Vũ Thị F",
+        "studentCode": "MCU106",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344602"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "939e80e3-ee96-42a0-b74a-b3ebd7f22b9f",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Lê Văn C",
+        "studentCode": "MCU103",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344604"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "06c47285-6b74-4188-a5a5-f3bf941ed4c1",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Bùi Thị H",
+        "studentCode": "MCU108",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344605"
+      },
+      {
+        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "studentID": "18026dd7-18f4-492d-970f-ff36fe542476",
+        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+        "statusName": "Có mặt",
+        "studentName": "Phạm Thị D",
+        "studentCode": "MCU104",
+        "createBy": "Trần Thị B",
+        "createAt": "2024-09-27T22:15:46.0344609"
+      }
+    ],
+    "attendanceID": "b286929e-9a94-46b5-6208-08dcdf073582"
+  }
+}
+
+

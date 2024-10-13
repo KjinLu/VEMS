@@ -41,6 +41,7 @@ namespace BusinessObject
     public DbSet<AttendanceStatus> AttendanceStatuses { get; set; }
     public DbSet<SlotDetail> SlotDetails { get; set; }
     public DbSet<EmailToken> EmailTokens { get; set; }
+    public DbSet<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -133,7 +134,6 @@ namespace BusinessObject
         .HasForeignKey(a => a.AttendanceId)
         .OnDelete(DeleteBehavior.Cascade);
 
-
       modelBuilder.Entity<AttendanceStatus>()
          .HasOne(a => a.Attendance)
          .WithMany(r => r.AttendanceStatuses)
@@ -154,10 +154,31 @@ namespace BusinessObject
           .WithMany(r => r.AttendanceStatuses)
           .HasForeignKey(a => a.TeacherId);
 
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+        .HasOne(a => a.Attendance)
+        .WithMany(r => r.ExtraActivitiesAttendances)
+        .HasForeignKey(a => a.AttendanceId)
+        .OnDelete(DeleteBehavior.Cascade);
+
+
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+       .HasOne(a => a.Student)
+       .WithMany(r => r.ExtraActivitiesAttendances)
+       .HasForeignKey(a => a.StudentId)
+  .OnDelete(DeleteBehavior.Cascade);
+
+
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+  .HasOne(a => a.Status)
+  .WithMany(r => r.ExtraActivitiesAttendances)
+  .HasForeignKey(a => a.StatusId)
+  .OnDelete(DeleteBehavior.Cascade);
+
+
       modelBuilder.Entity<SlotDetail>()
-         .HasOne(a => a.Slot)
-         .WithMany(r => r.SlotDetails)
-         .HasForeignKey(a => a.SlotID);
+.HasOne(a => a.Slot)
+.WithMany(r => r.SlotDetails)
+.HasForeignKey(a => a.SlotID);
 
       modelBuilder.Entity<SlotDetail>()
         .HasOne(a => a.Teacher)
@@ -173,7 +194,6 @@ namespace BusinessObject
         .HasOne(a => a.Session)
         .WithMany(r => r.SlotDetails)
         .HasForeignKey(a => a.SessionID);
-
 
       modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();

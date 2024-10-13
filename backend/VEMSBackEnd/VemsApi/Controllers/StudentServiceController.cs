@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
-using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.ImageDto;
+using VemsApi.Dto.PaginationDto;
 using VemsApi.Dto.StudentServiceDto;
 using VemsApi.Services;
 
@@ -20,6 +20,34 @@ namespace VemsApi.Controllers
         public StudentServiceController(IStudentService _studentService)
         {
             studentService = _studentService;
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudents([FromQuery] PaginationRequest request)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetAllStudents(request));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+
+        [HttpGet("class")]
+        public async Task<IActionResult> GetStudentByClassroom([FromQuery] Guid classId)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetAllStudentByClassroom(classId));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
         }
 
         [HttpPut("update-profile")]
@@ -53,7 +81,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpPost("upload-avatar")]
-        [Authorize("STUDENT")]
+        // [Authorize("STUDENT")]
         public async Task<IActionResult> UploadAvatarr(UploadAvatartRequest request)
         {
             try

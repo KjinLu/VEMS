@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using DataAccess.Repository;
+using VemsApi.Dto.ClassroomDto;
 using VemsApi.Dto.PaginationDto;
 using VemsApi.Dto.ScheduleDto;
 using VemsApi.Dto.SlotDto;
@@ -19,6 +20,7 @@ namespace VemsApi.Services
         Task<List<ScheduleResponse>> GetAllScheduleOfClass(Guid request);
         Task<object> GetAllSchedule(PaginationRequest request);
         Task<Schedule> CreateSchedule(CreateScheduleDto request);
+        Task<List<Schedule>> CreateListSchedule(List<CreateScheduleDto> request);
         Task<bool> UpdateSchedule(UpdateScheduleDto request);
         Task<bool> DeleteSchedule(DeleteSchedule request);
 
@@ -26,6 +28,8 @@ namespace VemsApi.Services
         //Schedule detail
         Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request);
+        Task<object> GetAllTeacherScheduleDetail(PaginationRequest request);
+        Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request);
 
 
     }
@@ -34,10 +38,8 @@ namespace VemsApi.Services
     {
         private readonly ISlotRepository slotRepository;
         private readonly IScheduleRepository scheduleRepository;
-        private readonly ISlotDetailRepository slotDetailRepository;
         public ScheduleService()
         {
-            slotDetailRepository = new SlotDetailRepository();
             slotRepository = new SlotRepository();
             scheduleRepository = new ScheduleRepository();
         }
@@ -107,7 +109,25 @@ namespace VemsApi.Services
             Schedule newData = new Schedule();
             newData.ClassroomId = request.ClassroomId;
             newData.Time = DateTime.Parse(request.Time);
+            newData.CreateAt = DateTime.Now;
             return await scheduleRepository.CreateScheduleAsync(newData);
+        }
+
+        public async Task<List<Schedule>> CreateListSchedule(List<CreateScheduleDto> request)
+        {
+            List<Schedule> createDatas = new List<Schedule>();
+            foreach(var item in request)
+            {
+                Schedule newData = new Schedule();
+                newData.ClassroomId = item.ClassroomId;
+                newData.Time = DateTime.Parse(item.Time);
+                newData.CreateAt = DateTime.Now;
+                createDatas.Add(newData);
+            }
+            return await scheduleRepository.CreateListScheduleAsync(createDatas);
+
+
+            throw new NotImplementedException();
         }
 
         public async Task<bool> UpdateSchedule(UpdateScheduleDto request)
@@ -131,6 +151,35 @@ namespace VemsApi.Services
         public async Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request)
         {
             return await scheduleRepository.GetScheduleDetail(request); 
+        }
+
+        public async Task<object> GetAllTeacherScheduleDetail(PaginationRequest request)
+        {
+
+            int pageNumber = request.PageNumber;
+            int pageSize = request.PageSize;
+
+            IEnumerable<TeacherScheduleResponse> schedule = await scheduleRepository.GetAllTeacherScheduleDetail();
+            IEnumerable<TeacherScheduleResponse> dataPaginated = schedule.Select(item=> item).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            int totalRecord = schedule.Count();
+
+            int totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+
+            return new
+            {
+                totalPage,
+                totalRecord,
+                pageNumber,
+                pageSize,
+                pageData = dataPaginated
+            };
+
+        }
+
+        public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request)
+        {
+            return await scheduleRepository.GetTeacherScheduleDetail(request);
         }
     }
 }

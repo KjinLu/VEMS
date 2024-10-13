@@ -15,18 +15,19 @@ namespace BusinessObject
         public Guid Id { get; set; }
 
         [Required]
-        [Column(TypeName = "time")]
-        public TimeSpan StartTime { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime TimeReport { get; set; }
 
         public string Note { get; set; }
 
-        public Guid ScheduleDetailId { get; set; }
+        public Guid? ScheduleDetailId { get; set; }
 
         [ForeignKey("ScheduleDetailId")]
-        public ScheduleDetail ScheduleDetail  { get; set; }
+        public ScheduleDetail? ScheduleDetail  { get; set; }
 
         public ICollection<AttendanceCharge> AttendanceCharges { get; set; }
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
+        public ICollection<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
     }
 }

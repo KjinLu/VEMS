@@ -37,12 +37,13 @@ namespace DataAccess.DAO
                 {
                     var query = await (from s in context.Schedules
                                        join c in context.Classrooms on s.ClassroomId equals c.Id
+                                       group s by new { s.ClassroomId, c.ClassName } into g
                                        select new ScheduleResponse
                                        {
-                                           Id = s.Id,
-                                           ClassroomName = c.ClassName,
-                                           ClassroomId = s.ClassroomId,
-                                           Time = s.Time,
+                                           Id = g.OrderByDescending(s => s.Time).FirstOrDefault().Id,
+                                           ClassroomName = g.Key.ClassName,
+                                           ClassroomId = g.Key.ClassroomId,
+                                           Time = g.OrderByDescending(s => s.Time).FirstOrDefault().Time,
                                        }).AsNoTracking()
                                        .ToListAsync()
                                        .ConfigureAwait(false);
@@ -51,7 +52,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Có lỗi khi tải danh sách thời khóa biểu", ex);
+                throw new Exception($"Có lỗi khi tải danh sách thời khóa biểu"+ ex.Message);
             }
         }
 
@@ -70,7 +71,7 @@ namespace DataAccess.DAO
         //     }
         //     catch (Exception ex)
         //     {
-        //         throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}", ex);
+        //         throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}"+ ex.Message);
         //     }
         // }
 
@@ -83,21 +84,22 @@ namespace DataAccess.DAO
                     var query = await (from s in context.Schedules
                                        join c in context.Classrooms on s.ClassroomId equals c.Id
                                        where c.Id == classroomId
+                                       group s by new { s.ClassroomId, c.ClassName } into g
                                        select new ScheduleResponse
                                        {
-                                           Id = s.Id,
-                                           ClassroomName = c.ClassName,
-                                           ClassroomId = s.ClassroomId,
-                                           Time = s.Time,
+                                           Id = g.OrderByDescending(s => s.Time).FirstOrDefault().Id,
+                                           ClassroomName = g.Key.ClassName,
+                                           ClassroomId = g.Key.ClassroomId,
+                                           Time = g.OrderByDescending(s => s.Time).FirstOrDefault().Time,
                                        }).AsNoTracking()
-                                     .ToListAsync()
-                                     .ConfigureAwait(false);
+                                       .ToListAsync()
+                                       .ConfigureAwait(false);
                     return query;
                 }
-            }
+            }  
             catch (Exception ex)
             {
-                throw new Exception($"Có lỗi khi tải dữ liệu của lớp {classroomId}", ex);
+                throw new Exception($"Có lỗi khi tải dữ liệu của lớp {classroomId}"+ ex.Message);
             }
         }
 
@@ -115,7 +117,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tải thời khóa biểu với ID: {id}", ex);
+                throw new Exception($"Lỗi khi tải thời khóa biểu với ID: {id}"+ ex.Message);
             }
         }
 
@@ -130,7 +132,7 @@ namespace DataAccess.DAO
         //     }
         //     catch (Exception ex)
         //     {
-        //         throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}", ex);
+        //         throw new Exception($"Error fetching latest schedules by classroom: {ex.Message}"+ ex.Message);
         //     }
         // }
 
@@ -154,13 +156,49 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau", ex);
+                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau! "+ ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tạo thời khóa biểu: ", ex);
+                throw new Exception($"Lỗi khi tạo thời khóa biểu: "+ ex.Message);
             }
         }
+
+        public async Task<List<Schedule>> CreateListScheduleAsync(List<Schedule> schedules)
+        {
+            var createdSchedules = new List<Schedule>();
+
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    foreach (var schedule in schedules)
+                    {
+                        bool exists = await context.Schedules
+                                            .AnyAsync(s => s.Time == schedule.Time && s.ClassroomId == schedule.ClassroomId)
+                                            .ConfigureAwait(false);
+                        if (!exists)
+                        {
+                            var created = context.Schedules.Add(schedule).Entity;
+                            createdSchedules.Add(created);
+                        }
+                    }
+
+                    await context.SaveChangesAsync().ConfigureAwait(false);
+                }
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau! "+ ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi tạo thời khóa biểu: "+ ex.Message);
+            }
+
+            return createdSchedules;
+        }
+
 
         public async Task<bool> UpdateScheduleAsync(Schedule schedule)
         {
@@ -190,11 +228,11 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi cập nhật thời khóa biểu. Thử lại sau", ex);
+                throw new Exception("Có lỗi xảy ra khi cập nhật thời khóa biểu. Thử lại sau"+ ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi cập nhật thời khóa biểu: ", ex);
+                throw new Exception($"Lỗi khi cập nhật thời khóa biểu: "+ ex.Message);
             }
         }
 
@@ -221,11 +259,11 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi xóa thời khóa biểu. Thử lại sau", ex);
+                throw new Exception("Có lỗi xảy ra khi xóa thời khóa biểu. Thử lại sau"+ ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi xóa thời khóa biểu: ", ex);
+                throw new Exception($"Lỗi khi xóa thời khóa biểu: "+ ex.Message);
             }
         }
 
@@ -235,10 +273,22 @@ namespace DataAccess.DAO
             {
                 using (var context = new VemsContext())
                 {
-                    var existingSchedule = await context.Schedules.FindAsync(request.ScheduleID).ConfigureAwait(false);
+                    var existingSchedule =  context.ScheduleDetails.Any(i => i.ScheduleId == request.ScheduleID);
 
-                    if (existingSchedule != null)
+
+                    if (!existingSchedule)
                     {
+                        var scheduleInfo = await (from s in context.Schedules
+                                                  join c in context.Classrooms on s.ClassroomId equals c.Id
+                                                  where s.Id == request.ScheduleID
+                                                  select new
+                                                  {
+                                                      scheduleID = s.Id,
+                                                      time = s.Time,
+                                                      classroomId = c.Id,
+                                                      className = c.ClassName
+                                                  }
+                                           ).FirstOrDefaultAsync();
                         foreach (var item in request.Sessions)
                         {
                             Guid currentSessionID = item.SessionID;
@@ -251,6 +301,7 @@ namespace DataAccess.DAO
                                     SlotID = session.SlotID,
                                     SubjectID = session.SubjectID,
                                     TeacherID = session.TeacherID,
+                                    ClassroomID = scheduleInfo.classroomId
                                 };
                                 slotDetails.Add(newSlot);
                             }
@@ -269,26 +320,20 @@ namespace DataAccess.DAO
                                                          PeriodName = p.PeriodName,
                                                          Time = p.StartTime
                                                      }).FirstOrDefaultAsync();
-                            Attendance newAttendance = new Attendance();
-                            newAttendance.ScheduleDetailId = newScheduleDetailCreated.Id;
-                            newAttendance.Note = "";
-                            newAttendance.StartTime = sessionTime.Time;
-
-                            context.Attendances.Add(newAttendance);
                             context.SlotDetails.AddRange(slotDetails);
                         }
                         context.SaveChanges();
                     }
                     else
                     {
-                        throw new Exception("Không tìm thấy thời khóa biểu!");
+                        throw new Exception("Đã tồn tại thời khóa biểu chi tiết!");
                     }
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tạo thời khóa biểu chi tiết: ", ex);
+                throw new Exception($"Lỗi khi tạo thời khóa biểu chi tiết: " +  ex.Message);
             }
         }
 
@@ -341,7 +386,11 @@ namespace DataAccess.DAO
                                                                               join su in context.Subjects on sd.SubjectID equals su.Id
                                                                               join te in context.Teacher on sd.TeacherID equals te.Id
                                                                               join so in context.Slots on sd.SlotID equals so.Id
-                                                                              where sd.SessionID == item.SessionId
+                                                                              join scd in context.ScheduleDetails on se.Id equals scd.SessionId
+                                                                              join sc in context.Schedules on scd.ScheduleId equals sc.Id
+                                                                              join c in context.Classrooms on sc.ClassroomId equals c.Id
+
+                                                                              where sd.SessionID == item.SessionId && sd.ClassroomID == scheduleInfo.classroomId
                                                                               select new SlotDetailResponse
                                                                               {
                                                                                   SlotID = so.Id,
@@ -353,7 +402,7 @@ namespace DataAccess.DAO
                                                                                   SlotStart = so.StartTime,
                                                                                   SlotEnd = so.EndTime,
 
-                                                                              }).ToListAsync();
+                                                                              }).Distinct().OrderBy(x=> x.SlotIndex).ToListAsync(); 
                             newSession.SessionID = sessionDetailQuerry.sessionID;
                             newSession.PeriodName = sessionDetailQuerry.PeriodName;
                             newSession.DayOfWeek = sessionDetailQuerry.DayOfWeek;
@@ -378,8 +427,99 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tải thời khóa biểu: ", ex);
+                throw new Exception($"Lỗi khi tải thời khóa biểu: "+ ex.Message);
             }
         }
+
+        public async Task<List<TeacherScheduleResponse>> GetAllTeachersSchedules()
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var teachers = await context.Teacher.ToListAsync();
+
+                    List<TeacherScheduleResponse> allSchedules = new List<TeacherScheduleResponse>();
+
+                    foreach (var teacher in teachers)
+                    {
+                        var schedule = await GetTeacherScheduleDetail(teacher.Id);
+                        allSchedules.Add(schedule);
+                    }
+
+                    return allSchedules;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tải danh sách thời khóa biểu: " + ex.Message);
+            }
+        }
+
+        public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var query = from slotDetail in context.SlotDetails
+                                join t in context.Teacher on slotDetail.TeacherID equals t.Id
+                                join s in context.Subjects on slotDetail.SubjectID equals s.Id
+                                join slot in context.Slots on slotDetail.SlotID equals slot.Id
+                                join se in context.Sessions on slotDetail.SessionID equals se.Id
+                                join p in context.Periods on se.PeriodID equals p.Id
+                                join c in context.Classrooms on slotDetail.ClassroomID equals c.Id
+                                where t.Id == TeacherID
+                                select new
+                                {
+                                    t.FullName,
+                                    c.ClassName,
+                                    ClassroomID = c.Id,
+                                    SubjectID = s.Id,
+                                    s.SubjectName,
+                                    SlotID = slot.Id,
+                                    slot.SlotIndex,
+                                    slot.StartTime,
+                                    slot.EndTime,
+                                    se.DayOfWeek,
+                                    p.PeriodName
+                                };
+
+                    var result = await query.ToListAsync();
+
+                    var sessionDetails = result.GroupBy(r => new { r.DayOfWeek, r.PeriodName })
+                                               .Select(g => new TeacherSesionDetailResponse
+                                               {
+                                                   DayOfWeek = g.Key.DayOfWeek,
+                                                   PeriodName = g.Key.PeriodName,
+                                                   SlotDetails = g.Select(s => new TeacherSlotDetailResponse
+                                                   {
+                                                       SubjectID = s.SubjectID,
+                                                       SubjectName = s.SubjectName,
+                                                       SlotID = s.SlotID,
+                                                       Classname = s.ClassName,
+                                                       ClassroomID = s.ClassroomID,
+                                                       SlotIndex = s.SlotIndex,
+                                                       SlotStart = s.StartTime,
+                                                   }).ToList()
+                                               }).ToList();
+
+                    var response = new TeacherScheduleResponse
+                    {
+                        TeacherID = TeacherID,
+                        TeacherName = result.FirstOrDefault()?.FullName,
+                        Sessions = sessionDetails
+                    };
+
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tải thời khóa biểu: " + ex.Message);
+            }
+        }
+
+
     }
 }

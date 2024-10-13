@@ -88,11 +88,11 @@ namespace BusinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ScheduleDetailId")
+                    b.Property<Guid?>("ScheduleDetailId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("TimeReport")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -131,17 +131,30 @@ namespace BusinessObject.Migrations
                     b.Property<Guid>("AttendanceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ReasonId")
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ReasonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("StatusId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TeacherId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("TimeReport")
-                        .HasColumnType("datetime");
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -150,6 +163,8 @@ namespace BusinessObject.Migrations
                     b.HasIndex("ReasonId");
 
                     b.HasIndex("StatusId");
+
+                    b.HasIndex("StudentId");
 
                     b.HasIndex("TeacherId");
 
@@ -316,6 +331,38 @@ namespace BusinessObject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmailTokens");
+                });
+
+            modelBuilder.Entity("BusinessObject.ExtraActivitiesAttendance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("AttendanceAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("AttendanceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttendanceId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("ExtraActivitiesAttendances");
                 });
 
             modelBuilder.Entity("BusinessObject.Grade", b =>
@@ -499,6 +546,9 @@ namespace BusinessObject.Migrations
 
                     b.Property<Guid>("ClassroomId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime");
@@ -715,6 +765,9 @@ namespace BusinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ClassroomID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("SessionID")
                         .HasColumnType("uniqueidentifier");
 
@@ -728,6 +781,8 @@ namespace BusinessObject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClassroomID");
 
                     b.HasIndex("SessionID");
 
@@ -873,7 +928,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("44471696-e348-4740-ad89-8ee935f61b19"),
+                            Id = new Guid("7b623934-fb1d-4fd2-8a19-4084129fb65e"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -892,7 +947,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8d645415-35c0-424b-bd6d-8224d066e0ac"),
+                            Id = new Guid("c2eae5ea-38c0-487e-8259-9ba3071c013e"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -911,7 +966,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d6cd22ec-b171-46a1-8a97-c70f42b2426a"),
+                            Id = new Guid("782d0d7a-91f9-4aa9-917d-9df2227968e9"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -930,7 +985,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ece0f78-29b2-4e48-b1a8-4fbbcdb6b6b6"),
+                            Id = new Guid("dd2ff039-52e1-4a5d-ab6f-f93995c889a2"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -949,7 +1004,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2396ce47-232b-46c2-ac2c-3e7475b0bb51"),
+                            Id = new Guid("9acda4ef-8b70-4784-bf05-b38f07079454"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -968,7 +1023,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("24ec1653-6587-46a8-8739-c5aaad58f770"),
+                            Id = new Guid("64d500e2-48e1-4a69-b548-b6db6d5dc40b"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -987,7 +1042,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d4b01266-a27c-4aa5-ad12-c5fc9a9a7046"),
+                            Id = new Guid("741e0b87-da21-4d09-999f-5b8af2506471"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1006,7 +1061,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("168ec59a-78dc-479a-9ded-6ba3a1a3e775"),
+                            Id = new Guid("a130e07d-63f3-492b-807a-d250a8d94874"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1025,7 +1080,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("377a52c8-8d30-4092-9fef-ca00cce811ee"),
+                            Id = new Guid("f78b798f-47f5-42a6-a65a-6a598fa82585"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1044,7 +1099,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("814c52e0-152f-4f6e-9eb9-073ad018b3ed"),
+                            Id = new Guid("c886961a-4402-4b82-a419-b09cadce6e45"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1438,8 +1493,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.ScheduleDetail", "ScheduleDetail")
                         .WithMany("Attendances")
                         .HasForeignKey("ScheduleDetailId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ScheduleDetail");
                 });
@@ -1472,8 +1526,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.Reason", "Reason")
                         .WithMany("AttendanceStatuses")
                         .HasForeignKey("ReasonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BusinessObject.Status", "Status")
                         .WithMany("AttendanceStatuses")
@@ -1481,17 +1534,24 @@ namespace BusinessObject.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("BusinessObject.Student", "Student")
+                        .WithMany("AttendanceStatuses")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("BusinessObject.Teacher", "Teacher")
                         .WithMany("AttendanceStatuses")
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Attendance");
 
                     b.Navigation("Reason");
 
                     b.Navigation("Status");
+
+                    b.Navigation("Student");
 
                     b.Navigation("Teacher");
                 });
@@ -1505,6 +1565,33 @@ namespace BusinessObject.Migrations
                         .IsRequired();
 
                     b.Navigation("Grade");
+                });
+
+            modelBuilder.Entity("BusinessObject.ExtraActivitiesAttendance", b =>
+                {
+                    b.HasOne("BusinessObject.Attendance", "Attendance")
+                        .WithMany("ExtraActivitiesAttendances")
+                        .HasForeignKey("AttendanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObject.Status", "Status")
+                        .WithMany("ExtraActivitiesAttendances")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObject.Student", "Student")
+                        .WithMany("ExtraActivitiesAttendances")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attendance");
+
+                    b.Navigation("Status");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("BusinessObject.Schedule", b =>
@@ -1550,6 +1637,12 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.SlotDetail", b =>
                 {
+                    b.HasOne("BusinessObject.Classroom", "Classroom")
+                        .WithMany("SlotDetails")
+                        .HasForeignKey("ClassroomID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("BusinessObject.Session", "Session")
                         .WithMany("SlotDetails")
                         .HasForeignKey("SessionID")
@@ -1572,6 +1665,8 @@ namespace BusinessObject.Migrations
                         .WithMany("SlotDetails")
                         .HasForeignKey("TeacherID")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Classroom");
 
                     b.Navigation("Session");
 
@@ -1631,11 +1726,15 @@ namespace BusinessObject.Migrations
                     b.Navigation("AttendanceCharges");
 
                     b.Navigation("AttendanceStatuses");
+
+                    b.Navigation("ExtraActivitiesAttendances");
                 });
 
             modelBuilder.Entity("BusinessObject.Classroom", b =>
                 {
                     b.Navigation("Schedules");
+
+                    b.Navigation("SlotDetails");
 
                     b.Navigation("Students");
                 });
@@ -1689,11 +1788,17 @@ namespace BusinessObject.Migrations
             modelBuilder.Entity("BusinessObject.Status", b =>
                 {
                     b.Navigation("AttendanceStatuses");
+
+                    b.Navigation("ExtraActivitiesAttendances");
                 });
 
             modelBuilder.Entity("BusinessObject.Student", b =>
                 {
                     b.Navigation("AttendanceCharges");
+
+                    b.Navigation("AttendanceStatuses");
+
+                    b.Navigation("ExtraActivitiesAttendances");
                 });
 
             modelBuilder.Entity("BusinessObject.StudentType", b =>
