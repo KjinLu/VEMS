@@ -22,7 +22,8 @@ namespace BusinessObject
         [ForeignKey("GradeId")]
         public Grade Grade { get; set; }
 
-        public ICollection<Schedule> Schedule { get; set; }
-        public ICollection<Student> Student { get; set; }
+        public ICollection<SlotDetail> SlotDetails { get; set; }
+        public ICollection<Schedule> Schedules { get; set; }
+        public ICollection<Student> Students { get; set; }
     }
 }

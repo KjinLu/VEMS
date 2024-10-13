@@ -16,12 +16,16 @@ namespace BusinessObject
 
         [Required]
         [Column(TypeName = "datetime")]
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
 
-        public Classroom ClassroomId { get; set; }
+        public Guid ClassroomId { get; set; }
 
         [ForeignKey("ClassroomId")]
         public Classroom Classroom { get; set; }
+
+        [Required]
+        [Column(TypeName = "datetime")]
+        public DateTime CreateAt { get; set; }
 
         public ICollection<ScheduleDetail> ScheduleDetails { get; set; }
     }

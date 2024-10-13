@@ -21,8 +21,8 @@ namespace BusinessObject
         [Required]
         [MaxLength(50)]
         public string Code { get; set; }
-
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
+        public ICollection<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
     }
 }

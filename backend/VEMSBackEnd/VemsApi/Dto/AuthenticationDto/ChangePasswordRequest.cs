@@ -1,8 +1,7 @@
-﻿namespace SchoolMate.Dto.AuthenticationDto
-{
+﻿ 
     public class ChangePasswordRequest
     {
-        public int AccountID { get; set; }
+        public Guid AccountID { get; set; }
         public string NewPassword { get; set; }
     }
-}
+ 

@@ -14,12 +14,12 @@ namespace BusinessObject
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public Schedule ScheduleId { get; set; }
+        public Guid ScheduleId { get; set; }
 
         [ForeignKey("ScheduleId")]
         public Schedule Schedule { get; set; }
 
-        public Session SessionId { get; set; }
+        public Guid SessionId { get; set; }
 
         [ForeignKey("SessionId")]
         public Session Session { get; set; }
