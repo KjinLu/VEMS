@@ -1,13 +1,8 @@
 ﻿using BusinessObject;
 using DataAccess.DTO;
 using DataAccess.Repository;
-using VemsApi.Dto.ImageDto;
-using VemsApi.Dto.PaginationDto;
-using VemsApi.Dto.StudentDto;
-using VemsApi.Dto.StudentServiceDto;
 
-namespace VemsApi.Services
-{
+
     public interface IStudentService
     {
         Task<object> GetAllStudents(PaginationRequest request);
@@ -113,4 +108,4 @@ namespace VemsApi.Services
         }
 
     }
-}
+

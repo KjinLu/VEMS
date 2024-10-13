@@ -1,10 +1,8 @@
 ﻿using BusinessObject;
+using DataAccess.DTO;
 using DataAccess.Repository;
-using VemsApi.Dto.ImageDto;
-using VemsApi.Dto.StudentServiceDto;
 
-namespace VemsApi.Services
-{
+
     public interface ITeacherService
     {
         Task<bool> UpdateProfile(UpdateTeacherProfileRequest request);
@@ -64,4 +62,4 @@ namespace VemsApi.Services
         }
 
     }
-}
+

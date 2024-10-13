@@ -3,14 +3,11 @@ using BusinessObject;
 using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Identity.Data;
-using MoneyDreamAPI.Dto.AuthDto;
-using MoneyDreamAPI.Services;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1.Ocsp;
 using SchoolMate.Authorizotion;
 
-namespace VemsApi.Services
-{
+
 
     public interface IAuthService
     {
@@ -181,4 +178,4 @@ namespace VemsApi.Services
         }
     }
 
-}
+

@@ -1,12 +1,9 @@
 ﻿using Azure;
+using DataAccess.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
-using VemsApi.Dto.ImageDto;
-using VemsApi.Dto.PaginationDto;
-using VemsApi.Dto.StudentServiceDto;
-using VemsApi.Services;
 
 namespace VemsApi.Controllers
 {
