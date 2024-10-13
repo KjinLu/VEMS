@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountServiceVemsApi", "AccountServiceVemsApi\AccountServiceVemsApi.csproj", "{0D2F252D-735F-4C34-AB35-3FD712F79EF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{00D70598-5EB4-4EC8-8C67-37EAD1014433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeClassroomService", "GradeClassroomService\GradeClassroomService.csproj", "{EECA4DB0-5DD2-4B5A-9CA0-21FD4C24DB83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{0D2F252D-735F-4C34-AB35-3FD712F79EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D2F252D-735F-4C34-AB35-3FD712F79EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D2F252D-735F-4C34-AB35-3FD712F79EF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00D70598-5EB4-4EC8-8C67-37EAD1014433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D70598-5EB4-4EC8-8C67-37EAD1014433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D70598-5EB4-4EC8-8C67-37EAD1014433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D70598-5EB4-4EC8-8C67-37EAD1014433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EECA4DB0-5DD2-4B5A-9CA0-21FD4C24DB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECA4DB0-5DD2-4B5A-9CA0-21FD4C24DB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECA4DB0-5DD2-4B5A-9CA0-21FD4C24DB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECA4DB0-5DD2-4B5A-9CA0-21FD4C24DB83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
