@@ -28,15 +28,15 @@
   font-family: 'Inter' sans-serif;
 }
 
-html {
-  font-size: 62.5%;
+.custom-components {
+  font-size: 62.5% !important;
 }
 
-body {
-  font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 1.6;
-}
+// body {
+//   font-weight: 500;
+//   font-size: 1.6rem;
+//   line-height: 1.6;
+// }
 
 a {
   text-decoration: none;
@@ -143,20 +143,4 @@ a {
 
 .blur-xl {
   filter: blur(24px);
-}
-
-.css-1q964xs-MuiFormLabel-root-MuiInputLabel-root {
-  font-size: 2rem !important;
-}
-
-.css-1jk99ih-MuiInputBase-input-MuiOutlinedInput-input {
-  font-size: 2rem !important;
-}
-
-.css-lc42l8-MuiInputBase-input-MuiOutlinedInput-input {
-  font-size: 2rem !important;
-}
-
-.css-18pjc51-MuiFormLabel-root-MuiInputLabel-root {
-  font-size: 18px !important;
 }
