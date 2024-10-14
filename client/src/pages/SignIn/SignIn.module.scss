@@ -1,57 +1,54 @@
 .signInContainer {
-  min-width: 30rem;
+  min-width: 50rem; /* Tăng từ 40rem */
   background-color: rgb(255, 255, 255);
-  border-radius: 1rem;
-  backdrop-filter: blur(8px);
+  border-radius: 2rem; /* Tăng từ 1.5rem */
+  backdrop-filter: blur(16px); /* Tăng hiệu ứng mờ từ 12px */
   box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    0 40px 45px -5px rgba(0, 0, 0, 0.1),
+    /* Tăng độ đổ bóng */ 0 25px 25px -5px rgba(0, 0, 0, 0.04); /* Tăng từ 20px */
   z-index: 2;
-  padding: 2rem;
+  padding: 4rem; /* Tăng từ 3rem */
 }
 
 .signInTitle {
-  font-size: 1.5rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  font-size: 2.5rem; /* Tăng từ 2rem */
+  line-height: 3.5rem; /* Tăng từ 2.8rem */
+  font-weight: 900; /* Giữ nguyên */
+  margin-bottom: 3rem; /* Tăng từ 2.5rem */
   text-align: center;
   color: #3f51b5;
-  // background-image: linear-gradient(to right, #34d399, #10b981);
-  // color: transparent;
-  // -webkit-background-clip: text;
   background-clip: text;
 }
 
 .signInDescription {
-  font-size: 1rem;
+  font-size: 1.8rem; /* Tăng từ 1.4rem */
 }
 
 .logoImage {
-  width: 12rem;
+  width: 20rem; /* Tăng từ 16rem */
   height: auto;
 }
 
 @media (max-width: 768px) {
   .signInContainer {
-    min-width: 25rem;
+    min-width: 40rem; /* Tăng từ 32rem */
   }
 
   .logoImage {
-    width: 8rem;
+    width: 15rem; /* Tăng từ 12rem */
   }
 
   .signInTitle {
-    font-size: 1.25rem;
+    font-size: 2.2rem; /* Tăng từ 1.8rem */
   }
 
   .signInDescription {
-    font-size: 1rem;
+    font-size: 1.6rem; /* Tăng từ 1.4rem */
   }
 }
 
 @media (max-width: 568px) {
   .signInContainer {
-    min-width: 22rem;
+    min-width: 35rem; /* Tăng từ 28rem */
   }
 }

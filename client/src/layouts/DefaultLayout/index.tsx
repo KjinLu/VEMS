@@ -7,10 +7,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { ReactElement, useEffect, useState } from 'react';
-import VemDrawer from '../components/Drawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Header from '../components/Header';
+import className from 'classnames/bind';
 
+import VemDrawer from '../components/Drawer';
+import Header from '../components/Header';
+import styles from './DefaultLayout.module.scss';
+
+const cx = className.bind(styles);
 const drawerWidthDefault = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -203,10 +207,10 @@ export default function DrawerLayout({ children }: DrawerLayoutProps) {
 
         <Box
           component='main'
-          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+          sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
-          {children}
+          <div className={cx('body')}>{children}</div>
         </Box>
       </Box>
     </>

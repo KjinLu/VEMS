@@ -59,7 +59,7 @@ const SignInPage = () => {
               >
                 <VemInput
                   id='username'
-                  label='Username'
+                  label='Tên đăng nhập'
                   placeholder='Enter your username'
                   // required
                   fullWidth
@@ -74,7 +74,7 @@ const SignInPage = () => {
               >
                 <VemInput
                   id='password'
-                  label='Password'
+                  label='Mật khẩu'
                   type='password'
                   placeholder='Enter your password'
                   // required

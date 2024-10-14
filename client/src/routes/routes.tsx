@@ -11,11 +11,18 @@ import Search from '@/pages/Search';
 import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import DefaultLayout from '@/layouts/DefaultLayout';
+import AdminManagementPage from '@/pages/AdminManagement';
 
 const publicRoutes = [
   { path: configRoutes.signIn, component: SignIn, layout: AuthLayout },
   { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
-  { path: configRoutes.home, component: Home, layout: DefaultLayout }
+  { path: configRoutes.home, component: Home, layout: DefaultLayout },
+  { path: configRoutes.search, component: Search, layout: DefaultLayout },
+  {
+    path: configRoutes.AdminManagementPage,
+    component: AdminManagementPage,
+    layout: DefaultLayout
+  }
 ];
 
 const privateRoutes = [
