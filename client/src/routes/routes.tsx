@@ -1,4 +1,4 @@
-import { configRoutes } from '@/constants/routes';
+import { configError, configRoutes } from '@/constants/routes';
 
 //Layout
 import HeaderOnly from '@/layouts/HeaderOnly';
@@ -9,32 +9,59 @@ import Profile from '@/pages/Profile';
 import Upload from '@/pages/Upload';
 import Search from '@/pages/Search';
 import SignIn from '@/pages/SignIn';
-import SignUp from '@/pages/SignUp';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
 import AdminManagementPage from '@/pages/AdminManagement';
+import NotFound from '@/pages/Error/NotFound';
+import Authorise from '@/pages/Error/Authorize';
+import Network from '@/pages/Error/Network';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.signIn, component: SignIn, layout: AuthLayout },
-  { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
-  { path: configRoutes.home, component: Home, layout: DefaultLayout },
+  // { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
+  // { path: configRoutes.home, component: Home, layout: DefaultLayout },
   { path: configRoutes.search, component: Search, layout: DefaultLayout },
   {
     path: configRoutes.AdminManagementPage,
     component: AdminManagementPage,
     layout: DefaultLayout
+  },
+  {
+    path: configError.NotFound,
+    component: NotFound
+  },
+  {
+    path: configError.UnAuthorise,
+    component: Authorise
+  },
+  {
+    path: configError.Network,
+    component: Network
   }
 ];
 
-// const privateRoutes : PrivateRoute[] = [
-//   { path: configRoutes.home, component: Home, role: ['ADMIN'] },
-//   {
-//     path: configRoutes.profile,
-//     component: Profile,
-//     role: ['ADMIN', 'TEACHER', 'STUDENT']
-//   },
-//   { path: configRoutes.upload, component: Upload, layout: HeaderOnly, role: ['ADMIN'] },
-//   { path: configRoutes.search, component: Search, layout: null, role: ['ADMIN'] }
-// ];
+const privateRoutes: PrivateRoute[] = [
+  {
+    path: configRoutes.home,
+    component: Home,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.profile,
+    component: Profile,
+    allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.upload,
+    component: Upload,
+    layout: HeaderOnly,
+    allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
+    isAuthenticated: true
+  }
+  // { path: configRoutes.search, component: Search, layout: null, allowedRoles: ['ADMIN'] }
+];
 
-export { publicRoutes };
+export { publicRoutes, privateRoutes };
