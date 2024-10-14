@@ -1,9 +1,9 @@
 export const configRoutes = {
   home: '/',
-  login: '/login',
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',
   signIn: '/signIn',
-  signUp: '/signUp'
+  signUp: '/signUp',
+  AdminManagementPage: '/admin-management'
 };
