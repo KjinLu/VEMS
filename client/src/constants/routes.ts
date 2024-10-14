@@ -10,7 +10,7 @@ export const configRoutes = {
 
 export const configError = {
   NotFound: '/notfound',
-  UnAuthorise: '/unauthorise',
+  UnAuthorize: '/unauthorize',
   Network: '/network'
 };
 

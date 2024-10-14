@@ -1,5 +1,7 @@
+import { configError } from '@/constants/routes';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 // Uncomment if you have logout action
 // import { logout } from '@/libs/features/auth/authSlice';
@@ -43,6 +45,8 @@ axiosAuth.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
+    const navigave = useNavigate();
+
     // Check if the error is 401 and not already retried
     if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
       if (isRefreshing) {
@@ -66,7 +70,9 @@ axiosAuth.interceptors.response.use(
         const refreshToken = Cookies.get('refreshToken');
         if (!refreshToken) {
           // Uncomment this if you have logout logic
+
           // store.dispatch(logout());
+          navigave(configError.UnAuthorize);
           return Promise.reject(error);
         }
 
@@ -89,6 +95,7 @@ axiosAuth.interceptors.response.use(
         // If refresh fails, reject all queued requests
         processQueue(refreshError, null);
         // Uncomment if you want to log out the user on token refresh failure
+        navigave(configError.UnAuthorize);
         // store.dispatch(logout());
         return Promise.reject(refreshError);
       } finally {
