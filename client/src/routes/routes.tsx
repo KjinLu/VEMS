@@ -11,14 +11,15 @@ import Search from '@/pages/Search';
 import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import DefaultLayout from '@/layouts/DefaultLayout';
+import { PrivateRoute, PublicRoute } from '@/types/components/route';
 
-const publicRoutes = [
+const publicRoutes : PublicRoute[] = [
   { path: configRoutes.signIn, component: SignIn, layout: AuthLayout },
   { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
   { path: configRoutes.home, component: Home, layout: DefaultLayout }
 ];
 
-const privateRoutes = [
+const privateRoutes : PrivateRoute[] = [
   { path: configRoutes.home, component: Home, role: ['ADMIN'] },
   {
     path: configRoutes.profile,

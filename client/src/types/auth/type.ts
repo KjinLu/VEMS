@@ -6,3 +6,5 @@ export type SignInProps = {
 export type getUserProps = {
   accessToken: string;
 };
+
+export type Role = 'ADMIN' | 'TEACHER' | 'STUDENT';
