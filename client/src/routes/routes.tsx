@@ -31,7 +31,7 @@ const publicRoutes: PublicRoute[] = [
     component: NotFound
   },
   {
-    path: configError.UnAuthorise,
+    path: configError.UnAuthorize,
     component: Authorise
   },
   {
@@ -45,7 +45,7 @@ const privateRoutes: PrivateRoute[] = [
     path: configRoutes.home,
     component: Home,
     layout: DefaultLayout,
-    allowedRoles: ['TEACHER', 'STUDENT'],
+    allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
     isAuthenticated: true
   },
   {
