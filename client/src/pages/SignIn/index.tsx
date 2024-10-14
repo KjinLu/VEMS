@@ -33,22 +33,22 @@ const SignInPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className={cx(
-            'signInContainer',
+            'sign-in-container',
             'overflow-hidden w-100 d-flex justify-content-center align-items-center flex-column'
           )}
         >
           <VemImage
             src={logo}
             alt={'logo'}
-            className={cx('logoImage')}
+            className={cx('logo-image')}
             fallback={logo}
           />
 
           <div className={cx('w-100')}>
             <div className={cx('d-flex justify-content-center flex-column mb-3')}>
-              <h2 className={cx('signInTitle', 'mb-0')}>Hi, Welcome Back</h2>
-              <span className={cx('signInDescription', 'text-center pt-1')}>
-                Enter your credentials to continue
+              <h2 className={cx('sign-in-title', 'mb-0')}>Chào mừng trở lại</h2>
+              <span className={cx('sign-in-description', 'text-center pt-1')}>
+                Nhập thông tin đăng nhập để tiếp tục
               </span>
             </div>
 
@@ -60,7 +60,7 @@ const SignInPage = () => {
                 <VemInput
                   id='username'
                   label='Tên đăng nhập'
-                  placeholder='Enter your username'
+                  placeholder='Tên đăng nhập'
                   // required
                   fullWidth
                   variant='outlined'
@@ -76,7 +76,7 @@ const SignInPage = () => {
                   id='password'
                   label='Mật khẩu'
                   type='password'
-                  placeholder='Enter your password'
+                  placeholder='Mật khẩu'
                   // required
                   fullWidth
                   variant='outlined'
@@ -84,21 +84,21 @@ const SignInPage = () => {
                 />
               </Form.Item>
 
-              <div className='d-flex justify-content-between'>
-                <div style={{ marginLeft: '-10px' }}>
+              <div className='d-flex justify-content-end py-1'>
+                {/* <div style={{ marginLeft: '-10px' }}>
                   <VemCheckbox
                     checked={false}
                     checkedIcon={''}
                   />
                   Keep me logged in
-                </div>
+                </div> */}
 
                 <div className={'d-flex align-items-center'}>
                   <Link
                     href='/signUp'
                     color='inherit'
                   >
-                    Forgot Password?
+                    Quên mật khẩu?
                   </Link>
                 </div>
               </div>
@@ -108,7 +108,7 @@ const SignInPage = () => {
                 // loading={isLoading}
                 status={'loading'}
                 type={'submit'}
-                children={'Submit'}
+                children={'Đăng nhập'}
                 variant={'contained'}
                 fullWidth={true}
               />
@@ -119,14 +119,14 @@ const SignInPage = () => {
             </Form>
           </div>
 
-          <div className='mt-3'>
+          {/* <div className='mt-3'>
             <Link
               onClick={() => navigate('/signUp')}
               color='inherit'
             >
               Don't have an account
             </Link>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </>

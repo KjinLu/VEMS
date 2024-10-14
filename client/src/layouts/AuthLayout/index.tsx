@@ -15,7 +15,7 @@ const AuthLayout = ({ children }: AuthProps) => {
     <>
       <div
         className={cx(
-          'authContainer',
+          'auth-container',
           'd-flex justify-content-center align-items-center position-relative overflow-hidden'
         )}
       >

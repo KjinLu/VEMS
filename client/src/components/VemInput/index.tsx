@@ -88,7 +88,7 @@ const VemInput = ({
           variant={variant}
           onChange={onChange}
           value={value}
-          className={className}
+          className={`custom-components ${className}`}
           style={style}
           autoComplete={autoComplete}
         />
@@ -113,7 +113,7 @@ const VemInput = ({
           fullWidth={fullWidth}
           variant={variant}
           onChange={onChange}
-          className={className}
+          className={`custom-components ${className}`}
           style={style}
           autoComplete={autoComplete}
         />
