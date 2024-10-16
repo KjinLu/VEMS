@@ -19,6 +19,8 @@ namespace VemsApi.Services
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
+
+        Task<StudentResponse> GetStudentByID(Guid id);
     }
 
     public class StudentService : IStudentService
@@ -40,12 +42,12 @@ namespace VemsApi.Services
             account.FullName = request.FullName;
             account.CitizenID = request.CitizenID;
             account.Email = request.Email;
-            account.Dob = DateOnly.Parse(request.Dob);
+            account.Dob = request.Dob != "" ? DateOnly.Parse(request.Dob) : null;
             account.Address = request.Address;
             account.Phone = request.Phone;
             account.ParentPhone = request.ParentPhone;
             account.HomeTown = request.HomeTown;
-            account.UnionJoinDate = DateOnly.Parse(request.UnionJoinDate);
+            account.UnionJoinDate = request.UnionJoinDate != "" ? DateOnly.Parse(request.UnionJoinDate) : null;
 
             return await _accountRepository.UpdateStudentProfile(account);
         }
@@ -112,5 +114,11 @@ namespace VemsApi.Services
             return await _studentRepository.GetAllStudentsByClassroom(classId);
         }
 
+
+
+        public async Task<StudentResponse> GetStudentByID(Guid id)
+        {
+            return await _studentRepository.GetStudentById(id);
+        }
     }
 }

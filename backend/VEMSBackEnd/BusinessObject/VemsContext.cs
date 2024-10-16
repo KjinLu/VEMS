@@ -45,7 +45,7 @@ namespace BusinessObject
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
+      optionsBuilder.UseSqlServer("Data Source=WIN-APTX4869\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
