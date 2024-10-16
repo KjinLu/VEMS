@@ -205,5 +205,7 @@ using System.Threading.Tasks;
         public string? ParentPhone { get; set; } = string.Empty;
         public string? HomeTown { get; set; } = string.Empty;
         public DateOnly? UnionJoinDate { get; set; }
-    }
+        public string? StudentTypeName { get; set; }
+        public string? ClassRoom { get; set; }
+}
 

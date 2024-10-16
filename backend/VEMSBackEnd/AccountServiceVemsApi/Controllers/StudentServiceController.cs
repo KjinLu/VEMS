@@ -48,7 +48,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpPut("update-profile")]
-        [Authorize("STUDENT")]
+        //[Authorize("STUDENT")]
         public async Task<IActionResult> UpdateProfile(UpdateStudentProfileRequest request)
         {
             try
@@ -76,10 +76,22 @@ namespace VemsApi.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetStudentByID([FromQuery] Guid id)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetStudentByID(id));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
 
         [HttpPost("upload-avatar")]
         // [Authorize("STUDENT")]
-        public async Task<IActionResult> UploadAvatarr(UploadAvatartRequest request)
+        public async Task<IActionResult> UploadAvatar([FromForm]UploadAvatartRequest request)
         {
             try
             {
