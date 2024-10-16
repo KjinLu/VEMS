@@ -1,5 +1,6 @@
 export const configRoutes = {
   home: '/admin',
+  student: '/student',
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',

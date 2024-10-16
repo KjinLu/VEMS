@@ -7,6 +7,7 @@ import AuthLayout from '@/layouts/AuthLayout';
 import Home from '@/pages/Home';
 import Profile from '@/pages/Profile';
 import Upload from '@/pages/Upload';
+import StudentSchedule from '@/pages/StudentSchedule';
 import Search from '@/pages/Search';
 import SignIn from '@/pages/SignIn';
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -59,6 +60,13 @@ const privateRoutes: PrivateRoute[] = [
     component: Upload,
     layout: HeaderOnly,
     allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.student,
+    component: StudentSchedule,
+    layout: DefaultLayout,
+    allowedRoles: ['STUDENT'],
     isAuthenticated: true
   }
   // { path: configRoutes.search, component: Search, layout: null, allowedRoles: ['ADMIN'] }
