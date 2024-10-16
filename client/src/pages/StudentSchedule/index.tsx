@@ -205,13 +205,15 @@ const StudentSchedulePage = () => {
   const currentMonday = getCurrentWeekMonday(); // Get the Monday of the current week
   // const Appointments = generateAppointments(currentMonday);
 
-  const { data, error, isLoading } = useGetClassScheduleQuery(
+  const { data, error, isLoading, refetch } = useGetClassScheduleQuery(
     'afab05ef-e3e7-4902-a141-05c3057b92f3'
   );
 
   useEffect(() => {
-    console.log(data);
-  }, [data, error]);
+    if (data) {
+      console.log('Class schedule data:', data);
+    }
+  }, [data]);
 
   return (
     // <Scheduler

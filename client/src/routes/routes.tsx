@@ -66,7 +66,7 @@ const privateRoutes: PrivateRoute[] = [
     path: configRoutes.student,
     component: StudentSchedule,
     layout: DefaultLayout,
-    allowedRoles: ['STUDENT'],
+    allowedRoles: ['ADMIN', 'STUDENT'],
     isAuthenticated: true
   }
   // { path: configRoutes.search, component: Search, layout: null, allowedRoles: ['ADMIN'] }
