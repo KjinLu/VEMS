@@ -210,7 +210,7 @@ const StudentSchedulePage = () => {
   );
 
   useEffect(() => {
-    console.log(data);
+    if (!isLoading) console.log(data);
   }, [data, error]);
 
   return (
