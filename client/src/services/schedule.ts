@@ -5,6 +5,7 @@ import { UUID } from 'crypto';
 const baseUrl = import.meta.env.VITE_PUBLIC_API || '';
 
 export const scheduleApi = createApi({
+  reducerPath: 'scheduleApi',
   baseQuery: axiosBaseQuery({
     baseUrl
   }),
@@ -21,7 +22,8 @@ export const scheduleApi = createApi({
         method: 'Get'
       })
     })
-  })
+  }),
+  tagTypes: []
 });
 
 export const { useGetClassScheduleQuery, useGetScheduleDetailQuery } = scheduleApi;
