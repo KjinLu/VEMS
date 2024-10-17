@@ -43,7 +43,6 @@ const VemDrawer = (props: DrawerProps) => {
   const navigate = useNavigate();
   const allowedRoles = useSelector((state: RootState) => state.auth.role as Role);
 
-  console.log('Role: ', allowedRoles);
   const { showIcon } = props;
 
   const navItems = listItemButtonClasses(navigate);

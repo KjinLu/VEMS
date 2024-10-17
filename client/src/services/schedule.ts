@@ -22,7 +22,8 @@ export const scheduleApi = createApi({
         method: 'get'
       })
     })
-  })
+  }),
+  tagTypes: []
 });
 
 export const { useGetClassScheduleQuery, useGetScheduleDetailQuery } = scheduleApi;

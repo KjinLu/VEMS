@@ -5,6 +5,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 const baseUrl = import.meta.env.VITE_PUBLIC_API || '';
 
 export const authApi = createApi({
+  reducerPath: 'authApi',
   baseQuery: axiosBaseQuery({
     baseUrl
   }),

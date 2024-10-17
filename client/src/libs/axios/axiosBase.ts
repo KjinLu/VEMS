@@ -40,7 +40,6 @@ export const axiosBaseQuery =
         params,
         ...config
       });
-      console.log(result.data.dataResponse);
       return { data: result.data.dataResponse, status: result.status as number };
     } catch (axiosError) {
       const err = axiosError as AxiosError;
