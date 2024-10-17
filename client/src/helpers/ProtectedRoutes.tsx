@@ -2,9 +2,10 @@ import { Route, Navigate, Routes, useLocation } from 'react-router-dom';
 import { PrivateRouteProps } from '@/types/components/route';
 import { Fragment } from 'react/jsx-runtime';
 import { privateRoutes, publicRoutes } from '@/routes/routes';
-import { configAuthorise, configError } from '@/constants/routes';
+import { configAuthorise, configError, configRoutes } from '@/constants/routes';
 import NullLayout from '@/layouts/NullLayout';
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 const ProtectedRoutes = ({ isAuthenticated, allowedRoles }: PrivateRouteProps) => {
   const isRouteProtected = (path: string) => {
@@ -22,6 +23,14 @@ const ProtectedRoutes = ({ isAuthenticated, allowedRoles }: PrivateRouteProps) =
 
   return (
     <Routes>
+      {(pathName === '/' || Cookies.get('accessToken')) && (
+        <Route
+          key={1}
+          path={pathName}
+          element={<Navigate to={configRoutes.login} />}
+        />
+      )}
+
       {privateRoutes.map((route, index) => {
         const Page = route.component;
         let Layout: any = NullLayout;
@@ -68,23 +77,11 @@ const ProtectedRoutes = ({ isAuthenticated, allowedRoles }: PrivateRouteProps) =
               <Route
                 key={index}
                 path={route.path}
-                element={<Navigate to={configError.UnAuthorise} />}
+                element={<Navigate to={configError.UnAuthorize} />}
               />
             );
           }
         }
-
-        // return (
-        //   <Route
-        //     key={index}
-        //     path={route.path}
-        //     element={
-        //       <Layout>
-        //         <Page />
-        //       </Layout>
-        //     }
-        //   />
-        // );
       })}
 
       {shouldRender &&

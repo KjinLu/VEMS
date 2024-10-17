@@ -27,7 +27,7 @@ export const useLogin = () => {
         accessToken: loginRes.accessToken
       }).unwrap();
 
-      dispatch(setCredentials({ role: userResponse.roleName }));
+      dispatch(setCredentials({ ...userResponse }));
       console.log('User data:', userResponse);
     } catch (err: any) {
       setError(err?.data?.message || 'Login failed');

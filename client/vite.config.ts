@@ -20,5 +20,10 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/api/, '')
       }
     }
+  },
+  css: {
+    modules: {
+      localsConvention: 'dashes'
+    }
   }
 });

@@ -1,23 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
-  role: string | null;
+  accountID: string | null;
+  username: string | null;
+  email: string | null;
+  image: string | null;
+  roleID: string | null;
+  roleName: string | null;
+  isFisrtLogin: boolean;
 }
 
 const initialState: AuthState = {
-  role: null
+  accountID: null,
+  username: null,
+  email: null,
+  image: null,
+  roleID: null,
+  roleName: null,
+  isFisrtLogin: false
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<{ role: string }>) => {
-      state.role = action.payload.role;
+    setCredentials: (state, action: PayloadAction<AuthState>) => {
+      Object.assign(state, action.payload);
     },
-    logout: state => {
-      state.role = null;
-    }
+    logout: () => initialState
   }
 });
 

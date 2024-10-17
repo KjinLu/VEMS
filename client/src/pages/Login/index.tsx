@@ -5,14 +5,13 @@ import VemInput from '@/components/VemInput';
 import VemButton from '@/components/VemButton';
 import VemImage from '@/components/VemImage';
 import logo from '@/assets/Logo.png';
-import VemCheckbox from '@/components/VemCheckbox';
 import { Divider, Link } from '@mui/material';
 import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '@/libs/features/auth/useLogin';
 const cx = classNames.bind(styles);
 
-const SignInPage = () => {
+const Login = () => {
   const navigate = useNavigate();
   const { login, isLoading, error } = useLogin();
 
@@ -65,6 +64,7 @@ const SignInPage = () => {
                   fullWidth
                   variant='outlined'
                   size='medium'
+                  autoComplete='off'
                 />
               </Form.Item>
 
@@ -81,6 +81,7 @@ const SignInPage = () => {
                   fullWidth
                   variant='outlined'
                   size='medium'
+                  autoComplete='off'
                 />
               </Form.Item>
 
@@ -133,4 +134,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default Login;

@@ -5,7 +5,7 @@ import { RootState } from './libs/state/store';
 import { Role } from './types/auth/type';
 
 const App = () => {
-  const allowedRoles = useSelector((state: RootState) => state.auth.role as Role);
+  const allowedRoles = useSelector((state: RootState) => state.auth.roleName as Role);
 
   return (
     <BrowserRouter>
