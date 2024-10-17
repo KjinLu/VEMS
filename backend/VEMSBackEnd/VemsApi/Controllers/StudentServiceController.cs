@@ -81,6 +81,19 @@ namespace VemsApi.Controllers
             }
         }
 
+         [HttpGet("class")]
+        public async Task<IActionResult> GetStudentByClassroom([FromQuery] Guid classId)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetAllStudentByClassroom(classId));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPost("upload-avatar")]
         // [Authorize("STUDENT")]
         public async Task<IActionResult> UploadAvatar([FromForm] UploadAvatartRequest request)
