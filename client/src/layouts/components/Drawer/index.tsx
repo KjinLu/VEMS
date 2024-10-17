@@ -8,13 +8,30 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Toolbar from '@mui/material/Toolbar';
 import { DrawerItem } from '@/types/components/drawerType';
+import { useSelector } from 'react-redux';
+import { Role } from '@/types/auth/type';
+import { RootState } from '@/libs/state/store';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import PlagiarismIcon from '@mui/icons-material/Plagiarism';
+import { useNavigate } from 'react-router-dom';
 
 // add more items to the list
-const listItemButtonClasses: DrawerItem[] = [
+const listItemButtonClasses = (navigate: any): DrawerItem[] => [
   {
-    content: 'Inbox',
-    Icon: <InboxIcon />,
-    onClick: () => {}
+    content: 'Lịch học',
+    Icon: <CalendarMonthIcon />,
+    onClick: () => navigate('/student/schedule')
+  },
+  {
+    content: 'Điểm danh',
+    Icon: <EventAvailableIcon />,
+    onClick: () => navigate('/student/attendance')
+  },
+  {
+    content: 'Báo cáo điểm danh',
+    Icon: <PlagiarismIcon />,
+    onClick: () => navigate('/student/attendanceReport')
   }
 ];
 
@@ -23,7 +40,13 @@ interface DrawerProps {
 }
 
 const VemDrawer = (props: DrawerProps) => {
+  const navigate = useNavigate();
+  const allowedRoles = useSelector((state: RootState) => state.auth.role as Role);
+
+  console.log('Role: ', allowedRoles);
   const { showIcon } = props;
+
+  const navItems = listItemButtonClasses(navigate);
 
   return (
     <>
@@ -31,12 +54,14 @@ const VemDrawer = (props: DrawerProps) => {
         <Toolbar />
         <Divider />
         <List>
-          {listItemButtonClasses.map((item, index) => (
+          {navItems.map((item, index) => (
             <ListItem
               key={item.content}
               disablePadding
             >
+              {/* Attach the onClick handler here */}
               <ListItemButton
+                onClick={item.onClick} // This was missing
                 sx={[
                   {
                     minHeight: 48,

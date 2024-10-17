@@ -32,7 +32,7 @@ export const axiosBaseQuery =
   }: AxiosBaseQueryProps & T) => {
     try {
       const instance = authRequired ? axiosAuth : axiosPublic;
-      console.log('baseUrl', baseURL);
+      // console.log('baseUrl', baseURL);
       const result = await instance({
         url: `http://localhost:5285${url}`,
         method,
@@ -40,6 +40,7 @@ export const axiosBaseQuery =
         params,
         ...config
       });
+      console.log(result.data.dataResponse);
       return { data: result.data.dataResponse, status: result.status as number };
     } catch (axiosError) {
       const err = axiosError as AxiosError;

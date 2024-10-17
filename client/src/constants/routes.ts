@@ -1,6 +1,10 @@
+import StudentSchedulePage from '@/pages/StudentSchedule';
+
 export const configRoutes = {
   home: '/admin',
-  student: '/student',
+  studentSchedule: '/student/schedule',
+  studentTakeAttendance: '/student/attendance',
+  studentViewAttendance: '/student/attendanceReport',
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',
