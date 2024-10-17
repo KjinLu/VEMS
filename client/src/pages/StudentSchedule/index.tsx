@@ -1,6 +1,6 @@
 import className from 'classnames/bind';
 import styles from './StudentSchedule.module.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetClassScheduleQuery, useGetScheduleDetailQuery } from '@/services/schedule';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -9,6 +9,7 @@ import { Row } from 'reactstrap';
 import { useGetUserMutation } from '@/services/auth';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { UUID } from 'crypto';
 
 const localizer = momentLocalizer(moment);
 const cx = className.bind(styles);
@@ -18,6 +19,9 @@ const Appointments: any = [];
 const StudentSchedulePage = () => {
   const navigate = useNavigate();
   const [getUserMutation] = useGetUserMutation();
+  const [classroomID, setClassroomID] = useState<UUID>();
+  const [scheduleDetails, setScheduleDetail] = useState<any>();
+  // const [classroomID, setClassroomID] = useState<UUID>();
 
   const getUser = async () => {
     const token = Cookies.get('accessToken');
@@ -27,7 +31,7 @@ const StudentSchedulePage = () => {
         accessToken: token
       }).unwrap();
 
-      console.log('tk', userResponse);
+      setClassroomID(userResponse.classroomID);
       return userResponse;
     } else {
       navigate('/login');
@@ -37,24 +41,15 @@ const StudentSchedulePage = () => {
   useEffect(() => {
     getUser();
   }, []);
-  // const userResponse = getUserMutation({
-  //   accessToken:
-  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdiN…g4Mn0.q3ek_n8xTziKG-OQJQiFqrGjNGv976tppxZdF-etK2I'
-  // });
 
-  // const { data: scheduleData } = useGetClassScheduleQuery(
-  //   'afab05ef-e3e7-4902-a141-05c3057b92f3'
-  // );
+  console.log(classroomID);
 
-  // const { data: detailSchedule } = useGetScheduleDetailQuery(
-  //   '829e6f08-9f9b-43c8-128e-08dce2f046a9'
-  // );
-
-  // console.log('óahdas');
-  // useEffect(() => {
-  //   console.log(scheduleData);
-  //   console.log(detailSchedule);
-  // }, [scheduleData, detailSchedule]);
+  useEffect(() => {
+    if (classroomID) {
+      const { data: scheduleData } = useGetClassScheduleQuery(classroomID);
+      console.log(scheduleData);
+    }
+  }, [classroomID]);
 
   return (
     <Row className='m-2'>

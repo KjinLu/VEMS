@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyDreamAPI.Dto.AuthDto;
 using SchoolMate.Dto.ApiReponse;
-using SchoolMate.Dto.AuthenticationDto;
-using VemsApi.Dto.AuthenticationDto;
 using VemsApi.Services;
 
 namespace VemsApi.Controllers

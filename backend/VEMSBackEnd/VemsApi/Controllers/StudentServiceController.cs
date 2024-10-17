@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
-using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.ImageDto;
 using VemsApi.Dto.PaginationDto;
 using VemsApi.Dto.StudentServiceDto;
@@ -37,6 +36,8 @@ namespace VemsApi.Controllers
             }
         }
 
+        
+
         [HttpPut("update-profile")]
         [Authorize("STUDENT")]
         public async Task<IActionResult> UpdateProfile(UpdateStudentProfileRequest request)
@@ -67,9 +68,35 @@ namespace VemsApi.Controllers
             }
         }
 
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetStudentByID([FromQuery] Guid id)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetStudentByID(id));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+         [HttpGet("class")]
+        public async Task<IActionResult> GetStudentByClassroom([FromQuery] Guid classId)
+        {
+            try
+            {
+                return APIResponse.Success(await studentService.GetAllStudentByClassroom(classId));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPost("upload-avatar")]
-        [Authorize("STUDENT")]
-        public async Task<IActionResult> UploadAvatarr(UploadAvatartRequest request)
+        // [Authorize("STUDENT")]
+        public async Task<IActionResult> UploadAvatar([FromForm] UploadAvatartRequest request)
         {
             try
             {

@@ -19,13 +19,14 @@ namespace VemsApi.Controllers
             _attendanceService = attendanceService;
         }
 
-        [HttpGet("/getNeedAttendanceInfo")]
-        public async Task<IActionResult> GetAttendanceOfClass([FromQuery] GetClassAttendanceScheduleRequest request) {
+        [HttpGet("attendanceStatusOptions")]
+        public async Task<IActionResult> AttendanceStatusOptions()
+        {
             try
             {
-                 
-                var response = await _attendanceService.GetClassAttendanceSchedule(request);
-                return APIResponse.Success(response );
+
+                var response = await _attendanceService.GetAttendanceStatusOptions();
+                return APIResponse.Success(response);
             }
             catch (Exception ex)
             {
@@ -33,7 +34,37 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/takeAttendanceForClass")]
+        [HttpGet("attendanceReasonOptions")]
+        public async Task<IActionResult> AttendanceReasonOptions()
+        {
+            try
+            {
+
+                var response = await _attendanceService.GetAttendanceReasonOptions();
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("getNeedAttendanceInfo")]
+        public async Task<IActionResult> GetAttendanceOfClass([FromQuery] GetClassAttendanceScheduleRequest request)
+        {
+            try
+            {
+
+                var response = await _attendanceService.GetClassAttendanceSchedule(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("takeAttendanceForClass")]
         public async Task<IActionResult> TakeAttendanceForClass(TakeAttendanceRequest request)
         {
             try
@@ -48,7 +79,7 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpGet("/getAttendanceForClass")]
+        [HttpGet("getAttendanceForClass")]
         public async Task<IActionResult> GetAttendanceForClass([FromQuery] GetClassAttendanceRequest request)
         {
             try
@@ -63,7 +94,7 @@ namespace VemsApi.Controllers
             }
         }
 
-        [HttpPost("/updateAttendanceForClass")]
+        [HttpPost("updateAttendanceForClass")]
         public async Task<IActionResult> UpdateAttendanceForClass(UpdateAttendanceRequest request)
         {
             try

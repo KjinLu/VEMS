@@ -11,11 +11,11 @@ namespace BusinessObject
   public class VemsContext : DbContext
   {
 
-   
 
-        public VemsContext() : base()
-        {
-        }
+
+    public VemsContext() : base()
+    {
+    }
 
     public VemsContext(DbContextOptions<VemsContext> options) : base(options)
     {
@@ -47,9 +47,10 @@ namespace BusinessObject
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-            //optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
-            //optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
+      //optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
+      //optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
       optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
+      // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
     }
 
@@ -166,24 +167,24 @@ namespace BusinessObject
         .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<ExtraActivitiesAttendance>()
-             .HasOne(a => a.Student)
-             .WithMany(r => r.ExtraActivitiesAttendances)
-             .HasForeignKey(a => a.StudentId)
-        .OnDelete(DeleteBehavior.Cascade);
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+       .HasOne(a => a.Student)
+       .WithMany(r => r.ExtraActivitiesAttendances)
+       .HasForeignKey(a => a.StudentId)
+  .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<ExtraActivitiesAttendance>()
-        .HasOne(a => a.Status)
-        .WithMany(r => r.ExtraActivitiesAttendances)
-        .HasForeignKey(a => a.StatusId)
-        .OnDelete(DeleteBehavior.Cascade);
+      modelBuilder.Entity<ExtraActivitiesAttendance>()
+  .HasOne(a => a.Status)
+  .WithMany(r => r.ExtraActivitiesAttendances)
+  .HasForeignKey(a => a.StatusId)
+  .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<SlotDetail>()
-   .HasOne(a => a.Slot)
-   .WithMany(r => r.SlotDetails)
-   .HasForeignKey(a => a.SlotID);
+      modelBuilder.Entity<SlotDetail>()
+.HasOne(a => a.Slot)
+.WithMany(r => r.SlotDetails)
+.HasForeignKey(a => a.SlotID);
 
       modelBuilder.Entity<SlotDetail>()
         .HasOne(a => a.Teacher)

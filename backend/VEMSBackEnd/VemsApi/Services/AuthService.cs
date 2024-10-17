@@ -8,8 +8,6 @@ using MoneyDreamAPI.Services;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1.Ocsp;
 using SchoolMate.Authorizotion;
-using SchoolMate.Dto.AuthenticationDto;
-using VemsApi.Dto.AuthenticationDto;
 
 namespace VemsApi.Services
 {
