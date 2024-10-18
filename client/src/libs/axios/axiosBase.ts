@@ -32,9 +32,9 @@ export const axiosBaseQuery =
   }: AxiosBaseQueryProps & T) => {
     try {
       const instance = authRequired ? axiosAuth : axiosPublic;
-      console.log('baseUrl', baseURL);
+      // console.log('baseUrl', baseURL);
       const result = await instance({
-        url: `https://localhost:8080${url}`,
+        url: `http://localhost:5285${url}`,
         method,
         data,
         params,

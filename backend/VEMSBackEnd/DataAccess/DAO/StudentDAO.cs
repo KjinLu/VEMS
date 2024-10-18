@@ -1,5 +1,6 @@
 using System;
 using BusinessObject;
+using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.DAO;
@@ -13,19 +14,42 @@ public class StudentDAO
         _context = new VemsContext();
     }
 
-    // // Lấy Student theo Id
-    // public async Task<Student> GetStudentByIdAsync(Guid id)
-    // {
-    //     try
-    //     {
-    //         return await _context.Students.AsNoTracking()
-    //             .FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         throw new Exception($"Lỗi khi lấy học sinh theo Id: {ex.Message}", ex);
-    //     }
-    // }
+    // Lấy Student theo Id
+    public async Task<StudentResponse> GetStudentByIdAsync(Guid id)
+    {
+        try
+        {
+            var studentResponse = await (from student in _context.Students
+                                         join classroom in _context.Classrooms on student.ClassroomId equals classroom.Id
+                                         join studentType in _context.studentTypes on student.StudentTypeId equals studentType.Id
+                                         where student.Id == id
+                                         select new StudentResponse
+                                         {
+                                             Id = student.Id,
+                                             PublicStudentID = student.PublicStudentID,
+                                             FullName = student.FullName,
+                                             CitizenID = student.CitizenID,
+                                             Username = student.Username,
+                                             Password = student.Password,
+                                             Email = student.Email,
+                                             Dob = student.Dob,
+                                             Address = student.Address,
+                                             Image = student.Image,
+                                             Phone = student.Phone,
+                                             ParentPhone = student.ParentPhone,
+                                             HomeTown = student.HomeTown,
+                                             UnionJoinDate = student.UnionJoinDate,
+                                             StudentTypeName = studentType.TypeName,
+                                             ClassRoom = classroom.ClassName
+                                         }).AsNoTracking().FirstOrDefaultAsync().ConfigureAwait(false);
+
+            return studentResponse;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Lỗi khi lấy học sinh theo Id: {ex.Message}", ex);
+        }
+    }
 
     // Lấy tất cả Students
     public async Task<List<Student>> GetAllStudentsAsync()
@@ -37,6 +61,24 @@ public class StudentDAO
         catch (Exception ex)
         {
             throw new Exception($"Lỗi khi lấy tất cả các học sinh: {ex.Message}", ex);
+        }
+    }
+
+
+    public async Task<List<StudentInClassResponse>> GetAllStudentsByClassroomAsync(Guid classID)
+    {
+        try
+        {
+            return await _context.Students.Where(x => x.ClassroomId == classID).Select(item => new StudentInClassResponse
+            {
+                PublicStudentID = item.PublicStudentID,
+                StudentID = item.Id,
+                StudentName = item.FullName,
+            }).AsNoTracking().ToListAsync().ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Lỗi khi lấy tất cả các học sinh trong lớp: {ex.Message}", ex);
         }
     }
 

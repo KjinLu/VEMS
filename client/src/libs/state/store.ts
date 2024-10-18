@@ -7,6 +7,7 @@ import persistStore from 'redux-persist/es/persistStore';
 // Import new reducer
 import { authApi } from '@/services/auth';
 import authReducer from '@/libs/features/auth/authSlice';
+import { scheduleApi } from '@/services/schedule';
 
 const persistConfig = {
   key: 'root',
@@ -15,15 +16,19 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  [authApi.reducerPath]: authApi.reducer
+  [authApi.reducerPath]: authApi.reducer,
+  [scheduleApi.reducerPath]: scheduleApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware => {
-    return getDefaultMiddleware({ serializableCheck: false }).concat(authApi.middleware);
+  middleware: (getDefaultMiddleware: any) => {
+    return getDefaultMiddleware({ serializableCheck: false }).concat(
+      authApi.middleware,
+      scheduleApi.middleware
+    );
   }
 });
 

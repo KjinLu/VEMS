@@ -1,0 +1,35 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/Classroom",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5059
+                }
+            ],
+            "UpstreamPathTemplate": "/api/classroom",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/Grade",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5059
+                }
+            ],
+            "UpstreamPathTemplate": "/api/grade",
+            "UpstreamHttpMethod": [
+                "GET"
+            ]
+        }
+    ]
+}

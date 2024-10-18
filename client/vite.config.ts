@@ -15,10 +15,15 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:5285',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
+    }
+  },
+  css: {
+    modules: {
+      localsConvention: 'dashes'
     }
   }
 });

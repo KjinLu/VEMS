@@ -1,6 +1,6 @@
 import VemImage from '@/components/VemImage';
 import Box from '@mui/material/Box';
-import Icon from '@/assets/Icon.png';
+import Logo from '@/assets/LogoWhite.png';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import Typography from '@mui/material/Typography';
@@ -36,18 +36,16 @@ const Header = () => {
           className={cx('d-flex text-white text-decoration-none align-items-center')}
         >
           <VemImage
-            src={Icon}
+            src={Logo}
             alt={''}
             className={cx('IconVems')}
             fallback={''}
           />
           <Typography
-            variant='h6'
+            variant='h5'
             noWrap
             component='div'
-          >
-            Vems
-          </Typography>
+          ></Typography>
         </Link>
 
         <div>

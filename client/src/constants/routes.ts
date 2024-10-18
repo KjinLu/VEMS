@@ -1,9 +1,14 @@
+import StudentSchedulePage from '@/pages/StudentSchedule';
+
 export const configRoutes = {
   home: '/admin',
+  studentSchedule: '/student/schedule',
+  studentTakeAttendance: '/student/attendance',
+  studentViewAttendance: '/student/attendanceReport',
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',
-  signIn: '/login',
+  login: '/login',
   signUp: '/signUp',
   AdminManagementPage: '/admin-management'
 };

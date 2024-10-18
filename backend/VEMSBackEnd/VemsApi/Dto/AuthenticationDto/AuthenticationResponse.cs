@@ -1,5 +1,4 @@
-﻿namespace SchoolMate.Dto.AuthenticationDto
-{
+﻿
     public class AuthenticationResponse
     {
         public string? AccessToken { get; set; }
@@ -11,4 +10,4 @@
             RefreshToken = refreshToken;
         }
     }
-}
+
