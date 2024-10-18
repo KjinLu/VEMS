@@ -41,7 +41,7 @@ interface DrawerProps {
 
 const VemDrawer = (props: DrawerProps) => {
   const navigate = useNavigate();
-  const allowedRoles = useSelector((state: RootState) => state.auth.role as Role);
+  const allowedRoles = useSelector((state: RootState) => state.auth.roleName as Role); // Admin, teacher , primary teacher, student, primary student
 
   const { showIcon } = props;
 

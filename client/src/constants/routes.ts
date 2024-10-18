@@ -8,7 +8,7 @@ export const configRoutes = {
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',
-  signIn: '/login',
+  login: '/login',
   signUp: '/signUp',
   AdminManagementPage: '/admin-management'
 };
