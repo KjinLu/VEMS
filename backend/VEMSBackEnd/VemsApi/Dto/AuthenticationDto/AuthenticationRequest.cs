@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SchoolMate.Dto.AuthenticationDto
-{
+ 
     public class AuthenticationRequest
     {
         [Required]
@@ -9,4 +8,4 @@ namespace SchoolMate.Dto.AuthenticationDto
         [Required]
         public string? Password { get; set; }
     }
-}
+

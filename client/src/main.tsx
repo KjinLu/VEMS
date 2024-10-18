@@ -6,6 +6,7 @@ import GlobalStyles from './styles/GlobalStyles/index.tsx';
 import ReduxProvider from './components/ReduxProvider/index.tsx';
 import CustomThemeProvider from './components/ThemeMUIProvider/index.tsx';
 import { ConfigProvider } from 'antd';
+import Toast from './components/Toast/index.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
       <ConfigProvider theme={{ hashed: false }}>
         <ReduxProvider>
           <GlobalStyles>
+            <Toast />
             <App />
           </GlobalStyles>
         </ReduxProvider>

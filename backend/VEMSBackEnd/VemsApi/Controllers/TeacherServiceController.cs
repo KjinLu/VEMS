@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Authorizotion;
 using SchoolMate.Dto.ApiReponse;
-using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.ImageDto;
 using VemsApi.Dto.StudentServiceDto;
 using VemsApi.Services;

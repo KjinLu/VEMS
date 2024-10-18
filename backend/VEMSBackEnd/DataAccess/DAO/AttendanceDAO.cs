@@ -30,6 +30,44 @@ namespace DataAccess.DAO
             }
         }
 
+        public async Task<List<SelectOptions>> GetAttendanceStatusOptions()
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    return await context.Statuses.Select(item => new SelectOptions
+                    {
+                        OptionID = item.Id,
+                        OptionName = item.StatusName
+                    }).ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra: " + ex.Message);
+            }
+        }
+
+        public async Task<List<SelectOptions>> GetAttendanceReasonOptions()
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    return await context.Reasons.Select(item => new SelectOptions
+                    {
+                        OptionID = item.Id,
+                        OptionName = item.ReasonName
+                    }).ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra: " + ex.Message);
+            }
+        }
+
         public async Task<List<InfomationForAttendance>> GetClassAttendanceSchedule(Guid classID, DateTime attendanceDate)
         {
             try
@@ -47,8 +85,9 @@ namespace DataAccess.DAO
                                        join p in context.Periods on se.PeriodID equals p.Id
                                        join at in context.Attendances on sd.Id equals at.ScheduleDetailId into atGroup
                                        from at in atGroup.DefaultIfEmpty() // Left join to include all ScheduleDetails even if no attendance
-                                       where s.ClassroomId == classID 
-                                       group new {
+                                       where s.ClassroomId == classID
+                                       group new
+                                       {
                                            ClassName = cl.ClassName,
                                            ClassroomID = cl.Id,
                                            DayOfWeek = se.DayOfWeek,
@@ -96,10 +135,11 @@ namespace DataAccess.DAO
                                                       }
                                                       )
                                                 .AnyAsync(item => item.ScheduleDetailId == request.ScheduleDetailID
-                                                && item.TimeReport.Date == request.Time.Date 
+                                                && item.TimeReport.Date == request.Time.Date
                                                 && item.PeriodId == request.PeriodID);
 
-                    if (!checkAttendanceExist) { 
+                    if (!checkAttendanceExist)
+                    {
                         var createdAttendance = context.Attendances.Add(new Attendance
                         {
                             Note = request.Note,
@@ -116,7 +156,7 @@ namespace DataAccess.DAO
                             });
 
                         List<AttendanceStatus> newAttendance = new List<AttendanceStatus>();
-                        foreach(var item in request.AttendanceData)
+                        foreach (var item in request.AttendanceData)
                         {
                             var data = new AttendanceStatus();
                             data.StatusId = item.StatusID;
@@ -125,13 +165,13 @@ namespace DataAccess.DAO
                             data.CreateBy = request.StudentInchargeName;
                             data.CreateAt = DateTime.Now;
 
-                            newAttendance.Add(data);    
+                            newAttendance.Add(data);
                         }
                         await context.AttendanceStatuses.AddRangeAsync(newAttendance);
                         await context.SaveChangesAsync();
                         return true;
 
-                    } 
+                    }
                 }
                 return false;
             }
@@ -147,11 +187,11 @@ namespace DataAccess.DAO
             {
                 ClassAttendanceResponse response = new ClassAttendanceResponse();
                 response.ClassID = request.ClassID;
-                response.Time= request.Time;
+                response.Time = request.Time;
                 using (var context = new VemsContext())
                 {
 
-                    var attenData = await (from a in context.Attendances 
+                    var attenData = await (from a in context.Attendances
                                            join sd in context.ScheduleDetails on a.ScheduleDetailId equals sd.Id
                                            join s in context.Schedules on sd.ScheduleId equals s.Id
                                            join c in context.Classrooms on s.ClassroomId equals c.Id
@@ -160,21 +200,21 @@ namespace DataAccess.DAO
                                            ).FirstOrDefaultAsync();
 
                     var studentData = await (from ats in context.AttendanceStatuses
-                                                      join a in context.Attendances on ats.AttendanceId equals a.Id
-                                                      join s in context.Statuses on ats.StatusId equals s.Id
-                                                      join stu in context.Students on ats.StudentId equals stu.Id
-                                                      where a.TimeReport.Date == request.Time.Date
+                                             join a in context.Attendances on ats.AttendanceId equals a.Id
+                                             join s in context.Statuses on ats.StatusId equals s.Id
+                                             join stu in context.Students on ats.StudentId equals stu.Id
+                                             where a.TimeReport.Date == request.Time.Date
                                              select new AttendanceStudentResponse
-                                                      {
-                                                          StatusID = ats.StatusId,
-                                                          AttendanceStatusID = ats.StatusId,
-                                                          StudentID = ats.StudentId,
-                                                          StatusName = s.StatusName,
-                                                          StudentName = stu.FullName,
-                                                          StudentCode = stu.PublicStudentID,
-                                                          CreateAt = ats.CreateAt,
-                                                          CreateBy = ats.CreateBy
-                                                      }
+                                             {
+                                                 StatusID = ats.StatusId,
+                                                 AttendanceStatusID = ats.StatusId,
+                                                 StudentID = ats.StudentId,
+                                                 StatusName = s.StatusName,
+                                                 StudentName = stu.FullName,
+                                                 StudentCode = stu.PublicStudentID,
+                                                 CreateAt = ats.CreateAt,
+                                                 CreateBy = ats.CreateBy
+                                             }
                                                       ).ToListAsync();
                     response.AttendanceID = attenData;
                     response.AttendanceData = studentData;
@@ -195,7 +235,7 @@ namespace DataAccess.DAO
                 {
                     var checkAttendanceExist = await context.Attendances.SingleOrDefaultAsync(i => i.Id == request.AttendanceID);
 
-                    if (checkAttendanceExist!=null)
+                    if (checkAttendanceExist != null)
                     {
 
                         checkAttendanceExist.Note = request.Note != null ? request.Note.ToString() : checkAttendanceExist.Note;

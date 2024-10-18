@@ -1,17 +1,40 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+import persistStore from 'redux-persist/es/persistStore';
 
 // Import new reducer
 import { authApi } from '@/services/auth';
+import authReducer from '@/libs/features/auth/authSlice';
+import { scheduleApi } from '@/services/schedule';
+
+const persistConfig = {
+  key: 'root',
+  storage
+};
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  [authApi.reducerPath]: authApi.reducer,
+  [scheduleApi.reducerPath]: scheduleApi.reducer
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    [authApi.reducerPath]: authApi.reducer
-  },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware)
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware: any) => {
+    return getDefaultMiddleware({ serializableCheck: false }).concat(
+      authApi.middleware,
+      scheduleApi.middleware
+    );
+  }
 });
 
 setupListeners(store.dispatch);
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -14,3 +14,8 @@ export type PrivateRoute = {
   isAuthenticated: boolean;
   allowedRoles: Role[];
 };
+
+export type PrivateRouteProps = {
+  isAuthenticated: boolean;
+  allowedRoles: Role[] | null;
+};

@@ -1,6 +1,5 @@
 ﻿using BusinessObject;
 using DataAccess.Repository;
-using SchoolMate.Dto.AuthenticationDto;
 using VemsApi.Dto.ImageDto;
 using VemsApi.Dto.StudentServiceDto;
 

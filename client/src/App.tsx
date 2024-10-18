@@ -1,38 +1,19 @@
-import { Fragment } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { publicRoutes } from './routes/routes';
-import DefaultLayout from './layouts/DefaultLayout';
+import ProtectedRoutes from './helpers/ProtectedRoutes';
+import { useSelector } from 'react-redux';
+import { RootState } from './libs/state/store';
+import { Role } from './types/auth/type';
 
 const App = () => {
+  const allowedRoles = useSelector((state: RootState) => state.auth.roleName as Role);
+
   return (
     <BrowserRouter>
       <div className='App'>
-        <Routes>
-          {publicRoutes.map((route, index) => {
-            const Page = route.component; 
-            let Layout: any = DefaultLayout;
-
-            if (route.layout) {
-              Layout = route.layout;
-            } else if (route.layout === null) {
-              Layout = Fragment;
-            }
-
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                }
-              />
-            );
-          })}
-
-          
-        </Routes>
+        <ProtectedRoutes
+          isAuthenticated={true}
+          allowedRoles={[allowedRoles]}
+        />
       </div>
     </BrowserRouter>
   );

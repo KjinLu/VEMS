@@ -10,22 +10,35 @@ namespace VemsApi.Services
         Task<bool> UpdateAttendance(UpdateAttendanceRequest request);
 
         Task<ClassAttendanceResponse> GetAttendanceForClass(GetClassAttendanceRequest request);
+        Task<List<SelectOptions>> GetAttendanceReasonOptions();
+        Task<List<SelectOptions>> GetAttendanceStatusOptions();
     }
     public class AttendanceService : IAttendanceService
     {
         private readonly IAttendanceRepository attendanceRepository;
-        public AttendanceService() {
+        public AttendanceService()
+        {
             attendanceRepository = new AttendanceRepository();
         }
 
         public async Task<ClassAttendanceResponse> GetAttendanceForClass(GetClassAttendanceRequest request)
         {
-           return await attendanceRepository.GetAttendanceForClass(request);
+            return await attendanceRepository.GetAttendanceForClass(request);
         }
 
         public async Task<List<InfomationForAttendance>> GetClassAttendanceSchedule(GetClassAttendanceScheduleRequest request)
         {
             return await attendanceRepository.GetClassAttendanceSchedule(request.ClassID, request.Time);
+        }
+
+        public async Task<List<SelectOptions>> GetAttendanceReasonOptions()
+        {
+            return await attendanceRepository.GetAttendanceReasonOptions();
+        }
+
+        public async Task<List<SelectOptions>> GetAttendanceStatusOptions()
+        {
+            return await attendanceRepository.GetAttendanceStatusOptions();
         }
 
         public async Task<bool> TakeAttendance(TakeAttendanceRequest request)

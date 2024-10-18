@@ -1,25 +1,37 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// //Init state for accessToken and refreshToken
-// const initialState = {
-//   accessToken: null,
-//   refreshToken: null
-// };
+interface AuthState {
+  accountID: string | null;
+  username: string | null;
+  email: string | null;
+  image: string | null;
+  roleID: string | null;
+  roleName: string | null;
+  isFisrtLogin: boolean;
+  classroomID?: string | null;
+}
 
-// const authSlice = createSlice({
-//   name: 'auth',
-//   initialState,
-//   reducers: {
-//     setCredentials: (state, action) => {
-//       state.accessToken = action.payload.accessToken;
-//       state.refreshToken = action.payload.refreshToken;
-//     },
-//     logout: state => {
-//       state.accessToken = null;
-//       state.refreshToken = null;
-//     }
-//   }
-// });
+const initialState: AuthState = {
+  accountID: null,
+  username: null,
+  email: null,
+  image: null,
+  roleID: null,
+  roleName: null,
+  isFisrtLogin: false,
+  classroomID: null
+};
 
-// export const { setCredentials, logout } = authSlice.actions;
-// export default authSlice.reducer;
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setCredentials: (state, action: PayloadAction<AuthState>) => {
+      Object.assign(state, action.payload);
+    },
+    logout: () => initialState
+  }
+});
+
+export const { setCredentials, logout } = authSlice.actions;
+export default authSlice.reducer;
