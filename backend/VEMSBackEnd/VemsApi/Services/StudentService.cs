@@ -80,7 +80,7 @@ namespace VemsApi.Services
 
             // Get all grades and count
             IEnumerable<Student> students = await _studentRepository.GetAllStudents();
-            IEnumerable<StudentResponse> studentDto = students.Select(student => new StudentResponse
+            var studentDto = students.Select(student => new VemsApi.Dto.StudentDto.StudentResponse
             {
                 Id = student.Id,
                 FullName = student.FullName,
@@ -91,7 +91,12 @@ namespace VemsApi.Services
                 Phone = student.Phone,
                 ParentPhone = student.ParentPhone,
                 HomeTown = student.HomeTown,
-                UnionJoinDate = student.UnionJoinDate
+                UnionJoinDate = student.UnionJoinDate,
+                ClassroomId = student.ClassroomId,
+                Image = student.Image,
+                PublicStudentID = student.PublicStudentID,
+                Username = student.Username,
+                // StudentTypeName = student.StudentType.TypeName
             }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             int totalRecord = students.Count();

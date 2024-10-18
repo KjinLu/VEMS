@@ -1,0 +1,61 @@
+using BusinessObject;
+using GradeClassroomService.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SchoolMate.Dto.ApiReponse;
+
+
+namespace GradeClassroomService.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GradeController : ControllerBase
+    {
+        private readonly IGradeService _gradeService;
+
+        public GradeController(IGradeService _service)
+        {
+            _gradeService = _service;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetClassrooms([FromQuery] PaginationRequest request)
+        {
+            try
+            {
+                return APIResponse.Success(await _gradeService.GetAllGrades(request));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetGradeById(Guid id)
+        {
+            try
+            {
+                return APIResponse.Success(await _gradeService.GetGradeById(id));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        //[HttpPost()]
+        //public async Task<IActionResult> AddGrade(GradeResponse grade)
+        //{
+        //    try
+        //    {
+        //        await _gradeService.AddGrade(grade);
+        //        return APIResponse.Success();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return APIResponse.Error(null, ex.Message);
+        //    }
+        //}
+    }
+}

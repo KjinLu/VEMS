@@ -18,6 +18,9 @@ namespace DataAccess.DTO
         public string RefreshToken { get; set; }
         public Guid RoleID { get; set; }
         public string RoleName { get; set; }
+
         public bool? IsFisrtLogin { get; set; } = false;
+        public Guid ClassroomID { get; set; }
+        public string ClassroomName { get; set; }
     }
 }

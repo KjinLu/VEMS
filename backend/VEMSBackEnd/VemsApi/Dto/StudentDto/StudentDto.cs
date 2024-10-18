@@ -9,7 +9,6 @@ public class StudentResponse
         public string FullName { get; set; }
         public string? CitizenID { get; set; } = string.Empty;
         public string Username { get; set; } 
-        public string? Password { get; set; } = "1";
         public string? Email { get; set; } = string.Empty;
         public DateOnly? Dob { get; set; }
         public string? Address { get; set; } = string.Empty;
@@ -18,7 +17,7 @@ public class StudentResponse
         public string? ParentPhone { get; set; } = string.Empty;
         public string? HomeTown { get; set; } = string.Empty;
         public DateOnly? UnionJoinDate { get; set; }
-        public String studentTypeName { get; set; }
-        public String classRoom { get; set; }
+        // public String StudentTypeName { get; set; }
+        public Guid ClassroomId { get; set; }
 
 }
