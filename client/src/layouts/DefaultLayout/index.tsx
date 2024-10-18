@@ -210,7 +210,7 @@ export default function DrawerLayout({ children }: DrawerLayoutProps) {
           sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
-          <div className={cx('body')}>{children}</div>
+          <div className={cx('body', 'p-5')}>{children}</div>
         </Box>
       </Box>
     </>

@@ -1,35 +1,34 @@
+import { StateManagerProps } from 'node_modules/react-select/dist/declarations/src/useStateManager';
 import { forwardRef } from 'react';
-import Select, { Props as StateManagerProps } from 'react-select';
+import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-
 import ClipLoader from 'react-spinners/ClipLoader';
 
-interface VemSelectTypes extends StateManagerProps {
+interface PagoSelectTypes extends StateManagerProps {
   isCreatable?: boolean;
   isLoading?: boolean;
 }
 
-const VemSelect = forwardRef<HTMLDivElement, VemSelectTypes>(
+const PagoSelect = forwardRef<HTMLDivElement, PagoSelectTypes>(
   ({ isCreatable = false, isLoading = false, ...props }, ref) => {
     const customStyles = {
       control: (base: any, state: any) => ({
         ...base,
         borderWidth: '1px',
         borderRadius: '7px',
-        borderColor: state.isFocused ? '#387562' : '#cccccc',
-        boxShadow: state.isFocused ? '0 0 0 0.25rem #3875623b' : 'none',
+        borderColor: state.isFocused ? '#98b9c8' : '#cccccc',
+        boxShadow: state.isFocused ? '0 0 0 0.25rem #bbdeee' : 'none',
         '&:hover': {
-          borderColor: '#387562',
-          boxShadow: '0 0 0 0.25rem #77b26726'
-        }
+          borderColor: '#bbdeee',
+          boxShadow: '0 0 0 0.25rem #bbdeee'
+        },
+        cursor: 'pointer',
+        fontSize: '16px'
       }),
       option: (base: any, state: any) => ({
         ...base,
-        backgroundColor: state.isSelected
-          ? '#79B668'
-          : '' || state.isFocused
-            ? '#77b26726'
-            : ''
+        backgroundColor:
+          (state.isSelected ? '#61b2db' : '') || state.isFocused ? '#61b2db' : ''
       })
     };
 
@@ -73,4 +72,4 @@ const VemSelect = forwardRef<HTMLDivElement, VemSelectTypes>(
   }
 );
 
-export default VemSelect;
+export default PagoSelect;
