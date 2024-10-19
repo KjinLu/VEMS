@@ -3,8 +3,9 @@ import StudentSchedulePage from '@/pages/StudentSchedule';
 export const configRoutes = {
   home: '/admin',
   studentSchedule: '/student/schedule',
-  studentTakeAttendance: '/student/attendance',
-  studentViewAttendance: '/student/attendanceReport',
+  studentAttendanceSchedule: '/student/attendance',
+  studentViewAttendance: '/student/attendance-report',
+  studentTakeAttendance: '/student/attendance/take',
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',

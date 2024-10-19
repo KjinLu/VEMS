@@ -93,7 +93,8 @@ namespace DataAccess.DAO
                                            DayOfWeek = se.DayOfWeek,
                                            PeriodName = p.PeriodName,
                                            ScheduleDetailID = sd.Id,
-                                           Attendance = at
+                                           Attendance = at,
+                                           PeriodID = p.Id
                                        }
                                        by new { se.Id } into g
                                        select new InfomationForAttendance
@@ -102,6 +103,7 @@ namespace DataAccess.DAO
                                            ClassroomID = g.First().ClassroomID,
                                            DayOfWeek = g.First().DayOfWeek,
                                            PeriodName = g.First().PeriodName,
+                                           PeriodID = g.First().PeriodID,
                                            AttendanceTime = currentDate.AddDays(g.First().DayOfWeek - currentDayOfWeek),
                                            ScheduleDetailID = g.First().ScheduleDetailID,
                                            IsAttendance = g.Any(x => x.Attendance != null && x.Attendance.TimeReport >= startOfWeek && x.Attendance.TimeReport < endOfWeek)
@@ -144,7 +146,7 @@ namespace DataAccess.DAO
                         {
                             Note = request.Note,
                             ScheduleDetailId = request.ScheduleDetailID,
-                            TimeReport = DateTime.Now.Date
+                            TimeReport = request.Time.Date,
                         }).Entity;
 
 

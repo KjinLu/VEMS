@@ -16,8 +16,9 @@ import AdminManagementPage from '@/pages/AdminManagement';
 import NotFound from '@/pages/Error/NotFound';
 import Authorise from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
-import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
+import StudentTakeAttendanceSchedulePage from '@/pages/StudentAttendanceSchedule';
+import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -67,6 +68,13 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.studentSchedule,
     component: StudentSchedule,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.studentAttendanceSchedule,
+    component: StudentTakeAttendanceSchedulePage,
     layout: DefaultLayout,
     allowedRoles: ['ADMIN', 'STUDENT'],
     isAuthenticated: true

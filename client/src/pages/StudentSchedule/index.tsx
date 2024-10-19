@@ -1,7 +1,11 @@
 import className from 'classnames/bind';
 import styles from './StudentSchedule.module.scss';
 import { useEffect, useState } from 'react';
-import { useGetClassScheduleQuery, useGetScheduleDetailQuery } from '@/services/schedule';
+import {
+  useGetAttendanceScheduleOfClassQuery,
+  useGetClassScheduleQuery,
+  useGetScheduleDetailQuery
+} from '@/services/schedule';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -75,8 +79,6 @@ const StudentSchedulePage = () => {
     useGetScheduleDetailQuery(classScheduleID!, {
       skip: !classScheduleID // Skip the query until classScheduleID is available
     });
-
-  // console.log(classScheduleID);
 
   useEffect(() => {
     if (classScheduleDetails) {
