@@ -112,6 +112,7 @@ const VemInput = ({
           error={errors}
           fullWidth={fullWidth}
           variant={variant}
+          value={value}
           onChange={onChange}
           className={`custom-components ${className}`}
           style={style}
