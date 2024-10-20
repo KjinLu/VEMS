@@ -23,14 +23,11 @@ import StudentUpdateAttendancePage from '@/pages/StudentUpdateAttendance';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
-  // { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
-  // { path: configRoutes.home, component: Home, layout: DefaultLayout },
-  { path: configRoutes.search, component: Search, layout: DefaultLayout },
-  {
-    path: configRoutes.AdminManagementPage,
-    component: AdminManagementPage,
-    layout: DefaultLayout
-  },
+  // {
+  //   path: configRoutes.AdminManagementPage,
+  //   component: AdminManagementPage,
+  //   layout: DefaultLayout
+  // },
   {
     path: configError.NotFound,
     component: NotFound
@@ -56,6 +53,7 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.profile,
     component: Profile,
+    layout: DefaultLayout,
     allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
     isAuthenticated: true
   },

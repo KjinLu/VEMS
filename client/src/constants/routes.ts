@@ -7,7 +7,7 @@ export const configRoutes = {
   studentViewAttendance: '/student/attendance-report',
   studentTakeAttendance: '/student/attendance/take',
   studentEditAttendance: '/student/attendance/edit',
-  profile: '/:nickname',
+  profile: '/profile',
   upload: '/upload',
   search: '/search',
   login: '/login',

@@ -9,6 +9,7 @@ import { authApi } from '@/services/auth';
 import authReducer from '@/libs/features/auth/authSlice';
 import { scheduleApi } from '@/services/schedule';
 import { attendanceApi } from '@/services/attendance';
+import { profileApi } from '@/services/profile';
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
   [scheduleApi.reducerPath]: scheduleApi.reducer,
-  [attendanceApi.reducerPath]: attendanceApi.reducer
+  [attendanceApi.reducerPath]: attendanceApi.reducer,
+  [profileApi.reducerPath]: profileApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -30,7 +32,8 @@ export const store = configureStore({
     return getDefaultMiddleware({ serializableCheck: false }).concat(
       authApi.middleware,
       scheduleApi.middleware,
-      attendanceApi.middleware
+      attendanceApi.middleware,
+      profileApi.middleware
     );
   }
 });

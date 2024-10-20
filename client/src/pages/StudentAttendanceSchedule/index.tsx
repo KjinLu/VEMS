@@ -16,7 +16,7 @@ const StudentTakeAttendanceSchedulePage = () => {
   const navigate = useNavigate();
   const userClassInfo = useSelector((state: RootState) => state.auth.classroomID);
   const [attendanceSchedule, setAttendanceSchedule] =
-    useState<AttendanceScheduleWithIndex>();
+    useState<AttendanceScheduleWithIndex[]>();
 
   const { data, refetch } = useGetAttendanceScheduleOfClassQuery({
     classID: userClassInfo as UUID,
