@@ -48,7 +48,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpPut("update-profile")]
-        //[Authorize("STUDENT")]
+        [Authorize("STUDENT")]
         public async Task<IActionResult> UpdateProfile(UpdateStudentProfileRequest request)
         {
             try
@@ -90,7 +90,7 @@ namespace VemsApi.Controllers
         }
 
         [HttpPost("upload-avatar")]
-        // [Authorize("STUDENT")]
+        [Authorize("STUDENT")]
         public async Task<IActionResult> UploadAvatar([FromForm]UploadAvatartRequest request)
         {
             try

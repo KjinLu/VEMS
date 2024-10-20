@@ -77,6 +77,11 @@ namespace BusinessObject
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
 
+        public Guid? ClassroomId { get; set; }
+
+        [ForeignKey("ClassroomId")]
+        public Classroom Classroom { get; set; }
+
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
 
         public ICollection<SlotDetail> SlotDetails { get; set; }

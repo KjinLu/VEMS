@@ -19,6 +19,19 @@ namespace VemsApi.Controllers
             teacherService = _teacherService;
         }
 
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetTeacherByID([FromQuery] Guid id)
+        {
+            try
+            {
+                return APIResponse.Success(await teacherService.GetTeacherProfileByIdAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPut("update-profile")]
         [Authorize("TEACHER")]
         public async Task<IActionResult> UpdateProfile(UpdateTeacherProfileRequest request)

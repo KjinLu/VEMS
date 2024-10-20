@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolMate.Dto.ApiReponse;
 using System;
 using ScheduleServiceVemsApi.Services;
+using BusinessObject;
 
 namespace ScheduleServiceVemsApi.Controllers
 {
@@ -101,6 +102,35 @@ namespace ScheduleServiceVemsApi.Controllers
             {
 
                 var response = await _attendanceService.UpdateAttendance(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("getHistoryAttendanceForStudent")]
+        public async Task<IActionResult> GetHistoryAttendanceFromStudentID(Guid id)
+        {
+            try
+            {
+
+                var response = await _attendanceService.GetHistoryAttendanceFromStudentID(id);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("updateAttendanceReport")]
+        public async Task<IActionResult> UpdateAttendanceReport(List<UpdateAttendanceReportRequest> request)
+        {
+            try
+            {
+                var response = await _attendanceService.UpdateAttendanceReport(request);
                 return APIResponse.Success(response);
             }
             catch (Exception ex)
