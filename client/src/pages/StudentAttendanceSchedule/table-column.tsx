@@ -80,7 +80,14 @@ export const attendanceScheduleColumn = (
           variant='contained'
           startIcon={<EditIcon />}
           onClick={() => {
-            console.log(params.row.scheduleDetailID);
+            // navigate('/student/attendance/' + params.row.scheduleDetailID);
+            navigate('/student/attendance/edit', {
+              state: {
+                time: params.row.attendanceTime,
+                className: params.row.className,
+                periodName: params.row.periodName
+              }
+            });
           }}
           children={'Sửa điểm danh'}
         />
@@ -97,7 +104,9 @@ export const attendanceScheduleColumn = (
               state: {
                 scheduleDetailID: params.row.scheduleDetailID,
                 time: params.row.attendanceTime,
-                periodID: params.row.periodID
+                periodID: params.row.periodID,
+                periodName: params.row.periodName,
+                className: params.row.className
               }
             });
           }}

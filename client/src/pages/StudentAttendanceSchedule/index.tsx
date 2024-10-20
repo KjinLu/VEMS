@@ -18,11 +18,15 @@ const StudentTakeAttendanceSchedulePage = () => {
   const [attendanceSchedule, setAttendanceSchedule] =
     useState<AttendanceScheduleWithIndex>();
 
-  const { data } = useGetAttendanceScheduleOfClassQuery({
+  const { data, refetch } = useGetAttendanceScheduleOfClassQuery({
     classID: userClassInfo as UUID,
     // time: new Date().toISOString().split('T')[0]
     time: '2024-10-18'
   });
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (data) {

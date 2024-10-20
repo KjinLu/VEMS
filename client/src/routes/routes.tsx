@@ -19,6 +19,7 @@ import Network from '@/pages/Error/Network';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
 import StudentTakeAttendanceSchedulePage from '@/pages/StudentAttendanceSchedule';
 import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
+import StudentUpdateAttendancePage from '@/pages/StudentUpdateAttendance';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -82,6 +83,13 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.studentTakeAttendance,
     component: StudentTakeAttendancePage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.studentEditAttendance,
+    component: StudentUpdateAttendancePage,
     layout: DefaultLayout,
     allowedRoles: ['ADMIN', 'STUDENT'],
     isAuthenticated: true

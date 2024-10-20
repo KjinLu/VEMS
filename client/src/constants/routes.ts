@@ -6,6 +6,7 @@ export const configRoutes = {
   studentAttendanceSchedule: '/student/attendance',
   studentViewAttendance: '/student/attendance-report',
   studentTakeAttendance: '/student/attendance/take',
+  studentEditAttendance: '/student/attendance/edit',
   profile: '/:nickname',
   upload: '/upload',
   search: '/search',

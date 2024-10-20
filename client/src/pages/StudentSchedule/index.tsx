@@ -1,11 +1,7 @@
 import className from 'classnames/bind';
 import styles from './StudentSchedule.module.scss';
 import { useEffect, useState } from 'react';
-import {
-  useGetAttendanceScheduleOfClassQuery,
-  useGetClassScheduleQuery,
-  useGetScheduleDetailQuery
-} from '@/services/schedule';
+import { useGetClassScheduleQuery, useGetScheduleDetailQuery } from '@/services/schedule';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';

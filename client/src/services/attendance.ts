@@ -50,14 +50,26 @@ export const attendanceApi = createApi({
         data: attendanceData
       })
     }),
-    editAttendanceForClasss: build.query({
+    getAttendanceOfClass: build.query({
       query: ({ classID, time }: { classID: UUID; time: string }) => ({
-        url: `/api/attendance/getNeedAttendanceInfo`,
+        url: `/api/attendance/getAttendanceForClass`,
         method: 'get',
         params: {
           ClassID: classID, // Corrected to uppercase
           Time: time // Corrected to uppercase
         }
+      })
+    }),
+    updateAttendanceForClass: build.mutation({
+      query: (attendanceData: any) => ({
+        url: `/api/attendance/updateAttendanceForClass`,
+        method: 'Post',
+        // authRequired: true,
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: attendanceData
       })
     })
   }),
@@ -69,5 +81,7 @@ export const {
   useGetReasonsQuery,
   useGetStatusesQuery,
   useGetStudentInClassQuery,
-  useTakeAttendanceForClassMutation
+  useTakeAttendanceForClassMutation,
+  useGetAttendanceOfClassQuery,
+  useUpdateAttendanceForClassMutation
 } = attendanceApi;
