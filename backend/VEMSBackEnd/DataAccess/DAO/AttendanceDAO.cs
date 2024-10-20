@@ -1,4 +1,5 @@
-﻿using BusinessObject;
+﻿using Azure.Core;
+using BusinessObject;
 using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -277,5 +278,84 @@ namespace DataAccess.DAO
             }
         }
 
+        public async Task<List<AttendanceHistoryStudentResponse>> GetHistoryAttendanceFromStudentID(Guid id)
+        {
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    throw new ArgumentException("ID học sinh không hợp lệ.");
+                }
+                using (var context = new VemsContext())
+                {
+                    var attendanceHistoryResponse = await (from attendance in context.Attendances
+                                                           join scheduleDetails in context.ScheduleDetails on attendance.ScheduleDetailId equals scheduleDetails.Id
+                                                           join sessions in context.Sessions on scheduleDetails.SessionId equals sessions.Id
+                                                           join periods in context.Periods on sessions.PeriodID equals periods.Id
+                                                           join attendanceStatus in context.AttendanceStatuses on attendance.Id equals attendanceStatus.AttendanceId
+                                                           join status in context.Statuses on attendanceStatus.StatusId equals status.Id
+                                                           join reason in context.Reasons on attendanceStatus.ReasonId equals reason.Id into reasonsLeftJoin
+                                                           from reason in reasonsLeftJoin.DefaultIfEmpty()
+                                                           join student in context.Students on attendanceStatus.StudentId equals student.Id
+                                                           where attendanceStatus.StudentId == id
+                                                           select new AttendanceHistoryStudentResponse
+                                                           {
+                                                               DateAttendance = attendance.TimeReport,
+                                                               DayOfWeek = sessions.DayOfWeek,
+                                                               PeriodName = periods.PeriodName,
+                                                               StatusName = status.StatusName,
+                                                               ReasonName = reason.ReasonName,
+                                                               Description = attendanceStatus.Description,
+                                                               StudentCharge = attendanceStatus.UpdateBy == null ? attendanceStatus.CreateBy : attendanceStatus.UpdateBy,
+                                                               TeacherCharge = attendanceStatus.TeacherId
+                                                           }).AsNoTracking().ToListAsync().ConfigureAwait(false);
+                    if (attendanceHistoryResponse == null)
+                    {
+                        throw new Exception("Không tìm thấy lịch sử điểm danh cho học sinh này.");
+                    }
+
+                    return attendanceHistoryResponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy lịch sử điểm danh theo Id học sinh: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<bool> UpdateAttendanceReport(List<UpdateAttendanceReportRequest> listRequest)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    List<AttendanceStatus> newAttendance = new List<AttendanceStatus>();
+                    foreach (var item in listRequest)
+                    {
+                        var checkAttendanceExist = await context.AttendanceStatuses.FindAsync(item.AttendanceStatusID);
+                        
+                        if (checkAttendanceExist != null)
+                        {
+                            checkAttendanceExist.ReasonId = item.ReasonId;
+                            checkAttendanceExist.StatusId = item.StatusId;
+                            checkAttendanceExist.Description = item.Description;
+                            checkAttendanceExist.TeacherId = item.TeacherId;
+
+                            context.Entry<AttendanceStatus>(checkAttendanceExist).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            throw new Exception("Không tìm thấy điểm danh với ID " + item.AttendanceStatusID);
+                        }
+                    }
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra: " + ex.Message);
+            }
+        }
     }
 }

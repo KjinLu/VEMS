@@ -31,6 +31,9 @@ namespace BusinessObject
         public Status Status { get; set; }
 
         public Guid? ReasonId { get; set; }
+        [Required]
+        [MaxLength(200)]
+        public string? Description { get; set; } = string.Empty;
 
         [ForeignKey("ReasonId")]
         public Reason? Reason { get; set; }

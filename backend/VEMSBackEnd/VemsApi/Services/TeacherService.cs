@@ -14,6 +14,8 @@ namespace VemsApi.Services
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
+
+        Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID);
     }
 
     public class TeacherService : ITeacherService
@@ -63,5 +65,9 @@ namespace VemsApi.Services
             return await _accountRepository.UpdateAvatar(request.AccountID, "");
         }
 
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID)
+        {
+            return await _accountRepository.GetTeacherProfileByIdAsync(accountID);
+        }
     }
 }

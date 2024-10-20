@@ -189,6 +189,23 @@ using System.Threading.Tasks;
 
     }
 
+public class TeacherResponse
+{
+    public Guid Id { get; set; }
+    public string? PublicTeacherID { get; set; } = string.Empty;
+    public string FullName { get; set; }
+    public string? CitizenID { get; set; } = string.Empty;
+    public string Username { get; set; }
+    public string? Password { get; set; } = "1";
+    public string? Email { get; set; } = string.Empty;
+    public DateOnly? Dob { get; set; }
+    public string? Address { get; set; } = string.Empty;
+    public string? Image { get; set; } = string.Empty;
+    public string? Phone { get; set; } = string.Empty;
+    public string? TeacherTypeName { get; set; }
+    public string? ClassRoom { get; set; }
+}
+
     public class StudentResponse
     {
         public Guid Id { get; set; }
@@ -207,5 +224,5 @@ using System.Threading.Tasks;
         public DateOnly? UnionJoinDate { get; set; }
         public string? StudentTypeName { get; set; }
         public string? ClassRoom { get; set; }
-}
+    }
 
