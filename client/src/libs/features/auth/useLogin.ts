@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { setCredentials } from './authSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // Use for login operator
 export const useLogin = () => {
@@ -12,6 +13,8 @@ export const useLogin = () => {
   const [getUserMutation] = useGetUserMutation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   const login = async (userData: SignInProps) => {
     setIsLoading(true);
@@ -28,7 +31,8 @@ export const useLogin = () => {
       }).unwrap();
 
       dispatch(setCredentials({ ...userResponse }));
-      console.log('User data:', userResponse);
+
+      navigate('/');
     } catch (err: any) {
       setError(err?.data?.message || 'Login failed');
       console.error('Login failed:', err);
