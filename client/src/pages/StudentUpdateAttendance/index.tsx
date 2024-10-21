@@ -38,7 +38,6 @@ const StudentUpdateAttendancePage = () => {
   const { time, className, periodName } = location.state || {};
   const [attendance, setAttendance] = useState<any>({});
   const [updateAttendance] = useUpdateAttendanceForClassMutation();
-
   const [updateFrom] = useForm();
 
   const handleSubmit = async (values: any) => {
@@ -59,7 +58,7 @@ const StudentUpdateAttendancePage = () => {
         statusID: attendance[attendanceStatusID]
       }))
     };
-    var response = await updateAttendance(attendanceDataRequest).unwrap();
+    await updateAttendance(attendanceDataRequest).unwrap();
   };
 
   const { data: attendanceData, refetch: refetchAttendanceData } =
@@ -73,8 +72,6 @@ const StudentUpdateAttendancePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(attendanceData);
-    console.log(attendanceData ? attendanceData.note : '');
     updateFrom.setFieldsValue({ note: attendanceData ? attendanceData.note : '' });
   }, [attendanceData]);
 

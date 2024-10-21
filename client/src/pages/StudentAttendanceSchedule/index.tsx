@@ -10,8 +10,6 @@ import { console } from 'node:inspector/promises';
 import { useNavigate } from 'react-router-dom';
 import { useGetAttendanceScheduleOfClassQuery } from '@/services/attendance';
 
-const paginationModel = { page: 0, pageSize: 5 };
-
 const StudentTakeAttendanceSchedulePage = () => {
   const navigate = useNavigate();
   const userClassInfo = useSelector((state: RootState) => state.auth.classroomID);
