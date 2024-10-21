@@ -2,21 +2,10 @@
   position: relative;
 }
 
-.modal-content {
-  padding-top: 48px;
-  padding-bottom: 20px;
-  text-align: center;
-}
-
 .modal-Student-title {
   position: absolute;
   top: 13px;
   left: 12px;
-}
-
-.line-break {
-  height: 2px;
-  background: linear-gradient(135deg, #8baccd, #1976d2);
 }
 
 .modal-icon-close {
@@ -37,13 +26,26 @@
   z-index: 1;
 }
 
+.modal-content {
+  padding-top: 48px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.line-break {
+  height: 2px;
+  background: linear-gradient(135deg, #b9d1e9, #1976d2);
+}
+
 .content-file-upload-wrapper {
   padding: 30px;
 }
 
 .content-file-upload {
   border-radius: 5px;
-  box-shadow: #0000001f 0 1px 4px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.2);
   padding: 20px 18px;
 }
 
@@ -59,7 +61,7 @@
     height: 3px;
     width: 220px;
     border-radius: 5px;
-    background: linear-gradient(135deg, #8baccd, #1976d2);
+    background: linear-gradient(135deg, #b9d1e9, #1976d2);
   }
 }
 

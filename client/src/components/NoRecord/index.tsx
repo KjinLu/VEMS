@@ -1,4 +1,4 @@
-import empty from '../../assets/empty.png';
+import empty from '@assets/empty.png';
 
 const NoRecord = () => {
   return (
@@ -7,7 +7,7 @@ const NoRecord = () => {
         style={{ width: '120px' }}
         src={empty}
       />
-      <p style={{ color: '#AAA', fontWeight: 300, fontSize: '12px' }}>Không</p>
+      <p style={{ color: '#AAA', fontWeight: 300, fontSize: '12px' }}>Không có dữ liệu</p>
     </div>
   );
 };

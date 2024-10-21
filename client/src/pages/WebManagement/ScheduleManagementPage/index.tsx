@@ -15,9 +15,9 @@ import { RiCalendarScheduleLine } from 'react-icons/ri';
 import styles from './ScheduleManagementPage.module.scss';
 import ScheduleImage from '@assets/images/admin/schedule-image.jpg';
 import VemSelect from '@/components/VemSelect';
-import VemsButtonCus from '@/components/VemsButtonCus';
+import VemsButtonCus from '@/components/VemsButtonCustom';
 import ModalUploadSchedule from './ModalUploadSchedule';
-import VemsInputCus from '@/components/VemsInputCus';
+import VemsInputCus from '@/components/VemsInputCustom';
 
 const cx = className.bind(styles);
 

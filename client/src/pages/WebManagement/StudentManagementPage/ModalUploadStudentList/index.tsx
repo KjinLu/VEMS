@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { FaDownload } from 'react-icons/fa6';
 
 import styles from './ModalUploadStudentList.module.scss';
-import VemsButton from '@/components/VemsButtonCus';
+import VemsButton from '@/components/VemsButtonCustom';
 
 const cx = className.bind(styles);
 
