@@ -76,8 +76,6 @@ const StudentSchedulePage = () => {
       skip: !classScheduleID // Skip the query until classScheduleID is available
     });
 
-  // console.log(classScheduleID);
-
   useEffect(() => {
     if (classScheduleDetails) {
       setScheduleDetail(classScheduleDetails);

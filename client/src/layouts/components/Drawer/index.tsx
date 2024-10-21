@@ -31,7 +31,7 @@ const listItemButtonClasses = (navigate: any): DrawerItem[] => [
   {
     content: 'Báo cáo điểm danh',
     Icon: <PlagiarismIcon />,
-    onClick: () => navigate('/student/attendanceReport')
+    onClick: () => navigate('/student/attendance-report')
   }
 ];
 

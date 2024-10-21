@@ -93,7 +93,8 @@ namespace DataAccess.DAO
                                            DayOfWeek = se.DayOfWeek,
                                            PeriodName = p.PeriodName,
                                            ScheduleDetailID = sd.Id,
-                                           Attendance = at
+                                           Attendance = at,
+                                           PeriodID = p.Id
                                        }
                                        by new { se.Id } into g
                                        select new InfomationForAttendance
@@ -102,6 +103,7 @@ namespace DataAccess.DAO
                                            ClassroomID = g.First().ClassroomID,
                                            DayOfWeek = g.First().DayOfWeek,
                                            PeriodName = g.First().PeriodName,
+                                           PeriodID = g.First().PeriodID,
                                            AttendanceTime = currentDate.AddDays(g.First().DayOfWeek - currentDayOfWeek),
                                            ScheduleDetailID = g.First().ScheduleDetailID,
                                            IsAttendance = g.Any(x => x.Attendance != null && x.Attendance.TimeReport >= startOfWeek && x.Attendance.TimeReport < endOfWeek)
@@ -144,7 +146,7 @@ namespace DataAccess.DAO
                         {
                             Note = request.Note,
                             ScheduleDetailId = request.ScheduleDetailID,
-                            TimeReport = DateTime.Now.Date
+                            TimeReport = request.Time.Date,
                         }).Entity;
 
 
@@ -196,7 +198,11 @@ namespace DataAccess.DAO
                                            join s in context.Schedules on sd.ScheduleId equals s.Id
                                            join c in context.Classrooms on s.ClassroomId equals c.Id
                                            where c.Id == request.ClassID && a.TimeReport.Date == request.Time.Date
-                                           select a.Id
+                                           select new
+                                           {
+                                               attendanceId = a.Id,
+                                               attendanceNote = a.Note
+                                           }
                                            ).FirstOrDefaultAsync();
 
                     var studentData = await (from ats in context.AttendanceStatuses
@@ -207,7 +213,7 @@ namespace DataAccess.DAO
                                              select new AttendanceStudentResponse
                                              {
                                                  StatusID = ats.StatusId,
-                                                 AttendanceStatusID = ats.StatusId,
+                                                 AttendanceStatusID = ats.Id,
                                                  StudentID = ats.StudentId,
                                                  StatusName = s.StatusName,
                                                  StudentName = stu.FullName,
@@ -216,7 +222,8 @@ namespace DataAccess.DAO
                                                  CreateBy = ats.CreateBy
                                              }
                                                       ).ToListAsync();
-                    response.AttendanceID = attenData;
+                    response.AttendanceID = attenData.attendanceId;
+                    response.Note = attenData.attendanceNote;
                     response.AttendanceData = studentData;
                 }
                 return response;
@@ -240,27 +247,23 @@ namespace DataAccess.DAO
 
                         checkAttendanceExist.Note = request.Note != null ? request.Note.ToString() : checkAttendanceExist.Note;
 
-                        var existingAttendanceStatuses = context.AttendanceStatuses
-                         .Where(ats => ats.AttendanceId == request.AttendanceID);
-                        context.AttendanceStatuses.RemoveRange(existingAttendanceStatuses);
+                        //var existingAttendanceStatuses = context.AttendanceStatuses
+                        // .Where(ats => ats.AttendanceId == request.AttendanceID);
+                        //context.AttendanceStatuses.RemoveRange(existingAttendanceStatuses);
 
                         List<AttendanceStatus> newAttendance = new List<AttendanceStatus>();
                         foreach (var item in request.AttendanceData)
                         {
-                            var data = new AttendanceStatus
-                            {
-                                StatusId = item.StatusID,
-                                AttendanceId = request.AttendanceID,
-                                CreateBy = request.CreateBy,
-                                CreateAt = request.CreateAt,
-                                UpdateBy = request.UpdateBy,
-                                UpdateAt = request.UpdateAt,
-                                ReasonId = item.ReasonID,
-                                TeacherId = item.TeacherID
-                            };
-                            newAttendance.Add(data);
+                            var currentData = context.AttendanceStatuses.SingleOrDefault(i => i.Id  == item.AttendanceStatusID);
+
+                            currentData.StatusId = item.StatusID;
+                            currentData.UpdateBy = request.UpdateBy;
+                            currentData.UpdateAt = request.UpdateAt;
+                            currentData.ReasonId = item.ReasonID;
+                            currentData.TeacherId = item.TeacherID;
+                            
+                        context.AttendanceStatuses.Update(currentData);
                         }
-                        await context.AttendanceStatuses.AddRangeAsync(newAttendance);
                         await context.SaveChangesAsync();
                         return true;
                     }

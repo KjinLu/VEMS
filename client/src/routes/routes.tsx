@@ -14,10 +14,12 @@ import ScheduleManagementPage from '@/pages/WebManagement/ScheduleManagementPage
 import NotFound from '@/pages/Error/NotFound';
 import Authorize from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
-import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
 import StudentManagementPage from '@/pages/WebManagement/StudentManagementPage';
 import TeacherManagementPage from '@/pages/WebManagement/TeacherManagementPage';
+import StudentTakeAttendanceSchedulePage from '@/pages/StudentAttendanceSchedule';
+import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
+import StudentUpdateAttendancePage from '@/pages/StudentUpdateAttendance';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -61,6 +63,7 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.profile,
     component: Profile,
+    layout: DefaultLayout,
     allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
     isAuthenticated: true
   },
@@ -72,8 +75,22 @@ const privateRoutes: PrivateRoute[] = [
     isAuthenticated: true
   },
   {
+    path: configRoutes.studentAttendanceSchedule,
+    component: StudentTakeAttendanceSchedulePage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
     path: configRoutes.studentTakeAttendance,
     component: StudentTakeAttendancePage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN', 'STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.studentEditAttendance,
+    component: StudentUpdateAttendancePage,
     layout: DefaultLayout,
     allowedRoles: ['ADMIN', 'STUDENT'],
     isAuthenticated: true

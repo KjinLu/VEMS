@@ -67,6 +67,7 @@ namespace DataAccess.DTO
         public Guid ClassID { get; set; }
         public Guid AttendanceID { get; set; }
         public DateTime Time { get; set; }
+        public string Note { get; set; }
         public List<AttendanceStudentResponse> AttendanceData { get; set; }
     }
 
