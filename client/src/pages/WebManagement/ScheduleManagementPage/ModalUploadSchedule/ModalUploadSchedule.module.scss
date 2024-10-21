@@ -50,18 +50,18 @@
 
 .upload-file-title {
   position: relative;
-}
 
-.upload-file-title::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -9px;
-  height: 3px;
-  width: 220px;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #8baccd, #1976d2);
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -9px;
+    height: 3px;
+    width: 220px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #8baccd, #1976d2);
+  }
 }
 
 .upload-file-btn {

@@ -10,14 +10,14 @@ import StudentSchedule from '@/pages/StudentSchedule';
 import Login from '@/pages/Login';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
-import ScheduleManagementPage from '@/pages/ScheduleManagementPage';
+import ScheduleManagementPage from '@/pages/WebManagement/ScheduleManagementPage';
 import NotFound from '@/pages/Error/NotFound';
 import Authorize from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
 import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
-import StudentManagementPage from '@/pages/StudentManagementPage';
-import TeacherManagementPage from '@/pages/TeacherManagementPage';
+import StudentManagementPage from '@/pages/WebManagement/StudentManagementPage';
+import TeacherManagementPage from '@/pages/WebManagement/TeacherManagementPage';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
