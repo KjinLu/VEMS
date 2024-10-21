@@ -1,0 +1,46 @@
+// Welcome card
+.card {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 6px 10px -8px #c5d6d6;
+  border-radius: 6px;
+  padding: 18px;
+  height: 100%;
+}
+
+.schedule-image {
+  position: absolute;
+  top: 26px;
+  right: -18px;
+}
+
+.attendance-select {
+  margin-bottom: 36px;
+}
+
+.div-round {
+  position: relative;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+    0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.icon-round {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.attendance-text {
+  font-size: 20px;
+  font-weight: 600;
+}

@@ -7,7 +7,7 @@ const NoRecord = () => {
         style={{ width: '120px' }}
         src={empty}
       />
-      <p style={{ color: '#AAA', fontWeight: 300, fontSize: '12px' }}>{'noData'}</p>
+      <p style={{ color: '#AAA', fontWeight: 300, fontSize: '12px' }}>Không</p>
     </div>
   );
 };

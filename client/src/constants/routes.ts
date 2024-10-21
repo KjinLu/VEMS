@@ -1,5 +1,3 @@
-import StudentSchedulePage from '@/pages/StudentSchedule';
-
 export const configRoutes = {
   home: '/admin',
   studentSchedule: '/student/schedule',
@@ -10,7 +8,9 @@ export const configRoutes = {
   search: '/search',
   login: '/login',
   signUp: '/signUp',
-  AdminManagementPage: '/admin-management'
+  ScheduleManagementPage: '/schedule-management',
+  StudentManagementPage: '/student-management',
+  TeacherManagementPage: '/teacher-management'
 };
 
 export const configError = {

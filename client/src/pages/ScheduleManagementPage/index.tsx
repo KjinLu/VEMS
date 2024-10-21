@@ -12,8 +12,8 @@ import moment from 'moment';
 import { useState } from 'react';
 import { RiCalendarScheduleLine } from 'react-icons/ri';
 
-import styles from './AdminManagement.module.scss';
-import MedalImage from '@assets/images/admin/medal-image.jpg';
+import styles from './ScheduleManagementPage.module.scss';
+import ScheduleImage from '@assets/images/admin/schedule-image.jpg';
 import VemSelect from '@/components/VemSelect';
 import VemsButtonCus from '@/components/VemsButtonCus';
 import ModalUploadSchedule from './ModalUploadSchedule';
@@ -33,7 +33,7 @@ const AdminManagementPage = () => {
       <Row className={cx('mb-5')}>
         <Col md={4}>
           <div className={cx('card')}>
-            <h2 className={cx('title')}>Chào mừng đến với hệ thống</h2>
+            <h2 className={cx('title')}>Hệ thống quản lí lịch học</h2>
             <div className={cx('d-flex align-items-center my-5')}>
               <FaGraduationCap
                 color={'#4496e8'}
@@ -46,8 +46,8 @@ const AdminManagementPage = () => {
               />
             </div>
             <img
-              className={cx('medal-image')}
-              src={MedalImage}
+              className={cx('schedule-image')}
+              src={ScheduleImage}
               alt='Mô tả ảnh'
               width='180'
             />

@@ -1,9 +1,10 @@
 import { Modal } from 'reactstrap';
 import className from 'classnames/bind';
-import { IoMdClose } from 'react-icons/io';
+import { IoIosSend, IoMdClose } from 'react-icons/io';
 import * as XLSX from 'xlsx';
 import { SiMicrosoftexcel } from 'react-icons/si';
 import { useState } from 'react';
+import { FaDownload } from 'react-icons/fa6';
 
 import styles from './ModalUploadSchedule.module.scss';
 import VemsButton from '@/components/VemsButtonCus';
@@ -118,7 +119,7 @@ const ModalUploadSchedule = ({
 
                 {fileInfo && (
                   <div style={{ marginTop: '20px' }}>
-                    <p>
+                    <p style={{ wordWrap: 'break-word' }}>
                       <strong>File Name:</strong> {fileInfo.name}
                     </p>
                     <p>
@@ -141,12 +142,19 @@ const ModalUploadSchedule = ({
             }}
           >
             <VemsButton
+              leftIcon={<FaDownload className={cx('me-2')} />}
               onClick={handleDownload}
               title='Tải tập tin Excel mẫu'
               className={cx('me-3')}
             />
 
             <VemsButton
+              leftIcon={
+                <IoIosSend
+                  className={cx('me-1')}
+                  size={20}
+                />
+              }
               onClick={handleDownload}
               title='Cập nhật'
             />

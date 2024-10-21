@@ -10,20 +10,30 @@ import StudentSchedule from '@/pages/StudentSchedule';
 import Login from '@/pages/Login';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
-import AdminManagementPage from '@/pages/AdminManagement';
+import ScheduleManagementPage from '@/pages/ScheduleManagementPage';
 import NotFound from '@/pages/Error/NotFound';
-import Authorise from '@/pages/Error/Authorize';
+import Authorize from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
 import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
+import StudentManagementPage from '@/pages/StudentManagementPage';
+import TeacherManagementPage from '@/pages/TeacherManagementPage';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
-  // { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
-  // { path: configRoutes.home, component: Home, layout: DefaultLayout },
   {
-    path: configRoutes.AdminManagementPage,
-    component: AdminManagementPage,
+    path: configRoutes.ScheduleManagementPage,
+    component: ScheduleManagementPage,
+    layout: DefaultLayout
+  },
+  {
+    path: configRoutes.StudentManagementPage,
+    component: StudentManagementPage,
+    layout: DefaultLayout
+  },
+  {
+    path: configRoutes.TeacherManagementPage,
+    component: TeacherManagementPage,
     layout: DefaultLayout
   },
   {
@@ -32,7 +42,7 @@ const publicRoutes: PublicRoute[] = [
   },
   {
     path: configError.UnAuthorize,
-    component: Authorise
+    component: Authorize
   },
   {
     path: configError.Network,
