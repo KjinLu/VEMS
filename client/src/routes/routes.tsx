@@ -6,9 +6,7 @@ import AuthLayout from '@/layouts/AuthLayout';
 
 import Home from '@/pages/Home';
 import Profile from '@/pages/Profile';
-import Upload from '@/pages/Upload';
 import StudentSchedule from '@/pages/StudentSchedule';
-import Search from '@/pages/Search';
 import Login from '@/pages/Login';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
@@ -23,7 +21,6 @@ const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
   // { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
   // { path: configRoutes.home, component: Home, layout: DefaultLayout },
-  { path: configRoutes.search, component: Search, layout: DefaultLayout },
   {
     path: configRoutes.AdminManagementPage,
     component: AdminManagementPage,
@@ -54,13 +51,6 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.profile,
     component: Profile,
-    allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
-    isAuthenticated: true
-  },
-  {
-    path: configRoutes.upload,
-    component: Upload,
-    layout: HeaderOnly,
     allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
     isAuthenticated: true
   },

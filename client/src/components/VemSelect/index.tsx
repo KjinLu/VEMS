@@ -4,12 +4,12 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-interface PagoSelectTypes extends StateManagerProps {
+interface VemsSelectTypes extends StateManagerProps {
   isCreatable?: boolean;
   isLoading?: boolean;
 }
 
-const PagoSelect = forwardRef<HTMLDivElement, PagoSelectTypes>(
+const VemsSelect = forwardRef<HTMLDivElement, VemsSelectTypes>(
   ({ isCreatable = false, isLoading = false, ...props }, ref) => {
     const customStyles = {
       control: (base: any, state: any) => ({
@@ -28,7 +28,8 @@ const PagoSelect = forwardRef<HTMLDivElement, PagoSelectTypes>(
       option: (base: any, state: any) => ({
         ...base,
         backgroundColor:
-          (state.isSelected ? '#61b2db' : '') || state.isFocused ? '#61b2db' : ''
+          (state.isSelected ? '#61b2db' : '') || state.isFocused ? '#61b2db' : '',
+        cursor: 'pointer'
       })
     };
 
@@ -44,7 +45,7 @@ const PagoSelect = forwardRef<HTMLDivElement, PagoSelectTypes>(
               top: '60%',
               right: '30px',
               transform: 'translate(-50%, -50%)',
-              zIndex: 1
+              zIndex: 99
             }}
           >
             <ClipLoader
@@ -72,4 +73,4 @@ const PagoSelect = forwardRef<HTMLDivElement, PagoSelectTypes>(
   }
 );
 
-export default PagoSelect;
+export default VemsSelect;

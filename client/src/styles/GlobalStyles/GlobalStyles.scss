@@ -61,6 +61,27 @@ h6 {
   line-height: 16px;
 }
 
+// Button
+.btn-secondary {
+  --bs-btn-border-color: none !important;
+  --bs-btn-bg: #56b1da !important;
+  --bs-btn-hover-bg: #7fbeda !important;
+}
+
+// Modal
+.modal.show .modal-dialog {
+  box-shadow: 0 8px 16px 8px rgb(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.modal-dialog {
+  margin-top: 100px !important;
+}
+
+.modal-body {
+  padding: 0 !important;
+}
+
 // Utility classes
 
 .min-h-screen {

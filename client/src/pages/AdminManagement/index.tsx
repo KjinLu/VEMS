@@ -6,20 +6,33 @@ import {
   HiClipboardDocumentList
 } from 'react-icons/hi2';
 import { Col, Label, Row } from 'reactstrap';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import { useState } from 'react';
+import { RiCalendarScheduleLine } from 'react-icons/ri';
 
 import styles from './AdminManagement.module.scss';
 import MedalImage from '@assets/images/admin/medal-image.jpg';
 import VemSelect from '@/components/VemSelect';
+import VemsButtonCus from '@/components/VemsButtonCus';
+import ModalUploadSchedule from './ModalUploadSchedule';
+import VemsInputCus from '@/components/VemsInputCus';
 
 const cx = className.bind(styles);
 
 const AdminManagementPage = () => {
+  const localizer = momentLocalizer(moment);
+
+  // Modal schedule-----------------------------------------------------
+  const [isCloseModalSchedule, setIsCloseModalSchedule] = useState(false);
+
   return (
     <>
       {/* Welcome card */}
-      <Row>
+      <Row className={cx('mb-5')}>
         <Col md={4}>
-          <div className={cx('welcome-card')}>
+          <div className={cx('card')}>
             <h2 className={cx('title')}>Chào mừng đến với hệ thống</h2>
             <div className={cx('d-flex align-items-center my-5')}>
               <FaGraduationCap
@@ -42,12 +55,12 @@ const AdminManagementPage = () => {
         </Col>
 
         <Col md={8}>
-          <div className={cx('welcome-card')}>
+          <div className={cx('card')}>
             <h2
               className={cx('title')}
               style={{ fontSize: '18px' }}
             >
-              Thống kê điểm danh lớp chủ nhiệm
+              Thống kê điểm danh học sinh
             </h2>
 
             <div className={cx('d-flex justify-content-end', 'attendance-select')}>
@@ -132,6 +145,78 @@ const AdminManagementPage = () => {
           </div>
         </Col>
       </Row>
+
+      {/* Calendar */}
+
+      <div className={cx('card')}>
+        <Row>
+          <Col md={12}>
+            <h1 className={cx('title', 'mb-4')}>Thông tin lịch học</h1>
+          </Col>
+
+          <Col
+            md={12}
+            className={cx('d-flex justify-content-between', 'mb-4')}
+          >
+            <VemsButtonCus
+              title='Tạo thời khóa biểu'
+              leftIcon={
+                <FaRegCalendarAlt
+                  size={20}
+                  style={{ marginRight: '6px' }}
+                />
+              }
+              onClick={() => {
+                setIsCloseModalSchedule(true);
+              }}
+            />
+
+            <div className={cx('d-flex align-items-center')}>
+              <Label
+                className={cx('me-2')}
+                style={{
+                  fontWeight: '600',
+                  fontSize: '18px',
+                  marginBottom: '0'
+                }}
+              >
+                Nhập tên lớp:
+              </Label>
+
+              <div
+                className={cx('me-4')}
+                style={{ width: '180px' }}
+              >
+                <VemsInputCus name='' />
+              </div>
+
+              <VemsButtonCus
+                title='Hiển thị thời khóa biểu'
+                leftIcon={
+                  <RiCalendarScheduleLine
+                    size={20}
+                    style={{ marginRight: '6px' }}
+                  />
+                }
+              />
+            </div>
+          </Col>
+
+          <ModalUploadSchedule
+            isCloseModalSchedule={isCloseModalSchedule}
+            setIsCloseModalSchedule={setIsCloseModalSchedule}
+          ></ModalUploadSchedule>
+
+          <Col md={12}>
+            <Calendar
+              localizer={localizer}
+              startAccessor='start'
+              endAccessor='end'
+              style={{ height: '500px' }}
+            ></Calendar>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 };
