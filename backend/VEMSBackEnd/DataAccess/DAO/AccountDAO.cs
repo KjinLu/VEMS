@@ -368,11 +368,11 @@ namespace DataAccess.DAO
                                              AccountID = a.Id,
                                              Username = a.Username,
                                              Password = a.Password,
+                                             Image= a.Image,
                                              Email = a.Email,
                                              RefreshToken = a.RefreshToken,
                                              RoleID = r.Id,
-                                             RoleName = r.Code
-
+                                             RoleName = r.Code,
                                          }).FirstOrDefaultAsync();
 
                     if (teacher != null) return new CommonAccountType
@@ -383,8 +383,8 @@ namespace DataAccess.DAO
                         Password = teacher.Password,
                         RoleID = teacher.RoleID,
                         RoleName = teacher.RoleName,
-                        Username = teacher.Username
-
+                        Username = teacher.Username,
+                        Image = teacher.Image,
                     };
 
                     var student = await (from a in context.Students
@@ -414,7 +414,6 @@ namespace DataAccess.DAO
                         RoleName = student.RoleName,
                         Username = student.Username,
                         ClassroomID = student.ClassroomID,
-                        ClassroomName = student.ClassroomName
                     };
                 }
                 return null;
@@ -499,7 +498,8 @@ namespace DataAccess.DAO
                                              RefreshToken = a.RefreshToken,
                                              Image = a.Image,
                                              RoleID = r.Id,
-                                             RoleName = r.Code
+                                             RoleName = r.Code,
+                                             ClassID = a.ClassroomId,
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -511,8 +511,8 @@ namespace DataAccess.DAO
                         Image = student.Image,
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
-                        Username = student.Username
-
+                        Username = student.Username,
+                        ClassroomID = student.ClassID
                     };
                 }
                 return null;

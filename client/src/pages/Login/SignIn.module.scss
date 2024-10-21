@@ -1,0 +1,50 @@
+.sign-in-container {
+  min-width: 30rem;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  z-index: 2;
+  padding: 2rem;
+}
+.sign-in-title {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #3f51b5;
+  // background-image: linear-gradient(to right, #34d399, #10b981);
+  // color: transparent;
+  // -webkit-background-clip: text;
+  background-clip: text;
+}
+.sign-in-description {
+  font-size: 1rem;
+}
+.logo-image {
+  width: 12rem;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .sign-in-container {
+    min-width: 25rem;
+  }
+  .logo-image {
+    width: 8rem;
+  }
+  .sign-in-title {
+    font-size: 1.25rem;
+  }
+  .sign-in-description {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 568px) {
+  .sign-in-container {
+    min-width: 22rem;
+  }
+}
