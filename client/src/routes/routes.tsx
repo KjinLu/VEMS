@@ -15,6 +15,7 @@ import NotFound from '@/pages/Error/NotFound';
 import Authorize from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
+
 import StudentManagementPage from '@/pages/WebManagement/StudentManagementPage';
 import TeacherManagementPage from '@/pages/WebManagement/TeacherManagementPage';
 import StudentTakeAttendanceSchedulePage from '@/pages/StudentAttendanceSchedule';
