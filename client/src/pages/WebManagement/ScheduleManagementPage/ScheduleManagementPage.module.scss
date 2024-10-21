@@ -10,8 +10,8 @@
 
 .schedule-image {
   position: absolute;
-  top: 32px;
-  right: 8px;
+  top: 50px;
+  right: 16px;
 }
 
 .attendance-select {
@@ -43,6 +43,14 @@
 .attendance-text {
   font-size: 20px;
   font-weight: 600;
+}
+
+// Schedule
+.schedule-button-wrapper {
+  border-radius: 5px;
+  box-shadow: #0000001f 0 1px 4px;
+  padding: 20px 18px;
+  background-color: rgb(238 219 219 / 12%);
 }
 
 .schedule-title {

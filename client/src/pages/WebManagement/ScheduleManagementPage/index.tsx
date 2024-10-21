@@ -49,7 +49,7 @@ const AdminManagementPage = () => {
               className={cx('schedule-image')}
               src={ScheduleImage}
               alt='Mô tả ảnh'
-              width='180'
+              width='160'
             />
           </div>
         </Col>
@@ -149,54 +149,65 @@ const AdminManagementPage = () => {
             <h1 className={cx('title', 'mb-4')}>Thông tin lịch học</h1>
           </Col>
 
+          {/* Button  */}
           <Col
             md={12}
-            className={cx('d-flex justify-content-between', 'mb-4')}
+            className={cx('mb-4')}
           >
-            <VemsButtonCus
-              title='Tạo thời khóa biểu'
-              leftIcon={
-                <FaRegCalendarAlt
-                  size={20}
-                  style={{ marginRight: '6px' }}
-                />
-              }
-              onClick={() => {
-                setIsCloseModalSchedule(true);
-              }}
-            />
-
-            <div className={cx('d-flex align-items-center')}>
-              <Label
-                className={cx('me-2')}
-                style={{
-                  fontWeight: '600',
-                  fontSize: '18px',
-                  marginBottom: '0'
-                }}
-              >
-                Nhập tên lớp:
-              </Label>
-
-              <div
-                className={cx('me-4')}
-                style={{ width: '180px' }}
-              >
-                <VemsInputCus name='' />
-              </div>
-
+            <div
+              className={cx('schedule-button-wrapper', 'd-flex justify-content-between')}
+            >
               <VemsButtonCus
-                title='Hiển thị thời khóa biểu'
+                title='Tạo thời khóa biểu'
                 leftIcon={
-                  <RiCalendarScheduleLine
+                  <FaRegCalendarAlt
                     size={20}
                     style={{ marginRight: '6px' }}
                   />
                 }
+                onClick={() => {
+                  setIsCloseModalSchedule(true);
+                }}
               />
+
+              <ModalUploadSchedule
+                isCloseModalSchedule={isCloseModalSchedule}
+                setIsCloseModalSchedule={setIsCloseModalSchedule}
+              ></ModalUploadSchedule>
+
+              <div className={cx('d-flex align-items-center')}>
+                <Label
+                  className={cx('me-2')}
+                  style={{
+                    fontWeight: '600',
+                    fontSize: '18px',
+                    marginBottom: '0'
+                  }}
+                >
+                  Nhập tên lớp:
+                </Label>
+
+                <div
+                  className={cx('me-4')}
+                  style={{ width: '180px' }}
+                >
+                  <VemsInputCus name='' />
+                </div>
+
+                <VemsButtonCus
+                  title='Hiển thị thời khóa biểu'
+                  leftIcon={
+                    <RiCalendarScheduleLine
+                      size={20}
+                      style={{ marginRight: '6px' }}
+                    />
+                  }
+                />
+              </div>
             </div>
           </Col>
 
+          {/* Schedule title  */}
           <Col
             md={12}
             className={cx('d-flex justify-content-center')}
@@ -205,11 +216,6 @@ const AdminManagementPage = () => {
               Thời khóa biểu lớp 8A1
             </h1>
           </Col>
-
-          <ModalUploadSchedule
-            isCloseModalSchedule={isCloseModalSchedule}
-            setIsCloseModalSchedule={setIsCloseModalSchedule}
-          ></ModalUploadSchedule>
 
           <Col md={12}>
             <Calendar
