@@ -49,7 +49,7 @@ const VemsSelect = forwardRef<HTMLDivElement, VemsSelectTypes>(
             }}
           >
             <ClipLoader
-              color='var(--primary)'
+              color='#1976d2'
               size={24}
             />
           </div>

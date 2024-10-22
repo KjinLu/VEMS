@@ -2,7 +2,9 @@
 .card {
   position: relative;
   background-color: #fff;
-  box-shadow: 0 6px 10px -8px #c5d6d6;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   padding: 18px;
   height: 100%;
@@ -10,8 +12,8 @@
 
 .schedule-image {
   position: absolute;
-  top: 32px;
-  right: 8px;
+  top: 50px;
+  right: 16px;
 }
 
 .attendance-select {
@@ -45,6 +47,14 @@
   font-weight: 600;
 }
 
+// Schedule
+.schedule-button-wrapper {
+  border-radius: 5px;
+  box-shadow: #0000001f 0 1px 4px;
+  padding: 20px 18px;
+  background-color: rgb(238 219 219 / 12%);
+}
+
 .schedule-title {
   position: relative;
   font-size: 38px !important;
@@ -58,7 +68,7 @@
     left: 50%;
     transform: translateX(-50%);
     border-radius: 5px;
-    background: linear-gradient(135deg, #8baccd, #1976d2);
+    background: linear-gradient(135deg, #b9d1e9, #1976d2);
   }
 
   &::before {

@@ -6,14 +6,14 @@ import { SiMicrosoftexcel } from 'react-icons/si';
 import { useState } from 'react';
 import { FaDownload } from 'react-icons/fa6';
 
-import styles from './ModalUploadSchedule.module.scss';
+import styles from './ModalUploadStudentList.module.scss';
 import VemsButton from '@/components/VemsButtonCustom';
 
 const cx = className.bind(styles);
 
-type ModalUploadScheduleProps = {
-  isCloseModalSchedule: boolean;
-  setIsCloseModalSchedule: any;
+type ModalUploadStudentProps = {
+  isCloseModalStudent: boolean;
+  setIsCloseModalStudent: any;
 };
 
 type FileUploadProps = {
@@ -22,10 +22,10 @@ type FileUploadProps = {
   type: string;
 };
 
-const ModalUploadSchedule = ({
-  isCloseModalSchedule,
-  setIsCloseModalSchedule
-}: ModalUploadScheduleProps) => {
+const ModalUploadStudent = ({
+  isCloseModalStudent,
+  setIsCloseModalStudent
+}: ModalUploadStudentProps) => {
   const handleDownload = () => {
     const url = `http://localhost:3000/Thời khóa biểu mẫu.xlsx`;
 
@@ -67,18 +67,18 @@ const ModalUploadSchedule = ({
   return (
     <>
       <Modal
-        isOpen={isCloseModalSchedule}
+        isOpen={isCloseModalStudent}
         className={cx('modal-wrapper')}
       >
-        <h2 className={cx('text-uppercase', 'title', 'modal-schedule-title')}>
-          Tạo thời khóa biểu
+        <h2 className={cx('text-uppercase', 'title', 'modal-Student-title')}>
+          Tạo danh sách học sinh
         </h2>
 
         {/* Icon close */}
         <div
           className={cx('modal-icon-close')}
           onClick={() => {
-            setIsCloseModalSchedule(false);
+            setIsCloseModalStudent(false);
           }}
         >
           <IoMdClose
@@ -165,4 +165,4 @@ const ModalUploadSchedule = ({
   );
 };
 
-export default ModalUploadSchedule;
+export default ModalUploadStudent;

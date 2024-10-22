@@ -2,21 +2,10 @@
   position: relative;
 }
 
-.modal-content {
-  padding-top: 48px;
-  padding-bottom: 20px;
-  text-align: center;
-}
-
-.modal-schedule-title {
+.modal-Student-title {
   position: absolute;
   top: 13px;
   left: 12px;
-}
-
-.line-break {
-  height: 2px;
-  background: linear-gradient(135deg, #b9d1e9, #1976d2);
 }
 
 .modal-icon-close {
@@ -35,6 +24,17 @@
   left: -10px;
   cursor: pointer;
   z-index: 1;
+}
+
+.modal-content {
+  padding-top: 48px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.line-break {
+  height: 2px;
+  background: linear-gradient(135deg, #b9d1e9, #1976d2);
 }
 
 .content-file-upload-wrapper {
