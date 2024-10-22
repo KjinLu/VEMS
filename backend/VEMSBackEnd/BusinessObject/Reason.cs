@@ -18,10 +18,6 @@ namespace BusinessObject
         [MaxLength(50)]
         public string ReasonName { get; set; }
 
-        [Required]
-        [MaxLength(200)]
-        public string? Description { get; set; } =  string.Empty;
-
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
     }
 }

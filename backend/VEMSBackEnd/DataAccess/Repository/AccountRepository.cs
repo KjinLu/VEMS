@@ -19,6 +19,7 @@ namespace DataAccess.Repository
         public Task<Student> GetStudentByUsernameAsync(string username);
         public Task<Student> GetStudentByEmailAsync(string email);
         public Task<Teacher> GetTeacherByIdAsync(Guid accountID);
+        public Task<TeacherResponse> GetTeacherProfileByIdAsync(Guid accountID);
         public Task<Teacher> GetTeacherByUsernameAsync(string username);
         public Task<Teacher> GetTeacherByEmailAsync(string email);
         public Task<CommonAccountType> GetAccountByEmailAsync(string username);
@@ -86,6 +87,7 @@ namespace DataAccess.Repository
         public async Task<bool> UpdateTeacherProfile(Teacher request) => await AccountDAO.Instance.UpdateTeacherProfile(request);
 
         public async Task<bool> UpdateAvatar(Guid accountID, string imageLink) => await AccountDAO.Instance.UpdateAvatarAsync(accountID, imageLink);
-         
+
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID) => await AccountDAO.Instance.GetTeacherProfileByIdAsync(accountID);
     }
 }
