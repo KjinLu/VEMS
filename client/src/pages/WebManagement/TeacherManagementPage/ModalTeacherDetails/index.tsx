@@ -2,23 +2,23 @@ import { Col, Modal, Row } from 'reactstrap';
 import className from 'classnames/bind';
 import { IoMdClose } from 'react-icons/io';
 
-import styles from './ModalStudentDetails.module.scss';
+import styles from './ModalTeacherDetails.module.scss';
 import AvatarImage from '@/assets/images/avatar-test.jpg';
 
 type ModalStudentDetailsProps = {
-  studentId: string;
+  teacherId: string;
   isOpen: boolean;
   toggleModal: () => void;
 };
 
 const cx = className.bind(styles);
 
-const ModalStudentDetails = ({
-  studentId,
+const ModalTeacherDetails = ({
+  teacherId,
   isOpen,
   toggleModal
 }: ModalStudentDetailsProps) => {
-  studentId;
+  teacherId;
   return (
     <>
       <Modal
@@ -26,7 +26,7 @@ const ModalStudentDetails = ({
         className={cx('modal-wrapper')}
         size='lg'
       >
-        <h2 className={cx('text-uppercase', 'title', 'modal-student-title')}>
+        <h2 className={cx('text-uppercase', 'title', 'modal-teacher-title')}>
           Thông tin chi tiết học sinh
         </h2>
 
@@ -45,9 +45,9 @@ const ModalStudentDetails = ({
         <div className={cx('modal-content')}>
           <div className={cx('line-break')}></div>
 
-          <div className={cx('content-student-wrapper')}>
-            <div className={cx('content-student')}>
-              <h3 className={cx('title', 'student-name')}>Nguyễn Văn A</h3>
+          <div className={cx('content-teacher-wrapper')}>
+            <div className={cx('content-teacher')}>
+              <h3 className={cx('title', 'teacher-name')}>Nguyễn Văn A</h3>
 
               <Row className='mb-3'>
                 <Col
@@ -57,26 +57,16 @@ const ModalStudentDetails = ({
                   <img
                     src={AvatarImage}
                     alt='avatar'
-                    className={cx('student-avatar')}
+                    className={cx('teacher-avatar')}
                   />
                 </Col>
 
                 <Col
                   md={6}
-                  className={cx('student-details')}
+                  className={cx('teacher-details')}
                 >
                   <p>
-                    <span>Mã định danh: </span>
-                    HS0001
-                  </p>
-
-                  <p>
-                    <span>GVCN: </span>
-                    Nguyễn Văn C
-                  </p>
-
-                  <p>
-                    <span>Lớp: </span>
+                    <span>Chủ nhiệm lớp </span>
                     8A1
                   </p>
 
@@ -126,4 +116,4 @@ const ModalStudentDetails = ({
   );
 };
 
-export default ModalStudentDetails;
+export default ModalTeacherDetails;

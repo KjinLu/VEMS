@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.modal-student-title {
+.modal-teacher-title {
   position: absolute;
   top: 13px;
   left: 12px;
@@ -37,11 +37,11 @@
   background: linear-gradient(135deg, #b9d1e9, #1976d2);
 }
 
-.content-file-upload-wrapper {
+.content-teacher-wrapper {
   padding: 30px;
 }
 
-.content-file-upload {
+.content-teacher {
   border-radius: 5px;
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.3),
@@ -49,8 +49,9 @@
   padding: 20px 18px;
 }
 
-.upload-file-title {
+.teacher-name {
   position: relative;
+  margin-bottom: 38px;
 
   &::before {
     content: '';
@@ -65,14 +66,23 @@
   }
 }
 
-.upload-file-btn {
-  background-color: #56b1da;
-  color: #fff;
-  cursor: pointer;
-  padding: 8px 20px;
+.teacher-avatar {
   border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 180px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.2);
 }
 
-input[type='file'] {
-  display: none;
+.teacher-details {
+  font-size: 18px;
+
+  p {
+    text-align: left;
+  }
+
+  span {
+    font-weight: 600;
+  }
 }

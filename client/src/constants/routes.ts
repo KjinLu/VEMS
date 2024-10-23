@@ -8,9 +8,12 @@ export const configRoutes = {
   search: '/search',
   login: '/login',
   signUp: '/signUp',
+
+  // Web management
   ScheduleManagementPage: '/schedule-management',
   StudentManagementPage: '/student-management',
-  TeacherManagementPage: '/teacher-management'
+  TeacherManagementPage: '/teacher-management',
+  ClassManagementPage: '/class-management'
 };
 
 export const configError = {

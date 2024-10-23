@@ -10,14 +10,17 @@ import StudentSchedule from '@/pages/StudentSchedule';
 import Login from '@/pages/Login';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
-import ScheduleManagementPage from '@/pages/WebManagement/ScheduleManagementPage';
 import NotFound from '@/pages/Error/NotFound';
 import Authorize from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
 import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
+
+// Web management
+import ScheduleManagementPage from '@/pages/WebManagement/ScheduleManagementPage';
 import StudentManagementPage from '@/pages/WebManagement/StudentManagementPage';
 import TeacherManagementPage from '@/pages/WebManagement/TeacherManagementPage';
+import ClassManagementPage from '@/pages/WebManagement/ClassManagementPage';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -34,6 +37,11 @@ const publicRoutes: PublicRoute[] = [
   {
     path: configRoutes.TeacherManagementPage,
     component: TeacherManagementPage,
+    layout: DefaultLayout
+  },
+  {
+    path: configRoutes.ClassManagementPage,
+    component: ClassManagementPage,
     layout: DefaultLayout
   },
   {

@@ -50,6 +50,7 @@ const StudentManagementPage = () => {
     { id: '3', avatar: 'Lê Văn C', name: 'Nguyễn Văn C', code: 'HS0003' }
   ];
 
+  // Show student detail
   const handleShowStudentDetail = (item: StudentIndex) => {
     setStudentId(item.id);
     setIsOpenStudentDetail(true);
@@ -84,7 +85,7 @@ const StudentManagementPage = () => {
 
         <Col md={6}>
           <div className={cx('card')}>
-            <h2 className={cx('title', 'mb-3')}>Số lượng học sinh của trường</h2>
+            <h2 className={cx('title', 'mb-3')}>Số lượng học sinh</h2>
 
             <div className={cx('d-flex justify-content-between mb-4')}>
               <VemsButtonCus
@@ -359,34 +360,31 @@ const StudentManagementPage = () => {
 
       {/* Student List */}
       <div className={cx('card')}>
-        {/* Lists  */}
-        <div className={styles.tableContainer}>
-          {/* Student title  */}
-          <Col
-            md={12}
-            className={cx('d-flex justify-content-center')}
-          >
-            <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
-              Danh sách học sinh lớp 8A1
-            </h1>
-          </Col>
+        {/* Student title  */}
+        <Col
+          md={12}
+          className={cx('d-flex justify-content-center')}
+        >
+          <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
+            Danh sách học sinh lớp 8A1
+          </h1>
+        </Col>
 
-          <DataTable
-            data={students}
-            columns={studentColumn}
-            striped={true}
-            highlightOnHover={true}
-            persistTableHead
-            pagination
-            paginationComponentOptions={{
-              rowsPerPageText: 'Số dòng trên trang'
-            }}
-            paginationServer
-            onRowClicked={item => handleShowStudentDetail(item)}
-            noDataComponent={<NoRecord />}
-            progressComponent={<VemLoader />}
-          />
-        </div>
+        <DataTable
+          data={students}
+          columns={studentColumn}
+          striped={true}
+          highlightOnHover={true}
+          persistTableHead
+          pagination
+          paginationComponentOptions={{
+            rowsPerPageText: 'Số dòng trên trang'
+          }}
+          paginationServer
+          onRowClicked={item => handleShowStudentDetail(item)}
+          noDataComponent={<NoRecord />}
+          progressComponent={<VemLoader />}
+        />
       </div>
 
       <ModalStudentDetails
