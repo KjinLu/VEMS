@@ -1,4 +1,5 @@
-//@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap');
 
 @import '../../../node_modules/bootstrap-scss/bootstrap.scss';
 
@@ -6,9 +7,7 @@
   --primary: #fe2c55;
   --black: #000;
   --white: #fff;
-  --text-color: #161823;
-
-  --font-family: 'IBM Plex Sans', sans-serif;
+  --text-color: #808b8d;
 
   // Default layout
   --default-layout-header-height: 60px;
@@ -25,87 +24,80 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter' sans-serif;
+  font-family: 'Heebo', sans-serif !important;
 }
-
-.custom-components {
-  font-size: 62.5% !important;
-}
-
-// body {
-//   font-weight: 500;
-//   font-size: 1.6rem;
-//   line-height: 1.6;
-// }
 
 a {
   text-decoration: none;
 }
 
-// * {
-//   box-sizing: border-box;
-// }
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
 
-// body {
-//   font-family: var(--font-family);
-//   font-size: 1.6rem;
-//   line-height: 1.5;
-//   text-rendering: optimizeSpeed;
-//   // overflow-y: overlay;
-// }
+// Font
+.font-Nunito {
+  font-family: 'Nunito', sans-serif !important;
+}
 
-// // Scrollbar CSS
+// Title
+.title {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 22px;
+  font-weight: 700;
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
 
-// html *::-webkit-scrollbar {
-//   border-radius: 0px;
-//   width: 8px;
-// }
+// Text
+.text {
+  color: var(--text-color);
+  font-size: 16px;
+  line-height: 16px;
+}
 
-// html *::-webkit-scrollbar-thumb {
-//   border-radius: 4px;
-//   background-color: rgba(0, 0, 0, 0.15);
-// }
+// Button
+.btn-secondary {
+  --bs-btn-border-color: none !important;
+  --bs-btn-bg: #56b1da !important;
+  --bs-btn-hover-bg: #7fbeda !important;
+}
 
-// html *::-webkit-scrollbar-track {
-//   border-radius: 0px;
-//   background-color: rgba(0, 0, 0, 0);
-// }
+.filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2197cd !important;
+  border-color: #2197cd !important;
+  min-width: 150px;
+  height: 35px;
+  font-size: 16px !important;
+  border-radius: 7px;
 
-// button,
-// input,
-// [tabindex] {
-//   outline: none;
-//   border: none;
-// }
+  &:hover {
+    opacity: 0.8;
+  }
+}
 
-// a {
-//   color: var(--text-color);
-// }
+// Modal
+.modal.show .modal-dialog {
+  box-shadow: 0 8px 16px 8px rgb(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
 
-// Fonts embedded
+.modal-dialog {
+  margin-top: 100px !important;
+}
 
-// Custom tippy tooltip
-// body {
-//   .tippy-box {
-//     border-radius: 8px;
-//     font-weight: 600;
-//     line-height: 2.2rem;
-//     font-size: 1.6rem;
-//     background-color: rgba(84, 84, 84, 0.92);
-//   }
-
-//   .tippy-arrow {
-//     color: rgba(84, 84, 84, 0.92);
-//   }
-
-//   .tippy-content {
-//     padding: 8px 9px;
-//   }
-
-//   .tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
-//     top: -8px;
-//   }
-// }
+.modal-body {
+  padding: 0 !important;
+}
 
 // Utility classes
 

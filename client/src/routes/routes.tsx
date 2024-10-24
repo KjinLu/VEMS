@@ -6,29 +6,44 @@ import AuthLayout from '@/layouts/AuthLayout';
 
 import Home from '@/pages/Home';
 import Profile from '@/pages/Profile';
-import Upload from '@/pages/Upload';
 import StudentSchedule from '@/pages/StudentSchedule';
-import Search from '@/pages/Search';
 import Login from '@/pages/Login';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
-import AdminManagementPage from '@/pages/AdminManagement';
 import NotFound from '@/pages/Error/NotFound';
-import Authorise from '@/pages/Error/Authorize';
+import Authorize from '@/pages/Error/Authorize';
 import Network from '@/pages/Error/Network';
 import StudentAttendanceReportPage from '@/pages/StudentAttendanceReport';
 import StudentTakeAttendanceSchedulePage from '@/pages/StudentAttendanceSchedule';
 import StudentTakeAttendancePage from '@/pages/StudentTakeAttendance';
 import StudentUpdateAttendancePage from '@/pages/StudentUpdateAttendance';
 
+// Web management
+import ScheduleManagementPage from '@/pages/WebManagement/ScheduleManagementPage';
+import StudentManagementPage from '@/pages/WebManagement/StudentManagementPage';
+import TeacherManagementPage from '@/pages/WebManagement/TeacherManagementPage';
+import ClassManagementPage from '@/pages/WebManagement/ClassManagementPage';
+
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
-  // { path: configRoutes.signUp, component: SignUp, layout: AuthLayout },
-  // { path: configRoutes.home, component: Home, layout: DefaultLayout },
-  { path: configRoutes.search, component: Search, layout: DefaultLayout },
   {
-    path: configRoutes.AdminManagementPage,
-    component: AdminManagementPage,
+    path: configRoutes.ScheduleManagementPage,
+    component: ScheduleManagementPage,
+    layout: DefaultLayout
+  },
+  {
+    path: configRoutes.StudentManagementPage,
+    component: StudentManagementPage,
+    layout: DefaultLayout
+  },
+  {
+    path: configRoutes.TeacherManagementPage,
+    component: TeacherManagementPage,
+    layout: DefaultLayout
+  },
+  {
+    path: configRoutes.ClassManagementPage,
+    component: ClassManagementPage,
     layout: DefaultLayout
   },
   {
@@ -37,7 +52,7 @@ const publicRoutes: PublicRoute[] = [
   },
   {
     path: configError.UnAuthorize,
-    component: Authorise
+    component: Authorize
   },
   {
     path: configError.Network,
@@ -56,13 +71,6 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.profile,
     component: Profile,
-    allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
-    isAuthenticated: true
-  },
-  {
-    path: configRoutes.upload,
-    component: Upload,
-    layout: HeaderOnly,
     allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
     isAuthenticated: true
   },
