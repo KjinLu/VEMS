@@ -107,17 +107,15 @@ namespace BusinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AttendanceId")
+                    b.Property<Guid?>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("StudentId")
+                    b.Property<Guid?>("AttendanceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AttendanceId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("AttendanceCharges");
                 });
@@ -922,11 +920,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = new Guid("824d73e2-0991-492e-bd67-b075b56d3459"),
-=======
-                            Id = new Guid("04f7b101-810f-4396-b79e-73aceb8c86b9"),
->>>>>>> fb1bf98c95f045ade52e631f408a80be2538c0d3
+                            Id = new Guid("5315a87f-94bc-482a-98ce-15c6b293bdaa"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -945,11 +939,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<< HEAD
-                            Id = new Guid("3e8c4051-9a13-4b09-aff9-f37bea12005a"),
-=======
-                            Id = new Guid("89521e3b-c382-491f-8f50-283f87a6ad74"),
->>>>>>> fb1bf98c95f045ade52e631f408a80be2538c0d3
+                            Id = new Guid("c5162d54-a931-447c-97a0-950dbc81715c"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -968,7 +958,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("540734c7-b1a5-40d9-88a8-15fcdb6d1b27"),
+                            Id = new Guid("e11bb566-b164-4c86-a428-9458c0e008b2"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -987,7 +977,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d93e3cc4-48e7-4b8d-85cd-ff4724831e43"),
+                            Id = new Guid("fa0b890d-613f-4f08-8c31-019ea0f3c4f4"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1006,7 +996,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d0237e2d-bad9-449a-97f1-2d5b15cc009d"),
+                            Id = new Guid("9c34ee7c-8698-49d8-adcb-5643abc9c18b"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1025,7 +1015,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8fa2f4f1-2e09-47a6-9167-dde6546c4684"),
+                            Id = new Guid("f281b8c4-edbb-4389-994d-b70941bb3b28"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1044,7 +1034,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("602f609f-4a35-4e5d-8dba-9afca930ee12"),
+                            Id = new Guid("9de590ce-e2d6-4ffe-8b33-06a1586521c4"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1063,7 +1053,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("88eb4558-8fdb-4e69-b1b5-78dfc462201d"),
+                            Id = new Guid("1c7305c1-f1f9-48be-b71a-8f42063f5801"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1082,7 +1072,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e8a590eb-521d-48a1-97e9-83e927198acb"),
+                            Id = new Guid("e8080fae-2152-4db3-a901-3afefa95735f"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1101,7 +1091,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("df74138c-11d0-4d67-ad0d-7d8f0196183b"),
+                            Id = new Guid("7184f787-d758-4811-bced-fea5a8e757af"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1517,14 +1507,7 @@ namespace BusinessObject.Migrations
                         .HasForeignKey("AttendanceId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BusinessObject.Student", "Student")
-                        .WithMany("AttendanceCharges")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.Navigation("Attendance");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("BusinessObject.AttendanceStatus", b =>
@@ -1813,8 +1796,6 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.Student", b =>
                 {
-                    b.Navigation("AttendanceCharges");
-
                     b.Navigation("AttendanceStatuses");
 
                     b.Navigation("ExtraActivitiesAttendances");

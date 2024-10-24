@@ -126,12 +126,6 @@ namespace BusinessObject
          .HasForeignKey(a => a.ScheduleDetailId);
 
       modelBuilder.Entity<AttendanceCharge>()
-        .HasOne(a => a.Student)
-        .WithMany(r => r.AttendanceCharges)
-        .HasForeignKey(a => a.StudentId)
-        .OnDelete(DeleteBehavior.Cascade);
-
-      modelBuilder.Entity<AttendanceCharge>()
         .HasOne(a => a.Attendance)
         .WithMany(r => r.AttendanceCharges)
         .HasForeignKey(a => a.AttendanceId)
