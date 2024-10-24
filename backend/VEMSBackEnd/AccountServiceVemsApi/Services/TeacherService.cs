@@ -12,9 +12,11 @@ using DataAccess.Repository;
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
-    }
 
-    public class TeacherService : ITeacherService
+        Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID);
+}
+
+public class TeacherService : ITeacherService
     {
 
         private readonly IAccountRepository _accountRepository;
@@ -61,5 +63,9 @@ using DataAccess.Repository;
             return await _accountRepository.UpdateAvatar(request.AccountID, "");
         }
 
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID)
+        {
+            return await _accountRepository.GetTeacherProfileByIdAsync(accountID);
+        }
     }
 

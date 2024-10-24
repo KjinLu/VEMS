@@ -799,5 +799,40 @@ namespace DataAccess.DAO
             }
         }
 
+        // Lấy teacher theo Id
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid id)
+        {
+            try
+            {
+                var _context = new VemsContext();
+                var teacherResponse = await (from teacher in _context.Teacher
+                                             join classroom in _context.Classrooms on teacher.ClassroomId equals classroom.Id into classLeftJoin
+                                             from classroom in classLeftJoin.DefaultIfEmpty()
+                                             join teacherType in _context.TeacherTypes on teacher.TeacherTypeId equals teacherType.Id
+                                             where teacher.Id == id
+                                             select new TeacherResponse
+                                             {
+                                                 Id = teacher.Id,
+                                                 PublicTeacherID = teacher.PublicTeacherID,
+                                                 FullName = teacher.FullName,
+                                                 CitizenID = teacher.CitizenID,
+                                                 Username = teacher.Username,
+                                                 Password = teacher.Password,
+                                                 Email = teacher.Email,
+                                                 Dob = teacher.Dob,
+                                                 Address = teacher.Address,
+                                                 Image = teacher.Image,
+                                                 Phone = teacher.Phone,
+                                                 TeacherTypeName = teacherType.TypeName,
+                                                 ClassRoom = classroom.ClassName
+                                             }).AsNoTracking().FirstOrDefaultAsync().ConfigureAwait(false);
+
+                return teacherResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy học sinh theo Id: {ex.Message}", ex);
+            }
+        }
     }
 }
