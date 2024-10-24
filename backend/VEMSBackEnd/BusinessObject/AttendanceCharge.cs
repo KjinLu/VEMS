@@ -19,9 +19,6 @@ namespace BusinessObject
         [ForeignKey("AttendanceId")]
         public Attendance Attendance { get; set; }
 
-        public Guid? StudentId { get; set; }
-
-        [ForeignKey("StudentId")]
-        public Student Student { get; set; }
+        public Guid? AccountId { get; set; }
     }
 }

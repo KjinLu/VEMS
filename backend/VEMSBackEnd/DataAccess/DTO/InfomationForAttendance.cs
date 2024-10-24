@@ -14,6 +14,7 @@ namespace DataAccess.DTO
         public Guid ScheduleDetailID { get; set; }
         public string ClassName { get; set; }
         public string PeriodName { get; set; }
+        public Guid PeriodID { get; set; }
         public int DayOfWeek { get; set; }
         public bool IsAttendance  { get; set; }
 
