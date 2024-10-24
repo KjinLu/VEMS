@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Button, ButtonProps } from 'reactstrap';
 import classNames from 'classnames/bind';
 
-import VemLoader from '../../../components/VemLoader';
+import VemLoader from '../../VemsLoader';
 import styles from './VemButton.module.scss';
 
 interface VemButtonProps extends ButtonProps {

@@ -21,7 +21,7 @@ import ModalUploadTeacher from './ModalUploadTeacherList';
 import VemsInputCus from '@/components/VemsInputCustom';
 import VemFragment from '@/components/VemFragment';
 import NoRecord from '@/components/NoRecord';
-import VemLoader from '@/components/VemLoader';
+import VemLoader from '@/components/VemsLoader';
 import { teacherColumn } from './data-table-column';
 import { TeacherIndex } from './type';
 import ModalTeacherDetails from './ModalTeacherDetails';
@@ -101,7 +101,7 @@ const TeacherManagementPage = () => {
             <img
               className={cx('teacher-image')}
               src={TeacherImage}
-              alt='Mô tả ảnh'
+              alt='teacher-management'
               width='200'
             />
           </div>
@@ -138,7 +138,7 @@ const TeacherManagementPage = () => {
             >
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: '#e0f7fa' }}
                 >
                   <IoPeople
@@ -156,7 +156,7 @@ const TeacherManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgb(209 197 200 / 69%)' }}
                 >
                   <FaRegFaceFrownOpen

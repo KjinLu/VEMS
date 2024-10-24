@@ -27,7 +27,7 @@ const ModalTeacherDetails = ({
         size='lg'
       >
         <h2 className={cx('text-uppercase', 'title', 'modal-teacher-title')}>
-          Thông tin chi tiết học sinh
+          Thông tin chi tiết giáo viên
         </h2>
 
         {/* Icon close */}

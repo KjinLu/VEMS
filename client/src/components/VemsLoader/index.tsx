@@ -8,7 +8,7 @@ type VemLoaderProps = {
   useFor?: 'loginButton' | 'component' | 'form';
 };
 
-const VemLoader = (props: VemLoaderProps) => {
+const VemsLoader = (props: VemLoaderProps) => {
   return props.useFor === 'form' ? (
     <div className={cx('loading-overlay')}>
       <div
@@ -26,4 +26,4 @@ const VemLoader = (props: VemLoaderProps) => {
     </div>
   );
 };
-export default VemLoader;
+export default VemsLoader;
