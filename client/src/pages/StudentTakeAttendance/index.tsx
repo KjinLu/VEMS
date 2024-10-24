@@ -16,6 +16,7 @@ import {
 } from '@/services/attendance';
 import { UUID } from 'crypto';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const cx = classNames.bind(style);
 
@@ -40,9 +41,9 @@ const StudentTakeAttendancePage = () => {
   const userInfo = useSelector((state: RootState) => state);
   const { scheduleDetailID, time, periodID, className, periodName } =
     location.state || {};
-  console.log(periodName);
   const [attendance, setAttendance] = useState<any>({});
   const [takeAttendance] = useTakeAttendanceForClassMutation();
+  const [form] = useForm();
 
   const handleSubmit = async (values: any) => {
     const attendanceDataRequest: AttendanceData = {

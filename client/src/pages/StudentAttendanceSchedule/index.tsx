@@ -6,7 +6,6 @@ import { UUID } from 'crypto';
 import { useEffect, useState } from 'react';
 import { attendanceScheduleColumn } from './table-column';
 import { AttendanceSchedule, AttendanceScheduleWithIndex } from './type';
-import { console } from 'node:inspector/promises';
 import { useNavigate } from 'react-router-dom';
 import { useGetAttendanceScheduleOfClassQuery } from '@/services/attendance';
 
