@@ -27,26 +27,6 @@ import ClassManagementPage from '@/pages/WebManagement/ClassManagementPage';
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
   {
-    path: configRoutes.ScheduleManagementPage,
-    component: ScheduleManagementPage,
-    layout: DefaultLayout
-  },
-  {
-    path: configRoutes.StudentManagementPage,
-    component: StudentManagementPage,
-    layout: DefaultLayout
-  },
-  {
-    path: configRoutes.TeacherManagementPage,
-    component: TeacherManagementPage,
-    layout: DefaultLayout
-  },
-  {
-    path: configRoutes.ClassManagementPage,
-    component: ClassManagementPage,
-    layout: DefaultLayout
-  },
-  {
     path: configError.NotFound,
     component: NotFound
   },
@@ -71,6 +51,7 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.profile,
     component: Profile,
+    layout: DefaultLayout,
     allowedRoles: ['ADMIN', 'TEACHER', 'STUDENT'],
     isAuthenticated: true
   },
@@ -78,35 +59,63 @@ const privateRoutes: PrivateRoute[] = [
     path: configRoutes.studentSchedule,
     component: StudentSchedule,
     layout: DefaultLayout,
-    allowedRoles: ['ADMIN', 'STUDENT'],
+    allowedRoles: ['STUDENT'],
     isAuthenticated: true
   },
   {
     path: configRoutes.studentAttendanceSchedule,
     component: StudentTakeAttendanceSchedulePage,
     layout: DefaultLayout,
-    allowedRoles: ['ADMIN', 'STUDENT'],
+    allowedRoles: ['STUDENT'],
     isAuthenticated: true
   },
   {
     path: configRoutes.studentTakeAttendance,
     component: StudentTakeAttendancePage,
     layout: DefaultLayout,
-    allowedRoles: ['ADMIN', 'STUDENT'],
+    allowedRoles: ['STUDENT'],
     isAuthenticated: true
   },
   {
     path: configRoutes.studentEditAttendance,
     component: StudentUpdateAttendancePage,
     layout: DefaultLayout,
-    allowedRoles: ['ADMIN', 'STUDENT'],
+    allowedRoles: ['STUDENT'],
     isAuthenticated: true
   },
   {
     path: configRoutes.studentViewAttendance,
     component: StudentAttendanceReportPage,
     layout: DefaultLayout,
-    allowedRoles: ['ADMIN', 'STUDENT'],
+    allowedRoles: ['STUDENT'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.ScheduleManagementPage,
+    component: ScheduleManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.StudentManagementPage,
+    component: StudentManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.TeacherManagementPage,
+    component: TeacherManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.ClassManagementPage,
+    component: ClassManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
     isAuthenticated: true
   }
   // { path: configRoutes.search, component: Search, layout: null, allowedRoles: ['ADMIN'] }

@@ -1,10 +1,11 @@
-import { GridColDef } from '@mui/x-data-grid';
+// import { GridColDef } from '@mui/x-data-grid';
 import { AttendanceScheduleWithIndex } from './type';
 import { convertDayOfWeek, formatDate } from '@/utils/dateFormat';
 import { Chip } from '@mui/material';
 import VemButton from '@/components/VemButton';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
+import { GridColDef } from '@mui/x-data-grid';
 
 export const attendanceScheduleColumn = (
   navigate: any
