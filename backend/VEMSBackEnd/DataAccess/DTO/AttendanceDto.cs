@@ -85,11 +85,12 @@ namespace DataAccess.DTO
 
     public class AttendanceHistoryStudentResponse
     {
+        public Guid AttendanceStatusID { get; set; }    
         public DateTime DateAttendance { get; set; }
         public int DayOfWeek { get; set; }
         public string PeriodName { get; set; }
         public string? StudentCharge { get; set; } = "";
-        public Guid? TeacherCharge { get; set; }
+        public string? TeacherCharge { get; set; }
 
         public string StatusName { get; set; }
         public string? ReasonName { get; set; } = "";

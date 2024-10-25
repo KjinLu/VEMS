@@ -1,9 +1,17 @@
 import VemButton from '@/components/VemButton';
 import VemInput from '@/components/VemInput';
-import { Link, MenuItem, Paper, Select } from '@mui/material';
+import {
+  FormControlLabel,
+  Link,
+  MenuItem,
+  Paper,
+  Radio,
+  RadioGroup,
+  Select
+} from '@mui/material';
 import { Form } from 'antd';
 import classNames from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import style from './StudentTakeAttendance.module.scss';
 import { Col, Row } from 'reactstrap';
 import { convertDayOfWeek, formatDate } from '@/utils/dateFormat';
@@ -15,8 +23,10 @@ import {
   useTakeAttendanceForClassMutation
 } from '@/services/attendance';
 import { UUID } from 'crypto';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { configRoutes } from '@/constants/routes';
 
 const cx = classNames.bind(style);
 
@@ -35,17 +45,29 @@ type AttendanceData = {
   studentInchargeName: string;
   attendanceData: AttendanceRecord[];
 };
-
 const StudentTakeAttendancePage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const userInfo = useSelector((state: RootState) => state);
   const { scheduleDetailID, time, periodID, className, periodName } =
     location.state || {};
   const [attendance, setAttendance] = useState<any>({});
   const [takeAttendance] = useTakeAttendanceForClassMutation();
-  const [form] = useForm();
+  const [createForm] = Form.useForm();
 
   const handleSubmit = async (values: any) => {
+    const defaultAbsentStatusID = attendanceStatus?.find(
+      (item: any) => item.optionName === 'Vắng mặt không phép'
+    )?.optionID;
+
+    const updatedAttendance = { ...attendance };
+
+    studentList?.forEach((student: any) => {
+      if (!updatedAttendance[student.studentID]) {
+        updatedAttendance[student.studentID] = defaultAbsentStatusID;
+      }
+    });
+
     const attendanceDataRequest: AttendanceData = {
       classID: userInfo.auth.classroomID as string,
       time: values.time,
@@ -53,14 +75,28 @@ const StudentTakeAttendancePage = () => {
       scheduleDetailID: scheduleDetailID,
       periodID: periodID,
       studentInChargeID: userInfo.auth.accountID as string,
-      studentInchargeName: userInfo.auth.username as string,
-      attendanceData: Object.keys(attendance).map(studentID => ({
+      studentInchargeName: userInfo.auth.fullName as string,
+      attendanceData: Object.keys(updatedAttendance).map(studentID => ({
         studentID,
-        statusID: attendance[studentID]
+        statusID: updatedAttendance[studentID]
       }))
     };
+    console.log(attendanceDataRequest);
+
     var response = await takeAttendance(attendanceDataRequest).unwrap();
+    if (response) {
+      toast.success('Điểm danh thành công!');
+      navigate(configRoutes.studentAttendanceSchedule);
+    } else {
+      toast.error('Điểm danh thất bại!');
+    }
   };
+
+  useEffect(() => {
+    createForm.setFieldsValue({
+      time: time.split('T')[0]
+    });
+  }, [time, createForm]);
 
   const { data: studentList } = useGetStudentInClassQuery(
     userInfo.auth.classroomID as UUID
@@ -68,10 +104,10 @@ const StudentTakeAttendancePage = () => {
 
   const { data: attendanceStatus } = useGetStatusesQuery(null);
 
-  const handleChange = (id: any, e: any) => {
+  const handleChange = (id: string, status: string) => {
     setAttendance((prev: any) => ({
       ...prev,
-      [id]: e.target.value
+      [id]: status
     }));
   };
 
@@ -85,40 +121,46 @@ const StudentTakeAttendancePage = () => {
           </b>
         </h4>
 
-        <Form onFinish={handleSubmit}>
-          <Form.Item
-            name={'time'}
-            className={cx('mb-2')}
-          >
-            <VemInput
-              id='time'
-              // label='Buổi điểm danh'
-              type='date'
-              placeholder=''
-              value={time}
-              fullWidth
-              // disabled
-              variant='outlined'
-              size='medium'
-              autoComplete='off'
-            />
-          </Form.Item>
-
-          <Form.Item
-            name={'note'}
-            className={cx('mb-3')}
-          >
-            <VemInput
-              id='note'
-              label='Ghi chú'
-              placeholder='Ghi chú điểm danh'
-              // required
-              fullWidth
-              variant='outlined'
-              size='medium'
-              autoComplete='off'
-            />
-          </Form.Item>
+        <Form
+          form={createForm}
+          onFinish={handleSubmit}
+        >
+          <Row className='mt-4'>
+            <Col sm={6}>
+              <Form.Item
+                name={'note'}
+                className={cx('mb-3')}
+              >
+                <VemInput
+                  id='note'
+                  label='Ghi chú'
+                  placeholder='Ghi chú điểm danh'
+                  fullWidth
+                  variant='outlined'
+                  size='medium'
+                  autoComplete='off'
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={6}>
+              <Form.Item
+                name={'time'}
+                className={cx('mb-2 d-none')}
+              >
+                <VemInput
+                  disabled
+                  id='time'
+                  label='Buổi điểm danh'
+                  type='date'
+                  value={time}
+                  fullWidth
+                  variant='outlined'
+                  size='medium'
+                  autoComplete='off'
+                />
+              </Form.Item>
+            </Col>
+          </Row>
 
           <Row className='p-3'>
             <Row className='mb-3'>
@@ -139,6 +181,7 @@ const StudentTakeAttendancePage = () => {
                 <h6> Trạng thái</h6>
               </Col>
             </Row>
+
             {studentList?.map((student: any, index: number) => (
               <Row
                 key={student.studentID}
@@ -148,19 +191,36 @@ const StudentTakeAttendancePage = () => {
                 <Col sm={5}> {student.studentName}</Col>
 
                 <Col sm={5}>
-                  <Select
-                    required
-                    className='w-100'
-                    labelId='demo-simple-select-label'
-                    id='demo-simple-select'
-                    onChange={e => handleChange(student.studentID, e)}
+                  <RadioGroup
+                    aria-label='attendance-status'
+                    value={
+                      attendance[student.studentID] ||
+                      attendanceStatus.find(
+                        (item: any) => item.optionName === 'Vắng mặt không phép'
+                      ).optionID
+                    }
+                    onChange={e => handleChange(student.studentID, e.target.value)}
+                    row
                   >
-                    {attendanceStatus
-                      .filter((i: any) => i.optionName !== 'Chưa điểm danh')
-                      .map((item: any) => (
-                        <MenuItem value={item.optionID}>{item.optionName}</MenuItem>
-                      ))}
-                  </Select>
+                    <FormControlLabel
+                      className='me-5'
+                      value={
+                        attendanceStatus.find(
+                          (item: any) => item.optionName === 'Vắng mặt không phép'
+                        ).optionID
+                      }
+                      control={<Radio />}
+                      label='Vắng mặt'
+                    />
+                    <FormControlLabel
+                      value={
+                        attendanceStatus.find((item: any) => item.optionName === 'Có mặt')
+                          .optionID
+                      }
+                      control={<Radio />}
+                      label='Có mặt'
+                    />
+                  </RadioGroup>
                 </Col>
               </Row>
             ))}
@@ -168,7 +228,6 @@ const StudentTakeAttendancePage = () => {
 
           <VemButton
             className={cx('mt-2 mb-3')}
-            // loading={isLoading}
             status={'loading'}
             type={'submit'}
             children={'Điểm danh'}
@@ -182,3 +241,29 @@ const StudentTakeAttendancePage = () => {
 };
 
 export default StudentTakeAttendancePage;
+
+// {
+//   studentList?.map((student: any, index: number) => (
+//     <Row
+//       key={student.studentID}
+//       className='mt-2 py-2'
+//     >
+//       <Col sm={2}> {index + 1}</Col>
+//       <Col sm={5}> {student.studentName}</Col>
+
+//       <Col sm={5}>
+//         <Select
+//           required
+//           className='w-100'
+//           labelId='demo-simple-select-label'
+//           id='demo-simple-select'
+//           onChange={e => handleChange(student.studentID, e)}
+//         >
+//           {attendanceStatus.map((item: any) => (
+//             <MenuItem value={item.optionID}>{item.optionName}</MenuItem>
+//           ))}
+//         </Select>
+//       </Col>
+//     </Row>
+//   ));
+// }

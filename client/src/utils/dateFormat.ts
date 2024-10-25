@@ -12,3 +12,14 @@ export function convertDayOfWeek(dayOfWeek: number): string {
 
   return daysOfWeek[dayOfWeek - 1] || 'Không hợp lệ';
 }
+
+export const isAttendanceDateInThePast = (attendanceDate: string | Date): boolean => {
+  const currentDate = new Date();
+  const attendanceTime = new Date(attendanceDate);
+
+  // So sánh chỉ ngày, bỏ qua giờ, phút, giây
+  currentDate.setHours(0, 0, 0, 0);
+  attendanceTime.setHours(0, 0, 0, 0);
+
+  return attendanceTime <= currentDate;
+};

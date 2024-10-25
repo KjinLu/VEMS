@@ -1,6 +1,10 @@
 // import { GridColDef } from '@mui/x-data-grid';
 import { AttendanceScheduleWithIndex } from './type';
-import { convertDayOfWeek, formatDate } from '@/utils/dateFormat';
+import {
+  convertDayOfWeek,
+  formatDate,
+  isAttendanceDateInThePast
+} from '@/utils/dateFormat';
 import { Chip } from '@mui/material';
 import VemButton from '@/components/VemButton';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -16,7 +20,7 @@ export const attendanceScheduleColumn = (
     width: 70,
     filterable: false,
     hideable: false,
-    align: 'center'
+    align: 'left'
   },
   {
     field: 'periodName',
@@ -68,7 +72,7 @@ export const attendanceScheduleColumn = (
     field: 'actions',
     headerName: 'Thao tác',
     sortable: false,
-    width: 160,
+    width: 260,
     filterable: false,
     hideable: false,
     renderCell: (params: any) =>
@@ -78,7 +82,8 @@ export const attendanceScheduleColumn = (
           size='small'
           type='button'
           color='warning'
-          variant='contained'
+          variant='outlined'
+          disabled={!isAttendanceDateInThePast(params.row.attendanceTime)}
           startIcon={<EditIcon />}
           onClick={() => {
             // navigate('/student/attendance/' + params.row.scheduleDetailID);
@@ -98,7 +103,9 @@ export const attendanceScheduleColumn = (
           size='small'
           type='button'
           color='primary'
+          variant='outlined'
           startIcon={<CheckCircleOutlineIcon />}
+          disabled={!isAttendanceDateInThePast(params.row.attendanceTime)}
           onClick={() => {
             // navigate('/student/attendance/' + params.row.scheduleDetailID);
             navigate('/student/attendance/take', {
@@ -111,7 +118,6 @@ export const attendanceScheduleColumn = (
               }
             });
           }}
-          variant='contained'
           children={'Điểm danh'}
         />
       )

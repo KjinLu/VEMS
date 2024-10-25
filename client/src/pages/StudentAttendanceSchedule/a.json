@@ -1,0 +1,17 @@
+{
+  "attendanceID": "a3653f2f-fb6a-40c8-84ce-08dcf4e23236",
+  "time": "2024-10-24T00:00:00",
+  "note": "Ok",
+  "updateBy": "Lê Minh C",
+  "updateAt": "2024-10-25T10:49:45.335Z",
+  "createAt": "2024-10-25T17:45:52.2449569",
+  "createBy": "MCU101",
+  "attendanceData": [
+    {
+      "attendanceStatusID": "caace9c5-f100-4a1f-6783-08dcf4e2323f",
+      "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
+      "teacherID": "A1B2C3D4-5E6F-7A8B-9C0D-1E2F3A4B5C6D",
+      "reasonID": "17FEA884-62F6-4686-B2AE-2A18AE4B2B82"
+    }
+  ]
+}

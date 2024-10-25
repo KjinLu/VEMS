@@ -1,5 +1,4 @@
 import { configError, configRoutes } from '@/constants/routes';
-
 //Layout
 import HeaderOnly from '@/layouts/HeaderOnly';
 import AuthLayout from '@/layouts/AuthLayout';

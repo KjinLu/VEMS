@@ -31,7 +31,7 @@ const ProtectedRoutes = ({ isAuthenticated, allowedRoles }: PrivateRouteProps) =
           <Route
             key={'ADMIN'}
             path={pathName}
-            element={<Navigate to={configRoutes.AdminManagementPage} />}
+            element={<Navigate to={configRoutes.TeacherManagementPage} />}
           />
         ) : allowedRoles.includes('TEACHER') ? (
           <Route

@@ -297,12 +297,16 @@ namespace DataAccess.DAO
                                                            join periods in context.Periods on sessions.PeriodID equals periods.Id
                                                            join attendanceStatus in context.AttendanceStatuses on attendance.Id equals attendanceStatus.AttendanceId
                                                            join status in context.Statuses on attendanceStatus.StatusId equals status.Id
+                                                           join teacher in context.Teacher on attendanceStatus.TeacherId equals teacher.Id into teacherLeftJoin
+                                                           from teacher in teacherLeftJoin.DefaultIfEmpty()
                                                            join reason in context.Reasons on attendanceStatus.ReasonId equals reason.Id into reasonsLeftJoin
                                                            from reason in reasonsLeftJoin.DefaultIfEmpty()
                                                            join student in context.Students on attendanceStatus.StudentId equals student.Id
                                                            where attendanceStatus.StudentId == id
+                                                           orderby attendance.TimeReport descending
                                                            select new AttendanceHistoryStudentResponse
                                                            {
+                                                               AttendanceStatusID= attendanceStatus.Id,
                                                                DateAttendance = attendance.TimeReport,
                                                                DayOfWeek = sessions.DayOfWeek,
                                                                PeriodName = periods.PeriodName,
@@ -310,7 +314,7 @@ namespace DataAccess.DAO
                                                                ReasonName = reason.ReasonName,
                                                                Description = attendanceStatus.Description,
                                                                StudentCharge = attendanceStatus.UpdateBy == null ? attendanceStatus.CreateBy : attendanceStatus.UpdateBy,
-                                                               TeacherCharge = attendanceStatus.TeacherId
+                                                               TeacherCharge = teacher.FullName
                                                            }).AsNoTracking().ToListAsync().ConfigureAwait(false);
                     if (attendanceHistoryResponse == null)
                     {

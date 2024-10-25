@@ -2,7 +2,7 @@ import className from 'classnames/bind';
 import styles from './StudentSchedule.module.scss';
 import { useEffect, useState } from 'react';
 import { useGetClassScheduleQuery, useGetScheduleDetailQuery } from '@/services/schedule';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { Calendar, momentLocalizer, View, Views } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Col, Row } from 'reactstrap';
@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { UUID } from 'crypto';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/libs/state/store';
+import { Paper } from '@mui/material';
+import { formatDate } from '@/utils/dateFormat';
 
 const localizer = momentLocalizer(moment);
 const cx = className.bind(styles);
@@ -52,29 +54,27 @@ const StudentSchedulePage = () => {
   const [scheduleDetails, setScheduleDetail] = useState<any>();
   const [weeklyTimeTable, setWeeklyTimeTable] = useState<DayInSchedule[]>([]);
   const userClassInfo = useSelector((state: RootState) => state.auth.classroomID);
+  const [currentMonday, setCurrentMonday] = useState(getMonday(new Date()));
 
-  const someDate = new Date();
-  const monday = getMonday(someDate);
-
-  // const { data: classScheduleDetails } = useGetScheduleDetailQuery(getScheduleDetailId());
-
-  // Call the class schedule query when classroomID is available
+  // Gọi query khi classroomID có giá trị
   const { data: classSchedule, isLoading: isClassScheduleLoading } =
     useGetClassScheduleQuery(userClassInfo as UUID, {
-      skip: !userClassInfo // Skip the query until classroomID is available
+      skip: !userClassInfo
     });
 
   useEffect(() => {
     if (classSchedule && classSchedule.length > 0) {
       setClassScheduleID(classSchedule[0].id);
     }
-  }, [classSchedule]); // Run when classSchedule is updated
+  }, [classSchedule]);
 
-  // Call the schedule detail query when classScheduleID is available
-  const { data: classScheduleDetails, isLoading: isScheduleDetailLoading } =
-    useGetScheduleDetailQuery(classScheduleID!, {
-      skip: !classScheduleID // Skip the query until classScheduleID is available
-    });
+  const {
+    data: classScheduleDetails,
+    isLoading: isScheduleDetailLoading,
+    refetch: refetchSchedule
+  } = useGetScheduleDetailQuery(classScheduleID!, {
+    skip: !classScheduleID
+  });
 
   useEffect(() => {
     if (classScheduleDetails) {
@@ -84,48 +84,65 @@ const StudentSchedulePage = () => {
 
   useEffect(() => {
     if (scheduleDetails) {
-      const currentMonday = getMonday(new Date());
+      // Tạo lịch cho tuần dựa trên currentMonday
+      const generateWeeklyTimeTable = () => {
+        const monday = new Date(currentMonday);
 
-      // Nhóm các session theo dayOfWeek
-      const groupedByDay = scheduleDetails.sessions.reduce((acc: any, item: any) => {
-        if (!acc[item.dayOfWeek]) {
-          acc[item.dayOfWeek] = [];
-        }
-        acc[item.dayOfWeek].push(item);
-        return acc;
-      }, {});
+        // Nhóm các session theo dayOfWeek
+        const groupedByDay = scheduleDetails.sessions.reduce((acc: any, item: any) => {
+          if (!acc[item.dayOfWeek]) {
+            acc[item.dayOfWeek] = [];
+          }
+          acc[item.dayOfWeek].push(item);
+          return acc;
+        }, {});
 
-      // Tạo mảng DayInSchedule[] và làm phẳng
-      const timeTb: DayInSchedule[] = Object.keys(groupedByDay).flatMap(dayOfWeek => {
-        const sessionsForDay = groupedByDay[dayOfWeek];
+        // Tạo mảng DayInSchedule[]
+        const timeTb: DayInSchedule[] = Object.keys(groupedByDay).flatMap(dayOfWeek => {
+          const sessionsForDay = groupedByDay[dayOfWeek];
+          const dayDate = new Date(monday);
+          dayDate.setDate(monday.getDate() + parseInt(dayOfWeek) - 1); // Điều chỉnh ngày cho từng ngày trong tuần
 
-        // Lặp qua từng session và slot, trả về các đối tượng DayInSchedule
-        const res = sessionsForDay.flatMap((session: any) => {
-          return session.slotDetails.map((slot: any) => {
-            const item: DayInSchedule = {
+          // Lặp qua từng session và slot, trả về các đối tượng DayInSchedule
+          return sessionsForDay.flatMap((session: any) => {
+            return session.slotDetails.map((slot: any) => ({
               title: slot.subjectName,
-              start: combineDateAndTime(currentMonday.toISOString(), slot.slotStart),
-              end: combineDateAndTime(currentMonday.toISOString(), slot.slotEnd)
-            };
-            return item;
+              start: combineDateAndTime(dayDate.toISOString(), slot.slotStart),
+              end: combineDateAndTime(dayDate.toISOString(), slot.slotEnd)
+            }));
           });
         });
-        currentMonday.setDate(currentMonday.getDate() + 1);
 
-        return res;
-      });
+        setWeeklyTimeTable(timeTb);
+      };
 
-      setWeeklyTimeTable(timeTb);
+      generateWeeklyTimeTable();
     }
-  }, [scheduleDetails]);
-  const eventStyleGetter = (event: any, start: any, end: any, isSelected: boolean) => {
-    let backgroundColor = '#3f51b5'; // Default color
-    // if (event.title === 'Toán học') {
-    //   backgroundColor = '#f57c00'; // Màu cam cho môn Toán
-    // } else if (event.title === 'Lịch sử') {
-    //   backgroundColor = '#3f51b5'; // Màu xanh cho môn Lịch sử
-    // }
+  }, [scheduleDetails, currentMonday]);
 
+  const handleNavigate = (date: any, view: any, action: any) => {
+    if (view === Views.WEEK) {
+      let newMonday;
+
+      if (action === 'NEXT') {
+        newMonday = new Date(currentMonday);
+        newMonday.setDate(currentMonday.getDate() + 7); // Chuyển tới tuần tiếp theo
+      } else if (action === 'PREV') {
+        newMonday = new Date(currentMonday);
+        newMonday.setDate(currentMonday.getDate() - 7); // Quay lại tuần trước
+      } else if (action === 'TODAY') {
+        newMonday = getMonday(new Date()); // Lấy ngày thứ Hai của tuần hiện tại
+      }
+
+      if (newMonday) {
+        setCurrentMonday(newMonday);
+        refetchSchedule();
+      }
+    }
+  };
+
+  const eventStyleGetter = (event: any, start: any, end: any, isSelected: boolean) => {
+    let backgroundColor = '#1976d2';
     return {
       style: {
         backgroundColor,
@@ -133,47 +150,43 @@ const StudentSchedulePage = () => {
         borderRadius: '5px',
         border: '0px',
         display: 'block',
-        fontSize: '10px'
+        fontSize: '12px'
       }
     };
   };
 
-  const EventComponent = ({ event }: { event: any }) => (
-    <span>
-      <strong>{event.title}</strong>
-      <br />
-      {moment(event.start).format('HH:mm')} - {moment(event.end).format('HH:mm')}{' '}
-    </span>
-  );
-
   return (
-    <Row className='m-2'>
-      <Col
-        className='my-2'
-        sm={12}
-      >
-        <h4>Thời khóa biểu lớp: {scheduleDetails ? scheduleDetails.className : ''}</h4>
-      </Col>
-      <Calendar
-        localizer={localizer}
-        events={weeklyTimeTable}
-        startAccessor='start'
-        endAccessor='end'
-        style={{ height: 'inherit' }}
-        views={['week']} // Show only the week view
-        defaultView='week'
-        eventPropGetter={eventStyleGetter} // Sử dụng eventPropGetter để áp dụng style
-        messages={{
-          today: 'Hôm nay',
-          previous: 'Tuần trước',
-          next: 'Tuần tiếp theo'
-        }}
-        min={new Date(2023, 1, 1, 6, 0, 0)}
-        // components={{
-        //   event: EventComponent // Áp dụng component tùy chỉnh cho sự kiện
-        // }}
-      />
-    </Row>
+    <Paper className='p-3'>
+      <Row className='m-2'>
+        <Col
+          className='my-2'
+          sm={12}
+        >
+          <h4>Thời khóa biểu lớp: {scheduleDetails ? scheduleDetails.className : ''}</h4>
+          <h4>Hiệu lực từ: {scheduleDetails ? formatDate(scheduleDetails.time) : ''}</h4>
+        </Col>
+        <Calendar
+          localizer={localizer}
+          events={weeklyTimeTable}
+          views={['week']}
+          startAccessor='start'
+          endAccessor='end'
+          style={{ height: 'inherit' }}
+          // views={['week']} // Show only the week view
+          defaultView='week'
+          eventPropGetter={eventStyleGetter} // Sử dụng eventPropGetter để áp dụng style
+          messages={{
+            today: 'Hôm nay',
+            previous: 'Trước',
+            next: 'Tiếp theo',
+            week: 'Tuần',
+            day: 'Ngày'
+          }}
+          min={new Date(2023, 1, 1, 6, 0, 0)}
+          onNavigate={handleNavigate}
+        />
+      </Row>
+    </Paper>
   );
 };
 

@@ -1,4 +1,7 @@
 {
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8080"
+  },
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/Classroom",
@@ -243,7 +246,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/schedule-service/get-class-schedule",
+      "DownstreamPathTemplate": "/api/schedule-service/get-class-schedule?classID={classID}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -251,7 +254,21 @@
           "Port": 5171
         }
       ],
-      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-class-schedule",
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-class-schedule?classID={classID}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/schedule-service/get-schedule-detail?ScheduleID={ScheduleID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-schedule-detail?ScheduleID={ScheduleID}",
       "UpstreamHttpMethod": [
         "GET"
       ]
@@ -509,7 +526,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/auth",
+      "DownstreamPathTemplate": "/api/auth?accessToken={accessToken}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -517,7 +534,7 @@
           "Port": 5213
         }
       ],
-      "UpstreamPathTemplate": "/apigateway/AuthService",
+      "UpstreamPathTemplate": "/apigateway/AuthService?accessToken={accessToken}",
       "UpstreamHttpMethod": [
         "POST"
       ]
@@ -621,7 +638,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/student-service/class",
+      "DownstreamPathTemplate": "/api/student-service/class?classId={classID}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -629,7 +646,7 @@
           "Port": 5213
         }
       ],
-      "UpstreamPathTemplate": "/apigateway/StudentService/class",
+      "UpstreamPathTemplate": "/apigateway/StudentService/student-service/class?classId={classID}",
       "UpstreamHttpMethod": [
         "GET"
       ]

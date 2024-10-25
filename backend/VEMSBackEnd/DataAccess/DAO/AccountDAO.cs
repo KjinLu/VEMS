@@ -303,6 +303,7 @@ namespace DataAccess.DAO
                                              Image = a.Image,
                                              RoleID = r.Id,
                                              RoleName = r.Code
+                                
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -315,6 +316,7 @@ namespace DataAccess.DAO
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
                         Username = student.Username
+                    
 
                     };
                 }
@@ -390,6 +392,7 @@ namespace DataAccess.DAO
                     var student = await (from a in context.Students
                                          join r in context.Roles on a.RoleId equals r.Id
                                          join c in context.Classrooms on a.ClassroomId equals c.Id
+                                         join t in context.studentTypes on a.StudentTypeId equals t.Id  
                                          where a.Id == accountID
                                          select new
                                          {
@@ -401,7 +404,10 @@ namespace DataAccess.DAO
                                              RoleID = r.Id,
                                              RoleName = r.Code,
                                              ClassroomID = a.ClassroomId,
-                                             ClassroomName = c.ClassName
+                                             ClassroomName = c.ClassName,
+                                             FullName = a.FullName,
+                                             StudentType = t.Code
+
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -414,6 +420,8 @@ namespace DataAccess.DAO
                         RoleName = student.RoleName,
                         Username = student.Username,
                         ClassroomID = student.ClassroomID,
+                        FullName = student.FullName,
+                        StudentType = student.StudentType
                     };
                 }
                 return null;
