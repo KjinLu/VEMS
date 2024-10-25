@@ -11,6 +11,7 @@ namespace DataAccess.DTO
     {
         public Guid AccountID { get; set; }
         public string Username { get; set; }
+        public string? FullName { get; set; }
         [JsonIgnore]
         public string Password { get; set; }
         public string Email { get; set; }
@@ -18,6 +19,7 @@ namespace DataAccess.DTO
         public string RefreshToken { get; set; }
         public Guid RoleID { get; set; }
         public string RoleName { get; set; }
+        public string? StudentType { get; set; }
 
         public bool? IsFisrtLogin { get; set; } = false;
         public Guid? ClassroomID { get; set; }

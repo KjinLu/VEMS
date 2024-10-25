@@ -67,6 +67,7 @@ namespace DataAccess.DTO
         public Guid ClassID { get; set; }
         public Guid AttendanceID { get; set; }
         public DateTime Time { get; set; }
+        public string Note { get; set; }
         public List<AttendanceStudentResponse> AttendanceData { get; set; }
     }
 
@@ -82,4 +83,26 @@ namespace DataAccess.DTO
         public DateTime CreateAt { get; set; }
     }
 
+    public class AttendanceHistoryStudentResponse
+    {
+        public Guid AttendanceStatusID { get; set; }    
+        public DateTime DateAttendance { get; set; }
+        public int DayOfWeek { get; set; }
+        public string PeriodName { get; set; }
+        public string? StudentCharge { get; set; } = "";
+        public string? TeacherCharge { get; set; }
+
+        public string StatusName { get; set; }
+        public string? ReasonName { get; set; } = "";
+        public string? Description { get; set; } = "";
+    }
+
+    public class UpdateAttendanceReportRequest
+    {
+        public Guid AttendanceStatusID { get; set; }
+        public Guid? ReasonId { get; set; }
+        public Guid StatusId { get; set; }
+        public string? Description { get; set; } = "";
+        public Guid? TeacherId { get; set; }
+    }
 }

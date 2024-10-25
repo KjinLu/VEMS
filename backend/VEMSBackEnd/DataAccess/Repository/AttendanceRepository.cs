@@ -1,4 +1,6 @@
-﻿using DataAccess.DAO;
+﻿using Azure.Core;
+using BusinessObject;
+using DataAccess.DAO;
 using DataAccess.DTO;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,8 @@ namespace DataAccess.Repository
         Task<List<InfomationForAttendance>> GetClassAttendanceSchedule(Guid classID, DateTime currentTime);
         Task<bool> TakeAttendance(TakeAttendanceRequest request);
         Task<bool> UpdateAttenndance(UpdateAttendanceRequest request);
+        Task<bool> UpdateAttendanceReport(List<UpdateAttendanceReportRequest> request);
+        Task<List<AttendanceHistoryStudentResponse>> GetHistoryAttendanceFromStudentID(Guid id);
         Task<ClassAttendanceResponse> GetAttendanceForClass(GetClassAttendanceRequest request);
         Task<List<SelectOptions>> GetAttendanceStatusOptions();
         Task<List<SelectOptions>> GetAttendanceReasonOptions();
@@ -38,6 +42,12 @@ namespace DataAccess.Repository
 
         public async Task<bool> UpdateAttenndance(UpdateAttendanceRequest request)
                    => await AttendanceDAO.Instance.UpdateAttendanceForClass(request);
+
+        public async Task<bool> UpdateAttendanceReport(List<UpdateAttendanceReportRequest> request)
+         => await AttendanceDAO.Instance.UpdateAttendanceReport(request);
+
+        public async Task<List<AttendanceHistoryStudentResponse>> GetHistoryAttendanceFromStudentID(Guid id)
+        => await AttendanceDAO.Instance.GetHistoryAttendanceFromStudentID(id);
 
     }
 }

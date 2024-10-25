@@ -6,6 +6,7 @@ import { configAuthorise, configError, configRoutes } from '@/constants/routes';
 import NullLayout from '@/layouts/NullLayout';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import path from 'path';
 
 const ProtectedRoutes = ({ isAuthenticated, allowedRoles }: PrivateRouteProps) => {
   const isRouteProtected = (path: string) => {
@@ -23,13 +24,35 @@ const ProtectedRoutes = ({ isAuthenticated, allowedRoles }: PrivateRouteProps) =
 
   return (
     <Routes>
-      {/* {(pathName === '/' || Cookies.get('accessToken')) && (
+      {!!Cookies.get('accessToken') &&
+      !!allowedRoles &&
+      (pathName === '/' || pathName === '' || pathName.includes('login')) ? (
+        allowedRoles.includes('ADMIN') ? (
+          <Route
+            key={'ADMIN'}
+            path={pathName}
+            element={<Navigate to={configRoutes.TeacherManagementPage} />}
+          />
+        ) : allowedRoles.includes('TEACHER') ? (
+          <Route
+            key={'TEACHER'}
+            path={pathName}
+            element={<Navigate to={configRoutes.home} />}
+          />
+        ) : allowedRoles.includes('STUDENT') ? (
+          <Route
+            key={'STUDENT'}
+            path={pathName}
+            element={<Navigate to={configRoutes.studentSchedule} />}
+          />
+        ) : null
+      ) : (
         <Route
-          key={1}
-          path={pathName}
+          key={'Login'}
+          path={'/'}
           element={<Navigate to={configRoutes.login} />}
         />
-      )} */}
+      )}
 
       {privateRoutes.map((route, index) => {
         const Page = route.component;

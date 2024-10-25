@@ -9,6 +9,8 @@ interface AuthState {
   roleName: string | null;
   isFisrtLogin: boolean;
   classroomID?: string | null;
+  fullName?: string | null;
+  studentType?: string | null;
 }
 
 const initialState: AuthState = {
@@ -19,7 +21,9 @@ const initialState: AuthState = {
   roleID: null,
   roleName: null,
   isFisrtLogin: false,
-  classroomID: null
+  classroomID: null,
+  fullName: null,
+  studentType: null
 };
 
 const authSlice = createSlice({

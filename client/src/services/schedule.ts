@@ -12,13 +12,13 @@ export const scheduleApi = createApi({
   endpoints: build => ({
     getClassSchedule: build.query({
       query: (classID: UUID) => ({
-        url: '/api/schedule-service/get-class-schedule?classID=' + classID,
+        url: '/ScheduleService/get-class-schedule?classID=' + classID,
         method: 'get'
       })
     }),
     getScheduleDetail: build.query({
       query: (scheduleDetailID: UUID) => ({
-        url: '/api/schedule-service/get-schedule-detail?ScheduleID=' + scheduleDetailID,
+        url: '/ScheduleService/get-schedule-detail?ScheduleID=' + scheduleDetailID,
         method: 'get'
       })
     })

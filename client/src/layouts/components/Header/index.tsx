@@ -4,21 +4,33 @@ import Logo from '@/assets/LogoWhite.png';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { Logout, PersonAdd, Settings } from '@mui/icons-material';
 import { useState } from 'react';
+import { useLogout } from '@/libs/features/auth/useLogout';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/libs/state/store';
 
 const cx = classNames.bind(styles);
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+    navigate('/profile');
+  };
+
+  const logout = useLogout();
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    logout();
   };
 
   return (
@@ -119,7 +131,7 @@ const Header = () => {
               </ListItemIcon>
               Settings
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize='small' />
               </ListItemIcon>

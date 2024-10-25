@@ -138,6 +138,11 @@ namespace BusinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<Guid?>("ReasonId")
                         .HasColumnType("uniqueidentifier");
 
@@ -444,11 +449,6 @@ namespace BusinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("ReasonName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -462,37 +462,31 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = new Guid("23f45441-d948-4a53-8a96-bc8be963b9e2"),
-                            Description = "",
                             ReasonName = "Do ốm đau"
                         },
                         new
                         {
                             Id = new Guid("17fea884-62f6-4686-b2ae-2a18ae4b2b82"),
-                            Description = "",
                             ReasonName = "Đang nằm viện"
                         },
                         new
                         {
                             Id = new Guid("c4990d24-c573-4b40-ad01-c3f39042bad9"),
-                            Description = "",
                             ReasonName = "Nhà có việc hữu sự"
                         },
                         new
                         {
                             Id = new Guid("169dcff1-cb19-4fd0-8ae3-f947360207cf"),
-                            Description = "",
                             ReasonName = "Công tác, HSG"
                         },
                         new
                         {
                             Id = new Guid("71e82443-08e8-4500-90f6-71732fd96ded"),
-                            Description = "",
                             ReasonName = "Khám NVQS"
                         },
                         new
                         {
                             Id = new Guid("e847e40e-e759-413a-adc3-b2a7fe72c128"),
-                            Description = "",
                             ReasonName = "Khác"
                         });
                 });
@@ -928,7 +922,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7b623934-fb1d-4fd2-8a19-4084129fb65e"),
+                            Id = new Guid("04f7b101-810f-4396-b79e-73aceb8c86b9"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -947,7 +941,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c2eae5ea-38c0-487e-8259-9ba3071c013e"),
+                            Id = new Guid("89521e3b-c382-491f-8f50-283f87a6ad74"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -966,7 +960,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("782d0d7a-91f9-4aa9-917d-9df2227968e9"),
+                            Id = new Guid("9e91431e-6a9b-47e6-a336-7e49df2174ae"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -985,7 +979,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dd2ff039-52e1-4a5d-ab6f-f93995c889a2"),
+                            Id = new Guid("3728d0c7-1138-433b-9922-2b09c62f9779"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1004,7 +998,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9acda4ef-8b70-4784-bf05-b38f07079454"),
+                            Id = new Guid("849377e9-8e06-4598-8816-e4a4c3b0c61c"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1023,7 +1017,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("64d500e2-48e1-4a69-b548-b6db6d5dc40b"),
+                            Id = new Guid("4b9c51fd-f904-42c2-b874-9f990006b511"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1042,7 +1036,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("741e0b87-da21-4d09-999f-5b8af2506471"),
+                            Id = new Guid("800c0967-67aa-451d-a404-02da30d472b3"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1061,7 +1055,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a130e07d-63f3-492b-807a-d250a8d94874"),
+                            Id = new Guid("b06134a4-fd7d-47ec-8f21-03291e8449bc"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1080,7 +1074,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f78b798f-47f5-42a6-a65a-6a598fa82585"),
+                            Id = new Guid("0d7ea648-0f4e-4eb6-93c2-1765ac4e9423"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1099,7 +1093,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c886961a-4402-4b82-a419-b09cadce6e45"),
+                            Id = new Guid("b09b645c-b136-4c3c-b691-c99e6a945acc"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1316,6 +1310,9 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar");
 
+                    b.Property<Guid?>("ClassroomId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateOnly?>("Dob")
                         .HasColumnType("date");
 
@@ -1363,6 +1360,8 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClassroomId");
+
                     b.HasIndex("RoleId");
 
                     b.HasIndex("TeacherTypeId");
@@ -1375,6 +1374,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
                             Address = "",
                             CitizenID = "",
+                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
                             Email = "nguyenvana@example.com",
                             FullName = "Nguyễn Văn A",
                             Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg",
@@ -1389,6 +1389,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
                             Address = "",
                             CitizenID = "",
+                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
                             Email = "tranthib@example.com",
                             FullName = "Trần Thị B",
                             Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg",
@@ -1403,6 +1404,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
                             Address = "",
                             CitizenID = "",
+                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
                             Email = "leminhc@example.com",
                             FullName = "Lê Minh C",
                             Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg",
@@ -1417,6 +1419,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"),
                             Address = "",
                             CitizenID = "",
+                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
                             Email = "phamthid@example.com",
                             FullName = "Phạm Thị D",
                             Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg",
@@ -1431,6 +1434,7 @@ namespace BusinessObject.Migrations
                             Id = new Guid("c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"),
                             Address = "",
                             CitizenID = "",
+                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
                             Email = "hoangvane@example.com",
                             FullName = "Hoàng Văn E",
                             Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg",
@@ -1705,6 +1709,11 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.Teacher", b =>
                 {
+                    b.HasOne("BusinessObject.Classroom", "Classroom")
+                        .WithMany()
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("BusinessObject.Role", "Role")
                         .WithMany("Teachers")
                         .HasForeignKey("RoleId")
@@ -1715,6 +1724,8 @@ namespace BusinessObject.Migrations
                         .WithMany("Teachers")
                         .HasForeignKey("TeacherTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Classroom");
 
                     b.Navigation("Role");
 

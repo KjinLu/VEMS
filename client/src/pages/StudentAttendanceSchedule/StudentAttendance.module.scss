@@ -1,0 +1,20 @@
+.custom-pagination {
+  background-color: #f0f0f0; /* Light grey background */
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-pagination .MuiPagination-root {
+  color: #00796b; /* Customize the pagination text color */
+}
+
+.custom-pagination .MuiPaginationItem-root {
+  border: 1px solid #00796b; /* Border around pagination items */
+  margin: 0 5px;
+}
+
+.custom-pagination .Mui-selected {
+  background-color: #00796b !important; /* Change selected page background */
+  color: white !important; /* Ensure text is white */
+}
