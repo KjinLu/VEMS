@@ -22,6 +22,11 @@ import ScheduleManagementPage from '@/pages/WebManagement/ScheduleManagementPage
 import StudentManagementPage from '@/pages/WebManagement/StudentManagementPage';
 import TeacherManagementPage from '@/pages/WebManagement/TeacherManagementPage';
 import ClassManagementPage from '@/pages/WebManagement/ClassManagementPage';
+import TeacherSchedulePage from '@/pages/TeacherSchedule';
+import TeacherEditAttendancePage from '@/pages/TeacherEditAttendance';
+import TeacherClassManagementPage from '@/pages/TeacherClassManagement';
+import TeacherAttendanceManagementPage from '@/pages/TeacherAttendanceManagement';
+import TeacherTakeAttendancePage from '@/pages/TeacherTakeAttendance';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -115,6 +120,41 @@ const privateRoutes: PrivateRoute[] = [
     component: ClassManagementPage,
     layout: DefaultLayout,
     allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.teacherSchedule,
+    component: TeacherSchedulePage,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.teacherAttendanceSchedule,
+    component: TeacherAttendanceManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.teacherClassManagement,
+    component: TeacherClassManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.teacherTakeAttendance,
+    component: TeacherTakeAttendancePage,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.teacherEditAttendance,
+    component: TeacherEditAttendancePage,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER'],
     isAuthenticated: true
   }
   // { path: configRoutes.search, component: Search, layout: null, allowedRoles: ['ADMIN'] }

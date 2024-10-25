@@ -75,8 +75,8 @@ public class SlotDetailResponse
 
 public class TeacherScheduleResponse
 {
-    public Guid TeacherID { get; set;}
-    public string TeacherName { get;set; }
+    public Guid TeacherID { get; set; }
+    public string TeacherName { get; set; }
     public List<TeacherSesionDetailResponse> Sessions { get; set; }
 }
 
@@ -89,6 +89,7 @@ public class TeacherSlotDetailResponse
     public Guid SlotID { get; set; }
     public int SlotIndex { get; set; }
     public TimeSpan SlotStart { get; set; }
+    public TimeSpan SlotEnd { get; set; }
 }
 
 

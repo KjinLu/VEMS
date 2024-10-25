@@ -52,7 +52,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Có lỗi khi tải danh sách thời khóa biểu"+ ex.Message);
+                throw new Exception($"Có lỗi khi tải danh sách thời khóa biểu" + ex.Message);
             }
         }
 
@@ -96,10 +96,10 @@ namespace DataAccess.DAO
                                        .ConfigureAwait(false);
                     return query;
                 }
-            }  
+            }
             catch (Exception ex)
             {
-                throw new Exception($"Có lỗi khi tải dữ liệu của lớp {classroomId}"+ ex.Message);
+                throw new Exception($"Có lỗi khi tải dữ liệu của lớp {classroomId}" + ex.Message);
             }
         }
 
@@ -117,7 +117,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tải thời khóa biểu với ID: {id}"+ ex.Message);
+                throw new Exception($"Lỗi khi tải thời khóa biểu với ID: {id}" + ex.Message);
             }
         }
 
@@ -156,11 +156,11 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau! "+ ex.Message);
+                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau! " + ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tạo thời khóa biểu: "+ ex.Message);
+                throw new Exception($"Lỗi khi tạo thời khóa biểu: " + ex.Message);
             }
         }
 
@@ -189,11 +189,11 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau! "+ ex.Message);
+                throw new Exception("Có lỗi xảy ra khi tạo thời khóa biểu mới. Thử lại sau! " + ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tạo thời khóa biểu: "+ ex.Message);
+                throw new Exception($"Lỗi khi tạo thời khóa biểu: " + ex.Message);
             }
 
             return createdSchedules;
@@ -228,11 +228,11 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi cập nhật thời khóa biểu. Thử lại sau"+ ex.Message);
+                throw new Exception("Có lỗi xảy ra khi cập nhật thời khóa biểu. Thử lại sau" + ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi cập nhật thời khóa biểu: "+ ex.Message);
+                throw new Exception($"Lỗi khi cập nhật thời khóa biểu: " + ex.Message);
             }
         }
 
@@ -259,11 +259,11 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi xóa thời khóa biểu. Thử lại sau"+ ex.Message);
+                throw new Exception("Có lỗi xảy ra khi xóa thời khóa biểu. Thử lại sau" + ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi xóa thời khóa biểu: "+ ex.Message);
+                throw new Exception($"Lỗi khi xóa thời khóa biểu: " + ex.Message);
             }
         }
 
@@ -273,7 +273,7 @@ namespace DataAccess.DAO
             {
                 using (var context = new VemsContext())
                 {
-                    var existingSchedule =  context.ScheduleDetails.Any(i => i.ScheduleId == request.ScheduleID);
+                    var existingSchedule = context.ScheduleDetails.Any(i => i.ScheduleId == request.ScheduleID);
 
 
                     if (!existingSchedule)
@@ -310,7 +310,7 @@ namespace DataAccess.DAO
                             newScheduleDetail.ScheduleId = request.ScheduleID;
 
 
-                            var  newScheduleDetailCreated = context.ScheduleDetails.Add(newScheduleDetail).Entity;
+                            var newScheduleDetailCreated = context.ScheduleDetails.Add(newScheduleDetail).Entity;
 
                             var sessionTime = await (from s in context.Sessions
                                                      join p in context.Periods on s.PeriodID equals p.Id
@@ -333,7 +333,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tạo thời khóa biểu chi tiết: " +  ex.Message);
+                throw new Exception($"Lỗi khi tạo thời khóa biểu chi tiết: " + ex.Message);
             }
         }
 
@@ -348,17 +348,17 @@ namespace DataAccess.DAO
 
                     if (existingSchedule != null)
                     {
-                       var scheduleInfo = await (from s in context.Schedules
-                                           join c in context.Classrooms on s.ClassroomId equals c.Id
-                                           where s.Id == scheduleId
-                                           select new
-                                           {
-                                               scheduleID = s.Id,
-                                               time = s.Time,
-                                               classroomId = c.Id,
-                                               className = c.ClassName
-                                           }
-                                           ).FirstOrDefaultAsync();
+                        var scheduleInfo = await (from s in context.Schedules
+                                                  join c in context.Classrooms on s.ClassroomId equals c.Id
+                                                  where s.Id == scheduleId
+                                                  select new
+                                                  {
+                                                      scheduleID = s.Id,
+                                                      time = s.Time,
+                                                      classroomId = c.Id,
+                                                      className = c.ClassName
+                                                  }
+                                            ).FirstOrDefaultAsync();
 
 
                         var sessionQuery = await context.ScheduleDetails
@@ -402,7 +402,7 @@ namespace DataAccess.DAO
                                                                                   SlotStart = so.StartTime,
                                                                                   SlotEnd = so.EndTime,
 
-                                                                              }).Distinct().OrderBy(x=> x.SlotIndex).ToListAsync(); 
+                                                                              }).Distinct().OrderBy(x => x.SlotIndex).ToListAsync();
                             newSession.SessionID = sessionDetailQuerry.sessionID;
                             newSession.PeriodName = sessionDetailQuerry.PeriodName;
                             newSession.DayOfWeek = sessionDetailQuerry.DayOfWeek;
@@ -427,7 +427,7 @@ namespace DataAccess.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi tải thời khóa biểu: "+ ex.Message);
+                throw new Exception($"Lỗi khi tải thời khóa biểu: " + ex.Message);
             }
         }
 
@@ -501,6 +501,7 @@ namespace DataAccess.DAO
                                                        ClassroomID = s.ClassroomID,
                                                        SlotIndex = s.SlotIndex,
                                                        SlotStart = s.StartTime,
+                                                       SlotEnd = s.EndTime,
                                                    }).ToList()
                                                }).ToList();
 

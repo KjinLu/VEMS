@@ -21,9 +21,26 @@ export const scheduleApi = createApi({
         url: '/ScheduleService/get-schedule-detail?ScheduleID=' + scheduleDetailID,
         method: 'get'
       })
+    }),
+    getTeacherScheduleDetail: build.query({
+      query: (teacherID: UUID) => ({
+        url: '/ScheduleService/get-teacher-schedule-detail?TeacherID=' + teacherID,
+        method: 'get'
+      })
+    }),
+    getAllTeacherScheduleDetail: build.query({
+      query: () => ({
+        url: '/ScheduleService/get-all-teacher-schedule-detail',
+        method: 'get'
+      })
     })
   }),
   tagTypes: []
 });
 
-export const { useGetClassScheduleQuery, useGetScheduleDetailQuery } = scheduleApi;
+export const {
+  useGetClassScheduleQuery,
+  useGetScheduleDetailQuery,
+  useGetTeacherScheduleDetailQuery,
+  useGetAllTeacherScheduleDetailQuery
+} = scheduleApi;

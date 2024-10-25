@@ -155,7 +155,7 @@ namespace DataAccess.DAO
                             new AttendanceCharge
                             {
                                 AttendanceId = createdAttendance.Id,
-                                StudentId = request.StudentInChargeID
+                                AccountId = request.AccountInChargeID
                             });
 
                         List<AttendanceStatus> newAttendance = new List<AttendanceStatus>();
@@ -167,6 +167,11 @@ namespace DataAccess.DAO
                             data.AttendanceId = createdAttendance.Id;
                             data.CreateBy = request.StudentInchargeName;
                             data.CreateAt = DateTime.Now;
+                            data.UpdateAt = item.TeacherID != null ? DateTime.Now : null;
+                            data.UpdateBy = item.TeacherID != null ? request.StudentInchargeName : null;
+                            data.TeacherId = item.TeacherID != null ? item.TeacherID : null;
+                            data.ReasonId = item.ReasonID != null ? item.ReasonID : null;
+                            data.Description = item.Description != null ? item.Description : null;
 
                             newAttendance.Add(data);
                         }
@@ -220,7 +225,11 @@ namespace DataAccess.DAO
                                                  StudentName = stu.FullName,
                                                  StudentCode = stu.PublicStudentID,
                                                  CreateAt = ats.CreateAt,
-                                                 CreateBy = ats.CreateBy
+                                                 CreateBy = ats.CreateBy,
+                                                 Description = ats.Description,
+                                                 ReasonID = ats.ReasonId,
+                                                 UpdateAt = ats.UpdateAt,
+                                                 UpdateBy = ats.UpdateBy,
                                              }
                                                       ).ToListAsync();
                     response.AttendanceID = attenData.attendanceId;
@@ -255,15 +264,16 @@ namespace DataAccess.DAO
                         List<AttendanceStatus> newAttendance = new List<AttendanceStatus>();
                         foreach (var item in request.AttendanceData)
                         {
-                            var currentData = context.AttendanceStatuses.SingleOrDefault(i => i.Id  == item.AttendanceStatusID);
+                            var currentData = context.AttendanceStatuses.SingleOrDefault(i => i.Id == item.AttendanceStatusID);
 
                             currentData.StatusId = item.StatusID;
                             currentData.UpdateBy = request.UpdateBy;
                             currentData.UpdateAt = request.UpdateAt;
                             currentData.ReasonId = item.ReasonID;
                             currentData.TeacherId = item.TeacherID;
-                            
-                        context.AttendanceStatuses.Update(currentData);
+                            currentData.Description = item.Description;
+
+                            context.AttendanceStatuses.Update(currentData);
                         }
                         await context.SaveChangesAsync();
                         return true;
@@ -306,7 +316,7 @@ namespace DataAccess.DAO
                                                            orderby attendance.TimeReport descending
                                                            select new AttendanceHistoryStudentResponse
                                                            {
-                                                               AttendanceStatusID= attendanceStatus.Id,
+                                                               AttendanceStatusID = attendanceStatus.Id,
                                                                DateAttendance = attendance.TimeReport,
                                                                DayOfWeek = sessions.DayOfWeek,
                                                                PeriodName = periods.PeriodName,
@@ -340,7 +350,7 @@ namespace DataAccess.DAO
                     foreach (var item in listRequest)
                     {
                         var checkAttendanceExist = await context.AttendanceStatuses.FindAsync(item.AttendanceStatusID);
-                        
+
                         if (checkAttendanceExist != null)
                         {
                             checkAttendanceExist.ReasonId = item.ReasonId;

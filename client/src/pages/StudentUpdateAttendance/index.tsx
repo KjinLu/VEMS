@@ -63,7 +63,7 @@ const StudentUpdateAttendancePage = () => {
       attendanceID: attendanceData.attendanceID,
       time: time,
       note: values.note ?? '',
-      updateBy: userInfo.auth.username as string,
+      updateBy: userInfo.auth.fullName as string,
       updateAt: new Date().toISOString(),
       createAt: attendanceData?.attendanceData[0]?.createAt ?? '',
       createBy: attendanceData?.attendanceData[0]?.createBy ?? '',

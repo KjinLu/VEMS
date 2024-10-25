@@ -54,12 +54,6 @@ const teacherNavBar = (navigate: any): DrawerItem[] => [
     onClick: () => navigate(configRoutes.teacherAttendanceSchedule)
   },
   {
-    id: 'TEACHER-ATTENDANCE-REPORT',
-    content: 'Báo cáo điểm',
-    Icon: <PlagiarismIcon />,
-    onClick: () => navigate(configRoutes.teacherViewAttendance)
-  },
-  {
     id: 'TEACHER-CLASS-MANAGEMENT',
     content: 'Quản lí lớp',
     Icon: <PlagiarismIcon />,
@@ -103,11 +97,23 @@ const VemDrawer = (props: DrawerProps) => {
   const userAuth = useSelector((state: RootState) => state.auth);
   const { showIcon } = props;
 
+  console.log(userAuth);
+
   const navItems =
     userAuth.roleName === 'ADMIN'
       ? adminNavBar(navigate)
       : userAuth.roleName === 'TEACHER'
-        ? teacherNavBar(navigate)
+        ? teacherNavBar(navigate).filter(item => {
+            if (
+              userAuth.studentType === 'PRIMARY_TEACHER' &&
+              (item.id === 'TEACHER-SCHEDULE' ||
+                item.id === 'TEACHER-CLASS-MANAGEMENT' ||
+                item.id === 'TEACHER-TAKE-ATTENDANCE')
+            ) {
+              return false;
+            }
+            return true;
+          })
         : studentNavBar(navigate).filter(item => {
             if (
               userAuth.studentType === 'NORMAL_STUDENT' &&
