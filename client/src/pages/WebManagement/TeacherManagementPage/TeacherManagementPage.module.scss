@@ -12,8 +12,8 @@
 
 .teacher-image {
   position: absolute;
-  top: 8px;
-  right: 66px;
+  top: 16px;
+  right: 32px;
   color: rgba(0, 121, 107, 0.123456);
 }
 
@@ -21,26 +21,11 @@
   margin-bottom: 36px;
 }
 
-.div-round {
-  position: relative;
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
-}
-
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
     0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
-.icon-round {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .attendance-text {
@@ -60,13 +45,13 @@
   box-shadow: #0000001f 0 1px 4px;
   padding: 20px 18px;
   background-color: rgb(238 219 219 / 12%);
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .teacher-list-title {
   position: relative;
   font-size: 38px !important;
   display: inline-block;
-  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 
   &::before,
   &::after {

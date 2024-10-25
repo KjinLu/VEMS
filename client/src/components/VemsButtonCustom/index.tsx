@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Button, ButtonProps } from 'reactstrap';
-import VemsLoader from '../VemLoader';
+import VemsLoader from '../VemsLoader';
 import classNames from 'classnames/bind';
 
 import styles from './VemsButtonCus.module.scss';

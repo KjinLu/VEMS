@@ -29,7 +29,7 @@ import VemsInputCus from '@/components/VemsInputCustom';
 import VemFragment from '@/components/VemFragment';
 import VemSelect from '@/components/VemSelect';
 import NoRecord from '@/components/NoRecord';
-import VemLoader from '@/components/VemLoader';
+import VemsLoader from '@/components/VemsLoader';
 import { studentColumn } from './data-table-column';
 import { StudentIndex } from './type';
 import ModalStudentDetails from './ModalStudentDetails';
@@ -77,7 +77,7 @@ const StudentManagementPage = () => {
             <img
               className={cx('student-image')}
               src={StudentImage}
-              alt='Mô tả ảnh'
+              alt='student-image'
               width='200'
             />
           </div>
@@ -130,7 +130,7 @@ const StudentManagementPage = () => {
             >
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: '#e0f7fa' }}
                 >
                   <IoPeople
@@ -148,7 +148,7 @@ const StudentManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgb(209 197 200 / 69%)' }}
                 >
                   <FaRegFaceFrownOpen
@@ -296,7 +296,7 @@ const StudentManagementPage = () => {
             >
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(0, 207, 232, 0.10196078431372549)' }}
                 >
                   <HiClipboardDocumentList
@@ -316,7 +316,7 @@ const StudentManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(40,199,111,.10196078431372549)' }}
                 >
                   <HiClipboardDocumentCheck
@@ -336,7 +336,7 @@ const StudentManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(234, 84, 85, .10196078431372549)' }}
                 >
                   <HiClipboardDocument
@@ -383,7 +383,7 @@ const StudentManagementPage = () => {
           paginationServer
           onRowClicked={item => handleShowStudentDetail(item)}
           noDataComponent={<NoRecord />}
-          progressComponent={<VemLoader />}
+          progressComponent={<VemsLoader />}
         />
       </div>
 

@@ -51,18 +51,29 @@
 
 .teacher-name {
   position: relative;
+  display: inline-block;
   margin-bottom: 38px;
 
-  &::before {
+  &::before,
+  &::after {
     content: '';
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -9px;
-    height: 3px;
-    width: 220px;
     border-radius: 5px;
     background: linear-gradient(135deg, #b9d1e9, #1976d2);
+  }
+
+  &::before {
+    bottom: -9px;
+    width: calc(60%);
+    height: 2px;
+  }
+
+  &::after {
+    bottom: -18px;
+    width: 100%;
+    height: 3px;
   }
 }
 
