@@ -329,6 +329,34 @@
         "DELETE"
       ]
     },
+      {
+      "DownstreamPathTemplate": "/api/schedule-service/get-teacher-schedule-detail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-teacher-schedule-detail",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+     {
+      "DownstreamPathTemplate": "/api/schedule-service/get-all-teacher-schedule-detail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-all-teacher-schedule-detail",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
     {
       "DownstreamPathTemplate": "/api/slot/all",
       "DownstreamScheme": "http",

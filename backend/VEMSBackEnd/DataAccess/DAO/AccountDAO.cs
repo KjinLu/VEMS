@@ -303,7 +303,7 @@ namespace DataAccess.DAO
                                              Image = a.Image,
                                              RoleID = r.Id,
                                              RoleName = r.Code
-                                
+
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -316,7 +316,7 @@ namespace DataAccess.DAO
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
                         Username = student.Username
-                    
+
 
                     };
                 }
@@ -364,17 +364,21 @@ namespace DataAccess.DAO
 
                     var teacher = await (from a in context.Teacher
                                          join r in context.Roles on a.RoleId equals r.Id
+                                         join t in context.TeacherTypes on a.TeacherTypeId equals t.Id
                                          where a.Id == accountID
                                          select new
                                          {
                                              AccountID = a.Id,
                                              Username = a.Username,
                                              Password = a.Password,
-                                             Image= a.Image,
+                                             Image = a.Image,
                                              Email = a.Email,
                                              RefreshToken = a.RefreshToken,
                                              RoleID = r.Id,
                                              RoleName = r.Code,
+                                             TeacherType = t.Code,
+                                             FullName = a.FullName,
+                                             ClassID = a.ClassroomId,
                                          }).FirstOrDefaultAsync();
 
                     if (teacher != null) return new CommonAccountType
@@ -387,12 +391,15 @@ namespace DataAccess.DAO
                         RoleName = teacher.RoleName,
                         Username = teacher.Username,
                         Image = teacher.Image,
+                        FullName = teacher.FullName,
+                        TeacherType = teacher.TeacherType,
+                        ClassroomID = teacher.ClassID,
                     };
 
                     var student = await (from a in context.Students
                                          join r in context.Roles on a.RoleId equals r.Id
                                          join c in context.Classrooms on a.ClassroomId equals c.Id
-                                         join t in context.studentTypes on a.StudentTypeId equals t.Id  
+                                         join t in context.studentTypes on a.StudentTypeId equals t.Id
                                          where a.Id == accountID
                                          select new
                                          {

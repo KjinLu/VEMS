@@ -20,6 +20,7 @@ namespace DataAccess.DTO
         public Guid RoleID { get; set; }
         public string RoleName { get; set; }
         public string? StudentType { get; set; }
+        public string? TeacherType { get; set; }
 
         public bool? IsFisrtLogin { get; set; } = false;
         public Guid? ClassroomID { get; set; }

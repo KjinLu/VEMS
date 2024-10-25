@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 // Add Ocelot
-builder.Configuration.AddJsonFile("ocelot.json", optional:false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
@@ -26,7 +26,6 @@ app.UseCors(x => x
         .AllowAnyMethod()
         .AllowAnyHeader());
 
-//app.UseHttpsRedirection();
 //Run Ocelot
 app.UseOcelot().Wait();
 

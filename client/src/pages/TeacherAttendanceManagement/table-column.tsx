@@ -1,5 +1,4 @@
 // import { GridColDef } from '@mui/x-data-grid';
-import { AttendanceScheduleWithIndex } from './type';
 import {
   convertDayOfWeek,
   formatDate,
@@ -10,6 +9,7 @@ import VemButton from '@/components/VemButton';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { GridColDef } from '@mui/x-data-grid';
+import { AttendanceScheduleWithIndex } from './type';
 import { configRoutes } from '@/constants/routes';
 
 export const attendanceScheduleColumn = (
@@ -88,7 +88,7 @@ export const attendanceScheduleColumn = (
           startIcon={<EditIcon />}
           onClick={() => {
             // navigate('/student/attendance/' + params.row.scheduleDetailID);
-            navigate(configRoutes.studentEditAttendance, {
+            navigate(configRoutes.teacherEditAttendance, {
               state: {
                 time: params.row.attendanceTime,
                 className: params.row.className,
@@ -109,7 +109,7 @@ export const attendanceScheduleColumn = (
           disabled={!isAttendanceDateInThePast(params.row.attendanceTime)}
           onClick={() => {
             // navigate('/student/attendance/' + params.row.scheduleDetailID);
-            navigate(configRoutes.studentTakeAttendance, {
+            navigate(configRoutes.teacherTakeAttendance, {
               state: {
                 scheduleDetailID: params.row.scheduleDetailID,
                 time: params.row.attendanceTime,
