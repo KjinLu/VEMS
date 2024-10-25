@@ -42,8 +42,8 @@ namespace BusinessObject
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       //optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
-      //optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
-      optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
+      optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
+      //optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
     }
@@ -124,12 +124,6 @@ namespace BusinessObject
          .HasOne(a => a.ScheduleDetail)
          .WithMany(r => r.Attendances)
          .HasForeignKey(a => a.ScheduleDetailId);
-
-      modelBuilder.Entity<AttendanceCharge>()
-        .HasOne(a => a.Student)
-        .WithMany(r => r.AttendanceCharges)
-        .HasForeignKey(a => a.StudentId)
-        .OnDelete(DeleteBehavior.Cascade);
 
       modelBuilder.Entity<AttendanceCharge>()
         .HasOne(a => a.Attendance)

@@ -90,7 +90,6 @@ namespace BusinessObject
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
 
-        public ICollection<AttendanceCharge> AttendanceCharges { get; set; }
         public ICollection<AttendanceStatus> AttendanceStatuses { get; set; }
         public ICollection<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
