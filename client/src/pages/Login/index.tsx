@@ -7,12 +7,10 @@ import VemImage from '@/components/VemImage';
 import logo from '@/assets/Logo.png';
 import { Divider, Link } from '@mui/material';
 import { Form } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { useLogin } from '@/libs/features/auth/useLogin';
+import { useLogin } from '@/hooks/login/useLogin';
 const cx = classNames.bind(styles);
 
 const Login = () => {
-  const navigate = useNavigate();
   const { login, isLoading, error } = useLogin();
 
   const handleSubmit = async (values: any) => {
@@ -85,6 +83,8 @@ const Login = () => {
                 />
               </Form.Item>
 
+              <div className='text-danger'>{error}</div>
+
               <div className='d-flex justify-content-end py-1'>
                 {/* <div style={{ marginLeft: '-10px' }}>
                   <VemCheckbox
@@ -106,7 +106,7 @@ const Login = () => {
 
               <VemButton
                 className={cx('mt-2 mb-3')}
-                // loading={isLoading}
+                loading={isLoading}
                 status={'loading'}
                 type={'submit'}
                 children={'Đăng nhập'}

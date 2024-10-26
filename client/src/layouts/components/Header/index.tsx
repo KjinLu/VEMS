@@ -6,9 +6,12 @@ import styles from './Header.module.scss';
 import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
+
+import AvatarDefault from '@/assets/images/personal/avatarDefault.jpg';
+
+import { Logout, Settings, PersonRounded } from '@mui/icons-material';
 import { useState } from 'react';
-import { useLogout } from '@/libs/features/auth/useLogout';
+import { useLogout } from '@/hooks/logout/useLogout';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/libs/state/store';
 
@@ -21,6 +24,9 @@ const Header = () => {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const userInfo = useSelector((state: RootState) => state.auth);
+
   const handleClose = () => {
     setAnchorEl(null);
     navigate('/profile');
@@ -71,7 +77,9 @@ const Header = () => {
           >
             <Avatar
               alt='Remy Sharp'
-              src='/static/images/avatar/1.jpg'
+              src={
+                userInfo.image && userInfo.image != '' ? userInfo.image : AvatarDefault
+              }
             />
           </IconButton>
 
@@ -113,29 +121,32 @@ const Header = () => {
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
             <MenuItem onClick={handleClose}>
-              <Avatar /> Profile
+              <ListItemIcon>
+                <PersonRounded fontSize='small' />
+              </ListItemIcon>
+              Hồ sơ của tôi
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            {/* <MenuItem onClick={handleClose}>
               <Avatar /> My account
-            </MenuItem>
+            </MenuItem> */}
             <Divider />
-            <MenuItem onClick={handleClose}>
+            {/* <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <PersonAdd fontSize='small' />
               </ListItemIcon>
               Add another account
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <Settings fontSize='small' />
               </ListItemIcon>
-              Settings
+              Cài đặt
             </MenuItem>
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize='small' />
               </ListItemIcon>
-              Logout
+              Đăng xuất
             </MenuItem>
           </Menu>
         </div>
