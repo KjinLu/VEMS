@@ -174,7 +174,7 @@ using SchoolMate.Authorizotion;
 
         public Task<bool> ChangePassword(ChangePasswordRequest request)
         {
-            return accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
+            return accountRepository.UpdatePassword(request.AccountID,Hashing(request.CurrentPassword),Hashing(request.NewPassword));
         }
     }
 

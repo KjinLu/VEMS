@@ -145,4 +145,25 @@ public class JwtUtils : IJwtUtils
         //_accountRepository.UpdateRefreshhToken(account.AccountID, tokenResult);
         return tokenResult;
     }
+
+    public bool CompareJwtTokens(string token1, string token2)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        try
+        {
+            var jwtToken1 = tokenHandler.ReadJwtToken(token1);
+            var jwtToken2 = tokenHandler.ReadJwtToken(token2);
+
+            return jwtToken1.Claims.All(c =>
+                jwtToken2.Claims.Any(c2 => c.Type == c2.Type && c.Value == c2.Value)
+            ) && jwtToken2.Claims.All(c =>
+                jwtToken1.Claims.Any(c2 => c.Type == c2.Type && c.Value == c2.Value)
+            );
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
