@@ -18,7 +18,7 @@ namespace DataAccess.DTO
         public DateTime Time { get; set; }
         public string? Note { get; set; } = "";
         public Guid ScheduleDetailID { get; set; }
-        public Guid StudentInChargeID { get; set; }
+        public Guid AccountInChargeID { get; set; }
         public Guid PeriodID { get; set; }
         public string StudentInchargeName { get; set; }
         public List<AttendanceStudent> AttendanceData { get; set; }

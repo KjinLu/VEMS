@@ -155,7 +155,7 @@ namespace DataAccess.DAO
                             new AttendanceCharge
                             {
                                 AttendanceId = createdAttendance.Id,
-                                StudentId = request.StudentInChargeID
+                                AccountId = request.AccountInChargeID
                             });
 
                         List<AttendanceStatus> newAttendance = new List<AttendanceStatus>();
