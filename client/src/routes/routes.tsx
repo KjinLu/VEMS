@@ -46,6 +46,27 @@ const publicRoutes: PublicRoute[] = [
 
 const privateRoutes: PrivateRoute[] = [
   {
+    path: configRoutes.ScheduleManagementPage,
+    component: ScheduleManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.StudentManagementPage,
+    component: StudentManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.TeacherManagementPage,
+    component: TeacherManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
+  {
     path: configRoutes.home,
     component: Home,
     layout: DefaultLayout,

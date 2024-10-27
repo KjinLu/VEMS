@@ -16,8 +16,9 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^6.1.2",
     "@mui/lab": "^6.0.0-beta.10",
-    "@mui/material": "^6.1.2",
+    "@mui/material": "^6.1.5",
     "@mui/x-data-grid": "^7.21.0",
+    "@mui/x-date-pickers": "^7.21.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@tippyjs/react": "^4.2.6",
     "@toolpad/core": "^0.7.0",
@@ -54,7 +55,7 @@
     "redux-persist": "^6.0.0",
     "rollup": "^4.22.5",
     "sass": "^1.79.3",
-    "universal-cookie": "^7.2.0",
+    "universal-cookie": "^7.2.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

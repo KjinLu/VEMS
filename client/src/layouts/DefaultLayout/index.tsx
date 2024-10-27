@@ -43,7 +43,7 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== 'open'
+  shouldForwardProp: prop => prop !== 'openStatus'
 })<AppBarProps>(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
@@ -140,7 +140,7 @@ export default function DrawerLayout({ children }: DrawerLayoutProps) {
       <Box sx={{ display: 'flex' }}>
         <AppBar
           position='fixed'
-          sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
+          sx={{ zIndex: 3 }}
           openStatus={showIcon}
         >
           <div className='px-3'>
@@ -172,7 +172,7 @@ export default function DrawerLayout({ children }: DrawerLayoutProps) {
 
         <Box
           component='nav'
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 1 } }}
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 1 }, zIndex: 2 }}
           aria-label='mailbox folders'
         >
           <Drawer
@@ -210,7 +210,7 @@ export default function DrawerLayout({ children }: DrawerLayoutProps) {
           sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
-          <div className={cx('body', 'p-5')}>{children}</div>
+          <div className={cx('body', 'p-xl-5')}>{children}</div>
         </Box>
       </Box>
     </>

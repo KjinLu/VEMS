@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import { TextField, InputAdornment, IconButton, InputBaseProps } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -27,6 +27,8 @@ interface VemInputTypes extends Omit<InputBaseProps, 'prefix'> {
   errors?: boolean;
   fullWidth?: boolean;
   variant?: 'standard' | 'outlined' | 'filled';
+
+  defaultValue?: any;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: any;
 
@@ -48,7 +50,7 @@ const VemInput = ({
   disabled = false,
   errors = false,
   fullWidth = true,
-  variant,
+  variant = 'standard',
   onChange,
   value,
   className,
@@ -95,6 +97,9 @@ const VemInput = ({
       ) : (
         <TextField
           id={id}
+          InputLabelProps={{
+            shrink: !!value || undefined
+          }}
           label={label}
           placeholder={placeholder}
           size={size}
@@ -112,7 +117,7 @@ const VemInput = ({
           error={errors}
           fullWidth={fullWidth}
           variant={variant}
-          value={value}
+          value={value ?? ''}
           onChange={onChange}
           className={`custom-components ${className}`}
           style={style}

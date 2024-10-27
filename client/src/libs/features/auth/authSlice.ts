@@ -33,6 +33,9 @@ const authSlice = createSlice({
     setCredentials: (state, action: PayloadAction<AuthState>) => {
       Object.assign(state, action.payload);
     },
+    setAvatar: (state, action: PayloadAction<string>) => {
+      state.image = action.payload;
+    },
     logout: () => initialState
   }
 });
