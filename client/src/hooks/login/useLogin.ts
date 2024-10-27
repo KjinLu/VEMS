@@ -2,7 +2,7 @@ import { authApi, useGetUserMutation } from '@/services/auth';
 import { SignInProps } from '@/types/auth/type';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-import { setCredentials } from './authSlice';
+import { setCredentials } from '@/libs/features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

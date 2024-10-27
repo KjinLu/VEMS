@@ -7,12 +7,10 @@ import VemImage from '@/components/VemImage';
 import logo from '@/assets/Logo.png';
 import { Divider, Link } from '@mui/material';
 import { Form } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { useLogin } from '@/libs/features/auth/useLogin';
+import { useLogin } from '@/hooks/login/useLogin';
 const cx = classNames.bind(styles);
 
 const Login = () => {
-  const navigate = useNavigate();
   const { login, isLoading, error } = useLogin();
 
   const handleSubmit = async (values: any) => {
@@ -23,6 +21,10 @@ const Login = () => {
 
     await login(userData);
   };
+
+  const baseURL = import.meta.env.VITE_PUBLIC_API || '';
+
+  console.log(baseURL);
 
   return (
     <>
@@ -55,6 +57,7 @@ const Login = () => {
               <Form.Item
                 name={'username'}
                 className={cx('mb-3')}
+                rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập' }]}
               >
                 <VemInput
                   id='username'
@@ -71,6 +74,7 @@ const Login = () => {
               <Form.Item
                 name={'password'}
                 className={cx('mb-2')}
+                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
               >
                 <VemInput
                   id='password'
@@ -84,6 +88,8 @@ const Login = () => {
                   autoComplete='off'
                 />
               </Form.Item>
+
+              <div className='text-danger'>{error}</div>
 
               <div className='d-flex justify-content-end py-1'>
                 {/* <div style={{ marginLeft: '-10px' }}>
@@ -106,7 +112,7 @@ const Login = () => {
 
               <VemButton
                 className={cx('mt-2 mb-3')}
-                // loading={isLoading}
+                loading={isLoading}
                 status={'loading'}
                 type={'submit'}
                 children={'Đăng nhập'}

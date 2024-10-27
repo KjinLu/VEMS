@@ -1,9 +1,7 @@
 import {
   Avatar,
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Tab,
@@ -11,12 +9,16 @@ import {
   Typography
 } from '@mui/material';
 import { FaPen } from 'react-icons/fa';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Personal from './components/personal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/libs/state/store';
-import { useGetStudentProfileQuery } from '@/services/profile';
-import { Badge } from 'antd';
+import { Badge, Tag } from 'antd';
+import {
+  IProfileSimple,
+  useGetProfileSimple
+} from '@/hooks/profileSimple/useGetProfileSimple';
+import ChangeAvatar from './components/changeAvatar';
+import ResetPassword from './components/password';
+import AvatarDefault from '@/assets/images/personal/avatarDefault.jpg';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,9 +49,19 @@ const Profile = () => {
     setTabValue(newValue);
   };
 
-  const user = useSelector((state: RootState) => state.auth);
+  const { getProfile, isLoading } = useGetProfileSimple();
+  const [profile, setProfile] = useState<IProfileSimple | null>(null);
 
-  const { data: dataStudent } = useGetStudentProfileQuery(user.accountID || '');
+  const [modalChangeAvatar, setModalChangeAvatar] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const profileData = getProfile();
+      setProfile(profileData);
+    };
+
+    fetchProfile();
+  }, [getProfile]);
 
   return (
     <>
@@ -60,17 +72,30 @@ const Profile = () => {
             image='./background.jpg'
             title='green iguana'
           />
-          <CardContent className='mx-5'>
+          <CardContent
+            className='mx-xl-5'
+            // sx={{ paddingBottom: '0 !important' }}
+          >
             <Box
               className='mb-4'
               sx={{
                 height: '100px',
                 display: 'flex',
                 justifyContent: { xs: 'center', md: 'flex-start' },
-                alignItems: { xs: 'center', md: 'flex-start' }
+                alignItems: { xs: 'center', md: 'flex-start' },
+                flexDirection: 'row',
+                padding: '5px'
               }}
             >
-              <Box sx={{ marginTop: '-90px', width: '150px' }}>
+              <Box
+                sx={{
+                  marginTop: '-60px',
+                  width: '150px',
+                  display: { xs: 'block', md: 'flex' },
+                  gap: '25px',
+                  alignItems: 'center'
+                }}
+              >
                 <Badge
                   count={
                     <div
@@ -85,29 +110,54 @@ const Profile = () => {
                     >
                       <FaPen
                         style={{ color: 'white', cursor: 'pointer' }}
-                        // onClick={() => setModalChangeAvatar(true)}
+                        onClick={() => setModalChangeAvatar(true)}
                       />
                     </div>
                   }
-                  offset={[-9, 125]}
+                  offset={[-15, 125]}
                 >
                   <Avatar
-                    sx={{ width: '150px', height: '150px', marginBottom: '20px' }}
-                    src={dataStudent?.image}
+                    sx={{
+                      width: '150px',
+                      height: '150px',
+                      marginBottom: '10px',
+                      border: '4px solid #fff',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => setModalChangeAvatar(true)}
+                    src={
+                      profile?.image && profile.image != ''
+                        ? profile.image
+                        : AvatarDefault
+                    }
                   />
                 </Badge>
-                <Typography
-                  sx={{
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    fontSize: '20px',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis'
-                  }}
-                >
-                  {dataStudent?.fullName}
-                </Typography>
+
+                <ChangeAvatar
+                  isOpen={modalChangeAvatar}
+                  onClose={() => setModalChangeAvatar(false)}
+                  onReload={() => getProfile()}
+                  imageDefault={profile?.image ?? AvatarDefault}
+                />
+
+                <Box sx={{ width: { xs: 'auto', md: '250px' } }}>
+                  <Typography
+                    sx={{
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                      fontSize: '25px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}
+                    className={'title'}
+                  >
+                    {profile?.fullName}
+                  </Typography>
+                  <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                    <Tag color='success'>{profile?.typeName}</Tag>
+                  </Box>
+                </Box>
               </Box>
             </Box>
 
@@ -137,11 +187,11 @@ const Profile = () => {
               value={tabValues}
               index={1}
             >
-              Item Two
+              <ResetPassword />
             </CustomTabPanel>
           </CardContent>
 
-          <CardActions className='mx-5'></CardActions>
+          {/* <CardActions className='mx-5'></CardActions> */}
         </Card>
       </div>
     </>
