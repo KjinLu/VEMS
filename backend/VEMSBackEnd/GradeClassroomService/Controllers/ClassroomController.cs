@@ -34,6 +34,32 @@ namespace GradeClassroomService.Controllers
             }
         }
 
+        [HttpGet("class-students")]
+        public async Task<IActionResult> GetClassStudents(Guid classID)
+        {
+            try
+            {
+                return APIResponse.Success(await _classroomService.GetClassStudents(classID));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("student-types")]
+        public async Task<IActionResult> GetStudentType()
+        {
+            try
+            {
+                return APIResponse.Success(await _classroomService.GetAllStudentType());
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClassroomById(Guid id)
         {

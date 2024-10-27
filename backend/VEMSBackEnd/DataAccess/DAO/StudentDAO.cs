@@ -69,12 +69,22 @@ public class StudentDAO
     {
         try
         {
-            return await _context.Students.Where(x => x.ClassroomId == classID).Select(item => new StudentInClassResponse
-            {
-                PublicStudentID = item.PublicStudentID,
-                StudentID = item.Id,
-                StudentName = item.FullName,
-            }).AsNoTracking().ToListAsync().ConfigureAwait(false);
+            var students = await _context.Students
+                .Where(x => x.ClassroomId == classID)
+                .Select(item => new StudentInClassResponse
+                {
+                    PublicStudentID = item.PublicStudentID,
+                    StudentID = item.Id,
+                    StudentName = item.FullName,
+                })
+                .AsNoTracking()
+                .ToListAsync()
+                .ConfigureAwait(false);
+
+            // Perform in-memory sorting by last name
+            return students
+                .OrderBy(s => s.StudentName.Substring(s.StudentName.LastIndexOf(" ") + 1))
+                .ToList();
         }
         catch (Exception ex)
         {

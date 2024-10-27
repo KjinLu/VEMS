@@ -1,5 +1,7 @@
 using System;
 using BusinessObject;
+using DataAccess.Dto.ClassroomDto;
+using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.DAO
@@ -37,6 +39,62 @@ namespace DataAccess.DAO
             catch (Exception ex)
             {
                 throw new Exception($"Lỗi khi lấy tất cả các lớp học: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<ClassStudentsResponse> GetClassStudents(Guid classID)
+        {
+            try
+            {
+                var students = await (from a in _context.Students
+                                      join c in _context.Classrooms on a.ClassroomId equals c.Id
+                                      join t in _context.studentTypes on a.StudentTypeId equals t.Id
+                                      where c.Id == classID
+                                      select new ClassStudentInfo
+                                      {
+                                          StudentID = a.Id,
+                                          StudentName = a.FullName,
+                                          StudentImage = a.Image,
+                                          StudentType = t.TypeName,
+                                          StudentTypeID = t.Id,
+                                          StudentPhone = a.Phone,
+                                          ClassName = c.ClassName,
+                                          PublicStudentID = a.PublicStudentID
+
+                                      }).ToListAsync();
+
+                students = students
+                    .AsEnumerable()
+                    .OrderBy(s => s.StudentName.Substring(s.StudentName.LastIndexOf(" ") + 1))
+                    .ToList();
+
+                if (students.Any())
+                    return new ClassStudentsResponse
+                    {
+                        ClassID = classID,
+                        ClassName = students[0].ClassName,
+                        NumberOfStudent = students.Count,
+                        Students = students
+                    };
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Có lỗi xảy ra: " + e.Message);
+            }
+        }
+
+        public async Task<List<StudentType>> GetAllStudentType()
+        {
+            try
+            {
+                return await _context.studentTypes.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Có lỗi xảy ra: " + e.Message);
+
             }
         }
 
