@@ -22,6 +22,10 @@ const Login = () => {
     await login(userData);
   };
 
+  const baseURL = import.meta.env.VITE_PUBLIC_API || '';
+
+  console.log(baseURL);
+
   return (
     <>
       <div className={cx('p-3')}>
@@ -53,6 +57,7 @@ const Login = () => {
               <Form.Item
                 name={'username'}
                 className={cx('mb-3')}
+                rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập' }]}
               >
                 <VemInput
                   id='username'
@@ -69,6 +74,7 @@ const Login = () => {
               <Form.Item
                 name={'password'}
                 className={cx('mb-2')}
+                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
               >
                 <VemInput
                   id='password'

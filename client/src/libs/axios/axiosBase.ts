@@ -3,7 +3,7 @@ import { AxiosError, AxiosRequestConfig } from 'axios';
 import { axiosPublic } from '@/libs/axios/axiosPublic';
 import { axiosAuth } from '@/libs/axios/axiosAuth';
 
-const baseURL = import.meta.env.VITE_PUBLIC_API || '';
+const baseURL = import.meta.env.VITE_PUBLIC_API;
 
 interface AxiosBaseQueryProps {
   url: string;
@@ -34,7 +34,7 @@ export const axiosBaseQuery =
       const instance = authRequired ? axiosAuth : axiosPublic;
       // console.log('baseUrl', baseURL);
       const result = await instance({
-        url: `http://localhost:8080/apigateway${url}`,
+        url: `${baseURL}${url}`,
         method,
         data,
         params,

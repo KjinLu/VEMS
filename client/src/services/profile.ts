@@ -79,13 +79,13 @@ export const profileApi = createApi({
   endpoints: build => ({
     getAdminProfile: build.query({
       query: () => ({
-        url: '/api/admin-service/profile',
+        url: '/admin-service/profile',
         method: 'get'
       })
     }),
     getTeacherProfile: build.query<ITeacherProfile, string>({
       query: (profileId: string) => ({
-        url: '/api/teacher-service/profile',
+        url: '/teacher-service/profile',
         method: 'get',
         params: {
           id: profileId
@@ -94,7 +94,7 @@ export const profileApi = createApi({
     }),
     getStudentProfile: build.query<IStudentProfile, string>({
       query: (profileId: string) => ({
-        url: '/api/student-service/profile',
+        url: '/StudentService/profile',
         method: 'get',
         params: {
           id: profileId
@@ -103,7 +103,7 @@ export const profileApi = createApi({
     }),
     updateTeacherProfile: build.mutation({
       query: (profile: IUpdateTeacherProfile) => ({
-        url: '/api/teacher-service/update-profile',
+        url: '/teacher-service/update-profile',
         method: 'put',
         authRequired: true,
         data: profile
@@ -111,7 +111,7 @@ export const profileApi = createApi({
     }),
     updateStudentProfile: build.mutation({
       query: (profile: IUpdateStudentProfile) => ({
-        url: '/api/student-service/update-profile',
+        url: '/studentService/update-profile',
         method: 'put',
         authRequired: true,
         data: profile
@@ -119,7 +119,7 @@ export const profileApi = createApi({
     }),
     saveAvatarTeacher: build.mutation<boolean, ISaveAvatar>({
       query: (formData: ISaveAvatar) => ({
-        url: '/api/teacher-service/upload-avatar',
+        url: '/teacher-service/upload-avatar',
         method: 'post',
         authRequired: true,
         data: formData,
@@ -130,7 +130,7 @@ export const profileApi = createApi({
     }),
     deleteAvatarTeacher: build.mutation<boolean, IDeleteAvatar>({
       query: (formData: IDeleteAvatar) => ({
-        url: '/api/teacher-service/delete-avatar',
+        url: '/teacher-service/delete-avatar',
         method: 'delete',
         authRequired: true,
         data: formData
@@ -138,7 +138,7 @@ export const profileApi = createApi({
     }),
     saveAvatarStudent: build.mutation<boolean, ISaveAvatar>({
       query: (formData: ISaveAvatar) => ({
-        url: '/api/student-service/upload-avatar',
+        url: '/studentService/upload-avatar',
         method: 'post',
         authRequired: true,
         data: formData,
@@ -149,7 +149,7 @@ export const profileApi = createApi({
     }),
     deleteAvatarStudent: build.mutation<boolean, IDeleteAvatar>({
       query: (formData: IDeleteAvatar) => ({
-        url: '/api/student-service/delete-avatar',
+        url: '/studentService/delete-avatar',
         method: 'delete',
         authRequired: true,
         data: formData
@@ -157,7 +157,7 @@ export const profileApi = createApi({
     }),
     changePassword: build.mutation({
       query: (data: any) => ({
-        url: '/api/auth-service/change-password',
+        url: '/auth-service/change-password',
         method: 'put',
         authRequired: true,
         data
