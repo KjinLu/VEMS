@@ -2,6 +2,7 @@ using System;
 using BusinessObject;
 using DataAccess.DAO;
 using DataAccess.Dto.ClassroomDto;
+using DataAccess.DTO;
 using DataAccess.Repository;
 
 namespace GradeClassroomService.Services;
@@ -18,6 +19,7 @@ public interface IClassroomService
 
     Task<ClassStudentsResponse> GetClassStudents(Guid classID);
     Task<List<StudentType>> GetAllStudentType();
+    Task<bool> AssignStudentType(AssignStudentTypeRequest request);
 
 }
 
@@ -98,5 +100,10 @@ public class ClassroomService : IClassroomService
     public async Task<List<StudentType>> GetAllStudentType()
     {
         return await _repository.GetAllStudentType();
+    }
+
+    public async Task<bool> AssignStudentType(AssignStudentTypeRequest request)
+    {
+        return await _repository.AssignStudentType(request);
     }
 }

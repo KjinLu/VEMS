@@ -1,4 +1,5 @@
 using DataAccess.Dto.ClassroomDto;
+using DataAccess.DTO;
 using GradeClassroomService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -80,6 +81,24 @@ namespace GradeClassroomService.Controllers
             {
                 await _classroomService.AddClassroom(classroom);
                 return APIResponse.Success();
+            }
+            catch (InvalidOperationException e)
+            {
+                return APIResponse.RequestError(null, e.Message);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("assign-student")]
+        public async Task<IActionResult> AssignStudentType(AssignStudentTypeRequest request)
+        {
+            try
+            {
+                var response = await _classroomService.AssignStudentType(request);
+                return APIResponse.Success(response);
             }
             catch (InvalidOperationException e)
             {

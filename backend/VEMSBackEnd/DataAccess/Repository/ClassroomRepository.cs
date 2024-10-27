@@ -2,6 +2,7 @@ using System;
 using BusinessObject;
 using DataAccess.DAO;
 using DataAccess.Dto.ClassroomDto;
+using DataAccess.DTO;
 
 namespace DataAccess.Repository;
 public interface IClassroomRepository
@@ -13,6 +14,8 @@ public interface IClassroomRepository
     Task DeleteClassroom(Guid id); // Delete a classroom by Id
     Task<ClassStudentsResponse> GetClassStudents(Guid classID);
     Task<List<StudentType>> GetAllStudentType();
+    Task<bool> AssignStudentType(AssignStudentTypeRequest request);
+
 }
 
 public class ClassroomRepository : IClassroomRepository
@@ -44,4 +47,6 @@ public class ClassroomRepository : IClassroomRepository
     public Task UpdateClassroom(Classroom classroom)
         => _dao.UpdateClassroomAsync(classroom);
 
+    public Task<bool> AssignStudentType(AssignStudentTypeRequest request)
+     => _dao.AssignStudentType(request);
 }

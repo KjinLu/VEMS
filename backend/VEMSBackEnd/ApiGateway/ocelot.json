@@ -63,6 +63,20 @@
         "GET"
       ]
     },
+     {
+      "DownstreamPathTemplate": "/api/Classroom/assign-student",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5059
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ClassroomService/assign-student",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
     {
       "DownstreamPathTemplate": "/api/Grade",
       "DownstreamScheme": "http",

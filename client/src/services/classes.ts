@@ -16,14 +16,29 @@ export const classApi = createApi({
         method: 'get'
       })
     }),
-    getAllStudenType: build.query({
+    getAllStudentType: build.query({
       query: () => ({
         url: '/ClassroomService/student-types',
         method: 'get'
+      })
+    }),
+    assignStudent: build.mutation({
+      query: (body: any) => ({
+        url: '/ClassroomService/assign-student',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: body
       })
     })
   }),
   tagTypes: []
 });
 
-export const { useGetAllStudenTypeQuery, useGetStudentInClassQuery } = classApi;
+export const {
+  useGetAllStudentTypeQuery,
+  useGetStudentInClassQuery,
+  useAssignStudentMutation
+} = classApi;

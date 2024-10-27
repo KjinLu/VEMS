@@ -9,16 +9,18 @@ import { UUID } from 'crypto';
 import { useEffect, useState } from 'react';
 import { ClassStudent, ClassStudentWithIndex } from './type';
 import StudentProfileModal from './StudentProfileModal';
+import { IStudentProfile, useGetStudentProfileQuery } from '@/services/profile';
 
 const TeacherClassManagementPage = () => {
   const userInfo = useSelector((state: RootState) => state.auth);
   const [classStudents, setClassStudent] = useState<ClassStudentWithIndex[]>();
-  const [studentSelected, setStudentSelected] = useState<UUID>();
+  const [studentSelectedId, setStudentSelectedId] = useState<UUID>();
+  const [studentSelectedData, setStudentSelectedData] = useState<IStudentProfile>();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
-  const { data } = useGetStudentInClassQuery(userInfo.classroomID as UUID);
+  const { data, refetch } = useGetStudentInClassQuery(userInfo.classroomID as UUID);
   useEffect(() => {
-    if (data.students) {
+    if (data) {
       setClassStudent(
         data.students.map((item: ClassStudent, idx: number) => ({
           ...item,
@@ -28,17 +30,25 @@ const TeacherClassManagementPage = () => {
     }
   }, [data]);
 
+  const { data: studentResponse } = useGetStudentProfileQuery(studentSelectedId!);
+
+  useEffect(() => {
+    if (studentResponse) setStudentSelectedData(studentResponse);
+  }, [studentResponse]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
   const handleRowClick = (params: any) => {
     const studentID = params.row.studentID;
     setIsOpenModal(true);
-    setStudentSelected(studentID);
+    setStudentSelectedId(studentID);
   };
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
-
-  console.log('Student ID:', studentSelected);
 
   return (
     <>
@@ -78,6 +88,8 @@ const TeacherClassManagementPage = () => {
       <StudentProfileModal
         isOpen={isOpenModal}
         toggleModal={toggleModal}
+        studentData={studentSelectedData!}
+        refetchParent={refetch}
       />
     </>
   );

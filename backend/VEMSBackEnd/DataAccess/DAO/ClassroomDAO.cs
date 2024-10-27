@@ -98,6 +98,60 @@ namespace DataAccess.DAO
             }
         }
 
+
+        public async Task<bool> AssignStudentType(AssignStudentTypeRequest request)
+        {
+            try
+            {
+                var studentType = _context.studentTypes.ToList();
+                var currentStudent = _context.Students.Find(request.studentID);
+
+
+                if (request.studentTypeID == studentType.Find(x => x.Code == "CLASS_MONITOR").Id)
+                {
+                    var currentClassMonitor = _context.Students.Count(item => item.ClassroomId == currentStudent.ClassroomId && item.StudentTypeId == request.studentTypeID);
+                    if (currentClassMonitor == 0)
+                    {
+                        currentStudent.StudentTypeId = request.studentTypeID;
+                        _context.Entry<Student>(currentStudent).State = EntityState.Modified;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Mỗi lớp chỉ được tồn tại một chức vụ lớp trưởng!");
+                    }
+                }
+                else if (request.studentTypeID == studentType.Find(x => x.Code == "CLASS_VICE_MONITOR").Id)
+                {
+                    var currentClassMonitor = _context.Students.Count(item => item.ClassroomId == currentStudent.ClassroomId && item.StudentTypeId == request.studentTypeID);
+                    if (currentClassMonitor == 0)
+                    {
+                        currentStudent.StudentTypeId = request.studentTypeID;
+                        _context.Entry<Student>(currentStudent).State = EntityState.Modified;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Mỗi lớp chỉ được tồn tại một chức vụ lớp phó!");
+                    }
+                }
+                else
+                {
+                    currentStudent.StudentTypeId = request.studentTypeID;
+                    _context.Entry<Student>(currentStudent).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    return true;
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("" + e.Message.ToString());
+            }
+        }
         // Thêm Classroom
         public async Task AddClassroomAsync(Classroom classroom)
         {

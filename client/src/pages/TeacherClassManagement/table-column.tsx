@@ -1,6 +1,8 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { ClassStudentWithIndex } from './type';
 import VemImage from '@/components/VemImage';
+import { ModeEditOutlineOutlined } from '@mui/icons-material';
+import { MouseEvent } from 'react';
 
 export const classTableColumn = (): GridColDef<ClassStudentWithIndex>[] => [
   {
@@ -62,5 +64,15 @@ export const classTableColumn = (): GridColDef<ClassStudentWithIndex>[] => [
     filterable: false,
     hideable: false,
     valueGetter: row => row
+  },
+  {
+    field: '',
+    headerName: 'Tùy chọn',
+    sortable: false,
+    width: 160,
+    filterable: false,
+    hideable: false,
+    align: 'center',
+    renderCell: () => <ModeEditOutlineOutlined />
   }
 ];
