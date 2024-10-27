@@ -413,7 +413,8 @@ namespace DataAccess.DAO
                                              ClassroomID = a.ClassroomId,
                                              ClassroomName = c.ClassName,
                                              FullName = a.FullName,
-                                             StudentType = t.Code
+                                             StudentType = t.Code,
+                                             Image = a.Image,
 
                                          }).FirstOrDefaultAsync();
 
@@ -428,7 +429,8 @@ namespace DataAccess.DAO
                         Username = student.Username,
                         ClassroomID = student.ClassroomID,
                         FullName = student.FullName,
-                        StudentType = student.StudentType
+                        StudentType = student.StudentType,
+                        Image = student.Image
                     };
                 }
                 return null;
@@ -527,7 +529,8 @@ namespace DataAccess.DAO
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
                         Username = student.Username,
-                        ClassroomID = student.ClassID
+                        ClassroomID = student.ClassID,
+
                     };
                 }
                 return null;

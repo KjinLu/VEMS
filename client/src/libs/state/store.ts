@@ -10,6 +10,7 @@ import authReducer from '@/libs/features/auth/authSlice';
 import { scheduleApi } from '@/services/schedule';
 import { attendanceApi } from '@/services/attendance';
 import { profileApi } from '@/services/profile';
+import { classApi } from '@/services/classes';
 
 const persistConfig = {
   key: 'root',
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [scheduleApi.reducerPath]: scheduleApi.reducer,
   [attendanceApi.reducerPath]: attendanceApi.reducer,
-  [profileApi.reducerPath]: profileApi.reducer
+  [profileApi.reducerPath]: profileApi.reducer,
+  [classApi.reducerPath]: classApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -33,7 +35,8 @@ export const store = configureStore({
       authApi.middleware,
       scheduleApi.middleware,
       attendanceApi.middleware,
-      profileApi.middleware
+      profileApi.middleware,
+      classApi.middleware
     );
   }
 });
