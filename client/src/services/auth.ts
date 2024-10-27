@@ -12,7 +12,7 @@ export const authApi = createApi({
   endpoints: build => ({
     login: build.mutation({
       query: (userData: SignInProps) => ({
-        url: '/api/auth/login',
+        url: '/AuthService/login',
         method: 'Post',
         // authRequired: true,
         keepUnusedDataFor: 0,
@@ -24,7 +24,7 @@ export const authApi = createApi({
     }),
     getUser: build.mutation({
       query: (user: getUserProps) => ({
-        url: '/api/auth?accessToken=' + user.accessToken,
+        url: '/AuthService?accessToken=' + user.accessToken,
         method: 'Post'
         // data: user
       })

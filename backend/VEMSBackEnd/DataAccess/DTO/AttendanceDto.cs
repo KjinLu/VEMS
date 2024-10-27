@@ -29,6 +29,9 @@ namespace DataAccess.DTO
     {
         public Guid StudentID { get; set; }
         public Guid StatusID { get; set; }
+        public Guid? TeacherID { get; set; }
+        public Guid? ReasonID { get; set; }
+        public string? Description { get; set; }
     }
 
 
@@ -51,6 +54,7 @@ namespace DataAccess.DTO
         public Guid StatusID { get; set; }
         public Guid? TeacherID { get; set; }
         public Guid? ReasonID { get; set; }
+        public string? Description { get; set; }
 
     }
 
@@ -77,19 +81,24 @@ namespace DataAccess.DTO
         public Guid StudentID { get; set; }
         public Guid StatusID { get; set; }
         public string StatusName { get; set; }
+        public Guid? ReasonID { get; set; }
+        public string? Description { get; set; }
         public string StudentName { get; set; }
         public string StudentCode { get; set; }
         public string CreateBy { get; set; }
+        public string? UpdateBy { get; set; }
         public DateTime CreateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
     }
 
     public class AttendanceHistoryStudentResponse
     {
+        public Guid AttendanceStatusID { get; set; }
         public DateTime DateAttendance { get; set; }
         public int DayOfWeek { get; set; }
         public string PeriodName { get; set; }
         public string? StudentCharge { get; set; } = "";
-        public Guid? TeacherCharge { get; set; }
+        public string? TeacherCharge { get; set; }
 
         public string StatusName { get; set; }
         public string? ReasonName { get; set; } = "";

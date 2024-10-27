@@ -48,8 +48,8 @@ const AdminManagementPage = () => {
             <img
               className={cx('schedule-image')}
               src={ScheduleImage}
-              alt='Mô tả ảnh'
-              width='160'
+              alt='schedule-image'
+              width='150'
             />
           </div>
         </Col>
@@ -76,10 +76,14 @@ const AdminManagementPage = () => {
               </div>
             </div>
 
-            <div className={cx('d-flex align-items-center justify-content-between mb-2')}>
+            <div
+              className={cx(
+                'd-flex align-items-center justify-content-between mb-2 px-3'
+              )}
+            >
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(0, 207, 232, 0.10196078431372549)' }}
                 >
                   <HiClipboardDocumentList
@@ -99,7 +103,7 @@ const AdminManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(40,199,111,.10196078431372549)' }}
                 >
                   <HiClipboardDocumentCheck
@@ -119,7 +123,7 @@ const AdminManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(234, 84, 85, .10196078431372549)' }}
                 >
                   <HiClipboardDocument
@@ -142,7 +146,6 @@ const AdminManagementPage = () => {
       </Row>
 
       {/* Calendar */}
-
       <div className={cx('card')}>
         <Row>
           <Col md={12}>

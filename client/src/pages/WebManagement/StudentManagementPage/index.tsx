@@ -29,7 +29,7 @@ import VemsInputCus from '@/components/VemsInputCustom';
 import VemFragment from '@/components/VemFragment';
 import VemSelect from '@/components/VemSelect';
 import NoRecord from '@/components/NoRecord';
-import VemLoader from '@/components/VemLoader';
+import VemsLoader from '@/components/VemsLoader';
 import { studentColumn } from './data-table-column';
 import { StudentIndex } from './type';
 import ModalStudentDetails from './ModalStudentDetails';
@@ -50,6 +50,7 @@ const StudentManagementPage = () => {
     { id: '3', avatar: 'Lê Văn C', name: 'Nguyễn Văn C', code: 'HS0003' }
   ];
 
+  // Show student detail
   const handleShowStudentDetail = (item: StudentIndex) => {
     setStudentId(item.id);
     setIsOpenStudentDetail(true);
@@ -76,7 +77,7 @@ const StudentManagementPage = () => {
             <img
               className={cx('student-image')}
               src={StudentImage}
-              alt='Mô tả ảnh'
+              alt='student-image'
               width='200'
             />
           </div>
@@ -84,7 +85,7 @@ const StudentManagementPage = () => {
 
         <Col md={6}>
           <div className={cx('card')}>
-            <h2 className={cx('title', 'mb-3')}>Số lượng học sinh của trường</h2>
+            <h2 className={cx('title', 'mb-3')}>Số lượng học sinh</h2>
 
             <div className={cx('d-flex justify-content-between mb-4')}>
               <VemsButtonCus
@@ -129,7 +130,7 @@ const StudentManagementPage = () => {
             >
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: '#e0f7fa' }}
                 >
                   <IoPeople
@@ -147,7 +148,7 @@ const StudentManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgb(209 197 200 / 69%)' }}
                 >
                   <FaRegFaceFrownOpen
@@ -295,7 +296,7 @@ const StudentManagementPage = () => {
             >
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(0, 207, 232, 0.10196078431372549)' }}
                 >
                   <HiClipboardDocumentList
@@ -315,7 +316,7 @@ const StudentManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(40,199,111,.10196078431372549)' }}
                 >
                   <HiClipboardDocumentCheck
@@ -335,7 +336,7 @@ const StudentManagementPage = () => {
 
               <div className={cx('d-flex align-items-center')}>
                 <div
-                  className={cx('div-round', 'shadow', 'me-3')}
+                  className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgba(234, 84, 85, .10196078431372549)' }}
                 >
                   <HiClipboardDocument
@@ -359,34 +360,31 @@ const StudentManagementPage = () => {
 
       {/* Student List */}
       <div className={cx('card')}>
-        {/* Lists  */}
-        <div className={styles.tableContainer}>
-          {/* Student title  */}
-          <Col
-            md={12}
-            className={cx('d-flex justify-content-center')}
-          >
-            <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
-              Danh sách học sinh lớp 8A1
-            </h1>
-          </Col>
+        {/* Student title  */}
+        <Col
+          md={12}
+          className={cx('d-flex justify-content-center')}
+        >
+          <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
+            Danh sách học sinh lớp 8A1
+          </h1>
+        </Col>
 
-          <DataTable
-            data={students}
-            columns={studentColumn}
-            striped={true}
-            highlightOnHover={true}
-            persistTableHead
-            pagination
-            paginationComponentOptions={{
-              rowsPerPageText: 'Số dòng trên trang'
-            }}
-            paginationServer
-            onRowClicked={item => handleShowStudentDetail(item)}
-            noDataComponent={<NoRecord />}
-            progressComponent={<VemLoader />}
-          />
-        </div>
+        <DataTable
+          data={students}
+          columns={studentColumn}
+          striped={true}
+          highlightOnHover={true}
+          persistTableHead
+          pagination
+          paginationComponentOptions={{
+            rowsPerPageText: 'Số dòng trên trang'
+          }}
+          paginationServer
+          onRowClicked={item => handleShowStudentDetail(item)}
+          noDataComponent={<NoRecord />}
+          progressComponent={<VemsLoader />}
+        />
       </div>
 
       <ModalStudentDetails

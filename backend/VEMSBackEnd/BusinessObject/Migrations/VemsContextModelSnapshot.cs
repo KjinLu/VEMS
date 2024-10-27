@@ -137,7 +137,6 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -920,7 +919,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5315a87f-94bc-482a-98ce-15c6b293bdaa"),
+                            Id = new Guid("3be92667-9345-4c5c-aba0-ad2b67ffa239"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -939,7 +938,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c5162d54-a931-447c-97a0-950dbc81715c"),
+                            Id = new Guid("b5cfe51d-106b-4c86-96c6-25e88f047f50"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -958,7 +957,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e11bb566-b164-4c86-a428-9458c0e008b2"),
+                            Id = new Guid("baa3fa4d-8fd0-42e0-a78e-f2708f0984b5"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -977,7 +976,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fa0b890d-613f-4f08-8c31-019ea0f3c4f4"),
+                            Id = new Guid("f8a39d4c-9186-441b-b063-52bad15bfcd8"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -996,7 +995,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9c34ee7c-8698-49d8-adcb-5643abc9c18b"),
+                            Id = new Guid("c2b930b2-a07a-42f6-89c4-0327ff24c2bd"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1015,7 +1014,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f281b8c4-edbb-4389-994d-b70941bb3b28"),
+                            Id = new Guid("5487b6d0-74cb-4f4a-ae8e-a7813e851174"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1034,7 +1033,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9de590ce-e2d6-4ffe-8b33-06a1586521c4"),
+                            Id = new Guid("de1acda1-8c90-4621-80e6-c257ce7593ce"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1053,7 +1052,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1c7305c1-f1f9-48be-b71a-8f42063f5801"),
+                            Id = new Guid("4dd44614-fde6-4231-8b8e-0b17a9b11f8a"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1072,7 +1071,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e8080fae-2152-4db3-a901-3afefa95735f"),
+                            Id = new Guid("6a9d2334-54af-465b-b235-9166ee50e429"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1091,7 +1090,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7184f787-d758-4811-bced-fea5a8e757af"),
+                            Id = new Guid("28b94cf2-132b-4f5e-849c-18aef961d6ba"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),

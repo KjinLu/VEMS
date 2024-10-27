@@ -70,7 +70,7 @@ const ModalUploadStudent = ({
         isOpen={isCloseModalStudent}
         className={cx('modal-wrapper')}
       >
-        <h2 className={cx('text-uppercase', 'title', 'modal-Student-title')}>
+        <h2 className={cx('text-uppercase', 'title', 'modal-student-title')}>
           Tạo danh sách học sinh
         </h2>
 

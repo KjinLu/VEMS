@@ -1,8 +1,15 @@
 import VemButton from '@/components/VemButton';
 import VemInput from '@/components/VemInput';
-import { Link, MenuItem, Paper, Select } from '@mui/material';
-import { Form } from 'antd';
-import { useLocation } from 'react-router-dom';
+import {
+  FormControlLabel,
+  Link,
+  MenuItem,
+  Paper,
+  Radio,
+  RadioGroup,
+  Select
+} from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import { formatDate } from '@/utils/dateFormat';
 import { useSelector } from 'react-redux';
@@ -14,7 +21,9 @@ import {
 } from '@/services/attendance';
 import { UUID } from 'crypto';
 import { useEffect, useState } from 'react';
-import { useForm } from 'antd/es/form/Form';
+import { Form } from 'antd';
+import { toast } from 'react-toastify';
+import { configRoutes } from '@/constants/routes';
 
 type AttendanceRecord = {
   attendanceStatusID: string;
@@ -34,32 +43,44 @@ type AttendanceData = {
 
 const StudentUpdateAttendancePage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const userInfo = useSelector((state: RootState) => state);
   const { time, className, periodName } = location.state || {};
   const [attendance, setAttendance] = useState<any>({});
   const [updateAttendance] = useUpdateAttendanceForClassMutation();
-
-  const [updateFrom] = useForm();
+  const [updateFrom] = Form.useForm();
 
   const handleSubmit = async (values: any) => {
+    const updatedAttendance = { ...attendance };
+
+    attendanceData?.attendanceData?.forEach((item: any) => {
+      if (!updatedAttendance[item.attendanceStatusID]) {
+        updatedAttendance[item.attendanceStatusID] = item.statusID;
+      }
+    });
+
     const attendanceDataRequest: AttendanceData = {
       attendanceID: attendanceData.attendanceID,
       time: time,
       note: values.note ?? '',
-      updateBy: userInfo.auth.username as string,
+      updateBy: userInfo.auth.fullName as string,
       updateAt: new Date().toISOString(),
-      createAt: attendanceData?.attendanceData[0]
-        ? attendanceData?.attendanceData[0].createAt
-        : '',
-      createBy: attendanceData?.attendanceData[0]
-        ? attendanceData?.attendanceData[0].createBy
-        : '',
-      attendanceData: Object.keys(attendance).map(attendanceStatusID => ({
+      createAt: attendanceData?.attendanceData[0]?.createAt ?? '',
+      createBy: attendanceData?.attendanceData[0]?.createBy ?? '',
+      attendanceData: Object.keys(updatedAttendance).map(attendanceStatusID => ({
         attendanceStatusID,
-        statusID: attendance[attendanceStatusID]
+        statusID: updatedAttendance[attendanceStatusID]
       }))
     };
+
+    // console.log(attendanceDataRequest);
     var response = await updateAttendance(attendanceDataRequest).unwrap();
+    if (response) {
+      toast.success('Sửa điểm danh thành công!');
+      navigate(configRoutes.studentAttendanceSchedule);
+    } else {
+      toast.error('Sửa điểm danh thất bại!');
+    }
   };
 
   const { data: attendanceData, refetch: refetchAttendanceData } =
@@ -73,17 +94,17 @@ const StudentUpdateAttendancePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(attendanceData);
-    console.log(attendanceData ? attendanceData.note : '');
-    updateFrom.setFieldsValue({ note: attendanceData ? attendanceData.note : '' });
+    updateFrom.setFieldsValue({
+      note: attendanceData ? attendanceData.note : ''
+    });
   }, [attendanceData]);
 
   const { data: attendanceStatus } = useGetStatusesQuery(null);
 
-  const handleChange = (id: any, e: any) => {
-    setAttendance((prev: any) => ({
-      ...prev,
-      [id]: e.target.value
+  const handleChange = (attendanceStatusID: string, statusID: string) => {
+    setAttendance((prevAttendance: any) => ({
+      ...prevAttendance,
+      [attendanceStatusID]: statusID
     }));
   };
 
@@ -97,24 +118,29 @@ const StudentUpdateAttendancePage = () => {
           </b>
         </h4>
         <Form
+          className='mt-3'
           form={updateFrom}
           onFinish={handleSubmit}
         >
-          <Form.Item
-            name={'note'}
-            className='mb-3'
-          >
-            <VemInput
-              id='note'
-              label='Ghi chú'
-              placeholder='Ghi chú điểm danh'
-              // required
-              fullWidth
-              variant='outlined'
-              size='medium'
-              autoComplete='off'
-            />
-          </Form.Item>
+          <Row>
+            <Col sm={6}>
+              <Form.Item
+                name={'note'}
+                className='mb-3'
+              >
+                <VemInput
+                  id='note'
+                  label='Ghi chú'
+                  placeholder='Ghi chú điểm danh'
+                  // required
+                  fullWidth
+                  variant='outlined'
+                  size='medium'
+                  autoComplete='off'
+                />
+              </Form.Item>
+            </Col>
+          </Row>
 
           <Row className='p-3'>
             <Row className='mb-3'>
@@ -137,30 +163,38 @@ const StudentUpdateAttendancePage = () => {
             </Row>
             {attendanceData?.attendanceData.map((item: any, index: number) => (
               <Row
-                key={item.studentID}
+                key={item.attendanceStatusID}
                 className='mt-2 py-2'
               >
-                <Col sm={2}> {index + 1}</Col>
-                <Col sm={5}> {item.studentName}</Col>
-
+                <Col sm={2}>{index + 1}</Col>
+                <Col sm={5}>{item.studentName}</Col>
                 <Col sm={5}>
-                  <Select
-                    className='w-100'
-                    labelId='demo-simple-select-label'
-                    id='demo-simple-select'
-                    onChange={e => handleChange(item.attendanceStatusID, e)}
-                    value={
-                      attendance[item.attendanceStatusID]
-                        ? attendance[item.attendanceStatusID]
-                        : item.statusID
-                    }
+                  <RadioGroup
+                    aria-label='attendance-status'
+                    value={attendance[item.attendanceStatusID] || item.statusID} // Use state if changed, or existing data
+                    onChange={e => handleChange(item.attendanceStatusID, e.target.value)} // Update state on change
+                    row
                   >
-                    {attendanceStatus
-                      .filter((i: any) => i.optionName !== 'Chưa điểm danh')
-                      .map((item: any) => (
-                        <MenuItem value={item.optionID}>{item.optionName}</MenuItem>
-                      ))}
-                  </Select>
+                    <FormControlLabel
+                      className='me-5'
+                      value={
+                        attendanceStatus.find(
+                          (status: any) => status.optionName === 'Vắng mặt không phép'
+                        )?.optionID
+                      }
+                      control={<Radio />}
+                      label='Vắng mặt'
+                    />
+                    <FormControlLabel
+                      value={
+                        attendanceStatus.find(
+                          (status: any) => status.optionName === 'Có mặt'
+                        )?.optionID
+                      }
+                      control={<Radio />}
+                      label='Có mặt'
+                    />
+                  </RadioGroup>
                 </Col>
               </Row>
             ))}
@@ -168,10 +202,9 @@ const StudentUpdateAttendancePage = () => {
 
           <VemButton
             className='mt-2 mb-3'
-            // loading={isLoading}
             status={'loading'}
             type={'submit'}
-            children={'Điểm danh'}
+            children={'Cập nhật'}
             variant={'contained'}
             fullWidth={true}
           />

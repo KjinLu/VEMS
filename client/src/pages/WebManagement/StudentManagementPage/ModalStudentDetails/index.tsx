@@ -26,7 +26,7 @@ const ModalStudentDetails = ({
         className={cx('modal-wrapper')}
         size='lg'
       >
-        <h2 className={cx('text-uppercase', 'title', 'modal-Student-title')}>
+        <h2 className={cx('text-uppercase', 'title', 'modal-student-title')}>
           Thông tin chi tiết học sinh
         </h2>
 

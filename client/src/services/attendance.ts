@@ -12,25 +12,31 @@ export const attendanceApi = createApi({
   endpoints: build => ({
     getStudentInClass: build.query({
       query: (classID: UUID) => ({
-        url: '/api/student-service/class?classID=' + classID,
+        url: '/StudentService/student-service/class?classID=' + classID,
+        method: 'get'
+      })
+    }),
+    getStudentAttendanceReport: build.query({
+      query: (studentID: UUID) => ({
+        url: '/AttendanceService/getHistoryAttendanceForStudent?id=' + studentID,
         method: 'get'
       })
     }),
     getStatuses: build.query({
       query: () => ({
-        url: '/api/attendance/attendanceStatusOptions',
+        url: '/AttendanceService/attendanceStatusOptions',
         method: 'get'
       })
     }),
     getReasons: build.query({
       query: () => ({
-        url: '/api/attendance/attendanceReasonOptions',
+        url: '/AttendanceService/attendanceReasonOptions',
         method: 'get'
       })
     }),
     getAttendanceScheduleOfClass: build.query({
       query: ({ classID, time }: { classID: UUID; time: string }) => ({
-        url: `/api/attendance/getNeedAttendanceInfo`,
+        url: `/AttendanceService/getNeedAttendanceInfo`,
         method: 'get',
         params: {
           ClassID: classID, // Corrected to uppercase
@@ -40,7 +46,7 @@ export const attendanceApi = createApi({
     }),
     takeAttendanceForClass: build.mutation({
       query: (attendanceData: any) => ({
-        url: `/api/attendance/takeAttendanceForClass`,
+        url: `/AttendanceService/takeAttendanceForClass`,
         method: 'Post',
         // authRequired: true,
         keepUnusedDataFor: 0,
@@ -52,7 +58,7 @@ export const attendanceApi = createApi({
     }),
     getAttendanceOfClass: build.query({
       query: ({ classID, time }: { classID: UUID; time: string }) => ({
-        url: `/api/attendance/getAttendanceForClass`,
+        url: `/AttendanceService/getAttendanceForClass`,
         method: 'get',
         params: {
           ClassID: classID, // Corrected to uppercase
@@ -62,7 +68,7 @@ export const attendanceApi = createApi({
     }),
     updateAttendanceForClass: build.mutation({
       query: (attendanceData: any) => ({
-        url: `/api/attendance/updateAttendanceForClass`,
+        url: `/AttendanceService/updateAttendanceForClass`,
         method: 'Post',
         // authRequired: true,
         keepUnusedDataFor: 0,
@@ -83,5 +89,6 @@ export const {
   useGetStudentInClassQuery,
   useTakeAttendanceForClassMutation,
   useGetAttendanceOfClassQuery,
-  useUpdateAttendanceForClassMutation
+  useUpdateAttendanceForClassMutation,
+  useGetStudentAttendanceReportQuery
 } = attendanceApi;
