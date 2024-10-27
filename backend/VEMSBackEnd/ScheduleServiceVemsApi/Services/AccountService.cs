@@ -104,7 +104,7 @@ public class AccountService : IAccountService
 
     public Task<bool> ChangePassword(ChangePasswordRequest request)
     {
-        return _accountRepository.UpdatePassword(request.AccountID, Hashing(request.CurrentPassword), Hashing(request.NewPassword));
+        return _accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
     }
 
     public string Hashing(string password)

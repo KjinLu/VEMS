@@ -3,7 +3,6 @@ using BusinessObject;
 using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
-using System.Net;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DataAccess.DAO
@@ -397,7 +396,6 @@ namespace DataAccess.DAO
                                              AccountID = a.Id,
                                              Username = a.Username,
                                              Password = a.Password,
-                                             Image = a.Image,
                                              Email = a.Email,
                                              RefreshToken = a.RefreshToken,
                                              RoleID = r.Id,
@@ -412,7 +410,6 @@ namespace DataAccess.DAO
                         Email = student.Email,
                         RefreshToken = student.RefreshToken,
                         Password = student.Password,
-                        Image = student.Image,
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
                         Username = student.Username,
@@ -632,7 +629,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<bool> ChangePassword(Guid AccountId, string currentPassword,  string newPassword)
+        public async Task<bool> ChangePassword(Guid AccountId, string newPassword)
         {
             try
             {
@@ -642,40 +639,28 @@ namespace DataAccess.DAO
                     var admin = await context.Admins.SingleOrDefaultAsync(admin => admin.Id == AccountId);
                     if (admin != null)
                     {
-                        if (admin.Password == currentPassword) 
-                        {
-                            admin.Password = newPassword;
-                            context.Entry(admin).State = EntityState.Modified;
-                            await context.SaveChangesAsync();
-                            return true;
-                        }
-                        return false;
+                        admin.Password = newPassword;
+                        context.Entry<Admin>(admin).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
                     }
 
                     var teacher = await context.Teacher.SingleOrDefaultAsync(teacher => teacher.Id == AccountId);
                     if (teacher != null)
                     {
-                        if (teacher.Password == currentPassword)
-                        {
-                            teacher.Password = newPassword;
-                            context.Entry(teacher).State = EntityState.Modified;
-                            await context.SaveChangesAsync();
-                            return true;
-                        }
-                        return false;
+                        teacher.Password = newPassword;
+                        context.Entry<Teacher>(teacher).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
                     }
 
                     var student = await context.Students.SingleOrDefaultAsync(student => student.Id == AccountId);
                     if (student != null)
                     {
-                        if (student.Password == currentPassword) 
-                        {
-                            student.Password = newPassword;
-                            context.Entry(student).State = EntityState.Modified;
-                            await context.SaveChangesAsync();
-                            return true;
-                        }
-                        return false; 
+                        student.Password = newPassword;
+                        context.Entry<Student>(student).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return true;
                     }
                 }
                 return false;

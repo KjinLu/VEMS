@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-    [Migration("20241022114020_initDB")]
-    partial class initDB
-========
     [Migration("20241024093254_InitialDB")]
     partial class InitialDB
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -928,11 +923,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("eacd23a6-5884-47a4-81bd-c1aedc24b40c"),
-========
                             Id = new Guid("5315a87f-94bc-482a-98ce-15c6b293bdaa"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -951,11 +942,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("74ee2660-3e46-4c2c-a104-68f4cdab5c2f"),
-========
                             Id = new Guid("c5162d54-a931-447c-97a0-950dbc81715c"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -974,11 +961,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("9f3cf5ad-13b3-41d0-83e9-8e2d2f71bfa2"),
-========
                             Id = new Guid("e11bb566-b164-4c86-a428-9458c0e008b2"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -997,11 +980,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("35a29aec-31b5-49a3-9a62-f3b39c94f990"),
-========
                             Id = new Guid("fa0b890d-613f-4f08-8c31-019ea0f3c4f4"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1020,11 +999,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("d7dfdfa2-6c7e-4420-b6b3-0bc4f87cc1f5"),
-========
                             Id = new Guid("9c34ee7c-8698-49d8-adcb-5643abc9c18b"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1043,11 +1018,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("c5ab0512-eadf-4720-ac1f-1a43f453cc9e"),
-========
                             Id = new Guid("f281b8c4-edbb-4389-994d-b70941bb3b28"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1066,11 +1037,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("beba6258-f911-4875-b4f6-12072503acfc"),
-========
                             Id = new Guid("9de590ce-e2d6-4ffe-8b33-06a1586521c4"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1089,11 +1056,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("84b220ef-5093-414d-9456-7b89b60c1075"),
-========
                             Id = new Guid("1c7305c1-f1f9-48be-b71a-8f42063f5801"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1112,11 +1075,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("acfb38f1-fe3c-429b-9d79-37b283c37ad9"),
-========
                             Id = new Guid("e8080fae-2152-4db3-a901-3afefa95735f"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1135,11 +1094,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:backend/VEMSBackEnd/BusinessObject/Migrations/20241022114020_initDB.Designer.cs
-                            Id = new Guid("008d59cc-74e4-46b9-8bc5-ccfb8a7bc6ff"),
-========
                             Id = new Guid("7184f787-d758-4811-bced-fea5a8e757af"),
->>>>>>>> ef08c3655fae9da59e0d1a30a6541b156a3b77e4:backend/VEMSBackEnd/BusinessObject/Migrations/20241024093254_InitialDB.Designer.cs
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),

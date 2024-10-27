@@ -46,7 +46,7 @@ namespace VemsApi.Services
 
         public async Task<bool> ChangePassword(ChangePasswordRequest request)
         {
-            return await _accountRepository.UpdatePassword(request.AccountID, Hashing(request.CurrentPassword), Hashing(request.NewPassword));
+            return await _accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
         }
 
         public string Hashing(string password)
