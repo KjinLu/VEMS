@@ -64,7 +64,7 @@ namespace VemsApi.Controllers
 
         [HttpPut("update-password")]
         [Authorize("STUDENT")]
-        public async Task<IActionResult> UpdatePassword(ChangePasswordRequest request)
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordRequest request)
         {
             try
             {
