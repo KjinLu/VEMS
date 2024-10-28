@@ -11,6 +11,7 @@ interface AuthState {
   classroomID?: string | null;
   fullName?: string | null;
   studentType?: string | null;
+  teacherType?: string | null;
 }
 
 const initialState: AuthState = {
@@ -23,7 +24,8 @@ const initialState: AuthState = {
   isFisrtLogin: false,
   classroomID: null,
   fullName: null,
-  studentType: null
+  studentType: null,
+  teacherType: null
 };
 
 const authSlice = createSlice({

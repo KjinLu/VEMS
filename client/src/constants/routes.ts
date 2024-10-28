@@ -21,6 +21,7 @@ export const configRoutes = {
 
   //Teacher
   teacherSchedule: '/teacher/schedule',
+  teacherAllSchedule: '/teacher/schedule/all',
   teacherAttendanceSchedule: '/teacher/attendance',
   teacherViewAttendance: '/teacher/attendance-report',
   teacherTakeAttendance: '/teacher/attendance/take',
