@@ -13,17 +13,21 @@ import { Role } from '@/types/auth/type';
 import { RootState } from '@/libs/state/store';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import PlagiarismIcon from '@mui/icons-material/Plagiarism';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { configRoutes } from '@/constants/routes';
+import { PiStudentFill } from 'react-icons/pi';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 // add more items to the list
 const studentNavBar = (navigate: any): DrawerItem[] => [
   {
     id: 'STUDENT-SCHEDULE',
     content: 'Lịch học',
-    Icon: <CalendarMonthIcon />,
+    Icon: <DateRangeIcon />,
     onClick: () => navigate(configRoutes.studentSchedule)
   },
   {
@@ -44,20 +48,32 @@ const teacherNavBar = (navigate: any): DrawerItem[] => [
   {
     id: 'TEACHER-SCHEDULE',
     content: 'Lịch giảng dạy',
-    Icon: <CalendarMonthIcon />,
+    Icon: <DateRangeIcon />,
     onClick: () => navigate(configRoutes.teacherSchedule)
   },
   {
     id: 'TEACHER-TAKE-ATTENDANCE',
-    content: 'Điểm danh',
+    content: 'Điểm danh lớp',
     Icon: <EventAvailableIcon />,
     onClick: () => navigate(configRoutes.teacherAttendanceSchedule)
   },
   {
     id: 'TEACHER-CLASS-MANAGEMENT',
-    content: 'Quản lí lớp',
-    Icon: <PlagiarismIcon />,
+    content: 'Quản lí lớp chủ nhiệm',
+    Icon: <SupervisorAccountIcon />,
     onClick: () => navigate(configRoutes.teacherClassManagement)
+  },
+  {
+    id: 'TEACHER-SCHEDULE-ALL',
+    content: 'Lịch giảng dạy tổng',
+    Icon: <CalendarMonthIcon />,
+    onClick: () => navigate(configRoutes.teacherAllSchedule)
+  },
+  {
+    id: 'TEACHER-CLASSES-LIST',
+    content: 'Xem lớp',
+    Icon: <MeetingRoomIcon />,
+    onClick: () => navigate(configRoutes.teacherAllSchedule)
   }
 ];
 
@@ -104,15 +120,16 @@ const VemDrawer = (props: DrawerProps) => {
       ? adminNavBar(navigate)
       : userAuth.roleName === 'TEACHER'
         ? teacherNavBar(navigate).filter(item => {
-            if (
-              userAuth.studentType === 'PRIMARY_TEACHER' &&
-              (item.id === 'TEACHER-SCHEDULE' ||
+            if (userAuth.teacherType === 'PRIMARY_TEACHER') {
+              return true;
+            } else if (userAuth.teacherType != 'PRIMARY_TEACHER') {
+              if (
                 item.id === 'TEACHER-CLASS-MANAGEMENT' ||
-                item.id === 'TEACHER-TAKE-ATTENDANCE')
-            ) {
-              return false;
+                item.id === 'TEACHER-TAKE-ATTENDANCE'
+              )
+                return false;
+              return true;
             }
-            return true;
           })
         : studentNavBar(navigate).filter(item => {
             if (

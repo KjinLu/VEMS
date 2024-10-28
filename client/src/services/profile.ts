@@ -155,9 +155,17 @@ export const profileApi = createApi({
         data: formData
       })
     }),
-    changePassword: build.mutation({
+    changeStudentPassword: build.mutation({
       query: (data: any) => ({
-        url: '/auth-service/change-password',
+        url: '/StudentService/update-password',
+        method: 'put',
+        authRequired: true,
+        data
+      })
+    }),
+    changeTeacherPassword: build.mutation({
+      query: (data: any) => ({
+        url: '/teacher-service/update-password',
         method: 'put',
         authRequired: true,
         data
@@ -175,5 +183,7 @@ export const {
   useSaveAvatarTeacherMutation,
   useDeleteAvatarTeacherMutation,
   useSaveAvatarStudentMutation,
-  useDeleteAvatarStudentMutation
+  useDeleteAvatarStudentMutation,
+  useChangeStudentPasswordMutation,
+  useChangeTeacherPasswordMutation
 } = profileApi;

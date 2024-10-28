@@ -27,6 +27,7 @@ import TeacherEditAttendancePage from '@/pages/TeacherEditAttendance';
 import TeacherClassManagementPage from '@/pages/TeacherClassManagement';
 import TeacherAttendanceManagementPage from '@/pages/TeacherAttendanceManagement';
 import TeacherTakeAttendancePage from '@/pages/TeacherTakeAttendance';
+import TeacherAllSchedulePage from '@/pages/TeacherAllSchedule';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -146,6 +147,13 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: configRoutes.teacherSchedule,
     component: TeacherSchedulePage,
+    layout: DefaultLayout,
+    allowedRoles: ['TEACHER'],
+    isAuthenticated: true
+  },
+  {
+    path: configRoutes.teacherAllSchedule,
+    component: TeacherAllSchedulePage,
     layout: DefaultLayout,
     allowedRoles: ['TEACHER'],
     isAuthenticated: true
