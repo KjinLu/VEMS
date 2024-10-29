@@ -95,14 +95,35 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Student>> GetAllStudentAsync()
+        public async Task<List<StudentResponse>> GetAllStudentAsync()
         {
             try
             {
-
                 using (var context = new VemsContext())
                 {
-                    return await context.Students.ToListAsync();
+                    return await context.Students
+                        .Include(s => s.Classroom) // Bao gồm Classroom
+                        .Include(s => s.StudentType) // Bao gồm StudentType
+                        .Select(s => new StudentResponse
+                        {
+                            Id = s.Id,
+                            PublicStudentID = s.PublicStudentID,
+                            FullName = s.FullName,
+                            CitizenID = s.CitizenID,
+                            Username = s.Username,
+                            Password = s.Password, // Chỉ nên trả về khi cần thiết
+                            Email = s.Email,
+                            Dob = s.Dob,
+                            Address = s.Address,
+                            Image = s.Image,
+                            Phone = s.Phone,
+                            ParentPhone = s.ParentPhone,
+                            HomeTown = s.HomeTown,
+                            UnionJoinDate = s.UnionJoinDate,
+                            StudentTypeName = s.StudentType.TypeName,
+                            ClassRoom = s.Classroom.ClassName
+                        })
+                        .ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -110,6 +131,7 @@ namespace DataAccess.DAO
                 throw new Exception(ex.Message);
             }
         }
+
 
         public async Task<Student> GetStudentByIdAsync(Guid id)
         {
@@ -162,13 +184,31 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Teacher>> GetAllTeacherAsync()
+        public async Task<List<TeacherResponse>> GetAllTeacherAsync()
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Teacher.ToListAsync();
+                    return await context.Teacher
+               .Include(t => t.TeacherType) // Nếu cần, bao gồm TeacherType
+               .Include(t => t.Classroom) // Nếu cần, bao gồm Classroom
+               .Select(t => new TeacherResponse
+               {
+                   Id = t.Id,
+                   PublicTeacherID = t.PublicTeacherID,
+                   FullName = t.FullName,
+                   CitizenID = t.CitizenID,
+                   Username = t.Username,
+                   Email = t.Email,
+                   Dob = t.Dob,
+                   Address = t.Address,
+                   Image = t.Image,
+                   Phone = t.Phone,
+                   TeacherTypeName = t.TeacherType.TypeName,
+                   ClassRoom = t.Classroom.ClassName
+               })
+               .ToListAsync();
                 }
             }
             catch (Exception ex)

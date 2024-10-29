@@ -32,6 +32,18 @@ export const classApi = createApi({
         pollingInterval: 5000,
         data: body
       })
+    }),
+    getAllGrade: build.query({
+      query: () => ({
+        url: '/GradeService',
+        method: 'get'
+      })
+    }),
+    getAllClass: build.query({
+      query: () => ({
+        url: '/ClassroomService',
+        method: 'get'
+      })
     })
   }),
   tagTypes: []
@@ -40,5 +52,7 @@ export const classApi = createApi({
 export const {
   useGetAllStudentTypeQuery,
   useGetStudentInClassQuery,
-  useAssignStudentMutation
+  useAssignStudentMutation,
+  useGetAllGradeQuery,
+  useGetAllClassQuery
 } = classApi;

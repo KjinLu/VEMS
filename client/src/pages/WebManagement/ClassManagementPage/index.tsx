@@ -23,6 +23,7 @@ import VemFragment from '@/components/VemFragment';
 import VemsInputCus from '@/components/VemsInputCustom';
 import VemsNav from '@/components/VemsNav';
 import VemsLoader from '@/components/VemsLoader';
+import { useGetAllClassQuery, useGetAllGradeQuery } from '@/services/classes';
 
 const TenThManagementTab = lazy(() => import('./TenThManagementTab'));
 const ElevenThManagementTab = lazy(() => import('./ElevenThManagementTab'));
@@ -52,6 +53,19 @@ const ClassManagementPage = () => {
   // Change tab
   const [loadedTabs, setLoadedTabs] = useState<number[]>([1]);
   const [activeTabId, setActiveTabId] = useState(1);
+  const [gradeData, setGradeData] = useState<any>();
+  const [classes, setClasses] = useState<any>();
+
+  const { data: gradeResponse } = useGetAllGradeQuery(null);
+  const { data: classResponse } = useGetAllClassQuery(null);
+
+  console.log(classResponse);
+
+  useEffect(() => {
+    if (gradeResponse) {
+      if (gradeResponse.pageData) setGradeData(gradeResponse.pageData);
+    }
+  }, [gradeResponse]);
 
   const handleTabChange = (tabId: number) => {
     setActiveTabId(tabId);

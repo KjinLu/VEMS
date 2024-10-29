@@ -1,7 +1,18 @@
 export type TeacherIndex = {
+  index: number;
   id: string;
-  name: string;
-  avatar: string;
+  publicTeacherID: string;
+  citizenID: string;
+  username: string;
+  fullName: string;
+  email: string;
+  dob: string;
+  address: string;
+  image: string;
   phone: string;
-  class: string;
+  teacherTypeId: string;
+  teacherType: any;
+  roleId: string;
+  classroomId: string;
+  classRoom: any;
 };

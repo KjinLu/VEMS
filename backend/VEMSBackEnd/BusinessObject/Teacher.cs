@@ -16,7 +16,7 @@ namespace BusinessObject
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
- 
+
         [MaxLength(20)]
         [Column(TypeName = "varchar")]
         public string? PublicTeacherID { get; set; }
@@ -40,7 +40,7 @@ namespace BusinessObject
         [Column(TypeName = "nvarchar")]
         public string FullName { get; set; }
 
-    
+
         [EmailAddress]
         [MaxLength(256)]
         [Column(TypeName = "nvarchar")]
@@ -51,7 +51,7 @@ namespace BusinessObject
 
         [MaxLength(200)]
         [Column(TypeName = "nvarchar")]
-        public string? Address { get; set; }  = string.Empty;
+        public string? Address { get; set; } = string.Empty;
 
         [MaxLength(150)]
         [Column(TypeName = "nvarchar")]
@@ -62,7 +62,7 @@ namespace BusinessObject
         [Column(TypeName = "varchar")]
         public string Phone { get; set; }
 
- 
+
         [MaxLength(250)]
         [Column(TypeName = "varchar")]
         [JsonIgnore]
