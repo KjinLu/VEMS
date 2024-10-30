@@ -12,13 +12,25 @@ export const scheduleApi = createApi({
   endpoints: build => ({
     getClassSchedule: build.query({
       query: (classID: UUID) => ({
-        url: '/api/schedule-service/get-class-schedule?classID=' + classID,
+        url: '/ScheduleService/get-class-schedule?classID=' + classID,
         method: 'get'
       })
     }),
     getScheduleDetail: build.query({
       query: (scheduleDetailID: UUID) => ({
-        url: '/api/schedule-service/get-schedule-detail?ScheduleID=' + scheduleDetailID,
+        url: '/ScheduleService/get-schedule-detail?ScheduleID=' + scheduleDetailID,
+        method: 'get'
+      })
+    }),
+    getTeacherScheduleDetail: build.query({
+      query: (teacherID: UUID) => ({
+        url: '/ScheduleService/get-teacher-schedule-detail?TeacherID=' + teacherID,
+        method: 'get'
+      })
+    }),
+    getAllTeacherScheduleDetail: build.query({
+      query: () => ({
+        url: '/ScheduleService/get-all-teacher-schedule-detail',
         method: 'get'
       })
     })
@@ -26,4 +38,9 @@ export const scheduleApi = createApi({
   tagTypes: []
 });
 
-export const { useGetClassScheduleQuery, useGetScheduleDetailQuery } = scheduleApi;
+export const {
+  useGetClassScheduleQuery,
+  useGetScheduleDetailQuery,
+  useGetTeacherScheduleDetailQuery,
+  useGetAllTeacherScheduleDetailQuery
+} = scheduleApi;

@@ -517,7 +517,8 @@ namespace BusinessObject.Seeding
                     Email = "nguyenvana@example.com",
                     Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
-                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3")
                 },
                 new Teacher
                 {
@@ -529,7 +530,8 @@ namespace BusinessObject.Seeding
                     Email = "tranthib@example.com",
                     Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
-                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3")
                 },
                 new Teacher
                 {
@@ -541,7 +543,8 @@ namespace BusinessObject.Seeding
                     Email = "leminhc@example.com",
                     Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
-                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3")
                 },
                 new Teacher
                 {
@@ -553,7 +556,8 @@ namespace BusinessObject.Seeding
                     Email = "phamthid@example.com",
                     Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
-                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3")
                 },
                 new Teacher
                 {
@@ -565,7 +569,8 @@ namespace BusinessObject.Seeding
                     Email = "hoangvane@example.com",
                     Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg",
                     TeacherTypeId = new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
-                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53")
+                    RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                    ClassroomId = new Guid("AFAB05EF-E3E7-4902-A141-05C3057B92F3")
                 }
             );
 

@@ -18,7 +18,7 @@ namespace DataAccess.DTO
         public DateTime Time { get; set; }
         public string? Note { get; set; } = "";
         public Guid ScheduleDetailID { get; set; }
-        public Guid StudentInChargeID { get; set; }
+        public Guid AccountInChargeID { get; set; }
         public Guid PeriodID { get; set; }
         public string StudentInchargeName { get; set; }
         public List<AttendanceStudent> AttendanceData { get; set; }
@@ -29,6 +29,9 @@ namespace DataAccess.DTO
     {
         public Guid StudentID { get; set; }
         public Guid StatusID { get; set; }
+        public Guid? TeacherID { get; set; }
+        public Guid? ReasonID { get; set; }
+        public string? Description { get; set; }
     }
 
 
@@ -51,6 +54,7 @@ namespace DataAccess.DTO
         public Guid StatusID { get; set; }
         public Guid? TeacherID { get; set; }
         public Guid? ReasonID { get; set; }
+        public string? Description { get; set; }
 
     }
 
@@ -67,6 +71,7 @@ namespace DataAccess.DTO
         public Guid ClassID { get; set; }
         public Guid AttendanceID { get; set; }
         public DateTime Time { get; set; }
+        public string Note { get; set; }
         public List<AttendanceStudentResponse> AttendanceData { get; set; }
     }
 
@@ -76,10 +81,36 @@ namespace DataAccess.DTO
         public Guid StudentID { get; set; }
         public Guid StatusID { get; set; }
         public string StatusName { get; set; }
+        public Guid? ReasonID { get; set; }
+        public string? Description { get; set; }
         public string StudentName { get; set; }
         public string StudentCode { get; set; }
         public string CreateBy { get; set; }
+        public string? UpdateBy { get; set; }
         public DateTime CreateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
     }
 
+    public class AttendanceHistoryStudentResponse
+    {
+        public Guid AttendanceStatusID { get; set; }
+        public DateTime DateAttendance { get; set; }
+        public int DayOfWeek { get; set; }
+        public string PeriodName { get; set; }
+        public string? StudentCharge { get; set; } = "";
+        public string? TeacherCharge { get; set; }
+
+        public string StatusName { get; set; }
+        public string? ReasonName { get; set; } = "";
+        public string? Description { get; set; } = "";
+    }
+
+    public class UpdateAttendanceReportRequest
+    {
+        public Guid AttendanceStatusID { get; set; }
+        public Guid? ReasonId { get; set; }
+        public Guid StatusId { get; set; }
+        public string? Description { get; set; } = "";
+        public Guid? TeacherId { get; set; }
+    }
 }

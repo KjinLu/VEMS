@@ -1,4 +1,5 @@
-﻿using DataAccess.DTO;
+﻿using BusinessObject;
+using DataAccess.DTO;
 using DataAccess.Repository;
 
 namespace ScheduleServiceVemsApi.Services
@@ -8,6 +9,8 @@ namespace ScheduleServiceVemsApi.Services
         Task<List<InfomationForAttendance>> GetClassAttendanceSchedule(GetClassAttendanceScheduleRequest request);
         Task<bool> TakeAttendance(TakeAttendanceRequest request);
         Task<bool> UpdateAttendance(UpdateAttendanceRequest request);
+        Task<bool> UpdateAttendanceReport(List<UpdateAttendanceReportRequest> request);
+        Task<List<AttendanceHistoryStudentResponse>> GetHistoryAttendanceFromStudentID(Guid id);
 
         Task<ClassAttendanceResponse> GetAttendanceForClass(GetClassAttendanceRequest request);
         Task<List<SelectOptions>> GetAttendanceReasonOptions();
@@ -50,6 +53,16 @@ namespace ScheduleServiceVemsApi.Services
         {
             return await attendanceRepository.UpdateAttenndance(request);
 
+        }
+
+        public async Task<bool> UpdateAttendanceReport(List<UpdateAttendanceReportRequest> request)
+        {
+            return await attendanceRepository.UpdateAttendanceReport(request);
+        }
+
+        public async Task<List<AttendanceHistoryStudentResponse>> GetHistoryAttendanceFromStudentID(Guid id)
+        {
+            return await attendanceRepository.GetHistoryAttendanceFromStudentID(id);
         }
     }
 }

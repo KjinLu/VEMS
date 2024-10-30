@@ -1,5 +1,7 @@
 using System;
 using BusinessObject;
+using DataAccess.Dto.ClassroomDto;
+using DataAccess.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.DAO
@@ -40,6 +42,116 @@ namespace DataAccess.DAO
             }
         }
 
+        public async Task<ClassStudentsResponse> GetClassStudents(Guid classID)
+        {
+            try
+            {
+                var students = await (from a in _context.Students
+                                      join c in _context.Classrooms on a.ClassroomId equals c.Id
+                                      join t in _context.studentTypes on a.StudentTypeId equals t.Id
+                                      where c.Id == classID
+                                      select new ClassStudentInfo
+                                      {
+                                          StudentID = a.Id,
+                                          StudentName = a.FullName,
+                                          StudentImage = a.Image,
+                                          StudentType = t.TypeName,
+                                          StudentTypeID = t.Id,
+                                          StudentPhone = a.Phone,
+                                          ClassName = c.ClassName,
+                                          PublicStudentID = a.PublicStudentID
+
+                                      }).ToListAsync();
+
+                students = students
+                    .AsEnumerable()
+                    .OrderBy(s => s.StudentName.Substring(s.StudentName.LastIndexOf(" ") + 1))
+                    .ToList();
+
+                if (students.Any())
+                    return new ClassStudentsResponse
+                    {
+                        ClassID = classID,
+                        ClassName = students[0].ClassName,
+                        NumberOfStudent = students.Count,
+                        Students = students
+                    };
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Có lỗi xảy ra: " + e.Message);
+            }
+        }
+
+        public async Task<List<StudentType>> GetAllStudentType()
+        {
+            try
+            {
+                return await _context.studentTypes.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Có lỗi xảy ra: " + e.Message);
+
+            }
+        }
+
+
+        public async Task<bool> AssignStudentType(AssignStudentTypeRequest request)
+        {
+            try
+            {
+                var studentType = _context.studentTypes.ToList();
+                var currentStudent = _context.Students.Find(request.studentID);
+
+
+                if (request.studentTypeID == studentType.Find(x => x.Code == "CLASS_MONITOR").Id)
+                {
+                    var currentClassMonitor = _context.Students.Count(item => item.ClassroomId == currentStudent.ClassroomId && item.StudentTypeId == request.studentTypeID);
+                    if (currentClassMonitor == 0)
+                    {
+                        currentStudent.StudentTypeId = request.studentTypeID;
+                        _context.Entry<Student>(currentStudent).State = EntityState.Modified;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Mỗi lớp chỉ được tồn tại một chức vụ lớp trưởng!");
+                    }
+                }
+                else if (request.studentTypeID == studentType.Find(x => x.Code == "CLASS_VICE_MONITOR").Id)
+                {
+                    var currentClassMonitor = _context.Students.Count(item => item.ClassroomId == currentStudent.ClassroomId && item.StudentTypeId == request.studentTypeID);
+                    if (currentClassMonitor == 0)
+                    {
+                        currentStudent.StudentTypeId = request.studentTypeID;
+                        _context.Entry<Student>(currentStudent).State = EntityState.Modified;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Mỗi lớp chỉ được tồn tại một chức vụ lớp phó!");
+                    }
+                }
+                else
+                {
+                    currentStudent.StudentTypeId = request.studentTypeID;
+                    _context.Entry<Student>(currentStudent).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    return true;
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("" + e.Message.ToString());
+            }
+        }
         // Thêm Classroom
         public async Task AddClassroomAsync(Classroom classroom)
         {

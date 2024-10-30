@@ -32,6 +32,9 @@ namespace BusinessObject
 
         public Guid? ReasonId { get; set; }
 
+        [MaxLength(200)]
+        public string? Description { get; set; }
+
         [ForeignKey("ReasonId")]
         public Reason? Reason { get; set; }
 

@@ -9,7 +9,7 @@ public interface IStudentService
 
     Task<List<StudentInClassResponse>> GetAllStudentByClassroom(Guid classId);
     Task<bool> UpdateProfile(UpdateStudentProfileRequest request);
-    Task<bool> ChangePassword(ChangePasswordRequest request);
+    Task<bool> ChangePassword(UpdatePasswordRequest request);
 
     Task<bool> UploadAvatar(UploadAvatartRequest request);
 
@@ -47,15 +47,24 @@ public class StudentService : IStudentService
         return await _accountRepository.UpdateStudentProfile(account);
     }
 
-    public async Task<bool> ChangePassword(ChangePasswordRequest request)
+    public async Task<bool> ChangePassword(UpdatePasswordRequest request)
     {
+        CommonAccountType account = await _accountRepository.GetAccountByIDAsync(request.AccountID);
+        if (account == null) return false;
+        if(CheckHashed(request.OldPassword, account.Password)) 
         return await _accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
+        throw new Exception("Mật khẩu cũ không đúng!");
     }
 
     public string Hashing(string password)
     {
         return BCrypt.Net.BCrypt.HashPassword(password, 6);
     }
+    public bool CheckHashed(string origin, string hash)
+    {
+        return BCrypt.Net.BCrypt.Verify(origin, hash);
+    }
+
 
     public async Task<bool> UploadAvatar(UploadAvatartRequest request)
     {

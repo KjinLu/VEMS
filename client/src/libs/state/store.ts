@@ -8,6 +8,10 @@ import persistStore from 'redux-persist/es/persistStore';
 import { authApi } from '@/services/auth';
 import authReducer from '@/libs/features/auth/authSlice';
 import { scheduleApi } from '@/services/schedule';
+import { attendanceApi } from '@/services/attendance';
+import { profileApi } from '@/services/profile';
+import { forgetPassword } from '@/services/forgetPassword
+import { classApi } from '@/services/classes';
 
 const persistConfig = {
   key: 'root',
@@ -17,7 +21,11 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
-  [scheduleApi.reducerPath]: scheduleApi.reducer
+  [forgetPassword.reducerPath]: forgetPassword.reducer,
+  [scheduleApi.reducerPath]: scheduleApi.reducer,
+  [attendanceApi.reducerPath]: attendanceApi.reducer,
+  [profileApi.reducerPath]: profileApi.reducer,
+  [classApi.reducerPath]: classApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -27,7 +35,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware: any) => {
     return getDefaultMiddleware({ serializableCheck: false }).concat(
       authApi.middleware,
-      scheduleApi.middleware
+      forgetPassword.middleware,
+      scheduleApi.middleware,
+      attendanceApi.middleware,
+      profileApi.middleware,
+      classApi.middleware
     );
   }
 });

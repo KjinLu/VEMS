@@ -9,18 +9,13 @@ import styles from './SignIn.module.scss';
 import VemInput from '@/components/VemInput';
 import VemButton from '@/components/VemButton';
 import VemImage from '@/components/VemImage';
-import { useLogin } from '@/libs/features/auth/useLogin';
 import logo from '@/assets/Logo.png';
-import ModalForgetPassword from './ModalForgetPassword';
-
+import { useLogin } from '@/hooks/login/useLogin';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const Login = () => {
-  const navigate = useNavigate();
   const { login, isLoading, error } = useLogin();
-
-  // Modal forget password
-  const [isCloseModalForgetPassword, setIsCloseModalForgetPassword] = useState(false);
 
   const handleSubmit = async (values: any) => {
     const userData = {
@@ -62,6 +57,7 @@ const Login = () => {
               <Form.Item
                 name={'username'}
                 className={cx('mb-3')}
+                rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập' }]}
               >
                 <VemInput
                   id='username'
@@ -78,6 +74,7 @@ const Login = () => {
               <Form.Item
                 name={'password'}
                 className={cx('mb-2')}
+                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
               >
                 <VemInput
                   id='password'
@@ -92,6 +89,8 @@ const Login = () => {
                 />
               </Form.Item>
 
+              <div className='text-danger'>{error}</div>
+
               <div className='d-flex justify-content-end py-1'>
                 {/* <div style={{ marginLeft: '-10px' }}>
                   <VemCheckbox
@@ -102,25 +101,18 @@ const Login = () => {
                 </div> */}
 
                 <div className={'d-flex align-items-center'}>
-                  <p
-                    className={cx('forget-password')}
-                    onClick={() => {
-                      setIsCloseModalForgetPassword(true);
-                    }}
+                  <Link
+                    to='/forget-password'
+                    color='inherit'
                   >
                     Quên mật khẩu?
-                  </p>
+                  </Link>
                 </div>
-
-                <ModalForgetPassword
-                  isCloseModalForgetPassword={isCloseModalForgetPassword}
-                  setIsCloseModalForgetPassword={setIsCloseModalForgetPassword}
-                ></ModalForgetPassword>
               </div>
 
               <VemButton
                 className={cx('mt-2 mb-3')}
-                // loading={isLoading}
+                loading={isLoading}
                 status={'loading'}
                 type={'submit'}
                 children={'Đăng nhập'}
