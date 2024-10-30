@@ -4,6 +4,7 @@ export const configRoutes = {
   upload: '/upload',
   search: '/search',
   login: '/login',
+  forgetPassword: '/forget-password',
   signUp: '/signUp',
 
   // Web management

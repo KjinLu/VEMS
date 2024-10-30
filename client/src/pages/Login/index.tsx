@@ -5,9 +5,10 @@ import VemInput from '@/components/VemInput';
 import VemButton from '@/components/VemButton';
 import VemImage from '@/components/VemImage';
 import logo from '@/assets/Logo.png';
-import { Divider, Link } from '@mui/material';
+import { Divider } from '@mui/material';
 import { Form } from 'antd';
 import { useLogin } from '@/hooks/login/useLogin';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const Login = () => {
@@ -21,10 +22,6 @@ const Login = () => {
 
     await login(userData);
   };
-
-  const baseURL = import.meta.env.VITE_PUBLIC_API || '';
-
-  console.log(baseURL);
 
   return (
     <>
@@ -102,7 +99,7 @@ const Login = () => {
 
                 <div className={'d-flex align-items-center'}>
                   <Link
-                    href='/signUp'
+                    to='/forget-password'
                     color='inherit'
                   >
                     Quên mật khẩu?

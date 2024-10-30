@@ -10,6 +10,7 @@ import authReducer from '@/libs/features/auth/authSlice';
 import { scheduleApi } from '@/services/schedule';
 import { attendanceApi } from '@/services/attendance';
 import { profileApi } from '@/services/profile';
+import { forgetPassword } from '@/services/forgetPassword';
 
 const persistConfig = {
   key: 'root',
@@ -19,6 +20,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
+  [forgetPassword.reducerPath]: forgetPassword.reducer,
   [scheduleApi.reducerPath]: scheduleApi.reducer,
   [attendanceApi.reducerPath]: attendanceApi.reducer,
   [profileApi.reducerPath]: profileApi.reducer
@@ -31,6 +33,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware: any) => {
     return getDefaultMiddleware({ serializableCheck: false }).concat(
       authApi.middleware,
+      forgetPassword.middleware,
       scheduleApi.middleware,
       attendanceApi.middleware,
       profileApi.middleware
