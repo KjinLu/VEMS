@@ -40,9 +40,10 @@ export const classApi = createApi({
       })
     }),
     getAllClass: build.query({
-      query: () => ({
+      query: (data?: any) => ({
         url: '/ClassroomService',
-        method: 'get'
+        method: 'get',
+        params: data
       })
     })
   }),

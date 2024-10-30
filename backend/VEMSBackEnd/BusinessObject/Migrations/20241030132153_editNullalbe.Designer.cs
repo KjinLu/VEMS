@@ -4,6 +4,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(VemsContext))]
-    partial class VemsContextModelSnapshot : ModelSnapshot
+    [Migration("20241030132153_editNullalbe")]
+    partial class editNullalbe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -919,7 +922,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e69e176e-a2e0-4a57-99df-7e1f87552c8d"),
+                            Id = new Guid("2b590e6f-ca46-4ff2-a681-870c43bfc6c0"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -938,7 +941,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("45a596e2-b4c3-4b86-966a-233f89f3a616"),
+                            Id = new Guid("c2b41c9c-ce75-4d73-822d-e6cbc3713d4b"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -957,7 +960,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1e1c9b2b-70d2-4b8f-8bf6-ae339c03371e"),
+                            Id = new Guid("ea44cb77-ff4b-42d2-845f-2d9e7d5edf78"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -976,7 +979,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1db2c7fe-c285-42f6-a6be-19345d52477d"),
+                            Id = new Guid("63e931b4-cbeb-4f88-8d4b-8c19ec8574bb"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -995,7 +998,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("194c2923-4316-45e1-a8cd-e3a9a2dac770"),
+                            Id = new Guid("f55d29e7-f625-4853-97e5-d94bf2c731f0"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1014,7 +1017,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9591c9cd-6a40-4b92-91ed-98cb853a66b7"),
+                            Id = new Guid("96d6be41-1997-4bc1-aa7a-7a08c3ed9b0d"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1033,7 +1036,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("86b062a0-ad1c-4cf0-9c2e-429da9bf6e88"),
+                            Id = new Guid("aba8f7ff-ebaa-4d70-a9d8-fba317bbbc12"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1052,7 +1055,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("074f6034-e058-4813-a52b-ba7b63dd63d0"),
+                            Id = new Guid("649ff194-fd4d-49ce-94ce-4fadacc0c610"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1071,7 +1074,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("acc78b75-1d24-49cb-981e-cb8b56c079a9"),
+                            Id = new Guid("b4a499ff-c97f-4126-96fc-d58b8564ffca"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1090,7 +1093,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("559a3dff-847d-4427-9d27-d3be27603391"),
+                            Id = new Guid("af8a05b8-d2ee-469b-92d3-55b39e3cba54"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1530,7 +1533,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.Student", "Student")
                         .WithMany("AttendanceStatuses")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BusinessObject.Teacher", "Teacher")

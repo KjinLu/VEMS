@@ -1,6 +1,6 @@
 import { Modal } from 'reactstrap';
 import className from 'classnames/bind';
-import { IoIosSend, IoMdClose } from 'react-icons/io';
+import { IoIosAdd, IoIosSend, IoMdClose } from 'react-icons/io';
 import * as XLSX from 'xlsx';
 import { SiMicrosoftexcel } from 'react-icons/si';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,25 @@ import styles from './ModalUploadSchedule.module.scss';
 import VemsButton from '@/components/VemsButtonCustom';
 import fs from 'fs';
 import { IoRemove } from 'react-icons/io5';
+import {
+  useCreateNewScheduleMutation,
+  useCreateScheduleDetailMutation,
+  useGetAllSessionQuery,
+  useGetAllSlotsQuery,
+  useGetAllSubjectQuery
+} from '@/services/schedule';
+import { useGetAllClassQuery } from '@/services/classes';
+import {
+  Classroom,
+  CreateScheduleDetailRequest,
+  CreateScheduleRequest,
+  CreateSessionRequest,
+  CreateSlotDetailRequest,
+  Session,
+  SlotBase,
+  Subject
+} from '../type';
+import { toast } from 'react-toastify';
 
 const cx = className.bind(styles);
 
@@ -24,1291 +43,108 @@ type FileUploadProps = {
   type: string;
 };
 
-const sampleData = [
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: 'N.Ngữ',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'Sử',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: 'GDQP',
-    __EMPTY_5: 'GDKT-PL',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'GDKT-PL',
-    __EMPTY_3: 'TD',
-    __EMPTY_4: 'Lí',
-    __EMPTY_5: 'Toán',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'Địa',
-    __EMPTY_3: 'TD',
-    __EMPTY_4: 'Lí',
-    __EMPTY_5: 'Toán',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Văn',
-    __EMPTY_2: 'HĐTN-HN',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Địa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'HĐTN-HN',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A3 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'TD',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'Toán',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'TD',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'Toán',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Hóa',
-    __EMPTY_2: 'Tin',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: 'HĐTN-HN',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Tin',
-    __EMPTY_2: 'Văn',
-    __EMPTY_3: 'Địa',
-    __EMPTY_4: 'Lí',
-    __EMPTY_5: 'Địa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Sử',
-    __EMPTY_2: 'Văn',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'GDQP',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A4 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Văn',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'GDQP',
-    __EMPTY_3: 'Lí',
-    __EMPTY_4: 'Văn',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'Sử',
-    __EMPTY_3: 'Lí',
-    __EMPTY_4: 'TD',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'N.Ngữ',
-    __EMPTY_3: 'Tin',
-    __EMPTY_4: 'TD',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Tin',
-    __EMPTY_2: 'Địa',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Địa',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A5 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Lí',
-    __EMPTY_3: 'TD',
-    __EMPTY_4: 'Văn',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'Lí',
-    __EMPTY_3: 'TD',
-    __EMPTY_4: 'Văn',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'Văn',
-    __EMPTY_3: 'Sử',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'GDQP',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Hóa',
-    __EMPTY_2: 'GDKT-PL',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Hóa',
-    __EMPTY_2: 'Tin',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Tin',
-    __EMPTY_4: '',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'GDKT-PL',
-    __EMPTY_4: '',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'HĐTN-HN',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A6 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Toán',
-    __EMPTY_3: 'Tin',
-    __EMPTY_4: 'Lí',
-    __EMPTY_5: 'GDKT-PL',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'Sử',
-    __EMPTY_2: 'Toán',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Lí',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'N.Ngữ',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'GDQP',
-    __EMPTY_4: 'N.Ngữ',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'GDKT-PL',
-    __EMPTY_2: 'Tin',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'TD',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Toán',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'TD',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Toán',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A7 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Tin',
-    __EMPTY_3: 'GDQP',
-    __EMPTY_4: 'TD',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'HĐTN-HN',
-    __EMPTY_4: 'TD',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Sử',
-    __EMPTY_2: 'Toán',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: 'Lí',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Sinh',
-    __EMPTY_2: 'Toán',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: 'Tin',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'Lí',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Sinh',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Sinh',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A8 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'GDQP',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Sử',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'Hóa',
-    __EMPTY_2: 'Sinh',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'Sinh',
-    __EMPTY_3: 'Lí',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'TD',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: 'Sinh',
-    __EMPTY_4: 'Tin',
-    __EMPTY_5: 'TD',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Hóa',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Tin',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A9 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'N.Ngữ',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'CNghệ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'N.Ngữ',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'GDQP',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Sinh',
-    __EMPTY_3: 'Sinh',
-    __EMPTY_4: 'TD',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'Lí',
-    __EMPTY_3: 'Sử',
-    __EMPTY_4: 'TD',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'Lí',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'CNghệ',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Lí',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A10 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Toán',
-    __EMPTY_3: 'Sinh',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'TD',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Toán',
-    __EMPTY_3: 'Sinh',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'TD',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'N.Ngữ',
-    __EMPTY_2: 'Sử',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: 'Hóa',
-    __EMPTY_5: 'GDKT-PL',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'HĐTN-HN',
-    __EMPTY_2: 'GDKT-PL',
-    __EMPTY_3: 'Hóa',
-    __EMPTY_4: 'N.Ngữ',
-    __EMPTY_5: 'Địa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Văn',
-    __EMPTY_2: 'Địa',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Sinh',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'GDQP',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A11 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'Sinh',
-    __EMPTY_3: 'Sinh',
-    __EMPTY_4: 'Tin',
-    __EMPTY_5: 'GDQP',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'Văn',
-    __EMPTY_2: 'Sinh',
-    __EMPTY_3: 'CNghệ',
-    __EMPTY_4: 'Sử',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Tin',
-    __EMPTY_2: 'TD',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Hóa',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'TD',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'CNghệ',
-    __EMPTY_5: 'Hóa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'HĐTN-HN',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Toán',
-    __EMPTY_4: '',
-    __EMPTY_5: 'N.Ngữ',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)':
-      'THỜI KHÓA BIỂU LỚP 10A12 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'S',
-    __EMPTY: '1',
-    __EMPTY_1: 'SHDC',
-    __EMPTY_2: 'TD',
-    __EMPTY_3: 'Sử',
-    __EMPTY_4: 'GDQP',
-    __EMPTY_5: 'HĐTN-HN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: 'Lí',
-    __EMPTY_2: 'TD',
-    __EMPTY_3: 'N.Ngữ',
-    __EMPTY_4: 'Địa',
-    __EMPTY_5: 'Địa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: 'Toán',
-    __EMPTY_2: 'GDKT-PL',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'Địa',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: 'Tin',
-    __EMPTY_2: 'N.Ngữ',
-    __EMPTY_3: 'Văn',
-    __EMPTY_4: 'Toán',
-    __EMPTY_5: 'GDKT-PL',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: 'Sử',
-    __EMPTY_2: 'N.Ngữ',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'Buổi',
-    __EMPTY: 'Tiết',
-    __EMPTY_1: 'Thứ 2',
-    __EMPTY_2: 'Thứ 3',
-    __EMPTY_3: 'Thứ 4',
-    __EMPTY_4: 'Thứ 5',
-    __EMPTY_5: 'Thứ 6',
-    __EMPTY_6: 'Thứ 7'
-  },
-  {
-    'THỜI KHÓA BIỂU LỚP 10A2 NĂM HỌC 2024-2025  ÁP DỤNG NGÀY 06/09/2024 (Mới)': 'C',
-    __EMPTY: '1',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Lí',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '2',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'Tin',
-    __EMPTY_4: '',
-    __EMPTY_5: 'Văn',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '3',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: 'HĐTN-HN',
-    __EMPTY_4: '',
-    __EMPTY_5: 'SHCN',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '4',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
-  },
-  {
-    __EMPTY: '5',
-    __EMPTY_1: '',
-    __EMPTY_2: '',
-    __EMPTY_3: '',
-    __EMPTY_4: '',
-    __EMPTY_5: '',
-    __EMPTY_6: ''
+// Định nghĩa kiểu dữ liệu cho Slot và TimeTableEntry
+interface Slot {
+  index: number; // Chỉ số tiết
+  subject: string; // Tên môn học
+}
+
+interface TimeTableEntry {
+  dayOfWeek: number; // Thứ trong tuần (1: Thứ 2, 2: Thứ 3, ...)
+  period: string; // Thời gian (sáng/chiều)
+  slots: Slot[]; // Mảng chứa các môn học cho từng tiết
+}
+
+interface DaySchedule {
+  dayOfWeek: number; // Thứ trong tuần
+  entries: TimeTableEntry[]; // Mảng các thời khóa biểu cho từng buổi
+}
+
+interface TimeTable {
+  class: string; // Tên lớp
+  time: string; // Ngày
+  schedule: DaySchedule[]; // Mảng thời khóa biểu theo từng ngày
+}
+
+// Hàm chuyển đổi dữ liệu
+const convertToJSON = (data: string[][]): TimeTable[] => {
+  const timeTables: TimeTable[] = [];
+  let currentClass: string | null = null;
+  let schedule: DaySchedule[] = [];
+
+  for (const row of data) {
+    // Kiểm tra xem hàng có phải là tên lớp không
+    if (row.length === 1) {
+      if (currentClass) {
+        // Nếu có lớp hiện tại, lưu lại trước khi chuyển sang lớp mới
+        timeTables.push({
+          class: currentClass,
+          time: '',
+          schedule
+        });
+      }
+      currentClass = row[0].trim(); // Lưu tên lớp
+      schedule = []; // Reset lịch cho lớp mới
+    } else if (row[0] === 'Buổi') {
+      // Bỏ qua hàng tiêu đề
+      continue;
+    } else {
+      const currentPeriod = row[0] === 'S' ? 'Sáng' : 'Chiều';
+      const daySlots: Record<number, Slot[]> = {};
+
+      for (let j = 2; j < row.length; j++) {
+        const subject = row[j];
+        if (subject) {
+          const dayOfWeek = j - 1; // Chuyển đổi từ chỉ số cột sang thứ trong tuần
+          if (!daySlots[dayOfWeek]) {
+            daySlots[dayOfWeek] = [];
+          }
+
+          // Ghi lại chỉ số tiết
+          const index = parseInt(row[1]); // Lấy chỉ số tiết từ cột 1
+          daySlots[dayOfWeek].push({ index, subject });
+        }
+      }
+
+      // Chuyển đổi sang định dạng theo yêu cầu cho từng ngày
+      for (const [dayOfWeek, slots] of Object.entries(daySlots)) {
+        const dayIndex = parseInt(dayOfWeek);
+        const existingDay = schedule.find(d => d.dayOfWeek === dayIndex);
+        if (!existingDay) {
+          schedule.push({ dayOfWeek: dayIndex, entries: [] });
+        }
+
+        // Thêm các slot vào đúng buổi
+        const dayEntry = schedule.find(d => d.dayOfWeek === dayIndex);
+        dayEntry?.entries.push({ dayOfWeek: dayIndex, period: currentPeriod, slots });
+      }
+    }
   }
-];
+
+  // Lưu thời khóa biểu cho lớp cuối cùng
+  if (currentClass) {
+    timeTables.push({
+      class: currentClass,
+      time: ' ', // Hoặc bất kỳ ngày nào bạn muốn
+      schedule
+    });
+  }
+
+  return timeTables;
+};
+
+// Sử dụng hàm
 
 const ModalUploadSchedule = ({
   isCloseModalSchedule,
   setIsCloseModalSchedule
 }: ModalUploadScheduleProps) => {
   const handleDownload = () => {
-    const url = `http://localhost:3000/Thời khóa biểu mẫu.xlsx`;
+    const url = `http://localhost:3000/TKB.xlsx`;
 
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Thời khóa biểu mẫu.xlsx');
+    link.setAttribute('download', 'TKB.xlsx');
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -1316,6 +152,13 @@ const ModalUploadSchedule = ({
 
   const [fileInfo, setFileInfo] = useState<FileUploadProps>();
   const [fileData, setFileData] = useState<any>();
+  const [timeFrom, setTimeFrom] = useState<string>('');
+  const { data: subjects } = useGetAllSubjectQuery(null);
+  const { data: sessions } = useGetAllSessionQuery(null);
+  const { data: slots } = useGetAllSlotsQuery(null);
+  const { data: classes } = useGetAllClassQuery({ PageNumber: 1, PageSize: 100 });
+  const [createScheduleFC] = useCreateNewScheduleMutation();
+  const [createScheduleDetailFC] = useCreateScheduleDetailMutation();
 
   const handleFileUpload = (e: any) => {
     const file = e.target.files[0];
@@ -1341,14 +184,11 @@ const ModalUploadSchedule = ({
     }
   };
 
-  const handleUpdate = () => {
-    if (fileData) {
-      console.log('Thời khóa biểu đã xử lý:');
-    } else {
-      console.log('Không có file để cập nhật');
-    }
+  const handleCreateSchedule = () => {
+    console.log('Click');
+    handleToTimeTable();
+    console.log('Clicked');
   };
-
   // Xử lý xóa file
   const clearFile = () => {
     setFileInfo(undefined);
@@ -1360,64 +200,128 @@ const ModalUploadSchedule = ({
   //////////?????????????????????????????????????????????/////////////////////
   // TKB mỗi lớp cách nhau 13 record
 
-  const a = sampleData[0 + 13];
-  const b = sampleData[1 + 13]; // Slot 1 T2 - T7 S
-  const c = sampleData[2 + 13]; // Slot 2 T2 - T7 S
-  const d = sampleData[3 + 13]; // Slot 3 T2 - T7 S
-  const e = sampleData[4 + 13]; // Slot 4 T2 - T7 S
-  const f = sampleData[5 + 13]; // Slot 5 T2 - T7 S
-  const g = sampleData[6 + 13]; // Slot 6 T2 - T7 C
-  const h = sampleData[7 + 13]; // Slot 7 T2 - T7 C
-  const i = sampleData[8 + 13]; // Slot 8 T2 - T7 C
-  const j = sampleData[9 + 13]; // Slot 9 T2 - T7 C
-  const k = sampleData[10 + 13]; // Slot 10 T2 - T7 C //
-  const l = sampleData[11 + 13]; // Slot 11 T2 - T7 C //
-
-  const aValues = Object.values(a);
-  const bValues = Object.values(b);
-  const cValues = Object.values(c);
-  const dValues = Object.values(d);
-  const eValues = Object.values(e);
-  const fValues = Object.values(f);
-  const gValues = Object.values(g);
-  const hValues = Object.values(h);
-  const iValues = Object.values(i);
-  const jValues = Object.values(j);
-  const kValues = Object.values(k);
-  const lValues = Object.values(l);
-
-  // console.log(aValues);
-  // console.log(bValues.slice(1));
-  // console.log(cValues);
-  // console.log(dValues);
-  // console.log(eValues);
-  // console.log(fValues);
-  // console.log(gValues);
-  // console.log(hValues.slice(1));
-  // console.log(iValues);
-  // console.log(jValues);
-  // console.log(kValues);
-  // console.log(lValues);
+  useEffect(() => {
+    if (fileData) handleToTimeTable;
+  }, [fileData]);
 
   const handleToTimeTable = () => {
     if (fileData) {
-      const dataLength = fileData.length;
-      console.log('dataLength: ' + dataLength);
+      var res = fileData.map((item: any, index: number) => {
+        var rowValue = Object.values(item);
+        return rowValue;
+      });
 
-      fileData.forEach((item: any, index: number) => {
-        if (index + 13 < dataLength - 1) {
-          var rowValue = Object.values(item);
-          console.log(rowValue);
+      setTimeFrom(Object.keys(fileData[0])[0].split(' ')[2]);
+
+      const result = convertToJSON(res);
+
+      result.forEach(async (item: any, index: number) => {
+        const request: CreateScheduleRequest = {
+          classroomId: classes?.pageData?.find(
+            (c: Classroom) => c.className == item.class
+          )?.id,
+          time: timeFrom || new Date().toISOString().split('T')[0]
+        };
+
+        console.log(request);
+
+        if (request.classroomId && request.time) {
+          var res = await createScheduleFC(request).unwrap();
+          const scheduleID = res.id;
+
+          var createScheduleDetailResponse = await createScheduleDetailFC(
+            mapScheduleData(item.schedule, scheduleID, subjects, sessions, slots)
+          ).unwrap();
+
+          if (createScheduleDetailResponse) {
+            toast.success('Nhập thời khóa biểu thành công!');
+            clearFile();
+          }
         }
       });
     }
   };
 
-  handleToTimeTable();
+  function mapScheduleData(
+    scheduleData: any,
+    scheduleID: string,
+    subjects: Subject[],
+    sessions: Session[],
+    slots: SlotBase[]
+  ): CreateScheduleDetailRequest {
+    const result: CreateScheduleDetailRequest = {
+      scheduleID: scheduleID,
+      sessions: []
+    };
 
-  useEffect(() => {}, [fileData]);
+    scheduleData.forEach((day: any) => {
+      // Separate morning ('sáng') and afternoon ('chiều') entries
+      const morningEntries = day.entries.filter((e: any) => e.period === 'Sáng');
+      const afternoonEntries = day.entries.filter((e: any) => e.period === 'Chiều');
 
-  console.log(fileData);
+      // Helper function to create session objects
+      const createSession = (
+        entries: any,
+        period: string
+      ): CreateSessionRequest | null => {
+        // console.table(sessions);
+
+        const sessionID = sessions.find(
+          (s: Session) => s.dayOfWeek == day.dayOfWeek && s.periodName === period
+        )?.sessionID;
+
+        if (!sessionID) {
+          return null; // Skip if sessionID is not found
+        }
+
+        const slotDetails: CreateSlotDetailRequest[] = entries.flatMap((entry: any) =>
+          entry.slots
+            .map((slot: any) => {
+              const slotID = slots.find(s => {
+                if (period === 'Sáng') {
+                  if (s.slotIndex === slot.index) {
+                    return s;
+                  }
+                } else if (period === 'Chiều')
+                  if (s.slotIndex === Number(slot.index + 5)) {
+                    return s;
+                  }
+              })?.id;
+
+              const subjectID = subjects.find(
+                subj => subj.subjectName === slot.subject
+              )?.id;
+
+              if (!subjectID || !slotID) {
+                return null; // Skip if subjectID or slotID is not found
+              }
+
+              return {
+                subjectID,
+                slotID
+              } as CreateSlotDetailRequest;
+            })
+            .filter((detail: CreateSlotDetailRequest | null) => detail !== null)
+        );
+
+        // return {
+        //   sessionID,
+        //   slotDetails
+        // } as CreateSessionRequest;
+
+        return slotDetails.length > 0 ? { sessionID, slotDetails } : null;
+      };
+
+      // Add morning and afternoon sessions if they exist
+      const morningSession = createSession(morningEntries, 'Sáng');
+      if (morningSession) result.sessions.push(morningSession);
+
+      const afternoonSession = createSession(afternoonEntries, 'Chiều');
+      if (afternoonSession) result.sessions.push(afternoonSession);
+    });
+
+    return result;
+  }
 
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
@@ -1519,13 +423,13 @@ const ModalUploadSchedule = ({
 
             <VemsButton
               leftIcon={
-                <IoIosSend
+                <IoIosAdd
                   className={cx('me-1')}
                   size={20}
                 />
               }
-              onClick={handleUpdate}
-              title='Cập nhật'
+              onClick={handleCreateSchedule}
+              title='Nhập lịch học'
             />
           </div>
         </div>

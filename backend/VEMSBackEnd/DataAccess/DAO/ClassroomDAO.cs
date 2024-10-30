@@ -34,7 +34,7 @@ namespace DataAccess.DAO
         {
             try
             {
-                return await _context.Classrooms.AsNoTracking().ToListAsync().ConfigureAwait(false);
+                return await _context.Classrooms.AsNoTracking().OrderBy(item => item.ClassName).ToListAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {

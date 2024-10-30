@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using DataAccess.ScheduleDto;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -195,7 +196,7 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                throw new Exception("Có lỗi xảy ra khi cập nhật tiết học, thử lại sau!" );
+                throw new Exception("Có lỗi xảy ra khi cập nhật tiết học, thử lại sau!");
             }
             catch (Exception ex)
             {
@@ -228,6 +229,53 @@ namespace DataAccess.DAO
             catch (Exception ex)
             {
                 throw new Exception("Có lỗi khi xóa tiết học!");
+            }
+        }
+
+        public async Task<List<SessionResponse>> GetAllSessionOfWeek()
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var session = await context.Sessions.Include(i => i.Period).Select(item => new SessionResponse
+                    {
+                        SessionID = item.Id,
+                        Code = item.Period.Code,
+                        PeriodName = item.Period.PeriodName,
+                        dayOfWeek = item.DayOfWeek,
+                        PeriodID = item.PeriodID
+                    }).ToListAsync();
+                    return session;
+                }
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("Có lỗi xảy ra, thử lại sau!");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tải tiết học!");
+            }
+        }
+
+        public async Task<List<Subject>> GetAllSubject()
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    var subjects = await context.Subjects.ToListAsync();
+                    return subjects;
+                }
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("Có lỗi xảy ra, thử lại sau!");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tải tiết học!");
             }
         }
 

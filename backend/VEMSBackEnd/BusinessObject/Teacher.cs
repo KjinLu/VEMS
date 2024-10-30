@@ -44,7 +44,7 @@ namespace BusinessObject
         [EmailAddress]
         [MaxLength(256)]
         [Column(TypeName = "nvarchar")]
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; } = string.Empty;
 
         [Column(TypeName = "date")]
         public DateOnly? Dob { get; set; }

@@ -33,6 +33,63 @@ export const scheduleApi = createApi({
         url: '/ScheduleService/get-all-teacher-schedule-detail',
         method: 'get'
       })
+    }),
+    getAllSession: build.query({
+      query: () => ({
+        url: '/ScheduleService/get-class-session-of-week',
+        method: 'get'
+      })
+    }),
+    getAllSubject: build.query({
+      query: () => ({
+        url: '/ScheduleService/get-class-subject',
+        method: 'get'
+      })
+    }),
+    getAllSchedule: build.query({
+      query: () => ({
+        url: '/ScheduleService/get-all-schedule',
+        method: 'get'
+      })
+    }),
+    getAllSlots: build.query({
+      query: () => ({
+        url: '/SlotService/all',
+        method: 'get'
+      })
+    }),
+    createNewSchedule: build.mutation({
+      query: (data: any) => ({
+        url: '/ScheduleService/create-new-schedule',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: data
+      })
+    }),
+    createNewListSchedule: build.mutation({
+      query: (data: any) => ({
+        url: '/ScheduleService/create-new-list-schedule',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: data
+      })
+    }),
+    createScheduleDetail: build.mutation({
+      query: (data: any) => ({
+        url: '/ScheduleService/create-schedule-detail',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: data
+      })
     })
   }),
   tagTypes: []
@@ -42,5 +99,12 @@ export const {
   useGetClassScheduleQuery,
   useGetScheduleDetailQuery,
   useGetTeacherScheduleDetailQuery,
-  useGetAllTeacherScheduleDetailQuery
+  useGetAllTeacherScheduleDetailQuery,
+  useGetAllSubjectQuery,
+  useGetAllSessionQuery,
+  useGetAllScheduleQuery,
+  useCreateNewListScheduleMutation,
+  useCreateScheduleDetailMutation,
+  useCreateNewScheduleMutation,
+  useGetAllSlotsQuery
 } = scheduleApi;
