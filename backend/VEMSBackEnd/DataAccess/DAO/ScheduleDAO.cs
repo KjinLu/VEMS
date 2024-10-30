@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DataAccess.DAO
@@ -300,7 +301,7 @@ namespace DataAccess.DAO
                                     SessionID = currentSessionID,
                                     SlotID = session.SlotID,
                                     SubjectID = session.SubjectID,
-                                    TeacherID = session.TeacherID,
+                                    TeacherID = session.TeacherID != null ? session.TeacherID : null,
                                     ClassroomID = scheduleInfo.classroomId
                                 };
                                 slotDetails.Add(newSlot);
@@ -384,7 +385,8 @@ namespace DataAccess.DAO
                             List<SlotDetailResponse> slotDetailQuery = await (from sd in context.SlotDetails
                                                                               join se in context.Sessions on sd.SessionID equals se.Id
                                                                               join su in context.Subjects on sd.SubjectID equals su.Id
-                                                                              join te in context.Teacher on sd.TeacherID equals te.Id
+                                                                              join te in context.Teacher on sd.TeacherID equals te.Id into teacherLeftJoin
+                                                                              from te in teacherLeftJoin.DefaultIfEmpty()
                                                                               join so in context.Slots on sd.SlotID equals so.Id
                                                                               join scd in context.ScheduleDetails on se.Id equals scd.SessionId
                                                                               join sc in context.Schedules on scd.ScheduleId equals sc.Id
@@ -397,8 +399,8 @@ namespace DataAccess.DAO
                                                                                   SlotIndex = so.SlotIndex,
                                                                                   SubjectID = su.Id,
                                                                                   SubjectName = su.SubjectName,
-                                                                                  TeacherID = te.Id,
-                                                                                  TeacherName = te.FullName,
+                                                                                  TeacherID = sd.TeacherID != null ? te.Id : null,
+                                                                                  TeacherName = sd.TeacherID != null ? te.FullName : "",
                                                                                   SlotStart = so.StartTime,
                                                                                   SlotEnd = so.EndTime,
 

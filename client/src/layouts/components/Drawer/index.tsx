@@ -1,15 +1,12 @@
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-// import MailIcon from '@mui/icons-material/Mail';
 import Divider from '@mui/material/Divider';
 import Toolbar from '@mui/material/Toolbar';
 import { DrawerItem } from '@/types/components/drawerType';
 import { useSelector } from 'react-redux';
-import { Role } from '@/types/auth/type';
 import { RootState } from '@/libs/state/store';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
@@ -18,9 +15,12 @@ import PlagiarismIcon from '@mui/icons-material/Plagiarism';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { configRoutes } from '@/constants/routes';
-import { PiStudentFill } from 'react-icons/pi';
+import { PiStudentBold } from 'react-icons/pi';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import { GiTeacher } from 'react-icons/gi';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { GrSchedules } from 'react-icons/gr';
 
 // add more items to the list
 const studentNavBar = (navigate: any): DrawerItem[] => [
@@ -81,26 +81,26 @@ const adminNavBar = (navigate: any): DrawerItem[] => [
   {
     id: 'ADMIN-TEACHER-MANAGEMENT',
     content: 'Quản lí giáo viên',
-    Icon: <CalendarMonthIcon />,
+    Icon: <GiTeacher />,
     onClick: () => navigate(configRoutes.TeacherManagementPage)
   },
   {
     id: 'ADMIN-STUDENT-MANAGEMENT',
     content: 'Quản lí học sinh',
-    Icon: <EventAvailableIcon />,
+    Icon: <PiStudentBold />,
     onClick: () => navigate(configRoutes.StudentManagementPage)
   },
   {
     id: 'ADMIN-CLASS-MANAGEMENT',
     content: 'Quản lí lớp',
-    Icon: <PlagiarismIcon />,
+    Icon: <SiGoogleclassroom />,
     onClick: () => navigate(configRoutes.ClassManagementPage)
   },
   {
     id: 'ADMIN-SCHEDULE-MANAGEMENT',
     content: 'Quản lí lịch học',
-    Icon: <PlagiarismIcon />,
-    onClick: () => navigate(configRoutes.StudentManagementPage)
+    Icon: <GrSchedules />,
+    onClick: () => navigate(configRoutes.ScheduleManagementPage)
   }
 ];
 
@@ -112,8 +112,6 @@ const VemDrawer = (props: DrawerProps) => {
   const navigate = useNavigate();
   const userAuth = useSelector((state: RootState) => state.auth);
   const { showIcon } = props;
-
-  console.log(userAuth);
 
   const navItems =
     userAuth.roleName === 'ADMIN'

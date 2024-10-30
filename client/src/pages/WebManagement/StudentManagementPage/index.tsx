@@ -16,7 +16,7 @@ import { FaGraduationCap, FaRegFaceFrownOpen } from 'react-icons/fa6';
 import { IoPeople } from 'react-icons/io5';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FiFilter } from 'react-icons/fi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RiCalendarScheduleLine } from 'react-icons/ri';
 import DataTable from 'react-data-table-component';
 import { PiStudentDuotone } from 'react-icons/pi';
@@ -33,6 +33,7 @@ import VemsLoader from '@/components/VemsLoader';
 import { studentColumn } from './data-table-column';
 import { StudentIndex } from './type';
 import ModalStudentDetails from './ModalStudentDetails';
+import { useGetAllStudentQuery } from '@/services/accountManagement';
 
 const cx = className.bind(styles);
 
@@ -43,16 +44,22 @@ const StudentManagementPage = () => {
   // Modal detail student
   const [studentId, setStudentId] = useState<string>('');
   const [isOpenStudentDetail, setIsOpenStudentDetail] = useState<boolean>(false);
+  const [students, setStudents] = useState<StudentIndex[]>();
+  const [studentsSelected, setStudentsSelected] = useState<StudentIndex>();
 
-  const students: StudentIndex[] = [
-    { id: '1', avatar: 'Nguyễn Văn A', name: 'Nguyễn Văn A', code: 'HS0001' },
-    { id: '2', avatar: 'Trần Thị B', name: 'Nguyễn Văn B', code: 'HS0002' },
-    { id: '3', avatar: 'Lê Văn C', name: 'Nguyễn Văn C', code: 'HS0003' }
-  ];
+  const { data: response } = useGetAllStudentQuery(null);
+
+  useEffect(() => {
+    if (response) {
+      setStudents(
+        response.pageData?.map((item: any, index: number) => ({ index, ...item }))
+      );
+    }
+  }, [response]);
 
   // Show student detail
   const handleShowStudentDetail = (item: StudentIndex) => {
-    setStudentId(item.id);
+    setStudentsSelected(item);
     setIsOpenStudentDetail(true);
   };
 
@@ -62,7 +69,7 @@ const StudentManagementPage = () => {
       <Row className={cx('mb-5')}>
         <Col md={6}>
           <div className={cx('card')}>
-            <h2 className={cx('title')}>Hệ thống quản lí học sinh</h2>
+            <h2 className={cx('title')}>Quản lí học sinh</h2>
             <div className={cx('d-flex align-items-center my-5')}>
               <FaGraduationCap
                 color={'#4496e8'}
@@ -101,7 +108,7 @@ const StudentManagementPage = () => {
                 }}
               />
 
-              <div style={{ width: '200px' }}>
+              {/* <div style={{ width: '200px' }}>
                 <VemSelect
                   options={[
                     {
@@ -109,13 +116,13 @@ const StudentManagementPage = () => {
                       value: 'Sáng'
                     },
                     {
-                      label: 'Chiều',
+                      label: 'Chiều', 
                       value: 'Chiều'
                     }
                   ]}
                   placeholder='Chọn thời gian'
                 />
-              </div>
+              </div> */}
             </div>
 
             <ModalUploadStudent
@@ -141,12 +148,14 @@ const StudentManagementPage = () => {
                 </div>
 
                 <div>
-                  <p className={cx('attendance-text')}>0</p>
+                  <p className={cx('attendance-text')}>
+                    {response?.pageData?.length || 'N/A'}
+                  </p>
                   <p>Học sinh</p>
                 </div>
               </div>
 
-              <div className={cx('d-flex align-items-center')}>
+              {/* <div className={cx('d-flex align-items-center')}>
                 <div
                   className={cx('div-icon-round', 'shadow', 'me-3')}
                   style={{ backgroundColor: 'rgb(209 197 200 / 69%)' }}
@@ -157,14 +166,7 @@ const StudentManagementPage = () => {
                     className={cx('icon-round')}
                   />
                 </div>
-
-                <div>
-                  <p className={cx('attendance-text')}>
-                    <span>0</span>/0
-                  </p>
-                  <p>Vắng mặt</p>
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </Col>
@@ -289,7 +291,7 @@ const StudentManagementPage = () => {
             </div>
           </Col>
 
-          <div className={cx('d-flex justify-content-center mb-3')}>
+          {/* <div className={cx('d-flex justify-content-center mb-3')}>
             <div
               className={cx('d-flex align-items-center justify-content-between')}
               style={{ width: '880px' }}
@@ -354,7 +356,7 @@ const StudentManagementPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </Col>
       </div>
 
@@ -366,12 +368,12 @@ const StudentManagementPage = () => {
           className={cx('d-flex justify-content-center')}
         >
           <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
-            Danh sách học sinh lớp 8A1
+            Danh sách học sinh
           </h1>
         </Col>
 
         <DataTable
-          data={students}
+          data={students || []}
           columns={studentColumn}
           striped={true}
           highlightOnHover={true}
@@ -388,7 +390,7 @@ const StudentManagementPage = () => {
       </div>
 
       <ModalStudentDetails
-        studentId={studentId}
+        student={studentsSelected!}
         isOpen={isOpenStudentDetail}
         toggleModal={() => {
           setIsOpenStudentDetail(!isOpenStudentDetail);

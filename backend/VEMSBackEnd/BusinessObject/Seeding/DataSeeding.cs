@@ -293,126 +293,116 @@ namespace BusinessObject.Seeding
             modelBuilder.Entity<Subject>().HasData(
                 new Subject
                 {
-                    Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
-                    SubjectName = "Toán học",
-                    Code = "MATHEMATICS"
-                },
-                 new Subject
-                 {
-                     Id = new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"),
-                     SubjectName = "Ngữ văn",
-                     Code = "LITERATURE"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("631135bd-81eb-4b70-a779-418af291d138"),
-                     SubjectName = "Vật lý",
-                     Code = "PHYSICS"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"),
-                     SubjectName = "Hóa học",
-                     Code = "CHEMISTRY"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"),
-                     SubjectName = "Sinh học",
-                     Code = "BIOLOGY"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("77faf4ba-c356-4633-9505-91e4c8402800"),
-                     SubjectName = "Lịch sử",
-                     Code = "HISTORY"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"),
-                     SubjectName = "Địa lý",
-                     Code = "GEOGRAPHY"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("ab569adc-c289-48ee-9286-73cd9863458e"),
-                     SubjectName = "Giáo dục công dân",
-                     Code = "CIVIC_EDUCATION"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"),
-                     SubjectName = "Ngoại ngữ",
-                     Code = "FOREIGN_LANGUAGE"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("0aaf283b-4d65-42af-a998-938efe370318"),
-                     SubjectName = "Tin học",
-                     Code = "INFORMATICS"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"),
-                     SubjectName = "Công nghệ",
-                     Code = "TECHNOLOGY"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("4e943f72-a5ee-427f-9594-83598d33f411"),
-                     SubjectName = "Thể dục",
-                     Code = "PHYSICAL_EDUCATION"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("d3d41c42-c3b4-4713-b231-b2851634f378"),
-                     SubjectName = "Âm nhạc",
-                     Code = "MUSIC"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("9e777928-8399-4efe-bd19-164b1f6acc8e"),
-                     SubjectName = "Mỹ thuật",
-                     Code = "FINE_ART"
-                 },
-                 new Subject
-                 {
-                     Id = new Guid("a3d3b555-0cf4-4b41-8131-a4c205d9a6f3"),
-                     SubjectName = "Giáo dục quốc phòng",
-                     Code = "DEFENSE_EDUCATION"
-                 },
-                new Subject
-                {
-                    Id = new Guid("b1d3b555-0cf4-4b41-8131-a4c205d9a6f4"),
-                    SubjectName = "SHDC",
-                    Code = "SHDC"
+                    Id = new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"),
+                    SubjectName = "Sinh",
+                    Code = "BIOLOGY"
                 },
                 new Subject
                 {
-                    Id = new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"),
-                    SubjectName = "HĐTN-HN",
-                    Code = "HDTN_HN"
+                    Id = new Guid("631135bd-81eb-4b70-a779-418af291d138"),
+                    SubjectName = "Toán",
+                    Code = "MATH"
                 },
                 new Subject
                 {
-                    Id = new Guid("d3d3b555-0cf4-4b41-8131-a4c205d9a6f6"),
+                    Id = new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"),
+                    SubjectName = "Công Nghệ",
+                    Code = "TECHNOLOGY"
+                },
+                new Subject
+                {
+                    Id = new Guid("b1d3a88b-1a6f-4a4d-b5e3-9d92e13e7f7d"),
+                    SubjectName = "GDQP",
+                    Code = "DEFENSE_EDUCATION"
+                },
+                new Subject
+                {
+                    Id = new Guid("ab569adc-c289-48ee-9286-73cd9863458e"),
                     SubjectName = "GDKT-PL",
                     Code = "GDKT_PL"
                 },
                 new Subject
                 {
-                    Id = new Guid("e4d3b555-0cf4-4b41-8131-a4c205d9a6f7"),
+                    Id = new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"),
+                    SubjectName = "Toán Pháp",
+                    Code = "MATH_FRENCH"
+                },
+                new Subject
+                {
+                    Id = new Guid("4e943f72-a5ee-427f-9594-83598d33f411"),
+                    SubjectName = "N.Ngữ",
+                    Code = "FOREIGN_LANGUAGE"
+                },
+                new Subject
+                {
+                    Id = new Guid("77faf4ba-c356-4633-9505-91e4c8402800"),
+                    SubjectName = "Tin",
+                    Code = "INFORMATION"
+                },
+                new Subject
+                {
+                    Id = new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"),
+                    SubjectName = "Hóa",
+                    Code = "CHEMISTRY"
+                },
+                new Subject
+                {
+                    Id = new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"),
+                    SubjectName = "SHDC",
+                    Code = "SHDC"
+                },
+                new Subject
+                {
+                    Id = new Guid("0a45d64e-f1d3-4d91-9df8-9c663c3f39d2"),
+                    SubjectName = "HĐTN-HN",
+                    Code = "HDTN_HN"
+                },
+                new Subject
+                {
+                    Id = new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"),
+                    SubjectName = "Sử",
+                    Code = "HISTORY"
+                },
+                new Subject
+                {
+                    Id = new Guid("d3b45f10-aab9-45f6-a7ef-8e812f59109b"),
+                    SubjectName = "TD",
+                    Code = "PHYSICAL_EDUCATION"
+                },
+                new Subject
+                {
+                    Id = new Guid("a12d15b4-c3b7-4b9a-9b78-5cf36e8f1f7a"),
                     SubjectName = "SHCN",
                     Code = "SHCN"
                 },
                 new Subject
                 {
-                    Id = new Guid("f5d3b555-0cf4-4b41-8131-a4c205d9a6f8"),
-                    SubjectName = "Toán Pháp",
-                    Code = "MATH_FRENCH"
+                    Id = new Guid("a4568e59-9eaf-4896-915e-19d469ab7ff8"),
+                    SubjectName = "Địa",
+                    Code = "GEOGRAPHY"
+                },
+                new Subject
+                {
+                    Id = new Guid("ed4b87a4-eaf3-4d7c-baad-4868124791e1"),
+                    SubjectName = "Văn",
+                    Code = "LITERATURE"
+                },
+                new Subject
+                {
+                    Id = new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"),
+                    SubjectName = "GDCD",
+                    Code = "CIVIC_EDUCATION"
+                },
+                new Subject
+                {
+                    Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
+                    SubjectName = "Lý",
+                    Code = "PHYSICS"
                 }
             );
         }
+
+
         public static void SeedingSlot(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Slot>().HasData(

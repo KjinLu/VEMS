@@ -919,7 +919,7 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3be92667-9345-4c5c-aba0-ad2b67ffa239"),
+                            Id = new Guid("427ca331-a70d-4f5f-aad6-4edac2c72ba4"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -938,7 +938,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b5cfe51d-106b-4c86-96c6-25e88f047f50"),
+                            Id = new Guid("cf39baca-5dec-410d-bb76-b7a7083d4430"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -957,7 +957,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("baa3fa4d-8fd0-42e0-a78e-f2708f0984b5"),
+                            Id = new Guid("6635c7fa-72f1-40f3-8ecc-a49989e5cc35"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -976,7 +976,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f8a39d4c-9186-441b-b063-52bad15bfcd8"),
+                            Id = new Guid("05f90b9e-95fd-400d-befc-549a831705f7"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -995,7 +995,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c2b930b2-a07a-42f6-89c4-0327ff24c2bd"),
+                            Id = new Guid("94456db2-7244-4655-bee3-a28c92c42bbb"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1014,7 +1014,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5487b6d0-74cb-4f4a-ae8e-a7813e851174"),
+                            Id = new Guid("8afd7ef0-cd2d-4b56-9372-47e25dabf2bc"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1033,7 +1033,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("de1acda1-8c90-4621-80e6-c257ce7593ce"),
+                            Id = new Guid("72ebc5cd-d9a5-4699-ba59-378d2f1fbf6f"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1052,7 +1052,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4dd44614-fde6-4231-8b8e-0b17a9b11f8a"),
+                            Id = new Guid("45c9da4a-6fc0-432b-abdf-2194d80cd6ca"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1071,7 +1071,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6a9d2334-54af-465b-b235-9166ee50e429"),
+                            Id = new Guid("9dfed562-0d33-4c8b-905a-26b90fda4ce7"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1090,7 +1090,7 @@ namespace BusinessObject.Migrations
                         },
                         new
                         {
-                            Id = new Guid("28b94cf2-132b-4f5e-849c-18aef961d6ba"),
+                            Id = new Guid("0f4b56ba-3c76-42b8-8dd2-5455810ad1fd"),
                             Address = "",
                             CitizenID = "",
                             ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
@@ -1173,123 +1173,111 @@ namespace BusinessObject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
-                            Code = "MATHEMATICS",
-                            SubjectName = "Toán học"
-                        },
-                        new
-                        {
-                            Id = new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"),
-                            Code = "LITERATURE",
-                            SubjectName = "Ngữ văn"
+                            Id = new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"),
+                            Code = "BIOLOGY",
+                            SubjectName = "Sinh"
                         },
                         new
                         {
                             Id = new Guid("631135bd-81eb-4b70-a779-418af291d138"),
-                            Code = "PHYSICS",
-                            SubjectName = "Vật lý"
-                        },
-                        new
-                        {
-                            Id = new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"),
-                            Code = "CHEMISTRY",
-                            SubjectName = "Hóa học"
-                        },
-                        new
-                        {
-                            Id = new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"),
-                            Code = "BIOLOGY",
-                            SubjectName = "Sinh học"
-                        },
-                        new
-                        {
-                            Id = new Guid("77faf4ba-c356-4633-9505-91e4c8402800"),
-                            Code = "HISTORY",
-                            SubjectName = "Lịch sử"
-                        },
-                        new
-                        {
-                            Id = new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"),
-                            Code = "GEOGRAPHY",
-                            SubjectName = "Địa lý"
-                        },
-                        new
-                        {
-                            Id = new Guid("ab569adc-c289-48ee-9286-73cd9863458e"),
-                            Code = "CIVIC_EDUCATION",
-                            SubjectName = "Giáo dục công dân"
+                            Code = "MATH",
+                            SubjectName = "Toán"
                         },
                         new
                         {
                             Id = new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"),
-                            Code = "FOREIGN_LANGUAGE",
-                            SubjectName = "Ngoại ngữ"
-                        },
-                        new
-                        {
-                            Id = new Guid("0aaf283b-4d65-42af-a998-938efe370318"),
-                            Code = "INFORMATICS",
-                            SubjectName = "Tin học"
-                        },
-                        new
-                        {
-                            Id = new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"),
                             Code = "TECHNOLOGY",
-                            SubjectName = "Công nghệ"
+                            SubjectName = "Công Nghệ"
                         },
                         new
                         {
-                            Id = new Guid("4e943f72-a5ee-427f-9594-83598d33f411"),
-                            Code = "PHYSICAL_EDUCATION",
-                            SubjectName = "Thể dục"
-                        },
-                        new
-                        {
-                            Id = new Guid("d3d41c42-c3b4-4713-b231-b2851634f378"),
-                            Code = "MUSIC",
-                            SubjectName = "Âm nhạc"
-                        },
-                        new
-                        {
-                            Id = new Guid("9e777928-8399-4efe-bd19-164b1f6acc8e"),
-                            Code = "FINE_ART",
-                            SubjectName = "Mỹ thuật"
-                        },
-                        new
-                        {
-                            Id = new Guid("a3d3b555-0cf4-4b41-8131-a4c205d9a6f3"),
+                            Id = new Guid("b1d3a88b-1a6f-4a4d-b5e3-9d92e13e7f7d"),
                             Code = "DEFENSE_EDUCATION",
-                            SubjectName = "Giáo dục quốc phòng"
+                            SubjectName = "GDQP"
                         },
                         new
                         {
-                            Id = new Guid("b1d3b555-0cf4-4b41-8131-a4c205d9a6f4"),
-                            Code = "SHDC",
-                            SubjectName = "SHDC"
-                        },
-                        new
-                        {
-                            Id = new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"),
-                            Code = "HDTN_HN",
-                            SubjectName = "HĐTN-HN"
-                        },
-                        new
-                        {
-                            Id = new Guid("d3d3b555-0cf4-4b41-8131-a4c205d9a6f6"),
+                            Id = new Guid("ab569adc-c289-48ee-9286-73cd9863458e"),
                             Code = "GDKT_PL",
                             SubjectName = "GDKT-PL"
                         },
                         new
                         {
-                            Id = new Guid("e4d3b555-0cf4-4b41-8131-a4c205d9a6f7"),
+                            Id = new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"),
+                            Code = "MATH_FRENCH",
+                            SubjectName = "Toán Pháp"
+                        },
+                        new
+                        {
+                            Id = new Guid("4e943f72-a5ee-427f-9594-83598d33f411"),
+                            Code = "FOREIGN_LANGUAGE",
+                            SubjectName = "N.Ngữ"
+                        },
+                        new
+                        {
+                            Id = new Guid("77faf4ba-c356-4633-9505-91e4c8402800"),
+                            Code = "INFORMATION",
+                            SubjectName = "Tin"
+                        },
+                        new
+                        {
+                            Id = new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"),
+                            Code = "CHEMISTRY",
+                            SubjectName = "Hóa"
+                        },
+                        new
+                        {
+                            Id = new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"),
+                            Code = "SHDC",
+                            SubjectName = "SHDC"
+                        },
+                        new
+                        {
+                            Id = new Guid("0a45d64e-f1d3-4d91-9df8-9c663c3f39d2"),
+                            Code = "HDTN_HN",
+                            SubjectName = "HĐTN-HN"
+                        },
+                        new
+                        {
+                            Id = new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"),
+                            Code = "HISTORY",
+                            SubjectName = "Sử"
+                        },
+                        new
+                        {
+                            Id = new Guid("d3b45f10-aab9-45f6-a7ef-8e812f59109b"),
+                            Code = "PHYSICAL_EDUCATION",
+                            SubjectName = "TD"
+                        },
+                        new
+                        {
+                            Id = new Guid("a12d15b4-c3b7-4b9a-9b78-5cf36e8f1f7a"),
                             Code = "SHCN",
                             SubjectName = "SHCN"
                         },
                         new
                         {
-                            Id = new Guid("f5d3b555-0cf4-4b41-8131-a4c205d9a6f8"),
-                            Code = "MATH_FRENCH",
-                            SubjectName = "Toán Pháp"
+                            Id = new Guid("a4568e59-9eaf-4896-915e-19d469ab7ff8"),
+                            Code = "GEOGRAPHY",
+                            SubjectName = "Địa"
+                        },
+                        new
+                        {
+                            Id = new Guid("ed4b87a4-eaf3-4d7c-baad-4868124791e1"),
+                            Code = "LITERATURE",
+                            SubjectName = "Văn"
+                        },
+                        new
+                        {
+                            Id = new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"),
+                            Code = "CIVIC_EDUCATION",
+                            SubjectName = "GDCD"
+                        },
+                        new
+                        {
+                            Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
+                            Code = "PHYSICS",
+                            SubjectName = "Lý"
                         });
                 });
 
@@ -1314,7 +1302,6 @@ namespace BusinessObject.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar");
 
@@ -1364,83 +1351,6 @@ namespace BusinessObject.Migrations
                     b.HasIndex("TeacherTypeId");
 
                     b.ToTable("Teacher");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "nguyenvana@example.com",
-                            FullName = "Nguyễn Văn A",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0912345678",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0912345678"
-                        },
-                        new
-                        {
-                            Id = new Guid("493d052a-67a1-4428-981d-4d7831d3d344"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "tranthib@example.com",
-                            FullName = "Trần Thị B",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0987654321",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0987654321"
-                        },
-                        new
-                        {
-                            Id = new Guid("a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "leminhc@example.com",
-                            FullName = "Lê Minh C",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0901234567",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0901234567"
-                        },
-                        new
-                        {
-                            Id = new Guid("b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "phamthid@example.com",
-                            FullName = "Phạm Thị D",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0934567890",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0934567890"
-                        },
-                        new
-                        {
-                            Id = new Guid("c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"),
-                            Address = "",
-                            CitizenID = "",
-                            ClassroomId = new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"),
-                            Email = "hoangvane@example.com",
-                            FullName = "Hoàng Văn E",
-                            Image = "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg",
-                            Password = "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22",
-                            Phone = "0976543210",
-                            RoleId = new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"),
-                            TeacherTypeId = new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"),
-                            Username = "0976543210"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObject.TeacherType", b =>
@@ -1531,7 +1441,7 @@ namespace BusinessObject.Migrations
                     b.HasOne("BusinessObject.Student", "Student")
                         .WithMany("AttendanceStatuses")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BusinessObject.Teacher", "Teacher")

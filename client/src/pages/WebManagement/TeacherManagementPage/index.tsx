@@ -10,7 +10,7 @@ import {
   Label,
   UncontrolledDropdown
 } from 'reactstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { FiFilter } from 'react-icons/fi';
 
@@ -25,58 +25,42 @@ import VemLoader from '@/components/VemsLoader';
 import { teacherColumn } from './data-table-column';
 import { TeacherIndex } from './type';
 import ModalTeacherDetails from './ModalTeacherDetails';
+import { useGetAllTeacherQuery } from '@/services/accountManagement';
 
 const cx = className.bind(styles);
 
 const TeacherManagementPage = () => {
   // Modal Create teacher list
   const [isCloseModalTeacher, setIsCloseModalTeacher] = useState(false);
+  const [teachers, setTeachers] = useState<TeacherIndex[]>();
+  const [teacherSelected, setTeacherSelected] = useState<TeacherIndex>();
 
   // Modal detail student
-  const [teacherId, setTeacherId] = useState<string>('');
   const [isOpenTeacherDetail, setIsOpenTeacherDetail] = useState<boolean>(false);
 
-  const teachers = [
+  const { data: response, refetch } = useGetAllTeacherQuery(
+    { PageNumber: 1, PageSize: 100 },
     {
-      id: '1',
-      name: 'Nguyễn Văn A',
-      avatar: 'https://example.com/avatar1.jpg',
-      phone: '0901234567',
-      class: '10A1'
-    },
-    {
-      id: '2',
-      name: 'Trần Thị B',
-      avatar: 'https://example.com/avatar2.jpg',
-      phone: '0902345678',
-      class: '11B2'
-    },
-    {
-      id: '3',
-      name: 'Lê Văn C',
-      avatar: 'https://example.com/avatar3.jpg',
-      phone: '0903456789',
-      class: '12C3'
-    },
-    {
-      id: '4',
-      name: 'Phạm Thị D',
-      avatar: 'https://example.com/avatar4.jpg',
-      phone: '0904567890',
-      class: '10A2'
-    },
-    {
-      id: '5',
-      name: 'Đỗ Văn E',
-      avatar: 'https://example.com/avatar5.jpg',
-      phone: '0905678901',
-      class: '11B1'
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
     }
-  ];
+  );
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  useEffect(() => {
+    if (response) {
+      setTeachers(
+        response.pageData?.map((item: any, index: number) => ({ index, ...item }))
+      );
+    }
+  }, [response]);
 
   // Show teacher detail
   const handleShowTeacherDetail = (item: TeacherIndex) => {
-    setTeacherId(item.id);
+    setTeacherSelected(item);
     setIsOpenTeacherDetail(true);
   };
 
@@ -86,7 +70,7 @@ const TeacherManagementPage = () => {
       <Row className={cx('mb-5')}>
         <Col md={6}>
           <div className={cx('card')}>
-            <h2 className={cx('title')}>Hệ thống quản lí giáo viên</h2>
+            <h2 className={cx('title')}>Quản lí giáo viên</h2>
             <div className={cx('d-flex align-items-center my-5')}>
               <FaGraduationCap
                 color={'#4496e8'}
@@ -127,6 +111,7 @@ const TeacherManagementPage = () => {
             </div>
 
             <ModalUploadTeacher
+              refetchParent={refetch}
               isCloseModalTeacher={isCloseModalTeacher}
               setIsCloseModalTeacher={setIsCloseModalTeacher}
             />
@@ -149,28 +134,10 @@ const TeacherManagementPage = () => {
                 </div>
 
                 <div>
-                  <p className={cx('attendance-text')}>0</p>
-                  <p>Giáo viên</p>
-                </div>
-              </div>
-
-              <div className={cx('d-flex align-items-center')}>
-                <div
-                  className={cx('div-icon-round', 'shadow', 'me-3')}
-                  style={{ backgroundColor: 'rgb(209 197 200 / 69%)' }}
-                >
-                  <FaRegFaceFrownOpen
-                    size={28}
-                    color='rgb(133 70 88 / 69%)'
-                    className={cx('icon-round')}
-                  />
-                </div>
-
-                <div>
                   <p className={cx('attendance-text')}>
-                    <span>0</span>/0
+                    {response ? response.pageData.length : '0'}
                   </p>
-                  <p>Vắng mặt</p>
+                  <p>Giáo viên</p>
                 </div>
               </div>
             </div>
@@ -296,7 +263,7 @@ const TeacherManagementPage = () => {
         </Col>
 
         <DataTable
-          data={teachers}
+          data={teachers || []}
           columns={teacherColumn}
           striped={true}
           highlightOnHover={true}
@@ -313,7 +280,7 @@ const TeacherManagementPage = () => {
       </div>
 
       <ModalTeacherDetails
-        teacherId={teacherId}
+        teacher={teacherSelected!}
         isOpen={isOpenTeacherDetail}
         toggleModal={() => {
           setIsOpenTeacherDetail(!isOpenTeacherDetail);
