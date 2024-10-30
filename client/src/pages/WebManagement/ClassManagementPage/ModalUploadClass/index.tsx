@@ -51,7 +51,21 @@ const ModalUploadClass = ({
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
-        // console.log(jsonData);
+        const formattedObject: any = jsonData.reduce((acc: any, item: any) => {
+          Object.keys(item).forEach(key => {
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(item[key]);
+          });
+          return acc;
+        }, {});
+
+        const formattedData = {
+          tenThGrade: formattedObject['Khối 10'],
+          elevenThGrade: formattedObject['Khối 11'],
+          twelveThGrade: formattedObject['Khối 12']
+        };
+
+        console.log(formattedData);
 
         setFileInfo({
           name: file.name,

@@ -1,19 +1,26 @@
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
+import { Divider } from '@mui/material';
+import { Form } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 import styles from './SignIn.module.scss';
 import VemInput from '@/components/VemInput';
 import VemButton from '@/components/VemButton';
 import VemImage from '@/components/VemImage';
-import logo from '@/assets/Logo.png';
-import { Divider, Link } from '@mui/material';
-import { Form } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { useLogin } from '@/libs/features/auth/useLogin';
+import logo from '@/assets/Logo.png';
+import ModalForgetPassword from './ModalForgetPassword';
+
 const cx = classNames.bind(styles);
 
 const Login = () => {
   const navigate = useNavigate();
   const { login, isLoading, error } = useLogin();
+
+  // Modal forget password
+  const [isCloseModalForgetPassword, setIsCloseModalForgetPassword] = useState(false);
 
   const handleSubmit = async (values: any) => {
     const userData = {
@@ -95,13 +102,20 @@ const Login = () => {
                 </div> */}
 
                 <div className={'d-flex align-items-center'}>
-                  <Link
-                    href='/signUp'
-                    color='inherit'
+                  <p
+                    className={cx('forget-password')}
+                    onClick={() => {
+                      setIsCloseModalForgetPassword(true);
+                    }}
                   >
                     Quên mật khẩu?
-                  </Link>
+                  </p>
                 </div>
+
+                <ModalForgetPassword
+                  isCloseModalForgetPassword={isCloseModalForgetPassword}
+                  setIsCloseModalForgetPassword={setIsCloseModalForgetPassword}
+                ></ModalForgetPassword>
               </div>
 
               <VemButton
