@@ -168,11 +168,12 @@ const ModalUploadSchedule = ({
 
       reader.onload = (event: any) => {
         const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
+        const workbook = XLSX.read(data, { type: 'buffer' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         setFileData(jsonData);
+ 
 
         setFileInfo({
           name: file.name,
