@@ -20,7 +20,7 @@ export const accountManagementApi = createApi({
         url: '/AccountManagementService/teachers',
         method: 'get',
         authRequired: true,
-        query: model
+        params: model
         // keepUnusedDataFor: 0,
         // refetchOnFocus: true,
         // refetchOnReconnect: true,
@@ -33,7 +33,7 @@ export const accountManagementApi = createApi({
         url: '/AccountManagementService/students',
         method: 'get',
         authRequired: true,
-        query: model
+        params: model
       })
     }),
     getUser: build.mutation({
@@ -42,15 +42,17 @@ export const accountManagementApi = createApi({
         method: 'get'
         // data: user
       })
+    }),
+    importTeacher: build.mutation({
+      query: (userData: any) => ({
+        url: '/AccountManagementService/registerTeachers',
+        method: 'post',
+        data: userData,
+        authRequired: true
+      })
     })
-    // register: build.mutation({
-    //   query: userData => ({
-    //     url: '/register',
-    //     method: 'Post',
-    //     body: userData
-    //   })
-    // })
   })
 });
 
-export const { useGetAllTeacherQuery, useGetAllStudentQuery } = accountManagementApi;
+export const { useGetAllTeacherQuery, useGetAllStudentQuery, useImportTeacherMutation } =
+  accountManagementApi;

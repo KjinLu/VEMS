@@ -8,12 +8,23 @@ import { FaDownload } from 'react-icons/fa6';
 
 import styles from './ModalUploadTeacherList.module.scss';
 import VemsButton from '@/components/VemsButtonCustom';
+import { IoRemove } from 'react-icons/io5';
+import { useGetAllClassQuery } from '@/services/classes';
+import { useImportTeacherMutation } from '@/services/accountManagement';
+import { toast } from 'react-toastify';
 
 const cx = className.bind(styles);
 
 type ModalUploadTeacherProps = {
   isCloseModalTeacher: boolean;
   setIsCloseModalTeacher: any;
+  refetchParent: any;
+};
+
+type TeacherRequest = {
+  fullName: string;
+  phone: string;
+  classID?: string; // Optional classID
 };
 
 type FileUploadProps = {
@@ -22,22 +33,45 @@ type FileUploadProps = {
   type: string;
 };
 
+const convertToJSON = (data: string[][], classes: any): TeacherRequest[] => {
+  return data.map(entry => {
+    const [index, fullName, phone, className] = entry;
+
+    const classID = classes.find((item: any) => item.className === className)?.id;
+
+    return classID
+      ? {
+          fullName,
+          phone,
+          classID
+        }
+      : {
+          fullName,
+          phone
+        };
+  });
+};
+
 const ModalUploadTeacher = ({
   isCloseModalTeacher,
-  setIsCloseModalTeacher
+  setIsCloseModalTeacher,
+  refetchParent
 }: ModalUploadTeacherProps) => {
   const handleDownload = () => {
-    const url = `http://localhost:3000/Thời khóa biểu mẫu.xlsx`;
+    const url = `http://localhost:3000/TEACHER_INPUT.xlsx`;
 
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Thời khóa biểu mẫu.xlsx');
+    link.setAttribute('download', 'TEACHER_INPUT.xlsx');
     document.body.appendChild(link);
     link.click();
     link.remove();
   };
 
   const [fileInfo, setFileInfo] = useState<FileUploadProps>();
+  const [fileData, setFileData] = useState<any>();
+  const { data: classes } = useGetAllClassQuery({ PageNumber: 1, PageSize: 100 });
+  const [importTeacherFC] = useImportTeacherMutation();
 
   const handleFileUpload = (e: any) => {
     const file = e.target.files[0];
@@ -51,7 +85,7 @@ const ModalUploadTeacher = ({
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
-        // console.log(jsonData);
+        setFileData(jsonData);
 
         setFileInfo({
           name: file.name,
@@ -61,6 +95,29 @@ const ModalUploadTeacher = ({
       };
 
       reader.readAsArrayBuffer(file);
+    }
+  };
+
+  const clearFile = () => {
+    setFileInfo(undefined);
+    (document.getElementById('file-upload') as HTMLInputElement).value = '';
+  };
+
+  const handleImportTeachers = async () => {
+    if (fileData) {
+      var res = fileData.map((item: any, index: number) => {
+        var rowValue = Object.values(item);
+        return rowValue;
+      });
+
+      if (classes?.pageData) {
+        const result = convertToJSON(res, classes?.pageData);
+        var res = await importTeacherFC(result).unwrap();
+        if (res) {
+          refetchParent();
+          toast.success('Nhập danh sách giáo viên thành công');
+        }
+      }
     }
   };
 
@@ -128,6 +185,17 @@ const ModalUploadTeacher = ({
                     <p>
                       <strong>File Type:</strong> {fileInfo.type}
                     </p>
+                    <VemsButton
+                      color='danger'
+                      leftIcon={
+                        <IoRemove
+                          className={cx('me-1')}
+                          size={20}
+                        />
+                      }
+                      onClick={clearFile}
+                      title='Xóa file'
+                    />
                   </div>
                 )}
               </div>
@@ -155,7 +223,7 @@ const ModalUploadTeacher = ({
                   size={20}
                 />
               }
-              onClick={handleDownload}
+              onClick={handleImportTeachers}
               title='Cập nhật'
             />
           </div>

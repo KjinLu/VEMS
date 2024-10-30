@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BusinessObject.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class editNullalbeTeacherTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -294,7 +294,7 @@ namespace BusinessObject.Migrations
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Dob = table.Column<DateOnly>(type: "date", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
@@ -446,7 +446,7 @@ namespace BusinessObject.Migrations
                     StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReasonId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -479,7 +479,7 @@ namespace BusinessObject.Migrations
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AttendanceStatuses_Teacher_TeacherId",
                         column: x => x.TeacherId,
@@ -596,26 +596,24 @@ namespace BusinessObject.Migrations
                 columns: new[] { "Id", "Code", "SubjectName" },
                 values: new object[,]
                 {
-                    { new Guid("0aaf283b-4d65-42af-a998-938efe370318"), "INFORMATICS", "Tin học" },
-                    { new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"), "MATHEMATICS", "Toán học" },
-                    { new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"), "FOREIGN_LANGUAGE", "Ngoại ngữ" },
-                    { new Guid("4e943f72-a5ee-427f-9594-83598d33f411"), "PHYSICAL_EDUCATION", "Thể dục" },
-                    { new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"), "LITERATURE", "Ngữ văn" },
-                    { new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"), "GEOGRAPHY", "Địa lý" },
-                    { new Guid("631135bd-81eb-4b70-a779-418af291d138"), "PHYSICS", "Vật lý" },
-                    { new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"), "BIOLOGY", "Sinh học" },
-                    { new Guid("77faf4ba-c356-4633-9505-91e4c8402800"), "HISTORY", "Lịch sử" },
-                    { new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"), "TECHNOLOGY", "Công nghệ" },
-                    { new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"), "CHEMISTRY", "Hóa học" },
-                    { new Guid("9e777928-8399-4efe-bd19-164b1f6acc8e"), "FINE_ART", "Mỹ thuật" },
-                    { new Guid("a3d3b555-0cf4-4b41-8131-a4c205d9a6f3"), "DEFENSE_EDUCATION", "Giáo dục quốc phòng" },
-                    { new Guid("ab569adc-c289-48ee-9286-73cd9863458e"), "CIVIC_EDUCATION", "Giáo dục công dân" },
-                    { new Guid("b1d3b555-0cf4-4b41-8131-a4c205d9a6f4"), "SHDC", "SHDC" },
-                    { new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"), "HDTN_HN", "HĐTN-HN" },
-                    { new Guid("d3d3b555-0cf4-4b41-8131-a4c205d9a6f6"), "GDKT_PL", "GDKT-PL" },
-                    { new Guid("d3d41c42-c3b4-4713-b231-b2851634f378"), "MUSIC", "Âm nhạc" },
-                    { new Guid("e4d3b555-0cf4-4b41-8131-a4c205d9a6f7"), "SHCN", "SHCN" },
-                    { new Guid("f5d3b555-0cf4-4b41-8131-a4c205d9a6f8"), "MATH_FRENCH", "Toán Pháp" }
+                    { new Guid("0a45d64e-f1d3-4d91-9df8-9c663c3f39d2"), "HDTN_HN", "HĐTN-HN" },
+                    { new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"), "PHYSICS", "Lý" },
+                    { new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"), "TECHNOLOGY", "Công Nghệ" },
+                    { new Guid("4e943f72-a5ee-427f-9594-83598d33f411"), "FOREIGN_LANGUAGE", "N.Ngữ" },
+                    { new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"), "CIVIC_EDUCATION", "GDCD" },
+                    { new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"), "SHDC", "SHDC" },
+                    { new Guid("631135bd-81eb-4b70-a779-418af291d138"), "MATH", "Toán" },
+                    { new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"), "BIOLOGY", "Sinh" },
+                    { new Guid("77faf4ba-c356-4633-9505-91e4c8402800"), "INFORMATION", "Tin" },
+                    { new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"), "MATH_FRENCH", "Toán Pháp" },
+                    { new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"), "CHEMISTRY", "Hóa" },
+                    { new Guid("a12d15b4-c3b7-4b9a-9b78-5cf36e8f1f7a"), "SHCN", "SHCN" },
+                    { new Guid("a4568e59-9eaf-4896-915e-19d469ab7ff8"), "GEOGRAPHY", "Địa" },
+                    { new Guid("ab569adc-c289-48ee-9286-73cd9863458e"), "GDKT_PL", "GDKT-PL" },
+                    { new Guid("b1d3a88b-1a6f-4a4d-b5e3-9d92e13e7f7d"), "DEFENSE_EDUCATION", "GDQP" },
+                    { new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"), "HISTORY", "Sử" },
+                    { new Guid("d3b45f10-aab9-45f6-a7ef-8e812f59109b"), "PHYSICAL_EDUCATION", "TD" },
+                    { new Guid("ed4b87a4-eaf3-4d7c-baad-4868124791e1"), "LITERATURE", "Văn" }
                 });
 
             migrationBuilder.InsertData(
@@ -693,28 +691,16 @@ namespace BusinessObject.Migrations
                 columns: new[] { "Id", "Address", "CitizenID", "ClassroomId", "Dob", "Email", "FullName", "HomeTown", "Image", "ParentPhone", "Password", "Phone", "PublicStudentID", "RefreshToken", "RoleId", "StudentTypeId", "UnionJoinDate", "Username" },
                 values: new object[,]
                 {
-                    { new Guid("1c7305c1-f1f9-48be-b71a-8f42063f5801"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "bui.h@example.com", "Bùi Thị H", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/13_gqcowy.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU108", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU108" },
-                    { new Guid("5315a87f-94bc-482a-98ce-15c6b293bdaa"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "nguyen.a@example.com", "Nguyễn Văn A", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/7_plw6ns.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU101", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU101" },
-                    { new Guid("7184f787-d758-4811-bced-fea5a8e757af"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "dang.k@example.com", "Đặng Thị K", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/12_wsmqha.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU110", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU110" },
-                    { new Guid("9c34ee7c-8698-49d8-adcb-5643abc9c18b"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "hoang.e@example.com", "Hoàng Văn E", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813011522_e3396b099fec5e01dc56a2331b757d8e_nsrnzc.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU105", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU105" },
-                    { new Guid("9de590ce-e2d6-4ffe-8b33-06a1586521c4"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "do.g@example.com", "Đỗ Văn G", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/z5852813019059_6493ca13ee06ac935e9889fe51bd2886_ooz29c.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU107", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU107" },
-                    { new Guid("c5162d54-a931-447c-97a0-950dbc81715c"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "tran.b@example.com", "Trần Thị B", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/6_ydar9m.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU102", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU102" },
-                    { new Guid("e11bb566-b164-4c86-a428-9458c0e008b2"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "le.c@example.com", "Lê Văn C", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813026004_885e224ee4b8dbfbb128e583c278a615_dicbrf.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU103", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU103" },
-                    { new Guid("e8080fae-2152-4db3-a901-3afefa95735f"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "ngo.i@example.com", "Ngô Văn I", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/4_yr3kyt.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU109", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU109" },
-                    { new Guid("f281b8c4-edbb-4389-994d-b70941bb3b28"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "vu.f@example.com", "Vũ Thị F", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/2_hlwinq.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU106", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU106" },
-                    { new Guid("fa0b890d-613f-4f08-8c31-019ea0f3c4f4"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "pham.d@example.com", "Phạm Thị D", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/5_ek2pks.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU104", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU104" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Teacher",
-                columns: new[] { "Id", "Address", "CitizenID", "ClassroomId", "Dob", "Email", "FullName", "Image", "Password", "Phone", "PublicTeacherID", "RefreshToken", "RoleId", "TeacherTypeId", "Username" },
-                values: new object[,]
-                {
-                    { new Guid("493d052a-67a1-4428-981d-4d7831d3d344"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "tranthib@example.com", "Trần Thị B", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0987654321", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0987654321" },
-                    { new Guid("a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "leminhc@example.com", "Lê Minh C", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0901234567", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0901234567" },
-                    { new Guid("b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "phamthid@example.com", "Phạm Thị D", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0934567890", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0934567890" },
-                    { new Guid("c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "hoangvane@example.com", "Hoàng Văn E", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0976543210", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0976543210" },
-                    { new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "nguyenvana@example.com", "Nguyễn Văn A", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0912345678", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0912345678" }
+                    { new Guid("05f90b9e-95fd-400d-befc-549a831705f7"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "pham.d@example.com", "Phạm Thị D", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/5_ek2pks.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU104", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU104" },
+                    { new Guid("0f4b56ba-3c76-42b8-8dd2-5455810ad1fd"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "dang.k@example.com", "Đặng Thị K", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/12_wsmqha.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU110", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU110" },
+                    { new Guid("427ca331-a70d-4f5f-aad6-4edac2c72ba4"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "nguyen.a@example.com", "Nguyễn Văn A", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/7_plw6ns.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU101", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU101" },
+                    { new Guid("45c9da4a-6fc0-432b-abdf-2194d80cd6ca"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "bui.h@example.com", "Bùi Thị H", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/13_gqcowy.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU108", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU108" },
+                    { new Guid("6635c7fa-72f1-40f3-8ecc-a49989e5cc35"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "le.c@example.com", "Lê Văn C", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813026004_885e224ee4b8dbfbb128e583c278a615_dicbrf.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU103", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU103" },
+                    { new Guid("72ebc5cd-d9a5-4699-ba59-378d2f1fbf6f"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "do.g@example.com", "Đỗ Văn G", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/z5852813019059_6493ca13ee06ac935e9889fe51bd2886_ooz29c.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU107", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU107" },
+                    { new Guid("8afd7ef0-cd2d-4b56-9372-47e25dabf2bc"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "vu.f@example.com", "Vũ Thị F", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/2_hlwinq.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU106", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU106" },
+                    { new Guid("94456db2-7244-4655-bee3-a28c92c42bbb"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "hoang.e@example.com", "Hoàng Văn E", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813011522_e3396b099fec5e01dc56a2331b757d8e_nsrnzc.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU105", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU105" },
+                    { new Guid("9dfed562-0d33-4c8b-905a-26b90fda4ce7"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "ngo.i@example.com", "Ngô Văn I", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/4_yr3kyt.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU109", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU109" },
+                    { new Guid("cf39baca-5dec-410d-bb76-b7a7083d4430"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "tran.b@example.com", "Trần Thị B", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/6_ydar9m.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU102", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU102" }
                 });
 
             migrationBuilder.CreateIndex(

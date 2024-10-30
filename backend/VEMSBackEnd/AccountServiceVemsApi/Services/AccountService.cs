@@ -74,7 +74,7 @@ public class AccountService : IAccountService
         };
     }
 
-    public async Task<object>  GetAllTeacherAccountAsync(PaginationRequest request)
+    public async Task<object> GetAllTeacherAccountAsync(PaginationRequest request)
     {
         int pageNumber = request.PageNumber;
         int pageSize = request.PageSize;
@@ -143,10 +143,9 @@ public class AccountService : IAccountService
             {
                 Username = teacher.Phone,
                 Phone = teacher.Phone,
-                Email = teacher.Email,
                 FullName = teacher.FullName,
-                RoleId = teacher.RoleId,
-                //ClassroomId = student.ClassroomId,
+                RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                ClassroomId = teacher.ClassID != null ? teacher.ClassID : null,
                 Password = Hashing("1")
             };
             newTeacherList.Add(newTeacher);
@@ -165,7 +164,7 @@ public class AccountService : IAccountService
             Username = request.Phone,
             Password = Hashing(request.Password),
             Email = request.Email,
-            Dob= DateOnly.Parse(request.Dob),
+            Dob = DateOnly.Parse(request.Dob),
             Address = request.Address,
             Phone = request.Phone,
             ParentPhone = request.ParentPhone,
@@ -205,7 +204,7 @@ public class AccountService : IAccountService
 
         if (account == null) return false;
 
-        account.PublicStudentID= request.PublicStudentID;
+        account.PublicStudentID = request.PublicStudentID;
         account.FullName = request.FullName;
         account.CitizenID = request.CitizenID;
         account.Username = request.Username;

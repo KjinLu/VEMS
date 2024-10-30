@@ -185,9 +185,7 @@ const ModalUploadSchedule = ({
   };
 
   const handleCreateSchedule = () => {
-    console.log('Click');
     handleToTimeTable();
-    console.log('Clicked');
   };
   // Xử lý xóa file
   const clearFile = () => {

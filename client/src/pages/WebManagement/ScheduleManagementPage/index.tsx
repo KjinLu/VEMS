@@ -71,11 +71,14 @@ const AdminManagementPage = () => {
   const [weeklyTimeTable, setWeeklyTimeTable] = useState<DayInSchedule[]>([]);
   const { data: classes } = useGetAllClassQuery({ PageNumber: 1, PageSize: 100 });
 
-  const { data: classScheduleData } = useGetClassScheduleQuery(classSelectedID!, {
-    skip: !classSelectedID,
-    refetchOnMountOrArgChange: true,
-    refetchOnFocus: true
-  });
+  const { data: classScheduleData, refetch } = useGetClassScheduleQuery(
+    classSelectedID!,
+    {
+      skip: !classSelectedID,
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
+    }
+  );
 
   useEffect(() => {
     if (classScheduleData) {

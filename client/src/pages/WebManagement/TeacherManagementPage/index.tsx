@@ -38,7 +38,17 @@ const TeacherManagementPage = () => {
   // Modal detail student
   const [isOpenTeacherDetail, setIsOpenTeacherDetail] = useState<boolean>(false);
 
-  const { data: response } = useGetAllTeacherQuery(null);
+  const { data: response, refetch } = useGetAllTeacherQuery(
+    { PageNumber: 1, PageSize: 100 },
+    {
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
+    }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (response) {
@@ -101,6 +111,7 @@ const TeacherManagementPage = () => {
             </div>
 
             <ModalUploadTeacher
+              refetchParent={refetch}
               isCloseModalTeacher={isCloseModalTeacher}
               setIsCloseModalTeacher={setIsCloseModalTeacher}
             />
