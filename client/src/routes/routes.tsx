@@ -7,6 +7,7 @@ import Home from '@/pages/Home';
 import Profile from '@/pages/Profile';
 import StudentSchedule from '@/pages/StudentSchedule';
 import Login from '@/pages/Login';
+import ForgetPassword from '@/pages/ForgetPassword';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { PrivateRoute, PublicRoute } from '@/types/components/route';
 import NotFound from '@/pages/Error/NotFound';
@@ -31,6 +32,7 @@ import TeacherAllSchedulePage from '@/pages/TeacherAllSchedule';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
+  { path: configRoutes.forgetPassword, component: ForgetPassword, layout: AuthLayout },
   {
     path: configError.NotFound,
     component: NotFound
