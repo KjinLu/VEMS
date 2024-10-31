@@ -90,6 +90,17 @@ export const scheduleApi = createApi({
         pollingInterval: 5000,
         data: data
       })
+    }),
+    createTeacherSchedule: build.mutation({
+      query: (data: any) => ({
+        url: '/ScheduleService/create-teacher-schedule',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: data
+      })
     })
   }),
   tagTypes: []
@@ -106,5 +117,6 @@ export const {
   useCreateNewListScheduleMutation,
   useCreateScheduleDetailMutation,
   useCreateNewScheduleMutation,
-  useGetAllSlotsQuery
+  useGetAllSlotsQuery,
+  useCreateTeacherScheduleMutation
 } = scheduleApi;

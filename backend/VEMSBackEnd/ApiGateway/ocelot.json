@@ -400,6 +400,21 @@
         "POST"
       ]
     },
+    
+        {
+      "DownstreamPathTemplate": "/api/schedule-service/create-teacher-schedule",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/create-teacher-schedule",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
     {
       "DownstreamPathTemplate": "/api/schedule-service/update-schedule",
       "DownstreamScheme": "http",

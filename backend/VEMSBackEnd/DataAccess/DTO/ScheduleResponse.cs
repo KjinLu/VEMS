@@ -17,6 +17,15 @@ public class CreateScheduleDetailRequest
     public List<SessionDto> Sessions { get; set; }
 }
 
+public class CreateTeacherScheduleRequest
+{
+    public Guid SubjectID { get; set; }
+    public Guid SessionID { get; set; }
+    public Guid SlotID { get; set; }
+    public Guid ClassID { get; set; }
+    public Guid TeacherID { get; set; }
+}
+
 public class UpdateScheduleRequest
 {
     public Guid ScheduleID { get; set; }

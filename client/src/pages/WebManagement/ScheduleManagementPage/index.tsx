@@ -22,6 +22,7 @@ import { UUID } from 'crypto';
 import { useGetClassScheduleQuery, useGetScheduleDetailQuery } from '@/services/schedule';
 import { useGetAllClassQuery } from '@/services/classes';
 import VemsSelect from '@/components/VemSelect';
+import ModalUploadTeacherSchedule from './ModalUploadTeacherSchedule';
 
 const cx = className.bind(styles);
 type DayInSchedule = {
@@ -62,6 +63,7 @@ const AdminManagementPage = () => {
   const localizer = momentLocalizer(moment);
 
   const [isCloseModalSchedule, setIsCloseModalSchedule] = useState(false);
+  const [isCloseModalTeacherSchedule, setIsCloseModalTeacherSchedule] = useState(false);
   const [classScheduleID, setClassScheduleID] = useState<UUID>();
   const [classSelectedID, setClassSelectedID] = useState<UUID>();
   const [classOptions, setClassOptions] = useState<ClassOptionData[]>();
@@ -314,10 +316,28 @@ const AdminManagementPage = () => {
                 }}
               />
 
+              <VemsButtonCus
+                title='Tạo lịch giảng dạy'
+                leftIcon={
+                  <FaRegCalendarAlt
+                    size={20}
+                    style={{ marginRight: '6px' }}
+                  />
+                }
+                onClick={() => {
+                  setIsCloseModalTeacherSchedule(true);
+                }}
+              />
+
               <ModalUploadSchedule
                 isCloseModalSchedule={isCloseModalSchedule}
                 setIsCloseModalSchedule={setIsCloseModalSchedule}
               ></ModalUploadSchedule>
+
+              <ModalUploadTeacherSchedule
+                isCloseModalSchedule={isCloseModalTeacherSchedule}
+                setIsCloseModalSchedule={setIsCloseModalTeacherSchedule}
+              ></ModalUploadTeacherSchedule>
 
               <div className={cx('d-flex align-items-center')}>
                 <Label

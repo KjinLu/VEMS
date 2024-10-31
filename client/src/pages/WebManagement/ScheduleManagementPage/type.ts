@@ -22,6 +22,12 @@ export type Classroom = {
   className: string;
 };
 
+export type Teacher = {
+  id: string;
+  fullName: string;
+  phone: string;
+};
+
 export type CreateScheduleRequest = {
   time: string;
   classroomId: string;

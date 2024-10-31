@@ -87,7 +87,7 @@ const TeacherSchedulePage = () => {
           // Lặp qua từng session và slot, trả về các đối tượng DayInSchedule
           return sessionsForDay.flatMap((session: any) => {
             return session.slotDetails.map((slot: any) => ({
-              title: slot.classname,
+              title: slot.classname + ' - ' + slot.subjectName,
               start: combineDateAndTime(dayDate.toISOString(), slot.slotStart),
               end: combineDateAndTime(dayDate.toISOString(), slot.slotEnd)
             }));

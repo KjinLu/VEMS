@@ -25,9 +25,11 @@ namespace ScheduleServiceVemsApi.Services
 
         //Schedule detail
         Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
+        Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request);
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request);
         Task<object> GetAllTeacherScheduleDetail(PaginationRequest request);
         Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request);
+
 
 
         // Session and slot
@@ -194,6 +196,11 @@ namespace ScheduleServiceVemsApi.Services
         public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request)
         {
             return await scheduleRepository.GetTeacherScheduleDetail(request);
+        }
+
+        public async Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request)
+        {
+            return await scheduleRepository.CreateTeacherSchedule(request);
         }
     }
 }

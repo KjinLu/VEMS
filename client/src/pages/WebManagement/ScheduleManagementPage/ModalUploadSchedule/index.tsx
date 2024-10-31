@@ -173,7 +173,6 @@ const ModalUploadSchedule = ({
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         setFileData(jsonData);
- 
 
         setFileInfo({
           name: file.name,
