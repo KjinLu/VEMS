@@ -34,12 +34,40 @@ namespace VemsApi.Controllers
             }
         }
 
+        [HttpGet("get-class-session-of-week")]
+        public async Task<IActionResult> GetAllSessionOfWeek()
+        {
+            try
+            {
+                var response = await scheduleService.GetAllSessionOfWeek();
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpGet("get-class-schedule")]
         public async Task<IActionResult> GetScheduleOfClass(Guid classID)
         {
             try
             {
                 var response = await scheduleService.GetAllScheduleOfClass(classID);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("get-class-subject")]
+        public async Task<IActionResult> GetAllSubject()
+        {
+            try
+            {
+                var response = await scheduleService.GetAllSubject();
                 return APIResponse.Success(response);
             }
             catch (Exception ex)
@@ -117,6 +145,20 @@ namespace VemsApi.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
+        [HttpPost("create-teacher-schedule")]
+        public async Task<IActionResult> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request)
+        {
+            try
+            {
+                var response = await scheduleService.CreateTeacherSchedule(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
 
         [HttpGet("get-schedule-detail")]
         public async Task<IActionResult> GetScheduleDetail(Guid ScheduleID)
@@ -134,7 +176,7 @@ namespace VemsApi.Controllers
 
 
         [HttpGet("get-all-teacher-schedule-detail")]
-        public async Task<IActionResult> GetTeacherScheduleDetail([FromQuery]PaginationRequest request)
+        public async Task<IActionResult> GetTeacherScheduleDetail([FromQuery] PaginationRequest request)
         {
             try
             {

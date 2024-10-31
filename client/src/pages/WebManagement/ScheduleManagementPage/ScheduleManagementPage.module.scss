@@ -2,7 +2,9 @@
 .card {
   position: relative;
   background-color: #fff;
-  box-shadow: 0 6px 10px -8px #c5d6d6;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   padding: 18px;
   height: 100%;
@@ -10,20 +12,12 @@
 
 .schedule-image {
   position: absolute;
-  top: 32px;
-  right: 8px;
+  top: 50px;
+  right: 22px;
 }
 
 .attendance-select {
   margin-bottom: 36px;
-}
-
-.div-round {
-  position: relative;
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
 }
 
 .shadow {
@@ -33,23 +27,24 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-.icon-round {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .attendance-text {
   font-size: 20px;
   font-weight: 600;
+}
+
+// Schedule
+.schedule-button-wrapper {
+  border-radius: 5px;
+  box-shadow: #0000001f 0 1px 4px;
+  padding: 20px 18px;
+  background-color: rgb(238 219 219 / 12%);
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .schedule-title {
   position: relative;
   font-size: 38px !important;
   display: inline-block;
-  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 
   &::before,
   &::after {
@@ -58,7 +53,7 @@
     left: 50%;
     transform: translateX(-50%);
     border-radius: 5px;
-    background: linear-gradient(135deg, #8baccd, #1976d2);
+    background: linear-gradient(135deg, #b9d1e9, #1976d2);
   }
 
   &::before {

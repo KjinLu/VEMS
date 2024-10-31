@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using DataAccess.DAO;
+using DataAccess.ScheduleDto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,13 +18,15 @@ namespace DataAccess.Repository
         Task<Slot> CreateSlotAsync(Slot slot);
         Task<bool> UpdateSlotTimeAsync(Slot updatedSlot);
         Task<bool> DeleteSlotAsync(Guid id);
+        Task<List<SessionResponse>> GetAllSessionOfWeek();
+        Task<List<Subject>> GetAllSubject();
     }
 
     public class SlotRepository : ISlotRepository
     {
         public async Task<Slot> CreateSlotAsync(Slot slot)
         {
-           return await SlotDAO.Instance.CreateSlotAsync(slot).ConfigureAwait(false);
+            return await SlotDAO.Instance.CreateSlotAsync(slot).ConfigureAwait(false);
         }
 
         public async Task<List<Slot>> GetAllSlotAsync()
@@ -58,12 +61,22 @@ namespace DataAccess.Repository
 
         public async Task<bool> UpdateSlotTimeAsync(Slot updatedSlot)
         {
-           return await SlotDAO.Instance.UpdateSlotTimeAsync(updatedSlot).ConfigureAwait(false);
+            return await SlotDAO.Instance.UpdateSlotTimeAsync(updatedSlot).ConfigureAwait(false);
         }
 
         public async Task<bool> DeleteSlotAsync(Guid id)
         {
-          return  await SlotDAO.Instance.DeleteSlotAsync(id).ConfigureAwait(false);
+            return await SlotDAO.Instance.DeleteSlotAsync(id).ConfigureAwait(false);
+        }
+
+        public async Task<List<SessionResponse>> GetAllSessionOfWeek()
+        {
+            return await SlotDAO.Instance.GetAllSessionOfWeek();
+        }
+
+        public async Task<List<Subject>> GetAllSubject()
+        {
+            return await SlotDAO.Instance.GetAllSubject();
         }
     }
 }

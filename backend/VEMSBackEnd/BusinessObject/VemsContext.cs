@@ -38,18 +38,17 @@ namespace BusinessObject
     public DbSet<AttendanceCharge> AttendanceCharges { get; set; }
     public DbSet<AttendanceStatus> AttendanceStatuses { get; set; }
     public DbSet<SlotDetail> SlotDetails { get; set; }
+    public DbSet<EmailToken> EmailTokens { get; set; }
+    public DbSet<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      //optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
+      // optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
       optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
     }
-
-    public DbSet<EmailToken> EmailTokens { get; set; }
-    public DbSet<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -151,6 +150,12 @@ namespace BusinessObject
           .WithMany(r => r.AttendanceStatuses)
           .HasForeignKey(a => a.TeacherId);
 
+      modelBuilder.Entity<AttendanceStatus>()
+  .HasOne(a => a.Student)
+  .WithMany(s => s.AttendanceStatuses)
+  .HasForeignKey(a => a.StudentId)
+  .OnDelete(DeleteBehavior.Cascade);
+
       modelBuilder.Entity<ExtraActivitiesAttendance>()
         .HasOne(a => a.Attendance)
         .WithMany(r => r.ExtraActivitiesAttendances)
@@ -159,28 +164,28 @@ namespace BusinessObject
 
 
       modelBuilder.Entity<ExtraActivitiesAttendance>()
-       .HasOne(a => a.Student)
-       .WithMany(r => r.ExtraActivitiesAttendances)
-       .HasForeignKey(a => a.StudentId)
-  .OnDelete(DeleteBehavior.Cascade);
+      .HasOne(a => a.Student)
+      .WithMany(r => r.ExtraActivitiesAttendances)
+      .HasForeignKey(a => a.StudentId)
+      .OnDelete(DeleteBehavior.Cascade);
 
 
       modelBuilder.Entity<ExtraActivitiesAttendance>()
-  .HasOne(a => a.Status)
-  .WithMany(r => r.ExtraActivitiesAttendances)
-  .HasForeignKey(a => a.StatusId)
-  .OnDelete(DeleteBehavior.Cascade);
+     .HasOne(a => a.Status)
+     .WithMany(r => r.ExtraActivitiesAttendances)
+     .HasForeignKey(a => a.StatusId)
+     .OnDelete(DeleteBehavior.Cascade);
 
 
       modelBuilder.Entity<SlotDetail>()
-.HasOne(a => a.Slot)
-.WithMany(r => r.SlotDetails)
-.HasForeignKey(a => a.SlotID);
+     .HasOne(a => a.Slot)
+     .WithMany(r => r.SlotDetails)
+     .HasForeignKey(a => a.SlotID);
 
       modelBuilder.Entity<SlotDetail>()
-        .HasOne(a => a.Teacher)
-        .WithMany(r => r.SlotDetails)
-        .HasForeignKey(a => a.TeacherID);
+     .HasOne(a => a.Teacher)
+     .WithMany(r => r.SlotDetails)
+     .HasForeignKey(a => a.TeacherID);
 
       modelBuilder.Entity<SlotDetail>()
          .HasOne(a => a.Subject)
@@ -194,8 +199,8 @@ namespace BusinessObject
 
       modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();
-      modelBuilder.SeedingStudent();
-      modelBuilder.SeedingTeacher();
+      // modelBuilder.SeedingStudent();
+      // modelBuilder.SeedingTeacher(); 
       modelBuilder.SeedingSession();
     }
   }

@@ -29,6 +29,16 @@
   height: auto;
 }
 
+.forget-password {
+  text-decoration: underline;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    color: #3e3eff;
+  }
+}
+
 @media (max-width: 768px) {
   .sign-in-container {
     min-width: 25rem;

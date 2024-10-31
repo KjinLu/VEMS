@@ -10,6 +10,9 @@ import authReducer from '@/libs/features/auth/authSlice';
 import { scheduleApi } from '@/services/schedule';
 import { attendanceApi } from '@/services/attendance';
 import { profileApi } from '@/services/profile';
+import { forgetPassword } from '@/services/forgetPassword';
+import { classApi } from '@/services/classes';
+import { accountManagementApi } from '@/services/accountManagement';
 
 const persistConfig = {
   key: 'root',
@@ -19,9 +22,12 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
+  [forgetPassword.reducerPath]: forgetPassword.reducer,
   [scheduleApi.reducerPath]: scheduleApi.reducer,
   [attendanceApi.reducerPath]: attendanceApi.reducer,
-  [profileApi.reducerPath]: profileApi.reducer
+  [profileApi.reducerPath]: profileApi.reducer,
+  [classApi.reducerPath]: classApi.reducer,
+  [accountManagementApi.reducerPath]: accountManagementApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -31,9 +37,12 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware: any) => {
     return getDefaultMiddleware({ serializableCheck: false }).concat(
       authApi.middleware,
+      forgetPassword.middleware,
       scheduleApi.middleware,
       attendanceApi.middleware,
-      profileApi.middleware
+      profileApi.middleware,
+      classApi.middleware,
+      accountManagementApi.middleware
     );
   }
 });

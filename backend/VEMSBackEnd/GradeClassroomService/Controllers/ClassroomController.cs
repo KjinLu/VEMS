@@ -1,4 +1,5 @@
 using DataAccess.Dto.ClassroomDto;
+using DataAccess.DTO;
 using GradeClassroomService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,32 @@ namespace GradeClassroomService.Controllers
             }
         }
 
+        [HttpGet("class-students")]
+        public async Task<IActionResult> GetClassStudents(Guid classID)
+        {
+            try
+            {
+                return APIResponse.Success(await _classroomService.GetClassStudents(classID));
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpGet("student-types")]
+        public async Task<IActionResult> GetStudentType()
+        {
+            try
+            {
+                return APIResponse.Success(await _classroomService.GetAllStudentType());
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClassroomById(Guid id)
         {
@@ -54,6 +81,42 @@ namespace GradeClassroomService.Controllers
             {
                 await _classroomService.AddClassroom(classroom);
                 return APIResponse.Success();
+            }
+            catch (InvalidOperationException e)
+            {
+                return APIResponse.RequestError(null, e.Message);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("import-classes")]
+        public async Task<IActionResult> AddClassrooms(List<ImportClassRequest> classrooms)
+        {
+            try
+            {
+                await _classroomService.AddClassrooms(classrooms);
+                return APIResponse.Success();
+            }
+            catch (InvalidOperationException e)
+            {
+                return APIResponse.RequestError(null, e.Message);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("assign-student")]
+        public async Task<IActionResult> AssignStudentType(AssignStudentTypeRequest request)
+        {
+            try
+            {
+                var response = await _classroomService.AssignStudentType(request);
+                return APIResponse.Success(response);
             }
             catch (InvalidOperationException e)
             {
