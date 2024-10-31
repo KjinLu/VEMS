@@ -201,7 +201,7 @@ const AdminManagementPage = () => {
 
             <div className={cx('d-flex justify-content-end', 'attendance-select')}>
               <div style={{ width: '30%' }}>
-                <VemSelect
+                {/* <VemSelect
                   options={[
                     {
                       label: 'Sáng',
@@ -213,7 +213,7 @@ const AdminManagementPage = () => {
                     }
                   ]}
                   placeholder='Chọn thời gian'
-                />
+                /> */}
               </div>
             </div>
 

@@ -33,6 +33,17 @@ export const classApi = createApi({
         data: body
       })
     }),
+    importClass: build.mutation({
+      query: (body: any) => ({
+        url: '/ClassroomService/import-classes',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: body
+      })
+    }),
     getAllGrade: build.query({
       query: () => ({
         url: '/GradeService',
@@ -55,5 +66,6 @@ export const {
   useGetStudentInClassQuery,
   useAssignStudentMutation,
   useGetAllGradeQuery,
-  useGetAllClassQuery
+  useGetAllClassQuery,
+  useImportClassMutation
 } = classApi;

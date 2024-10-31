@@ -20,6 +20,21 @@
         "DELETE"
       ]
     },
+     {
+      "DownstreamPathTemplate": "/api/Classroom/import-classes",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5059
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ClassroomService/import-classes",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    
     {
       "DownstreamPathTemplate": "/api/Classroom/{id}",
       "DownstreamScheme": "http",

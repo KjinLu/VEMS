@@ -136,8 +136,6 @@ public class RegisterStudentRequest
 
     public Guid ClassroomId { get; set; }
 
-    public Guid RoleId { get; set; }
-
 }
 
 public class RegisterTeacherRequest

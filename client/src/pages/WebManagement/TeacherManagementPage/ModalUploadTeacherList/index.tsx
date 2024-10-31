@@ -131,7 +131,6 @@ const ModalUploadTeacher = ({
           Tạo danh sách giáo viên
         </h2>
 
-        {/* Icon close */}
         <div
           className={cx('modal-icon-close')}
           onClick={() => {

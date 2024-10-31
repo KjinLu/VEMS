@@ -95,27 +95,6 @@ const TeacherManagementPage = () => {
           <div className={cx('card')}>
             <h2 className={cx('title', 'mb-3')}>Số lượng giáo viên</h2>
 
-            <div className={cx('d-flex justify-content-end mb-4')}>
-              <VemsButtonCus
-                title='Tạo danh sách giáo viên'
-                leftIcon={
-                  <FaChalkboardTeacher
-                    size={20}
-                    style={{ marginRight: '6px' }}
-                  />
-                }
-                onClick={() => {
-                  setIsCloseModalTeacher(true);
-                }}
-              />
-            </div>
-
-            <ModalUploadTeacher
-              refetchParent={refetch}
-              isCloseModalTeacher={isCloseModalTeacher}
-              setIsCloseModalTeacher={setIsCloseModalTeacher}
-            />
-
             <div
               className={cx(
                 'd-flex align-items-center justify-content-between mb-3 px-5'
@@ -135,11 +114,32 @@ const TeacherManagementPage = () => {
 
                 <div>
                   <p className={cx('attendance-text')}>
-                    {response ? response.pageData.length : '0'}
+                    {response?.pageData?.length || 'N/A'}
                   </p>
                   <p>Giáo viên</p>
                 </div>
               </div>
+
+              <div className={cx('d-flex justify-content-end mb-4')}>
+                <VemsButtonCus
+                  title='Nhập danh sách giáo viên'
+                  leftIcon={
+                    <FaChalkboardTeacher
+                      size={20}
+                      style={{ marginRight: '6px' }}
+                    />
+                  }
+                  onClick={() => {
+                    setIsCloseModalTeacher(true);
+                  }}
+                />
+              </div>
+
+              <ModalUploadTeacher
+                refetchParent={refetch}
+                isCloseModalTeacher={isCloseModalTeacher}
+                setIsCloseModalTeacher={setIsCloseModalTeacher}
+              />
             </div>
           </div>
         </Col>

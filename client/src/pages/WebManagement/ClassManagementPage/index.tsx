@@ -24,6 +24,7 @@ import VemsInputCus from '@/components/VemsInputCustom';
 import VemsNav from '@/components/VemsNav';
 import VemsLoader from '@/components/VemsLoader';
 import { useGetAllClassQuery, useGetAllGradeQuery } from '@/services/classes';
+import { ClassIndex } from './type';
 
 const TenThManagementTab = lazy(() => import('./TenThManagementTab'));
 const ElevenThManagementTab = lazy(() => import('./ElevenThManagementTab'));
@@ -53,19 +54,40 @@ const ClassManagementPage = () => {
   // Change tab
   const [loadedTabs, setLoadedTabs] = useState<number[]>([1]);
   const [activeTabId, setActiveTabId] = useState(1);
-  const [gradeData, setGradeData] = useState<any>();
   const [classes, setClasses] = useState<any>();
+  const [grades, setGrades] = useState<any>();
 
-  const { data: gradeResponse } = useGetAllGradeQuery(null);
-  const { data: classResponse } = useGetAllClassQuery(null);
-
-  console.log(classResponse);
+  const { data: gradeResponse, refetch } = useGetAllGradeQuery(
+    { PageNumber: 1, PageSize: 100 },
+    {
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
+    }
+  );
+  const { data: classResponse } = useGetAllClassQuery(
+    { PageNumber: 1, PageSize: 100 },
+    {
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
+    }
+  );
 
   useEffect(() => {
     if (gradeResponse) {
-      if (gradeResponse.pageData) setGradeData(gradeResponse.pageData);
+      if (gradeResponse.pageData) setGrades(gradeResponse.pageData);
     }
   }, [gradeResponse]);
+
+  useEffect(() => {
+    if (classResponse) {
+      if (classResponse.pageData)
+        setClasses(
+          classResponse.pageData.map(
+            (item: any, index: number) => ({ index: index + 1, ...item }) as ClassIndex
+          )
+        );
+    }
+  }, [classResponse]);
 
   const handleTabChange = (tabId: number) => {
     setActiveTabId(tabId);
@@ -84,7 +106,7 @@ const ClassManagementPage = () => {
       <Row className={cx('mb-5')}>
         <Col md={4}>
           <div className={cx('card')}>
-            <h2 className={cx('title')}>Hệ thống quản lí lớp học</h2>
+            <h2 className={cx('title')}>Quản lí lớp học</h2>
             <div className={cx('d-flex align-items-center my-5')}>
               <FaGraduationCap
                 color={'#4496e8'}
@@ -128,6 +150,7 @@ const ClassManagementPage = () => {
             </div>
 
             <ModalUploadClass
+              refetchParent={refetch}
               isCloseModalClass={isCloseModalClass}
               setIsCloseModalClass={setIsCloseModalClass}
             ></ModalUploadClass>
@@ -306,7 +329,12 @@ const ClassManagementPage = () => {
               <TabPane tabId={1}>
                 {loadedTabs.includes(1) && (
                   <Suspense fallback={<VemsLoader />}>
-                    <TenThManagementTab />
+                    <TenThManagementTab
+                      data={classes?.filter(
+                        (item: ClassIndex) =>
+                          item.gradeId == grades.find((g: any) => g.gradeName == '10').id
+                      )}
+                    />
                   </Suspense>
                 )}
               </TabPane>
@@ -314,7 +342,12 @@ const ClassManagementPage = () => {
               <TabPane tabId={2}>
                 {loadedTabs.includes(2) && (
                   <Suspense fallback={<VemsLoader />}>
-                    <ElevenThManagementTab />
+                    <ElevenThManagementTab
+                      data={classes?.filter(
+                        (item: ClassIndex) =>
+                          item.gradeId == grades.find((g: any) => g.gradeName == '11').id
+                      )}
+                    />
                   </Suspense>
                 )}
               </TabPane>
@@ -322,7 +355,12 @@ const ClassManagementPage = () => {
               <TabPane tabId={3}>
                 {loadedTabs.includes(3) && (
                   <Suspense fallback={<VemsLoader />}>
-                    <TwelveThManagementTab />
+                    <TwelveThManagementTab
+                      data={classes?.filter(
+                        (item: ClassIndex) =>
+                          item.gradeId == grades.find((g: any) => g.gradeName == '12').id
+                      )}
+                    />
                   </Suspense>
                 )}
               </TabPane>
