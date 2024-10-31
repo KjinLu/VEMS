@@ -1,6 +1,8 @@
 ﻿using Azure.Core;
 using BusinessObject;
+using DataAccess.Dto.ClassroomDto;
 using DataAccess.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using static System.Net.Mime.MediaTypeNames;
@@ -890,6 +892,88 @@ namespace DataAccess.DAO
             catch (Exception ex)
             {
                 throw new Exception($"Lỗi khi lấy học sinh theo Id: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest teacherHomeroom)
+        {
+            using (var context = new VemsContext())
+            {
+                if (string.IsNullOrEmpty(teacherHomeroom.ClassId))
+                {
+                    var dbTeacher = await context.Teacher.AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.Id == teacherHomeroom.TeacherId);
+
+                    if (dbTeacher != null)
+                    {
+                        if (dbTeacher.ClassroomId != null)
+                        {
+                            dbTeacher.ClassroomId = null;
+                            dbTeacher.TeacherTypeId = await context.TeacherTypes
+                                .Where(tt => tt.Code == "DATA_ENTRY_TEACHER")
+                                .Select(tt => tt.Id)
+                                .FirstOrDefaultAsync();
+
+                            context.Entry(dbTeacher).State = EntityState.Modified;
+                            await context.SaveChangesAsync();
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Không tìm thấy giáo viên với ID {teacherHomeroom.TeacherId}");
+                    }
+                }
+
+                // Chuyển đổi ClassId thành Guid
+                var classId = new Guid(teacherHomeroom.ClassId);
+
+                var className = await context.Classrooms
+                    .Where(c => c.Id == classId)
+                    .Select(c => c.ClassName)
+                    .FirstOrDefaultAsync();
+
+                if (className != null)
+                {
+                    var exists = await context.Teacher
+                        .AnyAsync(t => t.ClassroomId == classId);
+
+                    if (!exists)
+                    {
+                        var dbTeacher = await context.Teacher.AsNoTracking()
+                            .FirstOrDefaultAsync(s => s.Id == teacherHomeroom.TeacherId);
+
+                        if (dbTeacher != null)
+                        {
+                            dbTeacher.ClassroomId = classId;
+                            dbTeacher.TeacherTypeId = await context.TeacherTypes
+                                .Where(tt => tt.Code == "PRIMARY_TEACHER")
+                                .Select(tt => tt.Id)
+                                .FirstOrDefaultAsync();
+
+                            context.Entry(dbTeacher).State = EntityState.Modified;
+                            await context.SaveChangesAsync();
+                            return true;
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException($"Không tìm thấy giáo viên với ID {teacherHomeroom.TeacherId}");
+                        }
+                    }
+                    else
+                    {
+                        var teacherName = await context.Teacher
+                            .Where(t => t.ClassroomId == classId)
+                            .Select(t => t.FullName)
+                            .FirstOrDefaultAsync();
+
+                        throw new InvalidOperationException($"Lớp {className} đã được giáo viên {teacherName} làm chủ nhiệm");
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Lớp {classId} chưa có trong danh sách lớp");
+                }
             }
         }
     }

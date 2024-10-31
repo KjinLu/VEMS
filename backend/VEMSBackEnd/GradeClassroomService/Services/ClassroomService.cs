@@ -21,6 +21,7 @@ public interface IClassroomService
     Task<ClassStudentsResponse> GetClassStudents(Guid classID);
     Task<List<StudentType>> GetAllStudentType();
     Task<bool> AssignStudentType(AssignStudentTypeRequest request);
+    Task<List<GetSelectHomeroomResponse>> GetSelectHomeroomResponse();
 
 }
 
@@ -114,5 +115,10 @@ public class ClassroomService : IClassroomService
     public async Task AddClassrooms(List<ImportClassRequest> classrooms)
     {
          await _repository.AddClassrooms(classrooms);
+    }
+
+    public async Task<List<GetSelectHomeroomResponse>> GetSelectHomeroomResponse()
+    {
+        return await _repository.GetSelectHomeroomResponse();
     }
 }

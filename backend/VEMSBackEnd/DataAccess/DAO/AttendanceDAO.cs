@@ -323,7 +323,7 @@ namespace DataAccess.DAO
                                                                StatusName = status.StatusName,
                                                                ReasonName = reason.ReasonName,
                                                                Description = attendanceStatus.Description,
-                                                               StudentCharge = attendanceStatus.UpdateBy == null ? attendanceStatus.CreateBy : attendanceStatus.UpdateBy,
+                                                               StudentCharge = attendanceStatus.CreateBy,
                                                                TeacherCharge = teacher.FullName
                                                            }).AsNoTracking().ToListAsync().ConfigureAwait(false);
                     if (attendanceHistoryResponse == null)

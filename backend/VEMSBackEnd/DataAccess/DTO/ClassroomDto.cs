@@ -32,6 +32,12 @@ public class ImportClassRequest
     public List<ClassStudentInfo> Students { get; set; }
 }
 
+public class GetSelectHomeroomResponse
+{
+    public Guid ClassId { get; set; }
+    public string ClassName { get; set; }
+}
+
 public class ClassStudentInfo
 {
     public Guid StudentID { get; set; }

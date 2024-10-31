@@ -12,6 +12,7 @@ using DataAccess.Repository;
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
+        Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest request);
 
         Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID);
 }
@@ -76,5 +77,10 @@ public class TeacherService : ITeacherService
         {
             return await _accountRepository.GetTeacherProfileByIdAsync(accountID);
         }
+
+    public async Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest request)
+    {
+        return await _accountRepository.UpdateTeacherHomeRoom(request);
     }
+}
 

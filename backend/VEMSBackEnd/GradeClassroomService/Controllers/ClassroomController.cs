@@ -163,5 +163,18 @@ namespace GradeClassroomService.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
+
+        [HttpGet("get-select-homeroom")]
+        public async Task<IActionResult> GetSelectHomeRoom()
+        {
+            try
+            {
+                return APIResponse.Success(await _classroomService.GetSelectHomeroomResponse());
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
     }
 }

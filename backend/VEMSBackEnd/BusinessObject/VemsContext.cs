@@ -19,7 +19,6 @@ namespace BusinessObject
 
     public DbSet<Admin> Admins { get; set; }
     public DbSet<Classroom> Classrooms { get; set; }
-    public DbSet<Device> Devices { get; set; }
     public DbSet<Grade> Grades { get; set; }
     public DbSet<Period> Periods { get; set; }
     public DbSet<Reason> Reasons { get; set; }
@@ -45,8 +44,8 @@ namespace BusinessObject
     {
       // optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
-      optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
-      // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
+      //optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
+       optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
     }
 
@@ -197,7 +196,7 @@ namespace BusinessObject
         .WithMany(r => r.SlotDetails)
         .HasForeignKey(a => a.SessionID);
 
-      modelBuilder.SeedingClassroom();
+      //modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();
       // modelBuilder.SeedingStudent();
       // modelBuilder.SeedingTeacher(); 
