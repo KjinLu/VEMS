@@ -9,14 +9,26 @@ public class ClassroomResponse
     public string ClassName { get; set; }
 
     public Guid GradeId { get; set; }
+
+    public int? NumberOfStudents { get; set; }
+
+    public Guid? PrimaryTeacherID { get; set; }
+    public string? PrimaryTeacherName { get; set; }
 }
 
+public class ImportClassRequest
+{
+    public string ClassName { get; set; }
+    public Guid GradeID { get; set; }
+}
 
-public class ClassStudentsResponse
+    public class ClassStudentsResponse
 {
     public Guid ClassID { get; set; }
     public string ClassName { get; set; }
     public int NumberOfStudent { get; set; }
+    public string? PrimaryTeacherName { get; set; }
+    public Guid? PrimaryTeacherID { get; set; }
     public List<ClassStudentInfo> Students { get; set; }
 }
 

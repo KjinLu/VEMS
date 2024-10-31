@@ -523,6 +523,84 @@ namespace DataAccess.DAO
             }
         }
 
+        //public async Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request)
+        //{
+        //    try
+        //    {
+        //        using (var context = new VemsContext())
+        //        {
+        //            foreach (var req in request)
+        //            {
+        //                var currentSlot = context.SlotDetails.
+        //                    FirstOrDefault(item => item.SlotID == req.SlotID && item.SessionID == req.SessionID && item.ClassroomID==req.ClassID && item.SubjectID == req.SubjectID);
+        //                if (currentSlot != null)
+        //                {
+        //                    currentSlot.TeacherID = req.TeacherID;  
+        //                    context.Entry<SlotDetail>(currentSlot).State = EntityState.Modified;
+        //                }
+
+        //            }
+
+        //            context.SaveChanges();
+        //            return true;
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Có lỗi khi tạo thời khóa biểu cho giáo viên: " + ex.Message);
+        //    }
+        //}
+
+        public async Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> requestList)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    // Retrieve all relevant SlotDetails in one query to minimize database calls.
+                    var slotIds = requestList.Select(r => r.SlotID).Distinct().ToList();
+                    var sessionIds = requestList.Select(r => r.SessionID).Distinct().ToList();
+                    var classIds = requestList.Select(r => r.ClassID).Distinct().ToList();
+                    var subjectIds = requestList.Select(r => r.SubjectID).Distinct().ToList();
+
+                    var existingSlotDetails = context.SlotDetails
+                        .Where(sd => slotIds.Contains(sd.SlotID)
+                                     && sessionIds.Contains(sd.SessionID)
+                                     && classIds.Contains(sd.ClassroomID)
+                                     && subjectIds.Contains(sd.SubjectID))
+                        .ToList();
+
+                    foreach (var req in requestList)
+                    {
+                        // Find the SlotDetail based on matching IDs
+                        var currentSlot = existingSlotDetails
+                            .FirstOrDefault(sd => sd.SlotID == req.SlotID
+                                                  && sd.SessionID == req.SessionID
+                                                  && sd.ClassroomID == req.ClassID
+                                                  && sd.SubjectID == req.SubjectID);
+
+                        if (currentSlot != null)
+                        {
+                            // Update only if the teacher is not already assigned to avoid unnecessary modifications
+                            if (currentSlot.TeacherID != req.TeacherID)
+                            {
+                                currentSlot.TeacherID = req.TeacherID;
+                                context.Entry(currentSlot).State = EntityState.Modified;
+                            }
+                        }
+                    }
+
+                    // Save changes after all updates
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tạo thời khóa biểu cho giáo viên: " + ex.Message);
+            }
+        }
 
     }
 }

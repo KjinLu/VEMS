@@ -396,7 +396,7 @@ namespace BusinessObject.Seeding
                 new Subject
                 {
                     Id = new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"),
-                    SubjectName = "Lý",
+                    SubjectName = "Lí",
                     Code = "PHYSICS"
                 }
             );

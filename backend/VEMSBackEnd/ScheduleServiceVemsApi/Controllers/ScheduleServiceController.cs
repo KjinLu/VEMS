@@ -145,6 +145,20 @@ namespace VemsApi.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
+        [HttpPost("create-teacher-schedule")]
+        public async Task<IActionResult> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request)
+        {
+            try
+            {
+                var response = await scheduleService.CreateTeacherSchedule(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
 
         [HttpGet("get-schedule-detail")]
         public async Task<IActionResult> GetScheduleDetail(Guid ScheduleID)

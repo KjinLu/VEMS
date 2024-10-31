@@ -50,9 +50,21 @@ export const accountManagementApi = createApi({
         data: userData,
         authRequired: true
       })
+    }),
+    importStudent: build.mutation({
+      query: (userData: any) => ({
+        url: '/AccountManagementService/registerStudents',
+        method: 'post',
+        data: userData,
+        authRequired: true
+      })
     })
   })
 });
 
-export const { useGetAllTeacherQuery, useGetAllStudentQuery, useImportTeacherMutation } =
-  accountManagementApi;
+export const {
+  useGetAllTeacherQuery,
+  useGetAllStudentQuery,
+  useImportTeacherMutation,
+  useImportStudentMutation
+} = accountManagementApi;

@@ -7,7 +7,7 @@ export const classColumn = [
         STT
       </p>
     ),
-    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.id}</p>,
+    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.index}</p>,
     width: '100px',
     center: true
   },
@@ -15,7 +15,7 @@ export const classColumn = [
     name: (
       <p style={{ fontSize: '18px', color: 'rgb(97 177 255)', fontWeight: '600' }}>Lớp</p>
     ),
-    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.class}</p>,
+    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.className}</p>,
     center: true
   },
   {
@@ -24,7 +24,9 @@ export const classColumn = [
         Giáo viên chủ nhiệm
       </p>
     ),
-    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.teacher}</p>,
+    cell: (row: ClassIndex) => (
+      <p style={{ fontSize: '16px' }}>{row.primaryTeacherName}</p>
+    ),
     center: true
   },
 
@@ -34,7 +36,7 @@ export const classColumn = [
         Số lượng học sinh
       </p>
     ),
-    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.amount}</p>,
+    cell: (row: ClassIndex) => <p style={{ fontSize: '16px' }}>{row.numberOfStudents}</p>,
     center: true
   }
 ];

@@ -199,7 +199,7 @@ namespace BusinessObject
 
       modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();
-      modelBuilder.SeedingStudent();
+      // modelBuilder.SeedingStudent();
       // modelBuilder.SeedingTeacher(); 
       modelBuilder.SeedingSession();
     }

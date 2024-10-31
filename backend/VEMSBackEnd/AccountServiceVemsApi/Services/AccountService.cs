@@ -123,7 +123,8 @@ public class AccountService : IAccountService
                 Username = student.PublicStudentID,
                 PublicStudentID = student.PublicStudentID,
                 FullName = student.FullName,
-                RoleId = student.RoleId,
+                RoleId = new Guid("01E27B7C-93CA-47F6-A09B-C7015717E2ED"),
+                StudentTypeId = new Guid("D5C14F0E-B4E9-4B88-B804-511BAD973115"),
                 ClassroomId = student.ClassroomId,
                 Password = Hashing("1")
             };
@@ -145,6 +146,7 @@ public class AccountService : IAccountService
                 Phone = teacher.Phone,
                 FullName = teacher.FullName,
                 RoleId = new Guid("81B3444C-C9FD-4EFC-A774-E1E3FC3C3E53"),
+                TeacherTypeId = teacher.ClassID != null ? new Guid("E5F785E3-4579-4465-B930-39B636A4D818") : new Guid("A8AFB982-710B-4637-BCC7-BABEEE1E0599"),
                 ClassroomId = teacher.ClassID != null ? teacher.ClassID : null,
                 Password = Hashing("1")
             };

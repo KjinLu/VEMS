@@ -8,12 +8,21 @@ import { FaDownload } from 'react-icons/fa6';
 
 import styles from './ModalUploadClass.module.scss';
 import VemsButton from '@/components/VemsButtonCustom';
+import { IoRemove } from 'react-icons/io5';
+import { Grade } from '@mui/icons-material';
+import {
+  useGetAllClassQuery,
+  useGetAllGradeQuery,
+  useImportClassMutation
+} from '@/services/classes';
+import { toast } from 'react-toastify';
 
 const cx = className.bind(styles);
 
 type ModalUploadClassProps = {
   isCloseModalClass: boolean;
   setIsCloseModalClass: any;
+  refetchParent: any;
 };
 
 type FileUploadProps = {
@@ -24,20 +33,30 @@ type FileUploadProps = {
 
 const ModalUploadClass = ({
   isCloseModalClass,
-  setIsCloseModalClass
+  setIsCloseModalClass,
+  refetchParent
 }: ModalUploadClassProps) => {
   const handleDownload = () => {
-    const url = `http://localhost:3000/Thời khóa biểu mẫu.xlsx`;
+    const url = `http://localhost:3000/CLASS_INPUT.xlsx`;
 
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Thời khóa biểu mẫu.xlsx');
+    link.setAttribute('download', 'CLASS_INPUT.xlsx');
     document.body.appendChild(link);
     link.click();
     link.remove();
   };
 
   const [fileInfo, setFileInfo] = useState<FileUploadProps>();
+  const [fileData, setFileData] = useState<any>();
+  const [importClassFC] = useImportClassMutation();
+  const { data: gradeResponse } = useGetAllGradeQuery(
+    { PageNumber: 1, PageSize: 100 },
+    {
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
+    }
+  );
 
   const handleFileUpload = (e: any) => {
     const file = e.target.files[0];
@@ -51,21 +70,14 @@ const ModalUploadClass = ({
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
-        const formattedObject: any = jsonData.reduce((acc: any, item: any) => {
-          Object.keys(item).forEach(key => {
-            if (!acc[key]) acc[key] = [];
-            acc[key].push(item[key]);
-          });
-          return acc;
-        }, {});
 
-        const formattedData = {
-          tenThGrade: formattedObject['Khối 10'],
-          elevenThGrade: formattedObject['Khối 11'],
-          twelveThGrade: formattedObject['Khối 12']
-        };
+        const formattedData = jsonData.map((item: any) => ({
+          no: item['STT'],
+          classroom: item['Lớp'],
+          grade: item['Khối']
+        }));
 
-        console.log(formattedData);
+        setFileData(formattedData);
 
         setFileInfo({
           name: file.name,
@@ -76,6 +88,42 @@ const ModalUploadClass = ({
 
       reader.readAsArrayBuffer(file);
     }
+  };
+
+  const handleImportClass = async () => {
+    try {
+      if (fileData && gradeResponse?.pageData) {
+        var res = fileData.map((item: any) => {
+          const gradeId = gradeResponse.pageData.find((c: any) => {
+            return c.gradeName == item.grade;
+          })?.id;
+
+          if (gradeId) {
+            return {
+              className: item.classroom,
+              gradeID: gradeId
+            };
+          }
+        });
+
+        console.log(res);
+
+        // Uncomment and modify this section based on your import function
+        if (res) {
+          await importClassFC(res).unwrap();
+          refetchParent();
+          toast.success('Nhập lớp học thành công');
+        }
+      }
+    } catch (e: any) {
+      toast.error('Nhập lớp học thất bại');
+    }
+  };
+
+  const clearFile = () => {
+    setFileInfo(undefined);
+    setFileData(undefined);
+    (document.getElementById('file-upload') as HTMLInputElement).value = '';
   };
 
   return (
@@ -142,6 +190,17 @@ const ModalUploadClass = ({
                     <p>
                       <strong>File Type:</strong> {fileInfo.type}
                     </p>
+                    <VemsButton
+                      color='danger'
+                      leftIcon={
+                        <IoRemove
+                          className={cx('me-1')}
+                          size={20}
+                        />
+                      }
+                      onClick={clearFile}
+                      title='Xóa file'
+                    />
                   </div>
                 )}
               </div>
@@ -169,7 +228,7 @@ const ModalUploadClass = ({
                   size={20}
                 />
               }
-              onClick={handleDownload}
+              onClick={handleImportClass}
               title='Cập nhật'
             />
           </div>

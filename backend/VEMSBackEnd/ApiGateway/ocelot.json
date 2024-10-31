@@ -20,6 +20,21 @@
         "DELETE"
       ]
     },
+     {
+      "DownstreamPathTemplate": "/api/Classroom/import-classes",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5059
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ClassroomService/import-classes",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    
     {
       "DownstreamPathTemplate": "/api/Classroom/{id}",
       "DownstreamScheme": "http",
@@ -381,6 +396,21 @@
         }
       ],
       "UpstreamPathTemplate": "/apigateway/ScheduleService/create-schedule-detail",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    
+        {
+      "DownstreamPathTemplate": "/api/schedule-service/create-teacher-schedule",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/create-teacher-schedule",
       "UpstreamHttpMethod": [
         "POST"
       ]
