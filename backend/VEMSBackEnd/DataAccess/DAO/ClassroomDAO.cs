@@ -1,4 +1,5 @@
 using System;
+using Azure.Core;
 using BusinessObject;
 using DataAccess.Dto.ClassroomDto;
 using DataAccess.DTO;
@@ -30,11 +31,38 @@ namespace DataAccess.DAO
         }
 
         // Lấy tất cả Classrooms
-        public async Task<List<Classroom>> GetAllClassroomsAsync()
+        public async Task<List<ClassroomResponse>> GetAllClassroomsAsync()
         {
             try
             {
-                return await _context.Classrooms.AsNoTracking().ToListAsync().ConfigureAwait(false);
+                var classrooms = await (from c in _context.Classrooms
+                                        join g in _context.Grades on c.GradeId equals g.Id
+                                        join t in _context.Teacher on c.Id equals t.ClassroomId into teacherGroup
+                                        from teacher in teacherGroup.DefaultIfEmpty()
+                                        select new
+                                        {
+                                            ClassID = c.Id,
+                                            ClassName = c.ClassName,
+                                            GradeID = g.Id,
+                                            PrimaryTeacherName = teacher != null ? teacher.FullName : null,
+                                            PrimaryTeacherID = teacher != null ? teacher.Id : (Guid?)null,
+                                            NumberOfStudents = _context.Students.Count(s => s.ClassroomId == c.Id)
+                                        })
+                                       .OrderBy(c => c.ClassName)
+                                       .ToListAsync();
+
+                // Map kết quả truy vấn thành danh sách ClassroomResponse
+                var result = classrooms.Select(c => new ClassroomResponse
+                {
+                    Id = c.ClassID,
+                    ClassName = c.ClassName,
+                    GradeId = c.GradeID,
+                    PrimaryTeacherName = c.PrimaryTeacherName,
+                    PrimaryTeacherID = c.PrimaryTeacherID,
+                    NumberOfStudents = c.NumberOfStudents
+                }).ToList();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -42,10 +70,14 @@ namespace DataAccess.DAO
             }
         }
 
+
+
+
         public async Task<ClassStudentsResponse> GetClassStudents(Guid classID)
         {
             try
             {
+                var primaryTeacher = await _context.Teacher.FirstOrDefaultAsync(t => t.ClassroomId == classID);
                 var students = await (from a in _context.Students
                                       join c in _context.Classrooms on a.ClassroomId equals c.Id
                                       join t in _context.studentTypes on a.StudentTypeId equals t.Id
@@ -74,6 +106,8 @@ namespace DataAccess.DAO
                         ClassID = classID,
                         ClassName = students[0].ClassName,
                         NumberOfStudent = students.Count,
+                        PrimaryTeacherName = primaryTeacher != null ? primaryTeacher.FullName : null,
+                        PrimaryTeacherID = primaryTeacher != null ? primaryTeacher.Id : null,
                         Students = students
                     };
 
@@ -183,6 +217,40 @@ namespace DataAccess.DAO
             catch (Exception ex)
             {
                 throw new Exception($"Lỗi khi thêm lớp học: {ex.Message}", ex);
+            }
+        }
+
+        public async Task AddClassrooms(List<ImportClassRequest> classrooms)
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    foreach (var request in classrooms)
+                    {
+                        var existingClassroom = await context.Classrooms
+                            .FirstOrDefaultAsync(c => c.ClassName == request.ClassName);
+
+                        if (existingClassroom != null)
+                        {
+                            continue;
+                        }
+
+                        var newClassroom = new Classroom
+                        {
+                            ClassName = request.ClassName,
+                            GradeId = request.GradeID  
+                        };
+
+                        context.Classrooms.Add(newClassroom);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Có lỗi khi tạo lớp: {e.Message}", e);
             }
         }
 

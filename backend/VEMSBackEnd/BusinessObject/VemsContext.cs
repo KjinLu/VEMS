@@ -150,6 +150,12 @@ namespace BusinessObject
           .WithMany(r => r.AttendanceStatuses)
           .HasForeignKey(a => a.TeacherId);
 
+      modelBuilder.Entity<AttendanceStatus>()
+  .HasOne(a => a.Student)
+  .WithMany(s => s.AttendanceStatuses)
+  .HasForeignKey(a => a.StudentId)
+  .OnDelete(DeleteBehavior.Cascade);
+
       modelBuilder.Entity<ExtraActivitiesAttendance>()
         .HasOne(a => a.Attendance)
         .WithMany(r => r.ExtraActivitiesAttendances)
@@ -193,8 +199,8 @@ namespace BusinessObject
 
       modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();
-      modelBuilder.SeedingStudent();
-      modelBuilder.SeedingTeacher();
+      // modelBuilder.SeedingStudent();
+      // modelBuilder.SeedingTeacher(); 
       modelBuilder.SeedingSession();
     }
   }

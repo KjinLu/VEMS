@@ -14,6 +14,7 @@ public interface IClassroomService
     Task<object> GetClassroomById(Guid id);
     Task<object> GetAllClassrooms(PaginationRequest request); // Retrieve all classrooms
     Task AddClassroom(ClassroomResponse classroom); // Add a new classroom
+    Task AddClassrooms(List<ImportClassRequest> classrooms);
     Task UpdateClassroom(ClassroomResponse classroom); // Update an existing classroom
     Task DeleteClassroom(Guid id); // Delete a classroom by Id
 
@@ -39,12 +40,15 @@ public class ClassroomService : IClassroomService
         int pageSize = request.PageSize;
 
         // Get all classrooms and count
-        IEnumerable<Classroom> classrooms = await _repository.GetAllClassrooms();
+        var classrooms = await _repository.GetAllClassrooms();
         IEnumerable<ClassroomResponse> classroomDtos = classrooms.Select(classroom => new ClassroomResponse
         {
             Id = classroom.Id,
             ClassName = classroom.ClassName,
-            GradeId = classroom.GradeId
+            GradeId = classroom.GradeId,
+            NumberOfStudents = classroom.NumberOfStudents,
+            PrimaryTeacherID = classroom.PrimaryTeacherID,
+            PrimaryTeacherName = classroom.PrimaryTeacherName,
         }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
         int totalRecord = classrooms.Count();
@@ -105,5 +109,10 @@ public class ClassroomService : IClassroomService
     public async Task<bool> AssignStudentType(AssignStudentTypeRequest request)
     {
         return await _repository.AssignStudentType(request);
+    }
+
+    public async Task AddClassrooms(List<ImportClassRequest> classrooms)
+    {
+         await _repository.AddClassrooms(classrooms);
     }
 }

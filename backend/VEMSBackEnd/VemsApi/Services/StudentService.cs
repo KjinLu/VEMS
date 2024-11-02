@@ -42,12 +42,12 @@ namespace VemsApi.Services
             account.FullName = request.FullName;
             account.CitizenID = request.CitizenID;
             account.Email = request.Email;
-            account.Dob = DateOnly.Parse(request.Dob);
+            account.Dob = request.Dob != "" ? DateOnly.Parse(request.Dob) : null;
             account.Address = request.Address;
             account.Phone = request.Phone;
             account.ParentPhone = request.ParentPhone;
             account.HomeTown = request.HomeTown;
-            account.UnionJoinDate = DateOnly.Parse(request.UnionJoinDate);
+            account.UnionJoinDate = request.UnionJoinDate != "" ? DateOnly.Parse(request.UnionJoinDate) : null;
 
             return await _accountRepository.UpdateStudentProfile(account);
         }

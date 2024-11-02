@@ -4,9 +4,11 @@ import { IoMdClose } from 'react-icons/io';
 
 import styles from './ModalStudentDetails.module.scss';
 import AvatarImage from '@/assets/images/avatar-test.jpg';
+import { StudentIndex } from '../type';
+import VemImage from '@/components/VemImage';
 
 type ModalStudentDetailsProps = {
-  studentId: string;
+  student: StudentIndex;
   isOpen: boolean;
   toggleModal: () => void;
 };
@@ -14,11 +16,11 @@ type ModalStudentDetailsProps = {
 const cx = className.bind(styles);
 
 const ModalStudentDetails = ({
-  studentId,
+  student,
   isOpen,
   toggleModal
 }: ModalStudentDetailsProps) => {
-  studentId;
+  console.log(student);
   return (
     <>
       <Modal
@@ -47,17 +49,21 @@ const ModalStudentDetails = ({
 
           <div className={cx('content-student-wrapper')}>
             <div className={cx('content-student')}>
-              <h3 className={cx('title', 'student-name')}>Nguyễn Văn A</h3>
+              <h3 className={cx('title', 'student-name')}>
+                {student?.fullName || 'N/A'}
+              </h3>
 
               <Row className='mb-3'>
                 <Col
                   md={6}
                   className={cx('d-flex align-items-center justify-content-center')}
                 >
-                  <img
-                    src={AvatarImage}
-                    alt='avatar'
-                    className={cx('student-avatar')}
+                  <VemImage
+                    alt=''
+                    fallback={AvatarImage}
+                    className='w-100'
+                    src={student?.image}
+                    key=''
                   />
                 </Col>
 
@@ -67,52 +73,46 @@ const ModalStudentDetails = ({
                 >
                   <p>
                     <span>Mã định danh: </span>
-                    HS0001
-                  </p>
-
-                  <p>
-                    <span>GVCN: </span>
-                    Nguyễn Văn C
+                    {student?.publicStudentID || 'N/A'}
                   </p>
 
                   <p>
                     <span>Lớp: </span>
-                    8A1
+                    {student?.classRoom || 'N/A'}
                   </p>
 
                   <p>
-                    <span>Ngày sinh: </span>
-                    01/01/2002
-                  </p>
-
-                  <p>
-                    <span>Giới tính: </span>
-                    Nam
-                  </p>
-
-                  <p>
-                    <span>CCCD: </span>
-                    099999999999999999
-                  </p>
-
-                  <p>
-                    <span>Địa chỉ nhà: </span>
-                    Cần Thơ
-                  </p>
-
-                  <p>
-                    <span>Địa chỉ thường trú: </span>
-                    Cần Thơ
+                    <span>Chức vụ: </span>
+                    {student?.studentTypeName || 'N/A'}
                   </p>
 
                   <p>
                     <span>Số điện thoại: </span>
-                    0909 68 68 68
+                    {student?.phone || 'N/A'}
+                  </p>
+                  <p>
+                    <span>Số điện thoại phụ huynh: </span>
+                    {student?.parentPhone || 'N/A'}
                   </p>
 
                   <p>
-                    <span>Mail: </span>
-                    thanhh@gmail.com
+                    <span>Email: </span>
+                    {student?.email || 'N/A'}
+                  </p>
+
+                  <p>
+                    <span>Ngày sinh: </span>
+                    {student?.dob || 'N/A'}
+                  </p>
+
+                  <p>
+                    <span>CCCD: </span>
+                    {student?.citizenID || 'N/A'}
+                  </p>
+
+                  <p>
+                    <span>Địa chỉ: </span>
+                    {student?.address || 'N/A'}
                   </p>
                 </Col>
               </Row>

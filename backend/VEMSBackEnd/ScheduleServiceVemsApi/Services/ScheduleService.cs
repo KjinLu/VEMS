@@ -25,9 +25,17 @@ namespace ScheduleServiceVemsApi.Services
 
         //Schedule detail
         Task<bool> CreateScheduleDetail(CreateScheduleDetailRequest request);
+        Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request);
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request);
         Task<object> GetAllTeacherScheduleDetail(PaginationRequest request);
         Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request);
+
+
+
+        // Session and slot
+        Task<List<SessionResponse>> GetAllSessionOfWeek();
+        Task<List<Subject>> GetAllSubject();
+
 
 
     }
@@ -45,6 +53,16 @@ namespace ScheduleServiceVemsApi.Services
         public async Task<IEnumerable<Slot>> GetAllSlot()
         {
             return await slotRepository.GetAllSlotAsync();
+        }
+
+        public async Task<List<SessionResponse>> GetAllSessionOfWeek()
+        {
+            return await slotRepository.GetAllSessionOfWeek();
+        }
+
+        public async Task<List<Subject>> GetAllSubject()
+        {
+            return await slotRepository.GetAllSubject();
         }
 
         public async Task<Slot> CreateSlot(CreateSlotDto request)
@@ -114,7 +132,7 @@ namespace ScheduleServiceVemsApi.Services
         public async Task<List<Schedule>> CreateListSchedule(List<CreateScheduleDto> request)
         {
             List<Schedule> createDatas = new List<Schedule>();
-            foreach(var item in request)
+            foreach (var item in request)
             {
                 Schedule newData = new Schedule();
                 newData.ClassroomId = item.ClassroomId;
@@ -148,7 +166,7 @@ namespace ScheduleServiceVemsApi.Services
 
         public async Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid request)
         {
-            return await scheduleRepository.GetScheduleDetail(request); 
+            return await scheduleRepository.GetScheduleDetail(request);
         }
 
         public async Task<object> GetAllTeacherScheduleDetail(PaginationRequest request)
@@ -158,7 +176,7 @@ namespace ScheduleServiceVemsApi.Services
             int pageSize = request.PageSize;
 
             IEnumerable<TeacherScheduleResponse> schedule = await scheduleRepository.GetAllTeacherScheduleDetail();
-            IEnumerable<TeacherScheduleResponse> dataPaginated = schedule.Select(item=> item).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            IEnumerable<TeacherScheduleResponse> dataPaginated = schedule.Select(item => item).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             int totalRecord = schedule.Count();
 
@@ -178,6 +196,11 @@ namespace ScheduleServiceVemsApi.Services
         public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid request)
         {
             return await scheduleRepository.GetTeacherScheduleDetail(request);
+        }
+
+        public async Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request)
+        {
+            return await scheduleRepository.CreateTeacherSchedule(request);
         }
     }
 }

@@ -92,6 +92,24 @@ namespace GradeClassroomService.Controllers
             }
         }
 
+        [HttpPost("import-classes")]
+        public async Task<IActionResult> AddClassrooms(List<ImportClassRequest> classrooms)
+        {
+            try
+            {
+                await _classroomService.AddClassrooms(classrooms);
+                return APIResponse.Success();
+            }
+            catch (InvalidOperationException e)
+            {
+                return APIResponse.RequestError(null, e.Message);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
         [HttpPost("assign-student")]
         public async Task<IActionResult> AssignStudentType(AssignStudentTypeRequest request)
         {

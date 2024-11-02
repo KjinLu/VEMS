@@ -21,6 +21,8 @@ namespace DataAccess.Repository
         Task<ScheduleDetailResponseDto> GetScheduleDetail(Guid scheduleID);
         Task<List<TeacherScheduleResponse>> GetAllTeacherScheduleDetail();
         Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID);
+        Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request);
+
     }
 
     public class ScheduleRepository : IScheduleRepository
@@ -47,5 +49,8 @@ namespace DataAccess.Repository
 
         public async Task<TeacherScheduleResponse> GetTeacherScheduleDetail(Guid TeacherID)
          => await ScheduleDAO.Instance.GetTeacherScheduleDetail(TeacherID);
+
+        public async Task<bool> CreateTeacherSchedule(List<CreateTeacherScheduleRequest> request)
+        => await ScheduleDAO.Instance.CreateTeacherSchedule(request);
     }
 }

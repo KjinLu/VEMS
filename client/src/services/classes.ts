@@ -32,6 +32,30 @@ export const classApi = createApi({
         pollingInterval: 5000,
         data: body
       })
+    }),
+    importClass: build.mutation({
+      query: (body: any) => ({
+        url: '/ClassroomService/import-classes',
+        method: 'post',
+        keepUnusedDataFor: 0,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        pollingInterval: 5000,
+        data: body
+      })
+    }),
+    getAllGrade: build.query({
+      query: () => ({
+        url: '/GradeService',
+        method: 'get'
+      })
+    }),
+    getAllClass: build.query({
+      query: (data?: any) => ({
+        url: '/ClassroomService',
+        method: 'get',
+        params: data
+      })
     })
   }),
   tagTypes: []
@@ -40,5 +64,8 @@ export const classApi = createApi({
 export const {
   useGetAllStudentTypeQuery,
   useGetStudentInClassQuery,
-  useAssignStudentMutation
+  useAssignStudentMutation,
+  useGetAllGradeQuery,
+  useGetAllClassQuery,
+  useImportClassMutation
 } = classApi;

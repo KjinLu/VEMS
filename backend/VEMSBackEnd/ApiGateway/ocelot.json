@@ -20,6 +20,21 @@
         "DELETE"
       ]
     },
+     {
+      "DownstreamPathTemplate": "/api/Classroom/import-classes",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5059
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ClassroomService/import-classes",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    
     {
       "DownstreamPathTemplate": "/api/Classroom/{id}",
       "DownstreamScheme": "http",
@@ -287,6 +302,34 @@
         "GET"
       ]
     },
+       {
+      "DownstreamPathTemplate": "/api/schedule-service/get-class-session-of-week",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-class-session-of-week",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+       {
+      "DownstreamPathTemplate": "/api/schedule-service/get-class-subject",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/get-class-subject",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
     {
       "DownstreamPathTemplate": "/api/schedule-service/get-class-schedule?classID={classID}",
       "DownstreamScheme": "http",
@@ -339,6 +382,35 @@
         }
       ],
       "UpstreamPathTemplate": "/apigateway/ScheduleService/create-new-list-schedule",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+        {
+      "DownstreamPathTemplate": "/api/schedule-service/create-schedule-detail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/create-schedule-detail",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    
+        {
+      "DownstreamPathTemplate": "/api/schedule-service/create-teacher-schedule",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5171
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ScheduleService/create-teacher-schedule",
       "UpstreamHttpMethod": [
         "POST"
       ]
