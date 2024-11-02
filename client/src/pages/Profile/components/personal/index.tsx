@@ -84,7 +84,9 @@ const Personal = () => {
             phone: values.phone,
             parentPhone: values.parentPhone,
             homeTown: values.homeTown,
-            unionJoinDate: dayjs(values.unionJoinDate).format('YYYY-MM-DD')
+            unionJoinDate: values.unionJoinDate
+              ? dayjs(values.unionJoinDate).format('YYYY-MM-DD')
+              : ''
           }).unwrap();
           console.log(res);
 

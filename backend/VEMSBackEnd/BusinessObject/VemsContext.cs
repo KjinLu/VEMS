@@ -43,10 +43,10 @@ namespace BusinessObject
     {
       // optionsBuilder.UseSqlServer("Server=THANHDUONG03\\DUONGNT;User Data Source=MSI\\SQLEXPRESS;Initial Catalog=MyStock;User ID=sa;Password=123456;TrustServerCertificate=TrueID=sa;Password=1;Database=VEMS;TrustServerCertificate=True");
       // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
-      optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
-      // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
-      // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
-    }
+      //optionsBuilder.UseSqlServer("Data Source=THANHDUONG03\\DUONGNT;User ID=sa;Password=1;Database=VEMS;Trust Server Certificate=True");
+            // optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=VEMS;User ID=sa;Password=123456;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-LOICUTE\\SQLEXP;Database=VEMS;Persist Security Info=True;User ID=sa;Password=123456;Trust Server Certificate=True");
+        }
 
     public DbSet<EmailToken> EmailTokens { get; set; }
     public DbSet<ExtraActivitiesAttendance> ExtraActivitiesAttendances { get; set; }
