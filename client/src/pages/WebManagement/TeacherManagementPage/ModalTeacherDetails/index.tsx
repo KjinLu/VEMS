@@ -4,9 +4,11 @@ import { IoMdClose } from 'react-icons/io';
 
 import styles from './ModalTeacherDetails.module.scss';
 import AvatarImage from '@/assets/images/avatar-test.jpg';
+import { TeacherIndex } from '../type';
+import VemImage from '@/components/VemImage';
 
 type ModalStudentDetailsProps = {
-  teacherId: string;
+  teacher: TeacherIndex;
   isOpen: boolean;
   toggleModal: () => void;
 };
@@ -14,11 +16,10 @@ type ModalStudentDetailsProps = {
 const cx = className.bind(styles);
 
 const ModalTeacherDetails = ({
-  teacherId,
+  teacher,
   isOpen,
   toggleModal
 }: ModalStudentDetailsProps) => {
-  teacherId;
   return (
     <>
       <Modal
@@ -47,17 +48,21 @@ const ModalTeacherDetails = ({
 
           <div className={cx('content-teacher-wrapper')}>
             <div className={cx('content-teacher')}>
-              <h3 className={cx('title', 'teacher-name')}>Nguyễn Văn A</h3>
+              <h3 className={cx('title', 'teacher-name')}>
+                {teacher?.fullName || 'N/A'}
+              </h3>
 
               <Row className='mb-3'>
                 <Col
                   md={6}
                   className={cx('d-flex align-items-center justify-content-center')}
                 >
-                  <img
-                    src={AvatarImage}
-                    alt='avatar'
-                    className={cx('teacher-avatar')}
+                  <VemImage
+                    alt=''
+                    fallback={AvatarImage}
+                    className='w-100 rounded'
+                    src={teacher?.image}
+                    key=''
                   />
                 </Col>
 
@@ -66,43 +71,36 @@ const ModalTeacherDetails = ({
                   className={cx('teacher-details')}
                 >
                   <p>
+                    <span>Tên người dùng: </span>
+                    {teacher?.username || 'N/A'}
+                  </p>
+                  <p>
                     <span>Chủ nhiệm lớp </span>
-                    8A1
+                    {teacher?.classRoom || 'N/A'}
                   </p>
 
                   <p>
                     <span>Ngày sinh: </span>
-                    01/01/2002
+                    {teacher?.dob || 'N/A'}
                   </p>
-
-                  <p>
-                    <span>Giới tính: </span>
-                    Nam
-                  </p>
-
                   <p>
                     <span>CCCD: </span>
-                    099999999999999999
+                    {teacher?.citizenID || 'N/A'}
                   </p>
 
                   <p>
-                    <span>Địa chỉ nhà: </span>
-                    Cần Thơ
-                  </p>
-
-                  <p>
-                    <span>Địa chỉ thường trú: </span>
-                    Cần Thơ
+                    <span>Địa chỉ: </span>
+                    {teacher?.address || 'N/A'}
                   </p>
 
                   <p>
                     <span>Số điện thoại: </span>
-                    0909 68 68 68
+                    {teacher?.phone || 'N/A'}
                   </p>
 
                   <p>
                     <span>Mail: </span>
-                    thanhh@gmail.com
+                    {teacher?.email || 'N/A'}
                   </p>
                 </Col>
               </Row>

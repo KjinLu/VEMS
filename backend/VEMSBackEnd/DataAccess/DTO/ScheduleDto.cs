@@ -49,4 +49,13 @@ namespace DataAccess.ScheduleDto
         public Guid SlotID { get; set; }
     }
 
+    public class SessionResponse
+    {
+        public Guid SessionID { get; set; }
+        public int dayOfWeek { get; set; }
+        public Guid PeriodID { get; set; }
+        public string PeriodName { get; set; }
+        public string Code { get; set; }
+    }
+
 }

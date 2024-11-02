@@ -98,7 +98,7 @@ namespace DataAccess.DTO
         public int DayOfWeek { get; set; }
         public string PeriodName { get; set; }
         public string? StudentCharge { get; set; } = "";
-        public string? TeacherCharge { get; set; }
+        public string? TeacherCharge { get; set; } = "";
 
         public string StatusName { get; set; }
         public string? ReasonName { get; set; } = "";

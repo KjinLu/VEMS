@@ -2,212 +2,132 @@
   "message": "",
   "statusCode": 200,
   "dataResponse": {
-    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
-    "time": "2024-09-27T00:00:00",
-    "attendanceData": [
+    "totalPage": 1,
+    "totalRecord": 5,
+    "pageNumber": 1,
+    "pageSize": 30,
+    "pageData": [
       {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "82682912-5c5d-4f44-8bd2-02949278c660",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Trần Thị B",
-        "studentCode": "MCU102",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5959808"
+        "teacherID": "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+        "teacherName": "Lê Minh C",
+        "sessions": [
+          {
+            "dayOfWeek": 1,
+            "periodName": "Sáng",
+            "sessionID": "00000000-0000-0000-0000-000000000000",
+            "slotDetails": [
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "b1d3b555-0cf4-4b41-8131-a4c205d9a6f4",
+                "subjectName": "SHDC",
+                "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+                "slotIndex": 1,
+                "slotStart": "07:00:00",
+                "slotEnd": "07:45:00"
+              },
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+                "subjectName": "Toán học",
+                "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+                "slotIndex": 2,
+                "slotStart": "08:00:00",
+                "slotEnd": "08:45:00"
+              },
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "50d08f10-a2b8-4119-8053-e95f00cdf608",
+                "subjectName": "Ngữ văn",
+                "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+                "slotIndex": 4,
+                "slotStart": "09:55:00",
+                "slotEnd": "10:40:00"
+              }
+            ]
+          },
+          {
+            "dayOfWeek": 2,
+            "periodName": "Sáng",
+            "sessionID": "00000000-0000-0000-0000-000000000000",
+            "slotDetails": [
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "77faf4ba-c356-4633-9505-91e4c8402800",
+                "subjectName": "Lịch sử",
+                "slotID": "db1085ce-9ba3-4894-a8a0-d417bc6b0774",
+                "slotIndex": 1,
+                "slotStart": "07:00:00",
+                "slotEnd": "07:45:00"
+              },
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+                "subjectName": "Hóa học",
+                "slotID": "0811126b-4fb3-4e29-b0f6-94b00bf0b98b",
+                "slotIndex": 2,
+                "slotStart": "08:00:00",
+                "slotEnd": "08:45:00"
+              },
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "c2d3b555-0cf4-4b41-8131-a4c205d9a6f5",
+                "subjectName": "HĐTN-HN",
+                "slotID": "e8b4217f-5a6c-4428-9901-99e62ce1f562",
+                "slotIndex": 4,
+                "slotStart": "09:55:00",
+                "slotEnd": "10:40:00"
+              }
+            ]
+          }
+        ]
       },
       {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "22e4f3c0-b1a2-4fac-a57c-1c07eae0afa6",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Đặng Thị K",
-        "studentCode": "MCU110",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960005"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "dc0d8ae5-edd5-44c8-a131-2f7049fa5e5e",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Hoàng Văn E",
-        "studentCode": "MCU105",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960009"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "7d9a194e-bce5-4d4f-bf2b-7c256413912d",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Đỗ Văn G",
-        "studentCode": "MCU107",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.596001"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "2482767b-6ccb-4fd6-ae4f-974d05003f8d",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Nguyễn Văn A",
-        "studentCode": "MCU101",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960011"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "00552f47-2b22-47e2-8ef4-a8cd17fda392",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Ngô Văn I",
-        "studentCode": "MCU109",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960016"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "d3108170-28c6-4232-9cd3-a9624bfc5f1a",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Vũ Thị F",
-        "studentCode": "MCU106",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960017"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "939e80e3-ee96-42a0-b74a-b3ebd7f22b9f",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Lê Văn C",
-        "studentCode": "MCU103",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960018"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "06c47285-6b74-4188-a5a5-f3bf941ed4c1",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Bùi Thị H",
-        "studentCode": "MCU108",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960019"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "18026dd7-18f4-492d-970f-ff36fe542476",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Phạm Thị D",
-        "studentCode": "MCU104",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:23.5960021"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "82682912-5c5d-4f44-8bd2-02949278c660",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Trần Thị B",
-        "studentCode": "MCU102",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344552"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "22e4f3c0-b1a2-4fac-a57c-1c07eae0afa6",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Đặng Thị K",
-        "studentCode": "MCU110",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344579"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "dc0d8ae5-edd5-44c8-a131-2f7049fa5e5e",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Hoàng Văn E",
-        "studentCode": "MCU105",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344582"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "7d9a194e-bce5-4d4f-bf2b-7c256413912d",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Đỗ Văn G",
-        "studentCode": "MCU107",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344588"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "2482767b-6ccb-4fd6-ae4f-974d05003f8d",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Nguyễn Văn A",
-        "studentCode": "MCU101",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344589"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "00552f47-2b22-47e2-8ef4-a8cd17fda392",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Ngô Văn I",
-        "studentCode": "MCU109",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.03446"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "d3108170-28c6-4232-9cd3-a9624bfc5f1a",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Vũ Thị F",
-        "studentCode": "MCU106",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344602"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "939e80e3-ee96-42a0-b74a-b3ebd7f22b9f",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Lê Văn C",
-        "studentCode": "MCU103",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344604"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "06c47285-6b74-4188-a5a5-f3bf941ed4c1",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Bùi Thị H",
-        "studentCode": "MCU108",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344605"
-      },
-      {
-        "attendanceStatusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "studentID": "18026dd7-18f4-492d-970f-ff36fe542476",
-        "statusID": "f60aaf45-9e88-4818-9ed0-3e8f83bfb66e",
-        "statusName": "Có mặt",
-        "studentName": "Phạm Thị D",
-        "studentCode": "MCU104",
-        "createBy": "Trần Thị B",
-        "createAt": "2024-09-27T22:15:46.0344609"
+        "teacherID": "b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+        "teacherName": "Phạm Thị D",
+        "sessions": [
+          {
+            "dayOfWeek": 1,
+            "periodName": "Sáng",
+            "sessionID": "00000000-0000-0000-0000-000000000000",
+            "slotDetails": [
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+                "subjectName": "Vật lý",
+                "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+                "slotIndex": 5,
+                "slotStart": "10:45:00",
+                "slotEnd": "11:30:00"
+              }
+            ]
+          },
+          {
+            "dayOfWeek": 2,
+            "periodName": "Sáng",
+            "sessionID": "00000000-0000-0000-0000-000000000000",
+            "slotDetails": [
+              {
+                "classroomID": "afab05ef-e3e7-4902-a141-05c3057b92f3",
+                "classname": "10A4",
+                "subjectID": "d3d3b555-0cf4-4b41-8131-a4c205d9a6f6",
+                "subjectName": "GDKT-PL",
+                "slotID": "4ebda95f-f406-43d2-a88b-be2b1ddbe1b5",
+                "slotIndex": 5,
+                "slotStart": "10:45:00",
+                "slotEnd": "11:30:00"
+              }
+            ]
+          }
+        ]
       }
-    ],
-    "attendanceID": "b286929e-9a94-46b5-6208-08dcdf073582"
+     
+    ]
   }
 }
-
-

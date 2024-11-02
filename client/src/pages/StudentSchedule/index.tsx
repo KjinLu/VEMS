@@ -24,13 +24,13 @@ type DayInSchedule = {
   end: Date;
 };
 
-function getMonday(d: Date) {
-  const date = new Date(d);
+const getMonday = (date: Date) => {
   const day = date.getDay();
-  const distanceToMonday = day === 0 ? -6 : 1 - day;
-  date.setDate(date.getDate() + distanceToMonday);
-  return date;
-}
+  const diff = day === 0 ? 1 : 1 - day; // Nếu là Chủ Nhật (0), thì diff là 1 để lấy Thứ Hai của tuần hiện tại
+  const monday = new Date(date);
+  monday.setDate(date.getDate() + diff);
+  return monday;
+};
 
 function combineDateAndTime(dateInput: string, timeInput: string): Date {
   // Chuyển đổi chuỗi ngày thành đối tượng Date
@@ -174,16 +174,19 @@ const StudentSchedulePage = () => {
           style={{ height: 'inherit' }}
           // views={['week']} // Show only the week view
           defaultView='week'
-          eventPropGetter={eventStyleGetter} // Sử dụng eventPropGetter để áp dụng style
-          messages={{
-            today: 'Hôm nay',
-            previous: 'Trước',
-            next: 'Tiếp theo',
-            week: 'Tuần',
-            day: 'Ngày'
+          eventPropGetter={eventStyleGetter}
+          // messages={{
+          //   today: 'Hôm nay',
+          //   previous: 'Trước',
+          //   next: 'Tiếp theo',
+          //   week: 'Tuần',
+          //   day: 'Ngày'
+          // }}
+          components={{
+            toolbar: () => <div />
           }}
           min={new Date(2023, 1, 1, 6, 0, 0)}
-          onNavigate={handleNavigate}
+          // onNavigate={handleNavigate}
         />
       </Row>
     </Paper>

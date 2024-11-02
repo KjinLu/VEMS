@@ -1,3 +1,4 @@
+import VemImage from '@/components/VemImage';
 import { TeacherIndex } from './type';
 
 import AvatarImage from '@/assets/images/avatar-test.jpg';
@@ -9,7 +10,7 @@ export const teacherColumn = [
         STT
       </p>
     ),
-    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.id}</p>,
+    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.index + 1}</p>,
     width: '100px',
     center: true
   },
@@ -23,15 +24,20 @@ export const teacherColumn = [
       <div className='p-2'>
         <div
           style={{
+            width: '80px',
+            height: '80px',
             borderRadius: '5px',
             border: '1px solid #ccc',
             overflow: 'hidden'
           }}
         >
-          <img
-            src={AvatarImage}
-            style={{ width: '100px' }}
-          ></img>
+          <VemImage
+            alt=''
+            fallback={AvatarImage}
+            className='w-100 rounded'
+            src={row.image}
+            key=''
+          />
         </div>
       </div>
     ),
@@ -43,7 +49,7 @@ export const teacherColumn = [
         Họ và Tên
       </p>
     ),
-    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.name}</p>,
+    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.fullName}</p>,
     center: true
   },
   {
@@ -61,7 +67,16 @@ export const teacherColumn = [
         Chủ nhiệm lớp
       </p>
     ),
-    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.class}</p>,
+    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.classRoom}</p>,
+    center: true
+  },
+  {
+    name: (
+      <p style={{ fontSize: '18px', color: 'rgb(25, 118, 210)', fontWeight: '600' }}>
+        Tùy chọn
+      </p>
+    ),
+    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{}</p>,
     center: true
   }
 ];

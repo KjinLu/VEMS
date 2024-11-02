@@ -47,7 +47,7 @@ namespace VemsApi.Controllers
 
         [HttpPut("update-password")]
         [Authorize("TEACHER")]
-        public async Task<IActionResult> UpdatePassword(ChangePasswordRequest request)
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordRequest request)
         {
             try
             {
@@ -82,6 +82,20 @@ namespace VemsApi.Controllers
             try
             {
                 var response = await teacherService.DeleteAvatar(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
+
+        [HttpPost("update-homeroom")]
+        public async Task<IActionResult> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest request)
+        {
+            try
+            {
+                var response = await teacherService.UpdateTeacherHomeRoom(request);
                 return APIResponse.Success(response);
             }
             catch (Exception ex)

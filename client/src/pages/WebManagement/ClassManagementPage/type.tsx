@@ -1,6 +1,13 @@
 export type ClassIndex = {
+  index: number;
   id: string;
-  class: string;
-  teacher: string;
-  amount: string;
+  className: string;
+  gradeId: string;
+  numberOfStudents: string;
+  primaryTeacherID: string;
+  primaryTeacherName: string;
+};
+
+export type ClassListProps = {
+  data: ClassIndex[];
 };

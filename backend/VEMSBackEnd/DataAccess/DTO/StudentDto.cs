@@ -8,4 +8,12 @@ namespace DataAccess.DTO
 
     }
 
+
+    public class AssignStudentTypeRequest
+    {
+        public Guid studentID { get; set; }
+        public Guid studentTypeID { get; set; }
+
+    }
+
 }

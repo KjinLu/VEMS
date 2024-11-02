@@ -33,6 +33,13 @@ namespace DataAccess.DTO
         public string NewPassword { get; set; }
     }
 
+    public class UpdatePasswordRequest
+    {
+        public Guid AccountID { get; set; }
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+    }
+
     public class RefreshTokenRequest
     {
         public string RefreshToken { get; set; }

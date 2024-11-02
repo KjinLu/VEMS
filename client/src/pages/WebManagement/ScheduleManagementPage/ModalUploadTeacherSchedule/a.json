@@ -1,0 +1,93 @@
+[
+  {
+    "subjectID": "ed4b87a4-eaf3-4d7c-baad-4868124791e1",
+    "sessionID": "6c6b00cc-1030-4029-aaf5-299019bd303d",
+    "slotID": "6c6b00cc-1030-4029-aaf5-299019bd303d",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "adc113ae-78f0-4baf-ee4e-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "ed4b87a4-eaf3-4d7c-baad-4868124791e1",
+    "sessionID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "slotID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "adc113ae-78f0-4baf-ee4e-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "ed4b87a4-eaf3-4d7c-baad-4868124791e1",
+    "sessionID": "6c6b00cc-1030-4029-aaf5-299019bd303d",
+    "slotID": "6c6b00cc-1030-4029-aaf5-299019bd303d",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "adc113ae-78f0-4baf-ee4e-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+    "sessionID": "5abe297f-e351-4939-bded-ec538c595417",
+    "slotID": "5abe297f-e351-4939-bded-ec538c595417",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "a3fea928-1625-4e13-ee4f-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+    "sessionID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "slotID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "a3fea928-1625-4e13-ee4f-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+    "sessionID": "5abe297f-e351-4939-bded-ec538c595417",
+    "slotID": "5abe297f-e351-4939-bded-ec538c595417",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "a3fea928-1625-4e13-ee4f-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "631135bd-81eb-4b70-a779-418af291d138",
+    "sessionID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "slotID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "a3fea928-1625-4e13-ee4f-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+    "sessionID": "2246a4b5-1dc9-4b8b-a6ea-f4e3d2635249",
+    "slotID": "2246a4b5-1dc9-4b8b-a6ea-f4e3d2635249",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "11083343-fb72-4632-ee50-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+    "sessionID": "2246a4b5-1dc9-4b8b-a6ea-f4e3d2635249",
+    "slotID": "2246a4b5-1dc9-4b8b-a6ea-f4e3d2635249",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "11083343-fb72-4632-ee50-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "107f7c24-e063-4dfd-beb8-d955e1fd0f8a",
+    "sessionID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "slotID": "6fa3d575-2f46-4615-aa63-ab53dc32bd8b",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "11083343-fb72-4632-ee50-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+    "sessionID": "02505d8c-8c01-4734-b79c-a053e9c86f9d",
+    "slotID": "02505d8c-8c01-4734-b79c-a053e9c86f9d",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "3b9d8c48-9f53-474c-ee51-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+    "sessionID": "6be09935-4ba1-42e2-9ccc-ab66fe1569a3",
+    "slotID": "6be09935-4ba1-42e2-9ccc-ab66fe1569a3",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "3b9d8c48-9f53-474c-ee51-08dcf92e4fa7"
+  },
+  {
+    "subjectID": "94aa1b88-0fb0-4669-a7d7-73793e453e94",
+    "sessionID": "6be09935-4ba1-42e2-9ccc-ab66fe1569a3",
+    "slotID": "6be09935-4ba1-42e2-9ccc-ab66fe1569a3",
+    "classID": "f3bc74d1-04c8-47c9-b569-d9aaf268f195",
+    "teacherID": "3b9d8c48-9f53-474c-ee51-08dcf92e4fa7"
+  }
+]

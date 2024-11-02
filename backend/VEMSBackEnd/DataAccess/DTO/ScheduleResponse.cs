@@ -17,6 +17,15 @@ public class CreateScheduleDetailRequest
     public List<SessionDto> Sessions { get; set; }
 }
 
+public class CreateTeacherScheduleRequest
+{
+    public Guid SubjectID { get; set; }
+    public Guid SessionID { get; set; }
+    public Guid SlotID { get; set; }
+    public Guid ClassID { get; set; }
+    public Guid TeacherID { get; set; }
+}
+
 public class UpdateScheduleRequest
 {
     public Guid ScheduleID { get; set; }
@@ -32,7 +41,7 @@ public class SessionDto
 public class SlotDetailDto
 {
     public Guid SubjectID { get; set; }
-    public Guid TeacherID { get; set; }
+    public Guid? TeacherID { get; set; }
     public Guid SlotID { get; set; }
 }
 
@@ -65,8 +74,8 @@ public class SlotDetailResponse
 {
     public Guid SubjectID { get; set; }
     public string SubjectName { get; set; }
-    public Guid TeacherID { get; set; }
-    public string TeacherName { get; set; }
+    public Guid? TeacherID { get; set; }
+    public string? TeacherName { get; set; }
     public Guid SlotID { get; set; }
     public int SlotIndex { get; set; }
     public TimeSpan SlotStart { get; set; }
