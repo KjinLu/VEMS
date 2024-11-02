@@ -10,7 +10,7 @@ import authReducer from '@/libs/features/auth/authSlice';
 import { scheduleApi } from '@/services/schedule';
 import { attendanceApi } from '@/services/attendance';
 import { profileApi } from '@/services/profile';
-import { forgetPassword } from '@/services/forgetPassword
+import { forgetPassword } from '@/services/forgetPassword';
 import { classApi } from '@/services/classes';
 
 const persistConfig = {

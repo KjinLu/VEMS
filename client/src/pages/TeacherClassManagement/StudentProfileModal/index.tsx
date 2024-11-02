@@ -24,6 +24,7 @@ const StudentProfileModal = ({
   refetchParent
 }: ModalProps) => {
   const { data } = useGetAllStudentTypeQuery(null);
+  console.log(data);
   const [currentType, setCurrentType] = useState<UUID | undefined>(undefined);
   const [assignStudentFC] = useAssignStudentMutation();
 

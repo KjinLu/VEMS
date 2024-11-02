@@ -16,7 +16,7 @@ import { FaGraduationCap, FaRegFaceFrownOpen } from 'react-icons/fa6';
 import { IoPeople } from 'react-icons/io5';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FiFilter } from 'react-icons/fi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RiCalendarScheduleLine } from 'react-icons/ri';
 import DataTable from 'react-data-table-component';
 import { PiStudentDuotone } from 'react-icons/pi';
@@ -33,6 +33,7 @@ import VemsLoader from '@/components/VemsLoader';
 import { studentColumn } from './data-table-column';
 import { StudentIndex } from './type';
 import ModalStudentDetails from './ModalStudentDetails';
+import { useGetSInClassQuery, useGetStudentsListQuery } from '@/services/adminManagement';
 
 const cx = className.bind(styles);
 
@@ -43,6 +44,10 @@ const StudentManagementPage = () => {
   // Modal detail student
   const [studentId, setStudentId] = useState<string>('');
   const [isOpenStudentDetail, setIsOpenStudentDetail] = useState<boolean>(false);
+
+  const { data } = useGetSInClassQuery('AFAB05EF-E3E7-4902-A141-05C3057B92F3');
+
+  console.log(data);
 
   const students: StudentIndex[] = [
     { id: '1', avatar: 'Nguyễn Văn A', name: 'Nguyễn Văn A', code: 'HS0001' },
