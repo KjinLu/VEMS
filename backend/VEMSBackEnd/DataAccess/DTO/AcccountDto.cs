@@ -203,6 +203,12 @@ public class TeacherResponse
     public string? ClassRoom { get; set; }
 }
 
+public class UpdateTeacherHomeroomRequest
+{
+    public Guid TeacherId { get; set; }
+    public string? ClassId { get; set; } = string.Empty;
+}
+
 public class StudentResponse
 {
     public Guid Id { get; set; }

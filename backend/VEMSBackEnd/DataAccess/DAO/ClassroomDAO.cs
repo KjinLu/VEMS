@@ -316,6 +316,23 @@ namespace DataAccess.DAO
             }
         }
 
+        public async Task<List<GetSelectHomeroomResponse>> GetSelectHomeroomResponse()
+        {
+            try
+            {
+                using (var context = new VemsContext())
+                {
+                    return await context.Classrooms
+                        .Where(c => !context.Teacher.Any(t => t.ClassroomId == c.Id))
+                        .Select(c => new GetSelectHomeroomResponse  { ClassId = c.Id, ClassName = c.ClassName })
+                        .ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tạo lớp:"+ex.Message);
+            }
+        }
 
         // Kiểm tra nếu Classroom tồn tại
         private async Task<bool> IsClassroomExists(Guid id)

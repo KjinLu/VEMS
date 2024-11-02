@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessObject;
 using DataAccess.DAO;
 using DataAccess.DTO;
+using Microsoft.Identity.Client;
 
 namespace DataAccess.Repository
 {
@@ -37,6 +38,8 @@ namespace DataAccess.Repository
         public Task<bool> UpdateStudentProfile(Student request);
         public Task<bool> UpdateTeacherProfile(Teacher request);
         public Task<bool> UpdateAvatar(Guid accountID, string imageLink);
+        public Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest teacher);
+        
 
     }
 
@@ -89,5 +92,7 @@ namespace DataAccess.Repository
         public async Task<bool> UpdateAvatar(Guid accountID, string imageLink) => await AccountDAO.Instance.UpdateAvatarAsync(accountID, imageLink);
 
         public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID) => await AccountDAO.Instance.GetTeacherProfileByIdAsync(accountID);
+
+        public async Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest teacher) => await AccountDAO.Instance.UpdateTeacherHomeRoom(teacher);
     }
 }
