@@ -17,40 +17,44 @@ public interface IClassroomRepository
     Task<bool> AssignStudentType(AssignStudentTypeRequest request);
 
     Task AddClassrooms(List<ImportClassRequest> classrooms);
+    Task<List<GetSelectHomeroomResponse>> GetSelectHomeroomResponse();
+
 
 }
-    public class ClassroomRepository : IClassroomRepository
+public class ClassroomRepository : IClassroomRepository
+{
+    private readonly ClassroomDAO _dao;
+
+    public ClassroomRepository()
     {
-        private readonly ClassroomDAO _dao;
-
-        public ClassroomRepository()
-        {
-            _dao = new ClassroomDAO();
-        }
-        public Task AddClassroom(Classroom classroom)
-            => _dao.AddClassroomAsync(classroom);
-
-        public Task DeleteClassroom(Guid id)
-            => _dao.DeleteClassroomAsync(id);
-
-        public Task<List<ClassroomResponse>> GetAllClassrooms()
-            => _dao.GetAllClassroomsAsync();
-
-        public Task<List<StudentType>> GetAllStudentType()
-        => _dao.GetAllStudentType();
-
-        public Task<Classroom> GetClassroomById(Guid id)
-            => _dao.GetClassroomByIdAsync(id);
-
-        public async Task<ClassStudentsResponse> GetClassStudents(Guid classID)
-        => await _dao.GetClassStudents(classID);
-
-        public Task UpdateClassroom(Classroom classroom)
-            => _dao.UpdateClassroomAsync(classroom);
-
-        public Task<bool> AssignStudentType(AssignStudentTypeRequest request)
-         => _dao.AssignStudentType(request);
-
-        public Task AddClassrooms(List<ImportClassRequest> classrooms) => _dao.AddClassrooms(classrooms);
-
+        _dao = new ClassroomDAO();
     }
+    public Task AddClassroom(Classroom classroom)
+        => _dao.AddClassroomAsync(classroom);
+
+    public Task DeleteClassroom(Guid id)
+        => _dao.DeleteClassroomAsync(id);
+
+    public Task<List<ClassroomResponse>> GetAllClassrooms()
+        => _dao.GetAllClassroomsAsync();
+
+    public Task<List<StudentType>> GetAllStudentType()
+    => _dao.GetAllStudentType();
+
+    public Task<Classroom> GetClassroomById(Guid id)
+        => _dao.GetClassroomByIdAsync(id);
+
+    public async Task<ClassStudentsResponse> GetClassStudents(Guid classID)
+    => await _dao.GetClassStudents(classID);
+
+    public Task UpdateClassroom(Classroom classroom)
+        => _dao.UpdateClassroomAsync(classroom);
+
+    public Task<bool> AssignStudentType(AssignStudentTypeRequest request)
+     => _dao.AssignStudentType(request);
+
+    public Task AddClassrooms(List<ImportClassRequest> classrooms) => _dao.AddClassrooms(classrooms);
+
+    public async Task<List<GetSelectHomeroomResponse>> GetSelectHomeroomResponse()
+        =>await _dao.GetSelectHomeroomResponse();
+}

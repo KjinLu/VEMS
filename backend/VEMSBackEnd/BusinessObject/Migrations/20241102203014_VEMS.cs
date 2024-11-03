@@ -14,20 +14,6 @@ namespace BusinessObject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Devices",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DeviceInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastLogin = table.Column<DateTime>(type: "datetime", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EmailTokens",
                 columns: table => new
                 {
@@ -72,8 +58,7 @@ namespace BusinessObject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReasonName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    ReasonName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -220,42 +205,6 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teacher",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PublicTeacherID = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
-                    CitizenID = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
-                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Dob = table.Column<DateOnly>(type: "date", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Phone = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
-                    RefreshToken = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true),
-                    TeacherTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teacher", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teacher_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Teacher_TeacherTypes_TeacherTypeId",
-                        column: x => x.TeacherTypeId,
-                        principalTable: "TeacherTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Schedules",
                 columns: table => new
                 {
@@ -322,6 +271,74 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teacher",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PublicTeacherID = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    CitizenID = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Dob = table.Column<DateOnly>(type: "date", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Phone = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    RefreshToken = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true),
+                    TeacherTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClassroomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teacher", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teacher_Classrooms_ClassroomId",
+                        column: x => x.ClassroomId,
+                        principalTable: "Classrooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Teacher_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Teacher_TeacherTypes_TeacherTypeId",
+                        column: x => x.TeacherTypeId,
+                        principalTable: "TeacherTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScheduleDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScheduleDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ScheduleDetails_Schedules_ScheduleId",
+                        column: x => x.ScheduleId,
+                        principalTable: "Schedules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ScheduleDetails_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "Sessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SlotDetails",
                 columns: table => new
                 {
@@ -368,31 +385,6 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ScheduleDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ScheduleDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ScheduleDetails_Schedules_ScheduleId",
-                        column: x => x.ScheduleId,
-                        principalTable: "Schedules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ScheduleDetails_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalTable: "Sessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Attendances",
                 columns: table => new
                 {
@@ -418,7 +410,7 @@ namespace BusinessObject.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AttendanceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -427,12 +419,6 @@ namespace BusinessObject.Migrations
                         name: "FK_AttendanceCharges_Attendances_AttendanceId",
                         column: x => x.AttendanceId,
                         principalTable: "Attendances",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AttendanceCharges_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -446,6 +432,7 @@ namespace BusinessObject.Migrations
                     StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReasonId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -478,7 +465,7 @@ namespace BusinessObject.Migrations
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AttendanceStatuses_Teacher_TeacherId",
                         column: x => x.TeacherId,
@@ -542,15 +529,15 @@ namespace BusinessObject.Migrations
 
             migrationBuilder.InsertData(
                 table: "Reasons",
-                columns: new[] { "Id", "Description", "ReasonName" },
+                columns: new[] { "Id", "ReasonName" },
                 values: new object[,]
                 {
-                    { new Guid("169dcff1-cb19-4fd0-8ae3-f947360207cf"), "", "Công tác, HSG" },
-                    { new Guid("17fea884-62f6-4686-b2ae-2a18ae4b2b82"), "", "Đang nằm viện" },
-                    { new Guid("23f45441-d948-4a53-8a96-bc8be963b9e2"), "", "Do ốm đau" },
-                    { new Guid("71e82443-08e8-4500-90f6-71732fd96ded"), "", "Khám NVQS" },
-                    { new Guid("c4990d24-c573-4b40-ad01-c3f39042bad9"), "", "Nhà có việc hữu sự" },
-                    { new Guid("e847e40e-e759-413a-adc3-b2a7fe72c128"), "", "Khác" }
+                    { new Guid("169dcff1-cb19-4fd0-8ae3-f947360207cf"), "Công tác, HSG" },
+                    { new Guid("17fea884-62f6-4686-b2ae-2a18ae4b2b82"), "Đang nằm viện" },
+                    { new Guid("23f45441-d948-4a53-8a96-bc8be963b9e2"), "Do ốm đau" },
+                    { new Guid("71e82443-08e8-4500-90f6-71732fd96ded"), "Khám NVQS" },
+                    { new Guid("c4990d24-c573-4b40-ad01-c3f39042bad9"), "Nhà có việc hữu sự" },
+                    { new Guid("e847e40e-e759-413a-adc3-b2a7fe72c128"), "Khác" }
                 });
 
             migrationBuilder.InsertData(
@@ -595,26 +582,24 @@ namespace BusinessObject.Migrations
                 columns: new[] { "Id", "Code", "SubjectName" },
                 values: new object[,]
                 {
-                    { new Guid("0aaf283b-4d65-42af-a998-938efe370318"), "INFORMATICS", "Tin học" },
-                    { new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"), "MATHEMATICS", "Toán học" },
-                    { new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"), "FOREIGN_LANGUAGE", "Ngoại ngữ" },
-                    { new Guid("4e943f72-a5ee-427f-9594-83598d33f411"), "PHYSICAL_EDUCATION", "Thể dục" },
-                    { new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"), "LITERATURE", "Ngữ văn" },
-                    { new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"), "GEOGRAPHY", "Địa lý" },
-                    { new Guid("631135bd-81eb-4b70-a779-418af291d138"), "PHYSICS", "Vật lý" },
-                    { new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"), "BIOLOGY", "Sinh học" },
-                    { new Guid("77faf4ba-c356-4633-9505-91e4c8402800"), "HISTORY", "Lịch sử" },
-                    { new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"), "TECHNOLOGY", "Công nghệ" },
-                    { new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"), "CHEMISTRY", "Hóa học" },
-                    { new Guid("9e777928-8399-4efe-bd19-164b1f6acc8e"), "FINE_ART", "Mỹ thuật" },
-                    { new Guid("a3d3b555-0cf4-4b41-8131-a4c205d9a6f3"), "DEFENSE_EDUCATION", "Giáo dục quốc phòng" },
-                    { new Guid("ab569adc-c289-48ee-9286-73cd9863458e"), "CIVIC_EDUCATION", "Giáo dục công dân" },
-                    { new Guid("b1d3b555-0cf4-4b41-8131-a4c205d9a6f4"), "SHDC", "SHDC" },
-                    { new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"), "HDTN_HN", "HĐTN-HN" },
-                    { new Guid("d3d3b555-0cf4-4b41-8131-a4c205d9a6f6"), "GDKT_PL", "GDKT-PL" },
-                    { new Guid("d3d41c42-c3b4-4713-b231-b2851634f378"), "MUSIC", "Âm nhạc" },
-                    { new Guid("e4d3b555-0cf4-4b41-8131-a4c205d9a6f7"), "SHCN", "SHCN" },
-                    { new Guid("f5d3b555-0cf4-4b41-8131-a4c205d9a6f8"), "MATH_FRENCH", "Toán Pháp" }
+                    { new Guid("0a45d64e-f1d3-4d91-9df8-9c663c3f39d2"), "HDTN_HN", "HĐTN-HN" },
+                    { new Guid("107f7c24-e063-4dfd-beb8-d955e1fd0f8a"), "PHYSICS", "Lí" },
+                    { new Guid("2a739d2f-6b40-4fe4-8cf3-6b2c47967a55"), "TECHNOLOGY", "Công Nghệ" },
+                    { new Guid("4e943f72-a5ee-427f-9594-83598d33f411"), "FOREIGN_LANGUAGE", "N.Ngữ" },
+                    { new Guid("50d08f10-a2b8-4119-8053-e95f00cdf608"), "CIVIC_EDUCATION", "GDCD" },
+                    { new Guid("52e87219-4d5c-4d96-a944-a04292e2f617"), "SHDC", "SHDC" },
+                    { new Guid("631135bd-81eb-4b70-a779-418af291d138"), "MATH", "Toán" },
+                    { new Guid("669af09a-9f35-45b5-a2ce-1a9efbeeb476"), "BIOLOGY", "Sinh" },
+                    { new Guid("77faf4ba-c356-4633-9505-91e4c8402800"), "INFORMATION", "Tin" },
+                    { new Guid("7c756bba-6c1d-43db-8fb7-7c53295019a3"), "MATH_FRENCH", "Toán Pháp" },
+                    { new Guid("94aa1b88-0fb0-4669-a7d7-73793e453e94"), "CHEMISTRY", "Hóa" },
+                    { new Guid("a12d15b4-c3b7-4b9a-9b78-5cf36e8f1f7a"), "SHCN", "SHCN" },
+                    { new Guid("a4568e59-9eaf-4896-915e-19d469ab7ff8"), "GEOGRAPHY", "Địa" },
+                    { new Guid("ab569adc-c289-48ee-9286-73cd9863458e"), "GDKT_PL", "GDKT-PL" },
+                    { new Guid("b1d3a88b-1a6f-4a4d-b5e3-9d92e13e7f7d"), "DEFENSE_EDUCATION", "GDQP" },
+                    { new Guid("c2d3b555-0cf4-4b41-8131-a4c205d9a6f5"), "HISTORY", "Sử" },
+                    { new Guid("d3b45f10-aab9-45f6-a7ef-8e812f59109b"), "PHYSICAL_EDUCATION", "TD" },
+                    { new Guid("ed4b87a4-eaf3-4d7c-baad-4868124791e1"), "LITERATURE", "Văn" }
                 });
 
             migrationBuilder.InsertData(
@@ -646,29 +631,6 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Classrooms",
-                columns: new[] { "Id", "ClassName", "GradeId" },
-                values: new object[,]
-                {
-                    { new Guid("01c6d903-784d-45fb-8511-47e9d6ff7611"), "10A5", new Guid("11f87b17-a80c-4420-b368-4680920bfe3d") },
-                    { new Guid("11521ae4-fd95-474c-8d3e-e8ca3cbc21f3"), "12A1", new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2") },
-                    { new Guid("3df0676a-021e-4a1f-a082-fa88b6dbe200"), "11A3", new Guid("afa373a9-b9ab-4561-97b1-549b76f91190") },
-                    { new Guid("79dfe9dc-2b47-4222-bce2-7c85e91424d6"), "10A3", new Guid("11f87b17-a80c-4420-b368-4680920bfe3d") },
-                    { new Guid("7dbe0c01-40e0-4e8b-8112-0f4c01d6eb2f"), "12A4", new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2") },
-                    { new Guid("88660625-222d-48e7-bef7-aa2fae36d968"), "11A4", new Guid("afa373a9-b9ab-4561-97b1-549b76f91190") },
-                    { new Guid("8f3cdace-270e-41bc-8ee5-0d07321c7975"), "11A1", new Guid("afa373a9-b9ab-4561-97b1-549b76f91190") },
-                    { new Guid("8fb55a60-4d64-4eb7-9ae1-4202cd25d9e2"), "12A3", new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2") },
-                    { new Guid("9c62f26b-a825-4ee5-9c0a-09cd0aff7409"), "12A5", new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2") },
-                    { new Guid("a71d8e2d-6e7d-44a5-a8be-cd9757f199be"), "11A2", new Guid("afa373a9-b9ab-4561-97b1-549b76f91190") },
-                    { new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), "10A4", new Guid("11f87b17-a80c-4420-b368-4680920bfe3d") },
-                    { new Guid("b4c997f3-3d75-4b63-bd19-7d849999481c"), "12A6", new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2") },
-                    { new Guid("c7235f3d-8414-4832-b0c5-a97781490a48"), "11A5", new Guid("afa373a9-b9ab-4561-97b1-549b76f91190") },
-                    { new Guid("d2a5a5a1-87c6-4714-bbfd-176571ebf89a"), "10A2", new Guid("11f87b17-a80c-4420-b368-4680920bfe3d") },
-                    { new Guid("ddd7dda5-a208-4ccc-947e-c96e603a4609"), "12A2", new Guid("b6e0255a-aeee-4df7-8754-55dd27d360b2") },
-                    { new Guid("f3bc74d1-04c8-47c9-b569-d9aaf268f195"), "10A1", new Guid("11f87b17-a80c-4420-b368-4680920bfe3d") }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Sessions",
                 columns: new[] { "Id", "DayOfWeek", "PeriodID" },
                 values: new object[,]
@@ -687,35 +649,6 @@ namespace BusinessObject.Migrations
                     { new Guid("d1f42050-c53b-45bf-8473-ebc14c01d4b7"), 5, new Guid("2b5e92f3-430b-4b48-8048-ca2ca8d0ef31") }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Teacher",
-                columns: new[] { "Id", "Address", "CitizenID", "Dob", "Email", "FullName", "Image", "Password", "Phone", "PublicTeacherID", "RefreshToken", "RoleId", "TeacherTypeId", "Username" },
-                values: new object[,]
-                {
-                    { new Guid("493d052a-67a1-4428-981d-4d7831d3d344"), "", "", null, "tranthib@example.com", "Trần Thị B", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/z5852812999947_cb79c443d7ad6df3917b4a48111e4158_bpsx1v.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0987654321", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0987654321" },
-                    { new Guid("a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"), "", "", null, "leminhc@example.com", "Lê Minh C", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/10_bpqux3.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0901234567", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0901234567" },
-                    { new Guid("b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"), "", "", null, "phamthid@example.com", "Phạm Thị D", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/9_l4nqzj.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0934567890", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0934567890" },
-                    { new Guid("c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"), "", "", null, "hoangvane@example.com", "Hoàng Văn E", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900642/1_pcvqfn.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0976543210", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0976543210" },
-                    { new Guid("fc90f501-75fd-4a4e-84bf-cdcbca4e6d5d"), "", "", null, "nguyenvana@example.com", "Nguyễn Văn A", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900643/11_bnerzr.jpg", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "0912345678", null, null, new Guid("81b3444c-c9fd-4efc-a774-e1e3fc3c3e53"), new Guid("a8afb982-710b-4637-bcc7-babeee1e0599"), "0912345678" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "Address", "CitizenID", "ClassroomId", "Dob", "Email", "FullName", "HomeTown", "Image", "ParentPhone", "Password", "Phone", "PublicStudentID", "RefreshToken", "RoleId", "StudentTypeId", "UnionJoinDate", "Username" },
-                values: new object[,]
-                {
-                    { new Guid("34701b21-d0ce-4a2e-bbf8-b7218308e20f"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "tran.b@example.com", "Trần Thị B", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/6_ydar9m.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU102", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU102" },
-                    { new Guid("3caad83a-46f4-4a8f-b2a7-cfce6ac27b88"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "pham.d@example.com", "Phạm Thị D", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/5_ek2pks.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU104", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU104" },
-                    { new Guid("4c9a5e82-3723-41d9-9a8c-9f91e58922ab"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "dang.k@example.com", "Đặng Thị K", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/12_wsmqha.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU110", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU110" },
-                    { new Guid("55318f46-c41e-4288-a006-3a84a7aeb195"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "nguyen.a@example.com", "Nguyễn Văn A", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/7_plw6ns.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU101", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU101" },
-                    { new Guid("7acdd980-b6c3-48c9-a40e-81a5c53c3b84"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "le.c@example.com", "Lê Văn C", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813026004_885e224ee4b8dbfbb128e583c278a615_dicbrf.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU103", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU103" },
-                    { new Guid("91313c9a-e9bd-4133-a89a-24eee9083112"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "hoang.e@example.com", "Hoàng Văn E", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900641/z5852813011522_e3396b099fec5e01dc56a2331b757d8e_nsrnzc.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU105", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU105" },
-                    { new Guid("9ee95ba6-b2d4-44d4-aeed-14648ca801a3"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "do.g@example.com", "Đỗ Văn G", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/z5852813019059_6493ca13ee06ac935e9889fe51bd2886_ooz29c.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU107", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU107" },
-                    { new Guid("c51f83c8-0cbb-4865-9abe-055cb25167b4"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "bui.h@example.com", "Bùi Thị H", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900639/13_gqcowy.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU108", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU108" },
-                    { new Guid("d8165d40-605a-4165-b15c-076ce3335d21"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "vu.f@example.com", "Vũ Thị F", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/2_hlwinq.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU106", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU106" },
-                    { new Guid("f5a6ee75-1390-4f09-b908-528dbfe8aac7"), "", "", new Guid("afab05ef-e3e7-4902-a141-05c3057b92f3"), null, "ngo.i@example.com", "Ngô Văn I", "", "https://res.cloudinary.com/duxrv1jlj/image/upload/v1726900640/4_yr3kyt.jpg", "", "$2y$06$usOR86Leu51BU3l2hmdjOeUBTmtJTG6OcFlFUZIwTiDtNcrGrdp22", "", "MCU109", "", new Guid("01e27b7c-93ca-47f6-a09b-c7015717e2ed"), new Guid("d5c14f0e-b4e9-4b88-b804-511bad973115"), null, "MCU109" }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_RoleId",
                 table: "Admins",
@@ -725,11 +658,6 @@ namespace BusinessObject.Migrations
                 name: "IX_AttendanceCharges_AttendanceId",
                 table: "AttendanceCharges",
                 column: "AttendanceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AttendanceCharges_StudentId",
-                table: "AttendanceCharges",
-                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attendances_ScheduleDetailId",
@@ -842,6 +770,11 @@ namespace BusinessObject.Migrations
                 column: "StudentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Teacher_ClassroomId",
+                table: "Teacher",
+                column: "ClassroomId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teacher_RoleId",
                 table: "Teacher",
                 column: "RoleId");
@@ -863,9 +796,6 @@ namespace BusinessObject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AttendanceStatuses");
-
-            migrationBuilder.DropTable(
-                name: "Devices");
 
             migrationBuilder.DropTable(
                 name: "EmailTokens");

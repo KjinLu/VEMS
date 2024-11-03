@@ -100,31 +100,7 @@ const StudentManagementPage = () => {
           <div className={cx('card')}>
             <h2 className={cx('title', 'mb-3')}>Số lượng học sinh</h2>
 
-            <div
-              className={cx(
-                'd-flex align-items-center justify-content-between mb-3 px-5'
-              )}
-            >
-              <div className={cx('d-flex align-items-center')}>
-                <div
-                  className={cx('div-icon-round', 'shadow', 'me-3')}
-                  style={{ backgroundColor: '#e0f7fa' }}
-                >
-                  <IoPeople
-                    size={28}
-                    color='rgba(0, 121, 107, 0.68888)'
-                    className={cx('icon-round')}
-                  />
-                </div>
-
-                <div>
-                  <p className={cx('attendance-text')}>
-                    {response?.pageData?.length || 'N/A'}
-                  </p>
-                  <p>Học sinh</p>
-                </div>
-              </div>
-
+            <div className={cx('d-flex align-items-center justify-content-end mb-2')}>
               <div className={cx('d-flex justify-content-between mb-4')}>
                 <VemsButtonCus
                   title='Nhập danh sách học sinh'
@@ -146,6 +122,26 @@ const StudentManagementPage = () => {
               isCloseModalStudent={isCloseModalStudent}
               setIsCloseModalStudent={setIsCloseModalStudent}
             ></ModalUploadStudent>
+
+            <div className={cx('d-flex align-items-center px-3')}>
+              <div
+                className={cx('div-icon-round', 'shadow', 'me-3')}
+                style={{ backgroundColor: '#e0f7fa' }}
+              >
+                <IoPeople
+                  size={28}
+                  color='rgba(0, 121, 107, 0.68888)'
+                  className={cx('icon-round')}
+                />
+              </div>
+
+              <div>
+                <p className={cx('attendance-text')}>
+                  {response?.pageData?.length || 'N/A'}
+                </p>
+                <p>Học sinh</p>
+              </div>
+            </div>
           </div>
         </Col>
       </Row>

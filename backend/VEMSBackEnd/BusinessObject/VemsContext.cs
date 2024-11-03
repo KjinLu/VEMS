@@ -19,7 +19,6 @@ namespace BusinessObject
 
     public DbSet<Admin> Admins { get; set; }
     public DbSet<Classroom> Classrooms { get; set; }
-    public DbSet<Device> Devices { get; set; }
     public DbSet<Grade> Grades { get; set; }
     public DbSet<Period> Periods { get; set; }
     public DbSet<Reason> Reasons { get; set; }
@@ -197,7 +196,7 @@ namespace BusinessObject
         .WithMany(r => r.SlotDetails)
         .HasForeignKey(a => a.SessionID);
 
-      modelBuilder.SeedingClassroom();
+      //modelBuilder.SeedingClassroom();
       modelBuilder.SeedingAdmins();
       // modelBuilder.SeedingStudent();
       // modelBuilder.SeedingTeacher(); 

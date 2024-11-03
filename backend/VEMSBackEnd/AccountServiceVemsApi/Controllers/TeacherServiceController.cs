@@ -89,5 +89,19 @@ namespace VemsApi.Controllers
                 return APIResponse.Error(null, ex.Message);
             }
         }
+
+        [HttpPost("update-homeroom")]
+        public async Task<IActionResult> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest request)
+        {
+            try
+            {
+                var response = await teacherService.UpdateTeacherHomeRoom(request);
+                return APIResponse.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return APIResponse.Error(null, ex.Message);
+            }
+        }
     }
 }
