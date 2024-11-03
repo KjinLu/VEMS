@@ -106,8 +106,6 @@ const ModalUploadClass = ({
           }
         });
 
-        console.log(res);
-
         // Uncomment and modify this section based on your import function
         if (res) {
           await importClassFC(res).unwrap();

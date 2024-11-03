@@ -113,7 +113,6 @@ const ModalUploadTeacherSchedule = ({
 
   const handleCreateSchedule = () => {
     handleToTimeTable();
-    // console.log(fileData);
   };
   // Xử lý xóa file
   const clearFile = () => {

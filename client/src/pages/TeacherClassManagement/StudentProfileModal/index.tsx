@@ -9,6 +9,7 @@ import { set } from 'react-hook-form';
 import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { Col, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
+import AvatarDefault from '@/assets/images/personal/avatarDefault.jpg';
 
 type ModalProps = {
   isOpen: boolean;
@@ -24,7 +25,6 @@ const StudentProfileModal = ({
   refetchParent
 }: ModalProps) => {
   const { data } = useGetAllStudentTypeQuery(null);
-  console.log(data);
   const [currentType, setCurrentType] = useState<UUID | undefined>(undefined);
   const [assignStudentFC] = useAssignStudentMutation();
 
@@ -85,7 +85,7 @@ const StudentProfileModal = ({
               <VemImage
                 alt=''
                 className='w-100 rounded'
-                fallback=''
+                fallback={AvatarDefault}
                 src={studentData ? studentData.image : ''}
               />
             </Col>

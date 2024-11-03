@@ -26,7 +26,6 @@ const ChangePassword = (props: IForgetPasswordProps & { accountID: string }) => 
   };
 
   const handleSubmit = async (values: any) => {
-    console.log(values);
     const payload = {
       accountID: accountID,
       newPassword: values.newPassword
@@ -42,7 +41,6 @@ const ChangePassword = (props: IForgetPasswordProps & { accountID: string }) => 
         const errorMessage = (response.error as any)?.data?.message?.toString() ?? '';
         setError(errorMessage);
       }
-      console.log(response);
     } catch (error) {
       setError('Có lỗi xảy ra');
     } finally {

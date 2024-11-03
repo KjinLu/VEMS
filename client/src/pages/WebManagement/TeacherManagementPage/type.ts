@@ -1,3 +1,7 @@
+import * as yup from 'yup';
+
+import { updateTeacherAccount } from './form-schemas';
+
 export type TeacherIndex = {
   index: number;
   id: string;
@@ -15,4 +19,7 @@ export type TeacherIndex = {
   roleId: string;
   classroomId: string;
   classRoom: any;
+  password: string;
 };
+
+export type AccountForm = yup.InferType<typeof updateTeacherAccount>;

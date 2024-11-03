@@ -18,7 +18,7 @@ const cx = className.bind(styles);
 type ModalUploadStudentProps = {
   isCloseModalStudent: boolean;
   setIsCloseModalStudent: any;
-  refetchParent: any;
+  // refetchParent: any;
 };
 
 type FileUploadProps = {
@@ -29,8 +29,8 @@ type FileUploadProps = {
 
 const ModalUploadStudent = ({
   isCloseModalStudent,
-  setIsCloseModalStudent,
-  refetchParent
+  setIsCloseModalStudent
+  // refetchParent
 }: ModalUploadStudentProps) => {
   const handleDownload = () => {
     const url = `http://localhost:3000/STUDENT_INPUT.xlsx`;
@@ -115,7 +115,7 @@ const ModalUploadStudent = ({
       if (res.length > 0) {
         var importRes = await importStudentFC(res).unwrap();
         if (importRes) {
-          refetchParent();
+          // refetchParent();
           toast.success('Nhập danh sách học sinh thành công');
         }
       }

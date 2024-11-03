@@ -86,7 +86,6 @@ const Personal = () => {
             homeTown: values.homeTown,
             unionJoinDate: dayjs(values.unionJoinDate).format('YYYY-MM-DD')
           }).unwrap();
-          console.log(res);
 
           ShowNotify({
             statusCode: res,

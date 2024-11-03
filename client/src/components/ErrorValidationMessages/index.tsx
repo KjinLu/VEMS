@@ -11,6 +11,7 @@ const ErrorValidationMessages = ({ messages, styles }: ErrorValidationMessagesPr
           msg && (
             <p
               className='text-danger mt-2'
+              style={{ textAlign: 'left' }}
               key={`error-msg-${messages.indexOf(msg)}`}
             >{`*${msg}`}</p>
           )

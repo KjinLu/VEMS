@@ -24,8 +24,7 @@ export const teacherColumn = [
       <div className='p-2'>
         <div
           style={{
-            width: '80px',
-            height: '80px',
+            width: '120px',
             borderRadius: '5px',
             border: '1px solid #ccc',
             overflow: 'hidden'
@@ -68,15 +67,6 @@ export const teacherColumn = [
       </p>
     ),
     cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{row.classRoom}</p>,
-    center: true
-  },
-  {
-    name: (
-      <p style={{ fontSize: '18px', color: 'rgb(25, 118, 210)', fontWeight: '600' }}>
-        Tùy chọn
-      </p>
-    ),
-    cell: (row: TeacherIndex) => <p style={{ fontSize: '16px' }}>{}</p>,
     center: true
   }
 ];

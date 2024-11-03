@@ -221,8 +221,6 @@ const ModalUploadSchedule = ({
           time: timeFrom || new Date().toISOString().split('T')[0]
         };
 
-        console.log(request);
-
         if (request.classroomId && request.time) {
           var res = await createScheduleFC(request).unwrap();
           const scheduleID = res.id;
@@ -262,8 +260,6 @@ const ModalUploadSchedule = ({
         entries: any,
         period: string
       ): CreateSessionRequest | null => {
-        // console.table(sessions);
-
         const sessionID = sessions.find(
           (s: Session) => s.dayOfWeek == day.dayOfWeek && s.periodName === period
         )?.sessionID;

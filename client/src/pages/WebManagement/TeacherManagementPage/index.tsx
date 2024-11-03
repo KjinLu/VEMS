@@ -10,7 +10,7 @@ import {
   Label,
   UncontrolledDropdown
 } from 'reactstrap';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { FiFilter } from 'react-icons/fi';
 
@@ -24,8 +24,9 @@ import NoRecord from '@/components/NoRecord';
 import VemLoader from '@/components/VemsLoader';
 import { teacherColumn } from './data-table-column';
 import { TeacherIndex } from './type';
-import ModalTeacherDetails from './ModalTeacherDetails';
 import { useGetAllTeacherQuery } from '@/services/accountManagement';
+
+const ModalTeacherDetails = lazy(() => import('./ModalTeacherDetails'));
 
 const cx = className.bind(styles);
 
@@ -38,6 +39,7 @@ const TeacherManagementPage = () => {
   // Modal detail student
   const [isOpenTeacherDetail, setIsOpenTeacherDetail] = useState<boolean>(false);
 
+  // Query and Mutation-------------------------------------------------------------------------------
   const { data: response, refetch } = useGetAllTeacherQuery(
     { PageNumber: 1, PageSize: 100 },
     {
@@ -46,10 +48,7 @@ const TeacherManagementPage = () => {
     }
   );
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
+  // useEffect----------------------------------------------------------------------------------------------
   useEffect(() => {
     if (response) {
       setTeachers(
@@ -58,10 +57,16 @@ const TeacherManagementPage = () => {
     }
   }, [response]);
 
+  //Event-------------------------------------------------------------------------------------------------
   // Show teacher detail
   const handleShowTeacherDetail = (item: TeacherIndex) => {
     setTeacherSelected(item);
     setIsOpenTeacherDetail(true);
+  };
+
+  //Update table
+  const updateParentState = () => {
+    refetch();
   };
 
   return (
@@ -93,33 +98,9 @@ const TeacherManagementPage = () => {
 
         <Col md={6}>
           <div className={cx('card')}>
-            <h2 className={cx('title', 'mb-3')}>Số lượng giáo viên</h2>
+            <h2 className={cx('title', 'mb-1')}>Số lượng giáo viên</h2>
 
-            <div
-              className={cx(
-                'd-flex align-items-center justify-content-between mb-3 px-5'
-              )}
-            >
-              <div className={cx('d-flex align-items-center')}>
-                <div
-                  className={cx('div-icon-round', 'shadow', 'me-3')}
-                  style={{ backgroundColor: '#e0f7fa' }}
-                >
-                  <IoPeople
-                    size={28}
-                    color='rgba(0, 121, 107, 0.68888)'
-                    className={cx('icon-round')}
-                  />
-                </div>
-
-                <div>
-                  <p className={cx('attendance-text')}>
-                    {response?.pageData?.length || 'N/A'}
-                  </p>
-                  <p>Giáo viên</p>
-                </div>
-              </div>
-
+            <div className={cx('d-flex align-items-center justify-content-end mb-2')}>
               <div className={cx('d-flex justify-content-end mb-4')}>
                 <VemsButtonCus
                   title='Nhập danh sách giáo viên'
@@ -140,6 +121,26 @@ const TeacherManagementPage = () => {
                 isCloseModalTeacher={isCloseModalTeacher}
                 setIsCloseModalTeacher={setIsCloseModalTeacher}
               />
+            </div>
+
+            <div className={cx('d-flex align-items-center px-3')}>
+              <div
+                className={cx('div-icon-round', 'shadow', 'me-3')}
+                style={{ backgroundColor: '#e0f7fa' }}
+              >
+                <IoPeople
+                  size={28}
+                  color='rgba(0, 121, 107, 0.68888)'
+                  className={cx('icon-round')}
+                />
+              </div>
+
+              <div>
+                <p className={cx('attendance-text')}>
+                  {response?.pageData?.length || '0'}
+                </p>
+                <p>Giáo viên</p>
+              </div>
             </div>
           </div>
         </Col>
@@ -272,20 +273,23 @@ const TeacherManagementPage = () => {
           paginationComponentOptions={{
             rowsPerPageText: 'Số dòng trên trang'
           }}
-          paginationServer
+          // paginationServer
           onRowClicked={item => handleShowTeacherDetail(item)}
           noDataComponent={<NoRecord />}
           progressComponent={<VemLoader />}
         />
       </div>
 
-      <ModalTeacherDetails
-        teacher={teacherSelected!}
-        isOpen={isOpenTeacherDetail}
-        toggleModal={() => {
-          setIsOpenTeacherDetail(!isOpenTeacherDetail);
-        }}
-      />
+      <Suspense fallback={<VemLoader />}>
+        <ModalTeacherDetails
+          accountData={teacherSelected!}
+          isOpen={isOpenTeacherDetail}
+          toggleModal={() => {
+            setIsOpenTeacherDetail(!isOpenTeacherDetail);
+          }}
+          updateParentState={updateParentState}
+        />
+      </Suspense>
     </>
   );
 };

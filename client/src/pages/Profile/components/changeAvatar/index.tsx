@@ -38,7 +38,6 @@ const ChangeAvatar = ({ isOpen, onClose, onReload, imageDefault }: ModalProps) =
   const { getInfo } = useGetInfo();
 
   useEffect(() => {
-    console.log(imageDefault);
     if (isOpen) {
       setFileList([]);
       setImagePreview(imageDefault && imageDefault != '' ? imageDefault : AvatarDefault);

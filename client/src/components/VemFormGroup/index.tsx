@@ -1,9 +1,14 @@
 import { FormGroup, FormGroupProps } from 'reactstrap';
 
-const VemFromGroup = ({ ...restProps }: FormGroupProps) => {
+const VemFromGroup = ({ children, ...restProps }: FormGroupProps) => {
   return (
     <>
-      <FormGroup row>{restProps.children}</FormGroup>
+      <FormGroup
+        row
+        {...restProps}
+      >
+        {children}
+      </FormGroup>
     </>
   );
 };

@@ -14,8 +14,6 @@ const cx = classNames.bind(styles);
 const MenuItem = ({ data, onClick }: MenuItemProps) => {
   const navigate = useNavigate();
 
-  console.log(data);
-
   return (
     <VemButton
       className={cx('menu-item', {

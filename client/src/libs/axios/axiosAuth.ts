@@ -63,7 +63,6 @@ axiosAuth.interceptors.response.use(
 
       try {
         const refreshToken = Cookies.get('refreshToken');
-        console.log(refreshToken);
         if (!refreshToken) {
           // Uncomment this if you have logout logic
 

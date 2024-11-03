@@ -1,10 +1,5 @@
 import className from 'classnames/bind';
 import {
-  HiClipboardDocument,
-  HiClipboardDocumentCheck,
-  HiClipboardDocumentList
-} from 'react-icons/hi2';
-import {
   Col,
   DropdownMenu,
   DropdownToggle,
@@ -12,12 +7,11 @@ import {
   Row,
   UncontrolledDropdown
 } from 'reactstrap';
-import { FaGraduationCap, FaRegFaceFrownOpen } from 'react-icons/fa6';
+import { FaGraduationCap } from 'react-icons/fa6';
 import { IoPeople } from 'react-icons/io5';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FiFilter } from 'react-icons/fi';
-import { useEffect, useState } from 'react';
-import { RiCalendarScheduleLine } from 'react-icons/ri';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { PiStudentDuotone } from 'react-icons/pi';
 
@@ -31,21 +25,76 @@ import VemSelect from '@/components/VemSelect';
 import NoRecord from '@/components/NoRecord';
 import VemsLoader from '@/components/VemsLoader';
 import { studentColumn } from './data-table-column';
-import { StudentIndex } from './type';
-import ModalStudentDetails from './ModalStudentDetails';
+import { ClassOptionData, StudentTableIndex } from './type';
+import {
+  useGetAllClassQuery,
+  useGetStudentInClassQuery
+} from '@/services/adminManagement';
 import { useGetAllStudentQuery } from '@/services/accountManagement';
+
+const ModalStudentDetails = lazy(() => import('./ModalStudentDetails'));
 
 const cx = className.bind(styles);
 
 const StudentManagementPage = () => {
+  // useState-------------------------------------------------------------------------------------------------
   // Modal Create student list
   const [isCloseModalStudent, setIsCloseModalStudent] = useState(false);
 
+  // List class
+  const [classOptions, setClassOptions] = useState<ClassOptionData[]>();
+
   // Modal detail student
-  const [studentId, setStudentId] = useState<string>('');
   const [isOpenStudentDetail, setIsOpenStudentDetail] = useState<boolean>(false);
-  const [students, setStudents] = useState<StudentIndex[]>();
-  const [studentsSelected, setStudentsSelected] = useState<StudentIndex>();
+  const [studentsTable, setStudentsTable] = useState<StudentTableIndex[]>([]);
+  const [studentsSelected, setStudentsSelected] = useState<StudentTableIndex>();
+
+  // Get student list by class id
+  const [classNameSelected, setClassNameSelected] = useState<string>('');
+  const [classIdSelected, setClassIdSelected] = useState<string>('');
+
+  // Function and Mutation -------------------------------------------------------------------------------------
+  // Get all class
+  const { data: classes, isLoading: getAllClassLoading } = useGetAllClassQuery({
+    PageNumber: 1,
+    PageSize: 100
+  });
+
+  // Get student list
+  const { data: ListStudentInClass } = useGetStudentInClassQuery(classIdSelected);
+
+  // useEffect -----------------------------------------------------------------------------------------------------
+  // List class
+  useEffect(() => {
+    if (classes?.pageData && classes) {
+      setClassOptions(
+        classes?.pageData.map(
+          (item: any) => ({ value: item.id, label: item.className }) as ClassOptionData
+        )
+      );
+    }
+  }, [classes]);
+
+  // Get student list
+  useEffect(() => {
+    if (ListStudentInClass) {
+      setStudentsTable(
+        ListStudentInClass?.students?.map((item: any, index: number) => ({
+          index,
+          ...item
+        }))
+      );
+    } else {
+      setStudentsTable([]);
+    }
+  }, [ListStudentInClass]);
+
+  //Event ------------------------------------------------------------------------------------------------------
+  // List class
+  const handleChangeClass = (e: any) => {
+    setClassIdSelected(e.value);
+    setClassNameSelected(e.label);
+  };
 
   const { data: response, refetch } = useGetAllStudentQuery(
     { PageNumber: 1, PageSize: 100 },
@@ -55,16 +104,8 @@ const StudentManagementPage = () => {
     }
   );
 
-  useEffect(() => {
-    if (response) {
-      setStudents(
-        response.pageData?.map((item: any, index: number) => ({ index, ...item }))
-      );
-    }
-  }, [response]);
-
   // Show student detail
-  const handleShowStudentDetail = (item: StudentIndex) => {
+  const handleShowStudentDetail = (item: StudentTableIndex) => {
     setStudentsSelected(item);
     setIsOpenStudentDetail(true);
   };
@@ -98,7 +139,7 @@ const StudentManagementPage = () => {
 
         <Col md={6}>
           <div className={cx('card')}>
-            <h2 className={cx('title', 'mb-3')}>Số lượng học sinh</h2>
+            <h2 className={cx('title', 'mb-1')}>Số lượng học sinh</h2>
 
             <div className={cx('d-flex align-items-center justify-content-end mb-2')}>
               <div className={cx('d-flex justify-content-between mb-4')}>
@@ -118,7 +159,7 @@ const StudentManagementPage = () => {
             </div>
 
             <ModalUploadStudent
-              refetchParent={refetch}
+              // refetchParent={refetch}
               isCloseModalStudent={isCloseModalStudent}
               setIsCloseModalStudent={setIsCloseModalStudent}
             ></ModalUploadStudent>
@@ -137,7 +178,7 @@ const StudentManagementPage = () => {
 
               <div>
                 <p className={cx('attendance-text')}>
-                  {response?.pageData?.length || 'N/A'}
+                  {response?.pageData?.length || '0'}
                 </p>
                 <p>Học sinh</p>
               </div>
@@ -161,17 +202,17 @@ const StudentManagementPage = () => {
             >
               <div className={cx('d-flex align-items-center')}>
                 <Label
-                  className={cx('me-2')}
+                  className={cx('me-3')}
                   style={{
                     fontWeight: '600',
                     fontSize: '18px',
                     marginBottom: '0'
                   }}
                 >
-                  Nhập tên lớp:
+                  Chọn lớp:
                 </Label>
 
-                <div
+                {/* <div
                   className={cx('me-4')}
                   style={{ width: '180px' }}
                 >
@@ -186,7 +227,18 @@ const StudentManagementPage = () => {
                       style={{ marginRight: '6px' }}
                     />
                   }
-                />
+                /> */}
+
+                <div style={{ width: '160px' }}>
+                  <VemSelect
+                    options={classOptions}
+                    placeholder='Chọn lớp'
+                    onChange={e => {
+                      handleChangeClass(e);
+                    }}
+                    isLoading={getAllClassLoading}
+                  />
+                </div>
               </div>
 
               {/* Filter  */}
@@ -342,12 +394,13 @@ const StudentManagementPage = () => {
           className={cx('d-flex justify-content-center')}
         >
           <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
-            Danh sách học sinh
+            Danh sách học sinh{' '}
+            <>{classNameSelected !== '' && `lớp ${classNameSelected}`}</>
           </h1>
         </Col>
 
         <DataTable
-          data={students || []}
+          data={studentsTable}
           columns={studentColumn}
           striped={true}
           highlightOnHover={true}
@@ -356,20 +409,21 @@ const StudentManagementPage = () => {
           paginationComponentOptions={{
             rowsPerPageText: 'Số dòng trên trang'
           }}
-          paginationServer
+          // paginationServer
           onRowClicked={item => handleShowStudentDetail(item)}
           noDataComponent={<NoRecord />}
           progressComponent={<VemsLoader />}
         />
       </div>
-
-      <ModalStudentDetails
-        student={studentsSelected!}
-        isOpen={isOpenStudentDetail}
-        toggleModal={() => {
-          setIsOpenStudentDetail(!isOpenStudentDetail);
-        }}
-      />
+      <Suspense fallback={<VemsLoader />}>
+        <ModalStudentDetails
+          accountData={studentsSelected!}
+          isOpen={isOpenStudentDetail}
+          toggleModal={() => {
+            setIsOpenStudentDetail(!isOpenStudentDetail);
+          }}
+        />
+      </Suspense>
     </>
   );
 };

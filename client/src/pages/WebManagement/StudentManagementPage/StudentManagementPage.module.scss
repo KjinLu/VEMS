@@ -12,9 +12,14 @@
 
 .student-image {
   position: absolute;
-  top: 16px;
+  top: 2px;
   right: 50px;
   color: rgba(0, 121, 107, 0.123456);
+
+  &:hover {
+    scale: (1.1);
+    transition: 0.1s;
+  }
 }
 
 .attendance-select {

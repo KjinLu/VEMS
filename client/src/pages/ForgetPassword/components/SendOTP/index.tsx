@@ -49,7 +49,6 @@ const SendOTP = (
         const errorMessage = (response.error as any)?.data?.message?.toString() ?? '';
         setError(errorMessage);
       }
-      console.log(response);
     } catch (error) {
       setError('Mã OTP không đúng');
     } finally {

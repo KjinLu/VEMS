@@ -81,7 +81,6 @@ const StudentTakeAttendancePage = () => {
         statusID: updatedAttendance[studentID]
       }))
     };
-    console.log(attendanceDataRequest);
 
     var response = await takeAttendance(attendanceDataRequest).unwrap();
     if (response) {

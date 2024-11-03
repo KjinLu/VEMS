@@ -73,7 +73,6 @@ const StudentUpdateAttendancePage = () => {
       }))
     };
 
-    // console.log(attendanceDataRequest);
     var response = await updateAttendance(attendanceDataRequest).unwrap();
     if (response) {
       toast.success('Sửa điểm danh thành công!');

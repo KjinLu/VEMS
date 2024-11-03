@@ -152,7 +152,6 @@ const AdminManagementPage = () => {
 
   const handleChange = (e: any) => {
     setClassSelectedID(e.value);
-    console.log(classSelectedID);
     setWeeklyTimeTable([]);
   };
 
@@ -199,7 +198,7 @@ const AdminManagementPage = () => {
 
         <Col md={8}>
           <div className={cx('card')}>
-            <h2 className={cx('title')}>Thống kê điểm danh học sinh</h2>
+            <h2 className={cx('title', 'mb-4')}>Thống kê điểm danh học sinh</h2>
 
             <div className={cx('d-flex justify-content-end', 'attendance-select')}>
               <div style={{ width: '30%' }}>
@@ -355,7 +354,7 @@ const AdminManagementPage = () => {
                 >
                   {/* <VemsInputCus name='' /> */}
                   <VemSelect
-                    value={classSelectedID}
+                    // value={classSelectedID}
                     options={classOptions!}
                     placeholder='Chọn lớp'
                     onChange={handleChange}

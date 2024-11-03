@@ -99,8 +99,6 @@ const TeacherEditAttendancePage = () => {
       time: time.split('T')[0]
     });
 
-  // console.log(attendanceDataResponse.attendanceID);
-
   useEffect(() => {
     refetchAttendanceData();
   }, []);

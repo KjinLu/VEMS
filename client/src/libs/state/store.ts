@@ -13,6 +13,7 @@ import { profileApi } from '@/services/profile';
 import { forgetPassword } from '@/services/forgetPassword';
 import { classApi } from '@/services/classes';
 import { accountManagementApi } from '@/services/accountManagement';
+import { adminApi } from '@/services/adminManagement';
 
 const persistConfig = {
   key: 'root',
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   [attendanceApi.reducerPath]: attendanceApi.reducer,
   [profileApi.reducerPath]: profileApi.reducer,
   [classApi.reducerPath]: classApi.reducer,
-  [accountManagementApi.reducerPath]: accountManagementApi.reducer
+  [accountManagementApi.reducerPath]: accountManagementApi.reducer,
+  [adminApi.reducerPath]: adminApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -42,7 +44,8 @@ export const store = configureStore({
       attendanceApi.middleware,
       profileApi.middleware,
       classApi.middleware,
-      accountManagementApi.middleware
+      accountManagementApi.middleware,
+      adminApi.middleware
     );
   }
 });

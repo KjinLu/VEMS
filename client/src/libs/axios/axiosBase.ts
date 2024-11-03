@@ -32,7 +32,6 @@ export const axiosBaseQuery =
   }: AxiosBaseQueryProps & T) => {
     try {
       const instance = authRequired ? axiosAuth : axiosPublic;
-      // console.log('baseUrl', baseURL);
       const result = await instance({
         url: `http://localhost:8080/apigateway${url}`,
         method,

@@ -129,7 +129,7 @@ const ClassManagementPage = () => {
 
         <Col md={8}>
           <div className={cx('card')}>
-            <h2 className={cx('title')}>Số lượng lớp học của mỗi khối</h2>
+            <h2 className={cx('title', 'mb-1')}>Số lượng lớp học của mỗi khối</h2>
 
             <div
               className={cx('d-flex justify-content-end')}

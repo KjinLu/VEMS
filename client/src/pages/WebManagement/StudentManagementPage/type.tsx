@@ -1,22 +1,50 @@
-export type StudentIndex = {
-  index: number;
+import * as yup from 'yup';
+
+import { updateStudentAccount } from './form-schemas';
+
+export interface IStudentProfile {
   id: string;
   publicStudentID: string;
   fullName: string;
   citizenID: string;
   username: string;
+  password: string;
   email: string;
-  dob: string;
+  dob: string | null;
   address: string;
   image: string;
   phone: string;
   parentPhone: string;
   homeTown: string;
   unionJoinDate: string;
-  studentTypeId: string;
   studentTypeName: string;
-  classroomId: string;
   classRoom: string;
-  roleId: string;
-  role: string;
+}
+
+export interface IUpdateStudentProfile {
+  studentId: string;
+  fullName: string;
+  citizenID: string;
+  email: string;
+  dob: string;
+  address: string;
+  phone: string;
+  parentPhone: string;
+  homeTown: string;
+  unionJoinDate: string;
+}
+
+export type StudentTableIndex = {
+  index: number;
+  studentID: string;
+  publicStudentID: string;
+  studentName: string;
+  studentImage: string;
 };
+
+export type ClassOptionData = {
+  value: string;
+  label: string;
+};
+
+export type AccountForm = yup.InferType<typeof updateStudentAccount>;

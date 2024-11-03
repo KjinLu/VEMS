@@ -114,20 +114,15 @@ ul.nav.nav-tabs {
   }
 }
 
-// Image ---------------------------------------------------
-.img {
-  transition: 0.5s;
-}
-
 // Modal ---------------------------------------------------
 .modal.show .modal-dialog {
   box-shadow: 0 8px 16px 8px rgb(0, 0, 0, 0.3);
   border-radius: 8px;
 }
 
-.modal-dialog {
-  margin-top: 100px !important;
-}
+// .modal-dialog {
+//   margin-top: 100px !important;
+// }
 
 .modal-body {
   padding: 0 !important;
