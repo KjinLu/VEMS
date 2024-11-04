@@ -48,15 +48,27 @@ const tabData = [
 ];
 
 const ClassManagementPage = () => {
-  // Modal schedule-----------------------------------------------------
+  // UseState--------------------------------------------------------------------------------
+  // Modal schedule
   const [isCloseModalClass, setIsCloseModalClass] = useState(false);
 
   // Change tab
   const [loadedTabs, setLoadedTabs] = useState<number[]>([1]);
   const [activeTabId, setActiveTabId] = useState(1);
+
+  // class
   const [classes, setClasses] = useState<any>();
+
+  //Grade
   const [grades, setGrades] = useState<any>();
 
+  // Count class
+  const [classAmountTenTh, setClassAmountTenTh] = useState<any>(undefined);
+  const [classAmountElevenTh, setClassAmountElevenTh] = useState<any>(undefined);
+  const [classAmountTwelveTh, setClassAmountTwelveTh] = useState<any>(undefined);
+
+  // Function and Mutation -------------------------------------------------------------------------------------
+  // get all Grade
   const { data: gradeResponse, refetch } = useGetAllGradeQuery(
     { PageNumber: 1, PageSize: 100 },
     {
@@ -64,6 +76,8 @@ const ClassManagementPage = () => {
       refetchOnFocus: true
     }
   );
+
+  // get all Class
   const { data: classResponse } = useGetAllClassQuery(
     { PageNumber: 1, PageSize: 100 },
     {
@@ -72,12 +86,20 @@ const ClassManagementPage = () => {
     }
   );
 
+  // useEffect -------------------------------------------------------------------------------------------------
+  // Tab Grade
+  useEffect(() => {
+    handleTabChange(activeTabId);
+  }, [activeTabId]);
+
+  // Grade data
   useEffect(() => {
     if (gradeResponse) {
       if (gradeResponse.pageData) setGrades(gradeResponse.pageData);
     }
   }, [gradeResponse]);
 
+  // Class data
   useEffect(() => {
     if (classResponse) {
       if (classResponse.pageData)
@@ -89,16 +111,26 @@ const ClassManagementPage = () => {
     }
   }, [classResponse]);
 
+  // Count class
+  useEffect(() => {
+    const dataRes = grades?.map((grade: any) => ({
+      gradeName: grade.gradeName,
+      classCount: classes.filter((x: any) => x.gradeId === grade.id).length
+    }));
+
+    setClassAmountTenTh(dataRes?.find((x: any) => x.gradeName === '10'));
+    setClassAmountElevenTh(dataRes?.find((x: any) => x.gradeName === '11'));
+    setClassAmountTwelveTh(dataRes?.find((x: any) => x.gradeName === '12'));
+  }, [grades, classes]);
+
+  // Event -------------------------------------------------------------------------------------------------
+  // Change Tab Grade
   const handleTabChange = (tabId: number) => {
     setActiveTabId(tabId);
     if (!loadedTabs.includes(tabId)) {
       setLoadedTabs([...loadedTabs, tabId]);
     }
   };
-
-  useEffect(() => {
-    handleTabChange(activeTabId);
-  }, [activeTabId]);
 
   return (
     <>
@@ -175,7 +207,9 @@ const ClassManagementPage = () => {
                 </div>
 
                 <div>
-                  <p className={cx('attendance-text')}>0</p>
+                  <p className={cx('attendance-text')}>
+                    {classAmountTenTh ? classAmountTenTh?.classCount : '0'}
+                  </p>
                   <p>Lớp học</p>
                 </div>
               </div>
@@ -195,7 +229,9 @@ const ClassManagementPage = () => {
                 </div>
 
                 <div>
-                  <p className={cx('attendance-text')}>0</p>
+                  <p className={cx('attendance-text')}>
+                    {classAmountElevenTh ? classAmountElevenTh?.classCount : '0'}
+                  </p>
                   <p>Lớp học</p>
                 </div>
               </div>
@@ -215,7 +251,9 @@ const ClassManagementPage = () => {
                 </div>
 
                 <div>
-                  <p className={cx('attendance-text')}>0</p>
+                  <p className={cx('attendance-text')}>
+                    {classAmountTwelveTh ? classAmountTwelveTh?.classCount : '0'}
+                  </p>
                   <p>Lớp học</p>
                 </div>
               </div>
