@@ -92,9 +92,9 @@ const ModalStudentDetails = ({
       dob: dateOfBirth,
       email: mail!,
       homeTown: hometown,
-      parentPhone,
+      parentPhone: parentPhone,
       phone: studentPhone,
-      studentId: studentId,
+      studentId: accountSelected?.id!,
       unionJoinDate: dateOfUnion
     })
       .then(() => {

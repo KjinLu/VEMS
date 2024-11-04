@@ -78,7 +78,7 @@ export const adminApi = createApi({
     }),
     updateStudentProfile: build.mutation({
       query: (profile: IUpdateStudentProfile) => ({
-        url: '/studentService/update-profile',
+        url: '/AccountManagementService/updateStudentAccount',
         method: 'put',
         authRequired: true,
         data: profile
