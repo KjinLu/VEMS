@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessObject;
 using DataAccess.DAO;
 using DataAccess.DTO;
+using Microsoft.Identity.Client;
 
 namespace DataAccess.Repository
 {
@@ -19,6 +20,7 @@ namespace DataAccess.Repository
         public Task<Student> GetStudentByUsernameAsync(string username);
         public Task<Student> GetStudentByEmailAsync(string email);
         public Task<Teacher> GetTeacherByIdAsync(Guid accountID);
+        public Task<TeacherResponse> GetTeacherProfileByIdAsync(Guid accountID);
         public Task<Teacher> GetTeacherByUsernameAsync(string username);
         public Task<Teacher> GetTeacherByEmailAsync(string email);
         public Task<CommonAccountType> GetAccountByEmailAsync(string username);
@@ -27,8 +29,8 @@ namespace DataAccess.Repository
         public Task<bool> UpdateRefreshTokenAsync(Guid accountID, string token);
         public Task<bool> UpdatePassword(Guid accountID, string newPassword);
         public Task<List<Admin>> GetAllAdminAsync();
-        public Task<List<Teacher>> GetAllTeacherAsync();
-        public Task<List<Student>> GetAllStudentAsync();
+        public Task<List<TeacherResponse>> GetAllTeacherAsync();
+        public Task<List<StudentResponse>> GetAllStudentAsync();
         public Task<List<Student>> RegisterStudentAsync(List<Student> requests);
         public Task<List<Teacher>> RegisterTeacherAsync(List<Teacher> requests);
         public Task<Student> CreateAStudentAccount(Student request);
@@ -36,6 +38,8 @@ namespace DataAccess.Repository
         public Task<bool> UpdateStudentProfile(Student request);
         public Task<bool> UpdateTeacherProfile(Teacher request);
         public Task<bool> UpdateAvatar(Guid accountID, string imageLink);
+        public Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest teacher);
+        
 
     }
 
@@ -43,9 +47,9 @@ namespace DataAccess.Repository
     {
         public async Task<List<Admin>> GetAllAdminAsync() => await AccountDAO.Instance.GetAllAdminAsync();
 
-        public async Task<List<Student>> GetAllStudentAsync() => await AccountDAO.Instance.GetAllStudentAsync();
+        public async Task<List<StudentResponse>> GetAllStudentAsync() => await AccountDAO.Instance.GetAllStudentAsync();
 
-        public async Task<List<Teacher>> GetAllTeacherAsync() => await AccountDAO.Instance.GetAllTeacherAsync();
+        public async Task<List<TeacherResponse>> GetAllTeacherAsync() => await AccountDAO.Instance.GetAllTeacherAsync();
 
         public async Task<CommonAccountType> GetAccountByIDAsync(Guid accountID) => await AccountDAO.Instance.GetAccountByIDAsync(accountID);
 
@@ -77,15 +81,18 @@ namespace DataAccess.Repository
         public async Task<List<Student>> RegisterStudentAsync(List<Student> requests) => await AccountDAO.Instance.RegisterStudentAsync(requests);
         public async Task<List<Teacher>> RegisterTeacherAsync(List<Teacher> requests) => await AccountDAO.Instance.RegisterTeacherAsync(requests);
 
-        public async Task<Student> CreateAStudentAccount(Student request) =>await AccountDAO.Instance.CreateAStudentAccount(request);
+        public async Task<Student> CreateAStudentAccount(Student request) => await AccountDAO.Instance.CreateAStudentAccount(request);
 
-        public async Task<Teacher> CreateTeacherAccount(Teacher request) =>await AccountDAO.Instance.CreateATeacherAccount(request);
+        public async Task<Teacher> CreateTeacherAccount(Teacher request) => await AccountDAO.Instance.CreateATeacherAccount(request);
 
         public async Task<bool> UpdateStudentProfile(Student request) => await AccountDAO.Instance.UpdateStudentProfile(request);
 
         public async Task<bool> UpdateTeacherProfile(Teacher request) => await AccountDAO.Instance.UpdateTeacherProfile(request);
 
         public async Task<bool> UpdateAvatar(Guid accountID, string imageLink) => await AccountDAO.Instance.UpdateAvatarAsync(accountID, imageLink);
-         
+
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID) => await AccountDAO.Instance.GetTeacherProfileByIdAsync(accountID);
+
+        public async Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest teacher) => await AccountDAO.Instance.UpdateTeacherHomeRoom(teacher);
     }
 }

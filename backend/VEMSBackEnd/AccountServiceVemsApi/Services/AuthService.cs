@@ -108,43 +108,72 @@ using SchoolMate.Authorizotion;
             return hiddenEmail;
         }
 
-        public async Task<string> SendRecoverEmail(SendEmailRequest request)
+    public async Task<string> SendRecoverEmail(SendEmailRequest request)
+    {
+        var checkEmail = await accountRepository.GetAccountByEmailAsync(request.UsernameOrEmail);
+        var checkUsername = await accountRepository.GetAccountByUsernameAsync(request.UsernameOrEmail);
+
+        var plainEmail = "";
+        var hiddenEmail = "";
+        Guid account;
+
+        if (checkEmail == null && checkUsername == null)
+            throw new Exception("Email hoặc tên đăng nhập không tồn tại");
+
+        if (checkEmail != null)
         {
-            var checkEmail = await accountRepository.GetAccountByEmailAsync(request.UsernameOrEmail);
-            var checkUsername = await accountRepository.GetAccountByUsernameAsync(request.UsernameOrEmail);
-
-            var plainEmail = "";
-            var hidenEmail = "";
-            Guid account ;
-
-            if (checkEmail == null && checkUsername == null) throw new Exception("Email hoặc tên đăng nhập không tồn tại");
-            if(checkEmail != null)
-            {
-                plainEmail = checkEmail.Email;
-                hidenEmail = HandleHiddenEmail(checkEmail.Email);
-                account = checkEmail.AccountID;
-            } else
-            {
-                plainEmail = checkUsername.Email;
-                hidenEmail = HandleHiddenEmail(checkUsername.Email);
-                account = checkUsername.AccountID;
-            }
-            EmailToken token = new EmailToken();
-
-            var code = GenerateRandomCode();
-
-            token.Token = code;
-            token.CreateAt = DateTime.Now;
-            token.AccountID = account;
-            await emailTokenRepository.CreateToken(token);
-          
-            _emailService.Send(plainEmail, "VEMS - Khôi phục mật khẩu", $"<b>{code}<b>", null);
-
-
-            return hidenEmail;
+            plainEmail = checkEmail.Email;
+            hiddenEmail = HandleHiddenEmail(checkEmail.Email);
+            account = checkEmail.AccountID;
+        }
+        else
+        {
+            plainEmail = checkUsername.Email;
+            hiddenEmail = HandleHiddenEmail(checkUsername.Email);
+            account = checkUsername.AccountID;
         }
 
-        public async Task<CommonAccountType> CheckVerifyEmail(ValidateEmailRequest request)
+        EmailToken token = new EmailToken();
+        var code = GenerateRandomCode();
+
+        token.Token = code;
+        token.CreateAt = DateTime.Now;
+        token.AccountID = account;
+        await emailTokenRepository.CreateToken(token);
+
+        // Thiết kế giao diện email
+        var emailBody = $@"
+    <html>
+      <body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 0; margin: 0;'>
+        <div style='max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden;'>
+          <div style='background-color: #0056b3; padding: 20px; color: white; text-align: center;'>
+            <h1 style='margin: 0; font-size: 24px;'>VEMS - Khôi phục mật khẩu</h1>
+          </div>
+          <div style='padding: 20px; color: #333333;'>
+            <p>Xin chào,</p>
+            <p>Bạn đã yêu cầu khôi phục mật khẩu cho tài khoản VEMS của mình.</p>
+            <p>Để tiếp tục, vui lòng sử dụng mã xác nhận bên dưới:</p>
+            <div style='text-align: center; margin: 20px 0;'>
+              <span style='display: inline-block; padding: 15px 30px; font-size: 24px; color: #ffffff; background-color: #0056b3; border-radius: 8px;'>{code}</span>
+            </div>
+            <p>Vui lòng nhập mã này vào trang khôi phục mật khẩu của hệ thống trong vòng 15 phút.</p>
+            <p style='margin-top: 20px;'>Nếu bạn không thực hiện yêu cầu này, xin vui lòng bỏ qua email này.</p>
+            <p>Trân trọng,<br/>Đội ngũ hỗ trợ VEMS</p>
+          </div>
+          <div style='background-color: #f4f4f4; padding: 10px; text-align: center; color: #888888; font-size: 12px;'>
+            <p>© 2024 VEMS. Tất cả các quyền được bảo lưu.</p>
+          </div>
+        </div>
+      </body>
+    </html>";
+
+        _emailService.Send(plainEmail, "VEMS - Khôi phục mật khẩu", emailBody, null);
+
+        return hiddenEmail;
+    }
+
+
+    public async Task<CommonAccountType> CheckVerifyEmail(ValidateEmailRequest request)
         {
             var checkEmail = await accountRepository.GetAccountByEmailAsync(request.UsernameOrEmail);
             var checkUsername = await accountRepository.GetAccountByUsernameAsync(request.UsernameOrEmail);

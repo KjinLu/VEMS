@@ -1,6 +1,8 @@
 ﻿using Azure.Core;
 using BusinessObject;
+using DataAccess.Dto.ClassroomDto;
 using DataAccess.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using static System.Net.Mime.MediaTypeNames;
@@ -95,14 +97,35 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Student>> GetAllStudentAsync()
+        public async Task<List<StudentResponse>> GetAllStudentAsync()
         {
             try
             {
-
                 using (var context = new VemsContext())
                 {
-                    return await context.Students.ToListAsync();
+                    return await context.Students
+                        .Include(s => s.Classroom) // Bao gồm Classroom
+                        .Include(s => s.StudentType) // Bao gồm StudentType
+                        .Select(s => new StudentResponse
+                        {
+                            Id = s.Id,
+                            PublicStudentID = s.PublicStudentID,
+                            FullName = s.FullName,
+                            CitizenID = s.CitizenID,
+                            Username = s.Username,
+                            Password = s.Password, // Chỉ nên trả về khi cần thiết
+                            Email = s.Email,
+                            Dob = s.Dob,
+                            Address = s.Address,
+                            Image = s.Image,
+                            Phone = s.Phone,
+                            ParentPhone = s.ParentPhone,
+                            HomeTown = s.HomeTown,
+                            UnionJoinDate = s.UnionJoinDate,
+                            StudentTypeName = s.StudentType.TypeName,
+                            ClassRoom = s.Classroom.ClassName
+                        })
+                        .ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -110,6 +133,7 @@ namespace DataAccess.DAO
                 throw new Exception(ex.Message);
             }
         }
+
 
         public async Task<Student> GetStudentByIdAsync(Guid id)
         {
@@ -162,13 +186,31 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<Teacher>> GetAllTeacherAsync()
+        public async Task<List<TeacherResponse>> GetAllTeacherAsync()
         {
             try
             {
                 using (var context = new VemsContext())
                 {
-                    return await context.Teacher.ToListAsync();
+                    return await context.Teacher
+               .Include(t => t.TeacherType) // Nếu cần, bao gồm TeacherType
+               .Include(t => t.Classroom) // Nếu cần, bao gồm Classroom
+               .Select(t => new TeacherResponse
+               {
+                   Id = t.Id,
+                   PublicTeacherID = t.PublicTeacherID,
+                   FullName = t.FullName,
+                   CitizenID = t.CitizenID,
+                   Username = t.Username,
+                   Email = t.Email,
+                   Dob = t.Dob,
+                   Address = t.Address,
+                   Image = t.Image,
+                   Phone = t.Phone,
+                   TeacherTypeName = t.TeacherType.TypeName,
+                   ClassRoom = t.Classroom.ClassName
+               })
+               .ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -303,6 +345,7 @@ namespace DataAccess.DAO
                                              Image = a.Image,
                                              RoleID = r.Id,
                                              RoleName = r.Code
+
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -315,6 +358,7 @@ namespace DataAccess.DAO
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
                         Username = student.Username
+
 
                     };
                 }
@@ -362,16 +406,21 @@ namespace DataAccess.DAO
 
                     var teacher = await (from a in context.Teacher
                                          join r in context.Roles on a.RoleId equals r.Id
+                                         join t in context.TeacherTypes on a.TeacherTypeId equals t.Id
                                          where a.Id == accountID
                                          select new
                                          {
                                              AccountID = a.Id,
                                              Username = a.Username,
                                              Password = a.Password,
+                                             Image = a.Image,
                                              Email = a.Email,
                                              RefreshToken = a.RefreshToken,
                                              RoleID = r.Id,
-                                             RoleName = r.Code
+                                             RoleName = r.Code,
+                                             TeacherType = t.Code,
+                                             FullName = a.FullName,
+                                             ClassID = a.ClassroomId,
                                          }).FirstOrDefaultAsync();
 
                     if (teacher != null) return new CommonAccountType
@@ -382,12 +431,17 @@ namespace DataAccess.DAO
                         Password = teacher.Password,
                         RoleID = teacher.RoleID,
                         RoleName = teacher.RoleName,
-                        Username = teacher.Username
-
+                        Username = teacher.Username,
+                        Image = teacher.Image,
+                        FullName = teacher.FullName,
+                        TeacherType = teacher.TeacherType,
+                        ClassroomID = teacher.ClassID,
                     };
 
                     var student = await (from a in context.Students
                                          join r in context.Roles on a.RoleId equals r.Id
+                                         join c in context.Classrooms on a.ClassroomId equals c.Id
+                                         join t in context.studentTypes on a.StudentTypeId equals t.Id
                                          where a.Id == accountID
                                          select new
                                          {
@@ -397,7 +451,13 @@ namespace DataAccess.DAO
                                              Email = a.Email,
                                              RefreshToken = a.RefreshToken,
                                              RoleID = r.Id,
-                                             RoleName = r.Code
+                                             RoleName = r.Code,
+                                             ClassroomID = a.ClassroomId,
+                                             ClassroomName = c.ClassName,
+                                             FullName = a.FullName,
+                                             StudentType = t.Code,
+                                             Image = a.Image,
+
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -408,8 +468,11 @@ namespace DataAccess.DAO
                         Password = student.Password,
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
-                        Username = student.Username
-
+                        Username = student.Username,
+                        ClassroomID = student.ClassroomID,
+                        FullName = student.FullName,
+                        StudentType = student.StudentType,
+                        Image = student.Image
                     };
                 }
                 return null;
@@ -447,7 +510,7 @@ namespace DataAccess.DAO
                         AccountID = admin.AccountID,
                         Email = admin.Email,
                         RefreshToken = admin.RefreshToken,
-                        Password= admin.Password,
+                        Password = admin.Password,
                         RoleID = admin.RoleID,
                         RoleName = admin.RoleName,
                         Username = admin.Username
@@ -494,7 +557,8 @@ namespace DataAccess.DAO
                                              RefreshToken = a.RefreshToken,
                                              Image = a.Image,
                                              RoleID = r.Id,
-                                             RoleName = r.Code
+                                             RoleName = r.Code,
+                                             ClassID = a.ClassroomId,
                                          }).FirstOrDefaultAsync();
 
                     if (student != null) return new CommonAccountType
@@ -502,11 +566,12 @@ namespace DataAccess.DAO
                         AccountID = student.AccountID,
                         Email = student.Email,
                         RefreshToken = student.RefreshToken,
-                        Password= student.Password,
+                        Password = student.Password,
                         Image = student.Image,
                         RoleID = student.RoleID,
                         RoleName = student.RoleName,
-                        Username = student.Username
+                        Username = student.Username,
+                        ClassroomID = student.ClassID,
 
                     };
                 }
@@ -666,7 +731,7 @@ namespace DataAccess.DAO
                 throw new Exception(ex.Message);
             }
         }
-   
+
         public async Task<Student> CreateAStudentAccount(Student student)
         {
             try
@@ -794,5 +859,122 @@ namespace DataAccess.DAO
             }
         }
 
+        // Lấy teacher theo Id
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid id)
+        {
+            try
+            {
+                var _context = new VemsContext();
+                var teacherResponse = await (from teacher in _context.Teacher
+                                             join classroom in _context.Classrooms on teacher.ClassroomId equals classroom.Id into classLeftJoin
+                                             from classroom in classLeftJoin.DefaultIfEmpty()
+                                             join teacherType in _context.TeacherTypes on teacher.TeacherTypeId equals teacherType.Id
+                                             where teacher.Id == id
+                                             select new TeacherResponse
+                                             {
+                                                 Id = teacher.Id,
+                                                 PublicTeacherID = teacher.PublicTeacherID,
+                                                 FullName = teacher.FullName,
+                                                 CitizenID = teacher.CitizenID,
+                                                 Username = teacher.Username,
+                                                 Password = teacher.Password,
+                                                 Email = teacher.Email,
+                                                 Dob = teacher.Dob,
+                                                 Address = teacher.Address,
+                                                 Image = teacher.Image,
+                                                 Phone = teacher.Phone,
+                                                 TeacherTypeName = teacherType.TypeName,
+                                                 ClassRoom = classroom.ClassName
+                                             }).AsNoTracking().FirstOrDefaultAsync().ConfigureAwait(false);
+
+                return teacherResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy học sinh theo Id: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest teacherHomeroom)
+        {
+            using (var context = new VemsContext())
+            {
+                if (string.IsNullOrEmpty(teacherHomeroom.ClassId))
+                {
+                    var dbTeacher = await context.Teacher.AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.Id == teacherHomeroom.TeacherId);
+
+                    if (dbTeacher != null)
+                    {
+                        if (dbTeacher.ClassroomId != null)
+                        {
+                            dbTeacher.ClassroomId = null;
+                            dbTeacher.TeacherTypeId = await context.TeacherTypes
+                                .Where(tt => tt.Code == "DATA_ENTRY_TEACHER")
+                                .Select(tt => tt.Id)
+                                .FirstOrDefaultAsync();
+
+                            context.Entry(dbTeacher).State = EntityState.Modified;
+                            await context.SaveChangesAsync();
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Không tìm thấy giáo viên với ID {teacherHomeroom.TeacherId}");
+                    }
+                }
+
+                // Chuyển đổi ClassId thành Guid
+                var classId = new Guid(teacherHomeroom.ClassId);
+
+                var className = await context.Classrooms
+                    .Where(c => c.Id == classId)
+                    .Select(c => c.ClassName)
+                    .FirstOrDefaultAsync();
+
+                if (className != null)
+                {
+                    var exists = await context.Teacher
+                        .AnyAsync(t => t.ClassroomId == classId);
+
+                    if (!exists)
+                    {
+                        var dbTeacher = await context.Teacher.AsNoTracking()
+                            .FirstOrDefaultAsync(s => s.Id == teacherHomeroom.TeacherId);
+
+                        if (dbTeacher != null)
+                        {
+                            dbTeacher.ClassroomId = classId;
+                            dbTeacher.TeacherTypeId = await context.TeacherTypes
+                                .Where(tt => tt.Code == "PRIMARY_TEACHER")
+                                .Select(tt => tt.Id)
+                                .FirstOrDefaultAsync();
+
+                            context.Entry(dbTeacher).State = EntityState.Modified;
+                            await context.SaveChangesAsync();
+                            return true;
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException($"Không tìm thấy giáo viên với ID {teacherHomeroom.TeacherId}");
+                        }
+                    }
+                    else
+                    {
+                        var teacherName = await context.Teacher
+                            .Where(t => t.ClassroomId == classId)
+                            .Select(t => t.FullName)
+                            .FirstOrDefaultAsync();
+
+                        throw new InvalidOperationException($"Lớp {className} đã được giáo viên {teacherName} làm chủ nhiệm");
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Lớp {classId} chưa có trong danh sách lớp");
+                }
+            }
+        }
     }
 }

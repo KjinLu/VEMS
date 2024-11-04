@@ -35,7 +35,7 @@ public class ClassroomService : IClassroomService
         int pageSize = request.PageSize;
 
         // Get all classrooms and count
-        IEnumerable<Classroom> classrooms = await _repository.GetAllClassrooms();
+        var classrooms = await _repository.GetAllClassrooms();
         IEnumerable<ClassroomResponse> classroomDtos = classrooms.Select(classroom => new ClassroomResponse
         {
             Id = classroom.Id,
@@ -87,4 +87,5 @@ public class ClassroomService : IClassroomService
     {
         await _repository.DeleteClassroom(id);
     }
+
 }

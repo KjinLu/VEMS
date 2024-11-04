@@ -7,14 +7,17 @@ using DataAccess.Repository;
     {
         Task<bool> UpdateProfile(UpdateTeacherProfileRequest request);
 
-        Task<bool> ChangePassword(ChangePasswordRequest request);
+        Task<bool> ChangePassword(UpdatePasswordRequest request);
 
         Task<bool> UploadAvatar(UploadAvatartRequest request);
 
         Task<bool> DeleteAvatar(DeleteAvatarRequest request);
-    }
+        Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest request);
 
-    public class TeacherService : ITeacherService
+        Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID);
+}
+
+public class TeacherService : ITeacherService
     {
 
         private readonly IAccountRepository _accountRepository;
@@ -40,12 +43,21 @@ using DataAccess.Repository;
             
         }
 
-        public async Task<bool> ChangePassword(ChangePasswordRequest request)
+        public async Task<bool> ChangePassword(UpdatePasswordRequest request)
         {
-            return await _accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
+            CommonAccountType account = await _accountRepository.GetAccountByIDAsync(request.AccountID);
+            if (account == null) return false;
+            if (CheckHashed(request.OldPassword, account.Password))
+                return await _accountRepository.UpdatePassword(request.AccountID, Hashing(request.NewPassword));
+            throw new Exception("Mật khẩu cũ không đúng!");
+          }
+
+        public bool CheckHashed(string origin, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(origin, hash);
         }
 
-        public string Hashing(string password)
+          public string Hashing(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password, 6);
         }
@@ -61,5 +73,14 @@ using DataAccess.Repository;
             return await _accountRepository.UpdateAvatar(request.AccountID, "");
         }
 
+        public async Task<TeacherResponse?> GetTeacherProfileByIdAsync(Guid accountID)
+        {
+            return await _accountRepository.GetTeacherProfileByIdAsync(accountID);
+        }
+
+    public async Task<bool> UpdateTeacherHomeRoom(UpdateTeacherHomeroomRequest request)
+    {
+        return await _accountRepository.UpdateTeacherHomeRoom(request);
     }
+}
 

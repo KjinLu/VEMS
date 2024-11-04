@@ -1,0 +1,99 @@
+.modal-wrapper {
+  position: relative;
+}
+
+.modal-student-title {
+  position: absolute;
+  top: 13px;
+  left: 12px;
+}
+
+.modal-icon-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.modal-icon-close::before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 56px;
+  height: 56px;
+  top: -8px;
+  left: -10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.modal-content {
+  padding-top: 48px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.line-break {
+  height: 2px;
+  background: linear-gradient(135deg, #b9d1e9, #1976d2);
+}
+
+.content-student-wrapper {
+  padding: 30px;
+}
+
+.content-student {
+  border-radius: 5px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.2);
+  padding: 20px 18px;
+}
+
+.student-name {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 38px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background: linear-gradient(135deg, #b9d1e9, #1976d2);
+  }
+
+  &::before {
+    bottom: -9px;
+    width: calc(60%);
+    height: 2px;
+  }
+
+  &::after {
+    bottom: -18px;
+    width: 100%;
+    height: 3px;
+  }
+}
+
+.student-avatar {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 180px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.student-details {
+  font-size: 18px;
+
+  p {
+    text-align: left;
+  }
+
+  span {
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,22 @@
+export type StudentIndex = {
+  index: number;
+  id: string;
+  publicStudentID: string;
+  fullName: string;
+  citizenID: string;
+  username: string;
+  email: string;
+  dob: string;
+  address: string;
+  image: string;
+  phone: string;
+  parentPhone: string;
+  homeTown: string;
+  unionJoinDate: string;
+  studentTypeId: string;
+  studentTypeName: string;
+  classroomId: string;
+  classRoom: string;
+  roleId: string;
+  role: string;
+};
