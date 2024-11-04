@@ -40,7 +40,7 @@ const TeacherManagementPage = () => {
   const [isOpenTeacherDetail, setIsOpenTeacherDetail] = useState<boolean>(false);
 
   // Query and Mutation-------------------------------------------------------------------------------
-  const { data: response, refetch } = useGetAllTeacherQuery(
+  const { data: response, refetch: teacherListRefetch } = useGetAllTeacherQuery(
     { PageNumber: 1, PageSize: 100 },
     {
       refetchOnMountOrArgChange: true,
@@ -66,7 +66,7 @@ const TeacherManagementPage = () => {
 
   //Update table
   const updateParentState = () => {
-    refetch();
+    teacherListRefetch();
   };
 
   return (
@@ -117,7 +117,7 @@ const TeacherManagementPage = () => {
               </div>
 
               <ModalUploadTeacher
-                refetchParent={refetch}
+                refetchParent={teacherListRefetch}
                 isCloseModalTeacher={isCloseModalTeacher}
                 setIsCloseModalTeacher={setIsCloseModalTeacher}
               />

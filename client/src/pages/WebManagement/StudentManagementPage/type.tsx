@@ -32,6 +32,11 @@ export interface IUpdateStudentProfile {
   parentPhone: string;
   homeTown: string;
   unionJoinDate: string;
+  username: string;
+  studentTypeId: string;
+  publicStudentID: string;
+  classroomId: string;
+  password: string;
 }
 
 export type StudentTableIndex = {
@@ -40,6 +45,7 @@ export type StudentTableIndex = {
   publicStudentID: string;
   studentName: string;
   studentImage: string;
+  studentTypeID: string;
 };
 
 export type ClassOptionData = {

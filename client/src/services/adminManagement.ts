@@ -30,6 +30,11 @@ export interface IUpdateStudentProfile {
   parentPhone: string;
   homeTown: string;
   unionJoinDate: string;
+  username: string;
+  studentTypeId: string;
+  publicStudentID: string;
+  classroomId: string;
+  password: string;
 }
 
 const baseUrl = import.meta.env.VITE_PUBLIC_API || '';

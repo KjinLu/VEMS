@@ -4,9 +4,16 @@ import { IoIosSend, IoMdClose } from 'react-icons/io';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { ApolloError } from '@apollo/client';
 
 import styles from './ModalStudentDetails.module.scss';
-import { AccountForm, IStudentProfile, StudentTableIndex } from '../type';
+import {
+  AccountForm,
+  ClassOptionData,
+  IStudentProfile,
+  StudentTableIndex
+} from '../type';
 import {
   useGetStudentProfileQuery,
   useUpdateStudentProfileMutation
@@ -16,13 +23,13 @@ import AvatarImage from '@/assets/images/avatar-test.jpg';
 import VemsInputCus from '@/components/VemsInputCustom';
 import { updateStudentAccount } from '../form-schemas';
 import VemsButtonCus from '@/components/VemsButtonCustom';
-import { toast } from 'react-toastify';
-import { ApolloError } from '@apollo/client';
 
 type ModalStudentDetailsProps = {
   accountData: StudentTableIndex;
   isOpen: boolean;
   toggleModal: () => void;
+  updateParentState: any;
+  classOptions: ClassOptionData[] | undefined;
 };
 
 const cx = className.bind(styles);
@@ -30,16 +37,18 @@ const cx = className.bind(styles);
 const ModalStudentDetails = ({
   accountData,
   isOpen,
-  toggleModal
+  toggleModal,
+  updateParentState,
+  classOptions
 }: ModalStudentDetailsProps) => {
-  // console.log(accountData);
   // useState------------------------------------------------------------------------
   const [accountSelected, setAccountSelected] = useState<IStudentProfile | undefined>(
     undefined
   );
 
   // Query and Mutation -------------------------------------------------------------
-  const { data: studentProfileData } = useGetStudentProfileQuery(accountData?.studentID);
+  const { data: studentProfileData, refetch: studentProfileDataRefetch } =
+    useGetStudentProfileQuery(accountData?.studentID);
   const [updateStudentProfile, { isLoading: isUpdateLoading }] =
     useUpdateStudentProfileMutation();
 
@@ -48,7 +57,12 @@ const ModalStudentDetails = ({
     setAccountSelected(studentProfileData);
   }, [studentProfileData]);
 
-  console.log(accountSelected);
+  useEffect(() => {
+    if (accountData?.studentID) {
+      studentProfileDataRefetch();
+    }
+  }, [accountData?.studentID, studentProfileDataRefetch]);
+
   // event ----------------------------------------------------------------------------
   const {
     control,
@@ -85,6 +99,8 @@ const ModalStudentDetails = ({
       mail
     } = accountFormData;
 
+    const classIdData = classOptions?.filter(x => x.label === accountSelected?.classRoom);
+
     updateStudentProfile({
       fullName: name,
       citizenID: cardId,
@@ -95,10 +111,15 @@ const ModalStudentDetails = ({
       parentPhone: parentPhone,
       phone: studentPhone,
       studentId: accountSelected?.id!,
-      unionJoinDate: dateOfUnion
+      unionJoinDate: dateOfUnion,
+      username: studentId,
+      studentTypeId: accountData?.studentTypeID,
+      publicStudentID: studentId,
+      classroomId: classIdData?.[0].value!,
+      password: '1'
     })
       .then(() => {
-        // updateParentState();
+        updateParentState();
         toggleModal();
         toast.success('Lưu thông tin thành công!');
       })
@@ -298,6 +319,7 @@ const ModalStudentDetails = ({
                       control={control}
                       name='mail'
                       placeholder='E-mail'
+                      disabled
                       errors={[updateAccountValidationErrors?.mail?.message!]}
                     />
                   </div>

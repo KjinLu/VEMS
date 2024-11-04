@@ -60,8 +60,18 @@ const StudentManagementPage = () => {
     PageSize: 100
   });
 
-  // Get student list
-  const { data: ListStudentInClass } = useGetStudentInClassQuery(classIdSelected);
+  // Get student list in class
+  const { data: ListStudentInClass, refetch: studentListInClassRefetch } =
+    useGetStudentInClassQuery(classIdSelected);
+
+  // Get all Students
+  const { data: response } = useGetAllStudentQuery(
+    { PageNumber: 1, PageSize: 100 },
+    {
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
+    }
+  );
 
   // useEffect -----------------------------------------------------------------------------------------------------
   // List class
@@ -96,18 +106,15 @@ const StudentManagementPage = () => {
     setClassNameSelected(e.label);
   };
 
-  const { data: response, refetch } = useGetAllStudentQuery(
-    { PageNumber: 1, PageSize: 100 },
-    {
-      refetchOnMountOrArgChange: true,
-      refetchOnFocus: true
-    }
-  );
-
   // Show student detail
   const handleShowStudentDetail = (item: StudentTableIndex) => {
     setStudentsSelected(item);
     setIsOpenStudentDetail(true);
+  };
+
+  //Update table
+  const updateParentState = () => {
+    studentListInClassRefetch();
   };
 
   return (
@@ -422,6 +429,8 @@ const StudentManagementPage = () => {
           toggleModal={() => {
             setIsOpenStudentDetail(!isOpenStudentDetail);
           }}
+          updateParentState={updateParentState}
+          classOptions={classOptions}
         />
       </Suspense>
     </>
