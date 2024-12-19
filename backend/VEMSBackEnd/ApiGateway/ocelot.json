@@ -31,7 +31,7 @@
       ],
       "UpstreamPathTemplate": "/apigateway/ClassroomService/import-classes",
       "UpstreamHttpMethod": [
-        "GET"
+        "POST"
       ]
     },
     {

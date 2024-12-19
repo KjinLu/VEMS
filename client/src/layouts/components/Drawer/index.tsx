@@ -62,19 +62,19 @@ const teacherNavBar = (navigate: any): DrawerItem[] => [
     content: 'Quản lí lớp chủ nhiệm',
     Icon: <SupervisorAccountIcon />,
     onClick: () => navigate(configRoutes.teacherClassManagement)
-  },
-  {
-    id: 'TEACHER-SCHEDULE-ALL',
-    content: 'Lịch giảng dạy tổng',
-    Icon: <CalendarMonthIcon />,
-    onClick: () => navigate(configRoutes.teacherAllSchedule)
-  },
-  {
-    id: 'TEACHER-CLASSES-LIST',
-    content: 'Xem lớp',
-    Icon: <MeetingRoomIcon />,
-    onClick: () => navigate(configRoutes.teacherAllSchedule)
   }
+  // {
+  //   id: 'TEACHER-SCHEDULE-ALL',
+  //   content: 'Lịch giảng dạy tổng',
+  //   Icon: <CalendarMonthIcon />,
+  //   onClick: () => navigate(configRoutes.teacherAllSchedule)
+  // },
+  // {
+  //   id: 'TEACHER-CLASSES-LIST',
+  //   content: 'Xem lớp',
+  //   Icon: <MeetingRoomIcon />,
+  //   onClick: () => navigate(configRoutes.teacherAllSchedule)
+  // }
 ];
 
 const adminNavBar = (navigate: any): DrawerItem[] => [

@@ -76,7 +76,7 @@ const Header = () => {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar
-              alt='Remy Sharp'
+              alt=''
               src={
                 userInfo.image && userInfo.image != '' ? userInfo.image : AvatarDefault
               }

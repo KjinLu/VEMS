@@ -3,6 +3,7 @@ import { ClassStudentWithIndex } from './type';
 import VemImage from '@/components/VemImage';
 import { ModeEditOutlineOutlined } from '@mui/icons-material';
 import { MouseEvent } from 'react';
+import AvatarDefault from '@/assets/images/personal/avatarDefault.jpg';
 
 export const classTableColumn = (): GridColDef<ClassStudentWithIndex>[] => [
   {
@@ -25,7 +26,7 @@ export const classTableColumn = (): GridColDef<ClassStudentWithIndex>[] => [
         className='w-50 rounded'
         alt='studentAvatar'
         src={params.row.studentImage}
-        fallback={''}
+        fallback={AvatarDefault}
       ></VemImage>
     )
   },
