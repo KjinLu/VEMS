@@ -29,6 +29,7 @@ import {
   Subject
 } from '../type';
 import { toast } from 'react-toastify';
+import validationSubject from '@/utils/checkXLSX';
 
 const cx = className.bind(styles);
 
@@ -160,8 +161,21 @@ const ModalUploadSchedule = ({
   const [createScheduleFC] = useCreateNewScheduleMutation();
   const [createScheduleDetailFC] = useCreateScheduleDetailMutation();
 
-  const handleFileUpload = (e: any) => {
+  const handleFileUpload = async (e: any) => {
     const file = e.target.files[0];
+
+    if (file) {
+      /// Check file format
+      const keywords = ['Văn', 'Toán', 'Lí', 'Hóa', 'N.Ngữ', 'SHDC'];
+      try {
+        const positions = await validationSubject(file, keywords, 3);
+        console.log(positions);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    } else {
+      console.log('No file selected.');
+    }
 
     if (file) {
       const reader = new FileReader();
@@ -221,7 +235,7 @@ const ModalUploadSchedule = ({
           time: timeFrom || new Date().toISOString().split('T')[0]
         };
 
-        console.log(request);
+        // console.log(request);
 
         if (request.classroomId && request.time) {
           var res = await createScheduleFC(request).unwrap();
