@@ -90,15 +90,15 @@ const validationSubject = async (
           }
         });
 
-        // if (positions.length > 0) {
-        //   const blob = new Blob([positions.join('\n')], { type: 'text/plain' });
-        //   const url = URL.createObjectURL(blob);
-        //   const link = document.createElement('a');
-        //   link.href = url;
-        //   link.download = 'errors.txt';
-        //   link.click();
-        //   URL.revokeObjectURL(url);
-        // }
+        if (positions.length > 0) {
+          const blob = new Blob([positions.join('\n')], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'errors.txt';
+          link.click();
+          URL.revokeObjectURL(url);
+        }
 
         resolve(positions);
       } catch (error) {

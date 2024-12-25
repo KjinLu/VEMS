@@ -8,6 +8,7 @@ export const configRoutes = {
   signUp: '/signUp',
 
   // Web management
+  RoleManagementPage: '/role-management',
   ScheduleManagementPage: '/schedule-management',
   StudentManagementPage: '/student-management',
   TeacherManagementPage: '/teacher-management',

@@ -79,6 +79,12 @@ const teacherNavBar = (navigate: any): DrawerItem[] => [
 
 const adminNavBar = (navigate: any): DrawerItem[] => [
   {
+    id: 'ADMIN-MANAGE-ROLES',
+    content: 'Quản lý quyền',
+    Icon: <PlagiarismIcon />,
+    onClick: () => navigate(configRoutes.RoleManagementPage)
+  },
+  {
     id: 'ADMIN-TEACHER-MANAGEMENT',
     content: 'Quản lí giáo viên',
     Icon: <GiTeacher />,

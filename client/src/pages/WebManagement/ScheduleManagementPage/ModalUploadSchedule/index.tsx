@@ -166,6 +166,7 @@ const ModalUploadSchedule = ({
 
     if (file) {
       /// Check file format
+      console.log(subjects);
       const keywords = ['Văn', 'Toán', 'Lí', 'Hóa', 'N.Ngữ', 'SHDC'];
       try {
         const positions = await validationSubject(file, keywords, 3);

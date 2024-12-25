@@ -34,6 +34,8 @@ import { studentColumn } from './data-table-column';
 import { StudentIndex } from './type';
 import ModalStudentDetails from './ModalStudentDetails';
 import { useGetAllStudentQuery } from '@/services/accountManagement';
+import { Button } from 'antd';
+import AddStudent from './ModalUploadStudentList/_components/AddStudent';
 
 const cx = className.bind(styles);
 
@@ -46,6 +48,8 @@ const StudentManagementPage = () => {
   const [isOpenStudentDetail, setIsOpenStudentDetail] = useState<boolean>(false);
   const [students, setStudents] = useState<StudentIndex[]>();
   const [studentsSelected, setStudentsSelected] = useState<StudentIndex>();
+
+  const [AddStudentModal, setAddStudentModal] = useState<boolean>(false);
 
   const { data: response, refetch } = useGetAllStudentQuery(
     { PageNumber: 1, PageSize: 100 },
@@ -348,6 +352,22 @@ const StudentManagementPage = () => {
           <h1 className={cx('title', 'text-center mb-5', 'student-list-title')}>
             Danh sách học sinh
           </h1>
+        </Col>
+
+        <Col className='d-flex justify-content-end mb-3'>
+          <Button
+            className='mx-2'
+            type='primary'
+            onClick={() => setAddStudentModal(true)}
+          >
+            Thêm một học sinh
+          </Button>
+
+          <AddStudent
+            open={AddStudentModal}
+            onClose={() => setAddStudentModal(false)}
+            onReload={() => {}}
+          />
         </Col>
 
         <DataTable

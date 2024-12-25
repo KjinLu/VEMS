@@ -29,6 +29,7 @@ import TeacherClassManagementPage from '@/pages/TeacherClassManagement';
 import TeacherAttendanceManagementPage from '@/pages/TeacherAttendanceManagement';
 import TeacherTakeAttendancePage from '@/pages/TeacherTakeAttendance';
 import TeacherAllSchedulePage from '@/pages/TeacherAllSchedule';
+import RoleManagementPage from '@/pages/WebManagement/RoleManagementPage';
 
 const publicRoutes: PublicRoute[] = [
   { path: configRoutes.login, component: Login, layout: AuthLayout },
@@ -48,6 +49,13 @@ const publicRoutes: PublicRoute[] = [
 ];
 
 const privateRoutes: PrivateRoute[] = [
+  {
+    path: configRoutes.RoleManagementPage,
+    component: RoleManagementPage,
+    layout: DefaultLayout,
+    allowedRoles: ['ADMIN'],
+    isAuthenticated: true
+  },
   {
     path: configRoutes.ScheduleManagementPage,
     component: ScheduleManagementPage,

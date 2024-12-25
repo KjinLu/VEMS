@@ -26,6 +26,8 @@ import { teacherColumn } from './data-table-column';
 import { TeacherIndex } from './type';
 import ModalTeacherDetails from './ModalTeacherDetails';
 import { useGetAllTeacherQuery } from '@/services/accountManagement';
+import { Button } from 'antd';
+import AddTeacher from './_components/AddTeacher';
 
 const cx = className.bind(styles);
 
@@ -37,6 +39,8 @@ const TeacherManagementPage = () => {
 
   // Modal detail student
   const [isOpenTeacherDetail, setIsOpenTeacherDetail] = useState<boolean>(false);
+
+  const [AddTeacherModal, setAddTeacherModal] = useState<boolean>(false);
 
   const { data: response, refetch } = useGetAllTeacherQuery(
     { PageNumber: 1, PageSize: 100 },
@@ -260,6 +264,22 @@ const TeacherManagementPage = () => {
           <h1 className={cx('title', 'text-center mb-5', 'teacher-list-title')}>
             Danh sách giáo viên của trường
           </h1>
+        </Col>
+
+        <Col className='d-flex justify-content-end mb-3'>
+          <Button
+            className='mx-2'
+            type='primary'
+            onClick={() => setAddTeacherModal(true)}
+          >
+            Thêm một giáo viên
+          </Button>
+
+          <AddTeacher
+            open={AddTeacherModal}
+            onClose={() => setAddTeacherModal(false)}
+            onReload={() => {}}
+          />
         </Col>
 
         <DataTable
